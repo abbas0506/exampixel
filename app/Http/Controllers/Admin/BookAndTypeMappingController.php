@@ -3,22 +3,26 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Book;
-use App\Models\SubtypeMapping;
-use App\Models\Type;
 use Illuminate\Http\Request;
 
-class MappingController extends Controller
+class BookAndTypeMappingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($bookId, $typeId)
     {
         //
+        $mappings = SubtypeMapping::all();
         $books = Book::all();
         $types = Type::all();
-        return view('admin.mapping.index', compact('books', 'types'));
+        if (session('bookId') && session('typeId')) {
+            return view('admin.mappings.index', compact('mappings', 'books', 'types', 'bookId', 'typeId'));
+        } else {
+            $bookId = '';
+            $typeId = '';
+            return view('admin.mapping.index', compact('mappings', 'books', 'types', 'bookId', 'typeId'));
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BookAndTypeMappingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GradeController;
 use App\Http\Controllers\Admin\GradeBookController as AdminGradeBookController;
@@ -71,6 +72,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admi
     Route::resource('grades', GradeController::class);
     Route::resource('subtypes', SubtypeController::class);
     Route::resource('mappings', MappingController::class);
+    Route::resource('book.type.mappings', BookAndTypeMappingController::class);
+
     Route::resource('subjects', SubjectController::class);
     Route::resource('grade.books', AdminGradeBookController::class);
     Route::resource('book.chapters', AdminBookChapterController::class);

@@ -56,9 +56,14 @@
 $sr=1;
 @endphp
 <div class="w-full md:w-2/3 mx-auto text-center mt-32 px-5">
-
-    <h1 class="text-3xl">SELF TEST</h1>
-    <p class="text-slate-600 leading-relaxed mt-6">All questions are compulsory. Make sure that all questions have been attempted before you finish the test. After you finish the test, your score will display on the screen.</p>
+    <h1 class="text-2xl md:text-3xl">SELF TEST</h1>
+    <div class="leading-relaxed mt-6 text-left bg-teal-800 text-slate-300 p-5">
+        <ul class="list-disc list-inline text-left text-sm pl-4">
+            <li>All questions are compulsory</li>
+            <li>Attempt all questions before you finish the test</li>
+            <li>Once you finish the test,system will display your score and mistakes</li>
+        </ul>
+    </div>
     <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
     <h2 class="mt-6 text-red-600">MCQs: {{ session('mcqs_count') }}</h2>
     <input type="text" id="mcqs_count" value="{{session('mcqs_count')}}" hidden>
@@ -103,14 +108,14 @@ $sr=1;
 
         </div>
         @endforeach
-        <button id='finishQuizButton' type="submit" class="fixed bottom-6 right-6 w-12 h-12 rounded-full btn-green flex justify-center items-center"> <i class="bi-caret-right"></i></button>
+        <div class="flex justify-end">
+            <button id='finishQuizButton' type="submit" class="btn-orange rounded py-2"> Finsh Test</button>
+        </div>
     </div>
     <div class="my-8"></div>
 </div>
 @endsection
-@section('footer')
-<x-footer></x-footer>
-@endsection
+
 @section('script')
 <script type="module">
     $('.radio').change(function() {

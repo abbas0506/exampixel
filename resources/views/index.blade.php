@@ -6,48 +6,36 @@
 
 @section('body')
 <style>
-    .hero-image {
-        background: url("{{asset('/images/bg/assessment.jpg')}}") no-repeat center center/cover;
-        content: "";
-        position: relative;
-        width: 100%;
-        height: 100%;
-        scale: 75%;
-        z-index: 1;
-        opacity: 1;
-        border-radius: 50%;
-    }
+    .content {
+        background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+        url("{{asset('/images/bg/study-2.jpg')}}");
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        margin: 0;
 
-    .tool-image::before {
-        background: #edf3fb;
-        content: "";
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 40px;
-        transform: rotate(25deg);
-        z-index: -1;
-        /* opacity: 0.3; */
     }
 </style>
 
-<section id='hero' class="flex flex-col-reverse md:flex-row w-screen h-screen overflow-x-clip">
-    <div class="flex flex-col justify-start md:justify-center flex-1 px-5 md:pl-24 mt-8 md:mt-24">
-        <p class="text-teal-800 text-3xl md:text-5xl">Question Bank </p>
-        <p class="text-slate-600 mt-3 text-md">50,000+ questions including short, long, MCQs have been taken from the exercises of textbooks and past papers, fully covering 9th to 12th classes.</p>
-        <a href="{{url('login')}}" class="mt-5">
-            <button class="btn-green">Get Started <i class="bi-arrow-right"></i></button>
-        </a>
+<section>
+    <!-- <div class="flex flex-col justify-start md:justify-center h-full px-5 md:pl-24 mt-8 md:mt-24"> -->
+    <div class="content w-screen h-screen">
+        <div class="p-5 md:w-3/4 mx-auto flex flex-col justify-center items-center text-center h-full">
+            <p class="text-teal-600 text-3xl md:text-5xl">We Make Exams Easy </p>
+            <p class="text-slate-600 mt-5 text-md md:text-xl leading-relaxed">We empower educators and students with easy to use and interactive tools that make exams easy for them. We have a vast question bank covering all major subjects from grade 9 to 12. </p>
+            <div class="flex flex-wrap gap-2 mt-8">
+                <a href="{{url('login')}}" class="">
+                    <button class="btn-teal rounded py-3">Generate Question Paper</button>
+                </a>
+                <a href="{{route('self-tests.index')}}" class="">
+                    <button class="btn-violet rounded py-3">Start Self-Test</button>
+                </a>
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="relative flex flex-col md:flex-row justify-center items-center flex-1">
-        <div class="hero-image mt-16 md:mt-0">
-        </div>
-        <div class="absolute bottom-0 -z-10 border-slate-100 border-[200px] scale-[250%] rounded-full -skew-x-[20deg] transform">
-        </div>
-
-    </div>
 </section>
 
 <!-- features section -->

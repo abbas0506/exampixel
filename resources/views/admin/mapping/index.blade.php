@@ -37,12 +37,12 @@ $i=0;
                         <div class=" grid grid-cols-1 md:grid-cols-2 gap-4">
                             <select name="book_id" id="" class="custom-input">
                                 @foreach($books as $book)
-                                <option value="{{ $book->id }}" @selected($bookId)>{{ $book->name }}</option>
+                                <option value="{{ $book->id }}" @selected(session("bookId"))>{{ $book->name }}</option>
                                 @endforeach
                             </select>
                             <select name="type_id" id="" class="custom-input">
                                 @foreach($types as $type)
-                                <option value="{{ $type->id }}" @selected($typeId)>{{ $type->name }}</option>
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
                         </div>

@@ -10,12 +10,13 @@
                 <li class="float-right md:hidden" onclick="toggleNavbarMobile()">
                     <i class="bi-x-lg text-xl text-orange-300 hover:-rotate-90 transition duration-500 ease-in-out"></i>
                 </li>
+                <li><a href="#" class="nav-item">Home</a></li>
                 <li><a href="#" class="nav-item">About</a></li>
                 <li><a href="{{url('services')}}" class="nav-item">Services</a></li>
-                <li><a href="#" class="nav-item">Features</a></li>
+                <li><a href="#" class="nav-item">Packages</a></li>
                 <li><a href="#" class="nav-item">Contact Us</a></li>
-                <li><a href="{{route('self-tests.index')}}" class="nav-item">Self Test</a></li>
-                <li><a href="{{url('login')}}" class="nav-item">Login</a></li>
+                <!-- <li><a href="{{route('self-tests.index')}}" class="nav-item">Self Test</a></li>
+                <li><a href="{{url('login')}}" class="nav-item">Login</a></li> -->
             </ul>
         </nav>
 
