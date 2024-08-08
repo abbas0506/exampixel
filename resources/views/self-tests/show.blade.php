@@ -81,7 +81,7 @@ $sr=1;
                         <input type="radio" id='radioa-{{$question->id}}' class="radio w-4 h-4">
                         <label for="radioa-{{$question->id}}" class="text-base">{{$question->mcq->choice_a}}</label>
                         <i class="bi-check-lg"></i>
-                        <!-- <i class="bi-x"></i> -->
+                        <i class="bi-x"></i>
                     </div>
 
                     <div class="option flex space-x-3 items-center @if($question->mcq->correct=='b') correct @endif">
