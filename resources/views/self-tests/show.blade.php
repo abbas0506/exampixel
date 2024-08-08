@@ -88,20 +88,20 @@ $sr=1;
                         <input type="radio" id='radiob-{{$question->id}}' class="radio w-4 h-4">
                         <label for="radiob-{{$question->id}}" class="text-base">{{$question->mcq->choice_b}}</label>
                         <i class="bi-check-lg"></i>
-                        <!-- <i class="bi-x"></i> -->
+                        <i class="bi-x"></i>
                     </div>
 
                     <div class="option flex space-x-3 items-center @if($question->mcq->correct=='c') correct @endif">
                         <input type="radio" id='radioc-{{$question->id}}' class="radio w-4 h-4">
                         <label for="radioc-{{$question->id}}" class="text-base">{{$question->mcq->choice_c}}</label>
                         <i class="bi-check-lg"></i>
-                        <!-- <i class="bi-x"></i> -->
+                        <i class="bi-x"></i>
                     </div>
                     <div class="option flex space-x-3 items-center @if($question->mcq->correct=='d') correct @endif">
                         <input type="radio" id="radiod-{{$question->id}}" class="radio w-4 h-4">
                         <label for="radiod-{{$question->id}}" class="text-base">{{$question->mcq->choice_d}}</label>
                         <i class="bi-check-lg"></i>
-                        <!-- <i class="bi-x"></i> -->
+                        <i class="bi-x"></i>
                     </div>
                 </div>
 
