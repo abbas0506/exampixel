@@ -23,7 +23,7 @@
         <div class="p-5 md:w-3/4 mx-auto flex flex-col justify-center items-center text-center h-full">
             <p class="text-teal-600 text-3xl md:text-5xl">We Make Exams Easy </p>
             <p class="text-slate-600 mt-5 text-md md:text-xl leading-relaxed">We empower educators and students with easy to use and interactive tools that make exams easy for them. We have a vast question bank covering all major subjects from grade 9 to 12. </p>
-            <div class="flex flex-wrap gap-2 mt-8">
+            <div class="flex flex-col md:flex-row items-center gap-2 mt-8">
                 <a href="{{url('login')}}" class="">
                     <button class="btn-teal rounded py-3">Generate Question Paper</button>
                 </a>
