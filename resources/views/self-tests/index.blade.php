@@ -7,7 +7,8 @@
 <div class="w-full md:w-2/3 mx-auto text-center mt-32 px-5">
 
     <h1 class="text-3xl">SELF TEST</h1>
-    <p class="text-slate-600 leading-relaxed mt-6">We extend our valuable services to only students, teachers and institutions. This is an integrated application that provides all in one solution for examining students and tracking their performance through statistical as well as graphical tools</p>
+    <img src="{{url('images/small/mcqs-1.jpg')}}" alt="mcqs" class="w-24 mx-auto">
+    <p class="text-slate-600 leading-relaxed mt-6">Self-testing is one of the most effective strategies for exam preparation, as it actively reinforces learning and helps identify areas needing improvement.</p>
     <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
 
     <h3 class="text-lg mt-8">Grades</h3>

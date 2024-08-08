@@ -19,9 +19,8 @@
 </style>
 <div class="w-full md:w-2/3 mx-auto text-center mt-32 px-5">
 
-    <h1 class="text-3xl">SELF TEST</h1>
-    <p class="text-slate-600 leading-relaxed mt-6">Optimize your performance by selecting appropriate number of questions from each chapter. By default one minute per question time is set, however, you can adjust timer as you wish.</p>
-    <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
+    <!-- <p class="text-slate-600 leading-relaxed mt-6">Optimize your performance by selecting appropriate number of questions from each chapter. By default one minute per question time is set, however, you can adjust timer as you wish.</p> -->
+    <!-- <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div> -->
     <!-- page message -->
     @if($errors->any())
     <x-message :errors='$errors'></x-message>
@@ -31,17 +30,31 @@
 
     <form id='start-test-form' action="{{route('self-tests.store')}}" method='post' onsubmit="return validate(event)">
         @csrf
-        <div class="flex items-center justify-center gap-4 mt-4">
-            <div class="flex flex-col text-left">
-                <label for="">How many MCQs?</label>
-                <input type="number" name="mcqs_count" class="custom-input w-32 text-center" min=1 max=50 value="20">
-            </div>
 
+
+        <!-- <h1 class="text-3xl">SELF TEST</h1> -->
+        <div class="grid md:grid-cols-2 items-end gap-4">
+            <div class="flex flex-col md:flex-row space-x-3 items-center md:items-end">
+                <img src="{{url('images/small/mcqs-1.jpg')}}" alt="mcqs" class="w-24">
+                <div class="flex flex-col">
+                    <div class="flex text-left space-x-3">
+                        <h2>{{ $book->name }} </h2>
+                        <a href="{{route('self-tests.index')}}" class="btn-blue rounded-lg text-xs"><i class="bx bx-pencil"></i></a>
+                    </div>
+                    <p class="text-slate-600">Please select chapters</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-center md:items-end">
+                <label for="" class="text-red-600">How many MCQs?</label>
+                <input type="number" name="mcqs_count" class="custom-input w-24 text-center" min=1 max=50 value="20">
+            </div>
         </div>
 
-        <div class="flex justify-center items-center text-center p-3 bg-teal-100 rounded-md mt-8 relative">
-            Please select chapter(s).
-            <div class="absolute w-4 h-4 transform rotate-45 -bottom-2 left-5 bg-teal-100"></div>
+        <div class="leading-relaxed mt-6 text-left bg-teal-800 text-slate-300 p-5">
+            <ul class="list-disc list-inline text-left text-sm pl-4">
+                <li>You may select multiple chapters</li>
+                <li>After selecting chapters, click on start now button</li>
+            </ul>
         </div>
 
         <div class="mt-3">
@@ -52,12 +65,14 @@
             </div>
             @endforeach
         </div>
-        <div class="border-b border-slate-100 my-12"></div>
-        <input type="hidden" name="book_id" value="{{ $book->id }}">
-        <button type="submit" class="fixed bottom-6 right-6 w-12 h-12 rounded-full btn-green flex justify-center items-center" @disabled($book->chapters->count()==0)> <i class="bi-caret-right"></i></button>
+        <div class="my-8">
+            <input type="hidden" name="book_id" value="{{ $book->id }}">
+            <button type="submit" class=" btn-teal py-3 px-4 rounded" @disabled($book->chapters->count()==0)> Start Your Test Now</button>
+        </div>
     </form>
 </div>
 @endsection
+
 @section('footer')
 <x-footer></x-footer>
 @endsection

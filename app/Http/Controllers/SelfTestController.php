@@ -69,12 +69,22 @@ class SelfTestController extends Controller
         $book = Book::find($id);
 
         $chapterIdsArray = session('chapterIdsArray');
+
         $mcqs_count = session('mcqs_count');
 
-        $questions = Question::whereIn('chapter_id', $chapterIdsArray)
-            ->where('type_id', 1)
-            ->get()
-            ->random($mcqs_count);
+        try {
+            $questions = Question::whereIn('chapter_id', $chapterIdsArray)
+                ->where('type_id', 1)
+                ->get()
+                ->random($mcqs_count);
+            $chapterNos = Chapter::whereIn('id', $chapterIdsArray)->pluck('chapter_no');
+            return view('self-tests.show', compact('book', 'chapterNos', 'questions'));
+        } catch (Exception $ex) {
+
+            return redirect()->back()->withErrors($ex->getMessage());
+        }
+
+
         // echo $questions;
 
         // $chapters = Chapter::whereIn('id', $chapterIdsArray)->get();
@@ -91,7 +101,7 @@ class SelfTestController extends Controller
         //         $questions->add($question);
         // }
         // echo $questions;
-        return view('self-tests.show', compact('book', 'questions'));
+
     }
 
     /**

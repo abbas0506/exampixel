@@ -15,10 +15,10 @@
         font-weight: bolder;
     }
 
-    .bi-x {
+    /* .bi-x {
         color: red;
         font-weight: bolder;
-    }
+    } */
 
     .answer i {
         display: none;
@@ -28,8 +28,14 @@
         display: block;
     }
 
-    .answer.solved .rejected .bi-x {
+    /* .answer.solved .rejected .bi-x {
         display: block;
+    } */
+
+    .answer.solved .rejected label {
+        text-decoration-style: solid;
+        text-decoration: line-through;
+        text-decoration-color: red;
     }
 
     .answer.solved .radio {
@@ -37,26 +43,22 @@
     }
 
     .answer.solved .correct label {
-        background-color: #76D7C4;
+        background-color: green;
         color: white;
-    }
-
-    .hero {
-        background-image: linear-gradient(rgba(0, 100, 100, 1.0),
-                rgba(128, 128, 128, 0));
-        /* url("{{asset('/images/bg/exams1-01.svg')}}"); */
-        background-position: top;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-clip: border-box;
-        position: relative;
     }
 </style>
 @php
 $sr=1;
 @endphp
 <div class="w-full md:w-2/3 mx-auto text-center mt-32 px-5">
-    <h1 class="text-2xl md:text-3xl">SELF TEST</h1>
+    <div class="flex flex-wrap gap-4 items-end">
+        <img src="{{url('images/small/mcqs-1.jpg')}}" alt="mcqs" class="w-24">
+        <div class="text-left flex-1">
+            <h2>{{ $book->name }}</h2>
+            <p>@if(count($chapterNos)>1)Chapters @else Chapter @endif : {{ $chapterNos->implode(',') }}</p>
+        </div>
+        <p class="text-slate-600">MCQs: {{ session('mcqs_count') }}</p>
+    </div>
     <div class="leading-relaxed mt-6 text-left bg-teal-800 text-slate-300 p-5">
         <ul class="list-disc list-inline text-left text-sm pl-4">
             <li>All questions are compulsory</li>
@@ -64,11 +66,10 @@ $sr=1;
             <li>Once you finish the test,system will display your score and mistakes</li>
         </ul>
     </div>
-    <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
-    <h2 class="mt-6 text-red-600">MCQs: {{ session('mcqs_count') }}</h2>
+
     <input type="text" id="mcqs_count" value="{{session('mcqs_count')}}" hidden>
     <!-- questions -->
-    <div class="mx-auto flex flex-col gap-y-6 px-4 mt-8">
+    <div class="mx-auto flex flex-col gap-y-6 mt-8">
         @foreach($questions as $question)
         <div class="flex flex-col items-start justify-start border border-dashed rounded  bg-slate-50 relative">
             <p class="w-8 font-semibold text-center text-slate-100 bg-teal-600">{{$sr++}}</p>
@@ -77,30 +78,30 @@ $sr=1;
                 <div class="divider my-4"></div>
                 <div id='ans' class="answer flex flex-col mt-4 text-gray-600 gap-y-2">
                     <div class="option flex space-x-3 items-center @if($question->mcq->correct=='a') correct @endif">
-                        <input type="radio" id='radioa-{{$question->id}}' class="radio">
+                        <input type="radio" id='radioa-{{$question->id}}' class="radio w-4 h-4">
                         <label for="radioa-{{$question->id}}" class="text-base">{{$question->mcq->choice_a}}</label>
                         <i class="bi-check-lg"></i>
-                        <i class="bi-x"></i>
+                        <!-- <i class="bi-x"></i> -->
                     </div>
 
                     <div class="option flex space-x-3 items-center @if($question->mcq->correct=='b') correct @endif">
-                        <input type="radio" id='radiob-{{$question->id}}' class="radio">
+                        <input type="radio" id='radiob-{{$question->id}}' class="radio w-4 h-4">
                         <label for="radiob-{{$question->id}}" class="text-base">{{$question->mcq->choice_b}}</label>
                         <i class="bi-check-lg"></i>
-                        <i class="bi-x"></i>
+                        <!-- <i class="bi-x"></i> -->
                     </div>
 
                     <div class="option flex space-x-3 items-center @if($question->mcq->correct=='c') correct @endif">
-                        <input type="radio" id='radioc-{{$question->id}}' class="radio">
+                        <input type="radio" id='radioc-{{$question->id}}' class="radio w-4 h-4">
                         <label for="radioc-{{$question->id}}" class="text-base">{{$question->mcq->choice_c}}</label>
                         <i class="bi-check-lg"></i>
-                        <i class="bi-x"></i>
+                        <!-- <i class="bi-x"></i> -->
                     </div>
                     <div class="option flex space-x-3 items-center @if($question->mcq->correct=='d') correct @endif">
-                        <input type="radio" id="radiod-{{$question->id}}" class="radio">
+                        <input type="radio" id="radiod-{{$question->id}}" class="radio w-4 h-4">
                         <label for="radiod-{{$question->id}}" class="text-base">{{$question->mcq->choice_d}}</label>
                         <i class="bi-check-lg"></i>
-                        <i class="bi-x"></i>
+                        <!-- <i class="bi-x"></i> -->
                     </div>
                 </div>
 
@@ -109,13 +110,17 @@ $sr=1;
         </div>
         @endforeach
         <div class="flex justify-end">
-            <button id='finishQuizButton' type="submit" class="btn-orange rounded py-2"> Finsh Test</button>
+            <a id='quit' href="{{ url('/') }}" class="btn-blue rounded py-2 mr-3"> Cancel Now</a>
+            <button id='finishQuizButton' type="submit" class="btn-red rounded py-2"> Finsh Test</button>
+            <a id='tryOnceMore' href="{{ route('self-tests.show', $book) }}" class="hidden btn-green rounded py-2"> Try Once More</a>
         </div>
     </div>
     <div class="my-8"></div>
 </div>
 @endsection
-
+@section('footer')
+<x-footer></x-footer>
+@endsection
 @section('script')
 <script type="module">
     $('.radio').change(function() {
@@ -164,6 +169,7 @@ $sr=1;
             $('.answer').each(function() {
                 $(this).addClass('solved')
                 $('#finishQuizButton').addClass('hidden');
+                $('#tryOnceMore').removeClass('hidden');
             });
         }
 
