@@ -10,26 +10,9 @@
         cursor: pointer;
     }
 
-    .bi-ckeck-lg {
-        color: green;
-        font-weight: bolder;
-    }
-
-    .bi-x {
-        color: red;
-        font-weight: bolder;
-    }
-
-    .answer i {
+    .answer .tick,
+    .answer .cross {
         display: none;
-    }
-
-    .answer.solved .accepted .bi-check-lg {
-        display: block;
-    }
-
-    .answer.solved .rejected .bi-x {
-        display: block;
     }
 
     .answer.solved .rejected label {
@@ -42,9 +25,21 @@
         display: none;
     }
 
-    .answer.solved .correct label {
+    .answer.solved .correct-option label {
         background-color: green;
         color: white;
+    }
+
+    .answer.solved.correctly-answered .tick {
+        display: block;
+    }
+
+    .answer.solved.correctly-answered .cross {
+        display: none;
+    }
+
+    .answer.solved .cross {
+        display: block;
     }
 </style>
 @php
@@ -76,35 +71,34 @@ $sr=1;
             <div class="pt-4 pb-8 px-8 md:px-16 w-full">
                 <p class="font-semibold text-base text-left text-gray-800">{{$question->statement}}</p>
                 <div class="divider my-4"></div>
-                <div id='ans' class="answer flex flex-col mt-4 text-gray-600 gap-y-2">
-                    <div class="option flex space-x-3 items-center @if($question->mcq->correct=='a') correct @endif">
-                        <input type="radio" id='radioa-{{$question->id}}' class="radio w-4 h-4">
-                        <label for="radioa-{{$question->id}}" class="text-base">{{$question->mcq->choice_a}}</label>
-                        <i class="bi-check-lg"></i>
-                        <i class="bi-x"></i>
-                    </div>
+                <div class="answer flex justify-between items-center">
+                    <div class="flex flex-col mt-4 text-gray-600 gap-y-2">
+                        <div class="option-group">
+                            <div class="option flex space-x-3 items-center @if($question->mcq->correct=='a') correct-option @endif">
+                                <input type="radio" id='radioa-{{$question->id}}' class="radio w-4 h-4">
+                                <label for="radioa-{{$question->id}}" class="text-base">{{$question->mcq->choice_a}}</label>
+                            </div>
 
-                    <div class="option flex space-x-3 items-center @if($question->mcq->correct=='b') correct @endif">
-                        <input type="radio" id='radiob-{{$question->id}}' class="radio w-4 h-4">
-                        <label for="radiob-{{$question->id}}" class="text-base">{{$question->mcq->choice_b}}</label>
-                        <i class="bi-check-lg"></i>
-                        <i class="bi-x"></i>
-                    </div>
+                            <div class="option flex space-x-3 items-center @if($question->mcq->correct=='b') correct-option @endif">
+                                <input type="radio" id='radiob-{{$question->id}}' class="radio w-4 h-4">
+                                <label for="radiob-{{$question->id}}" class="text-base">{{$question->mcq->choice_b}}</label>
+                            </div>
 
-                    <div class="option flex space-x-3 items-center @if($question->mcq->correct=='c') correct @endif">
-                        <input type="radio" id='radioc-{{$question->id}}' class="radio w-4 h-4">
-                        <label for="radioc-{{$question->id}}" class="text-base">{{$question->mcq->choice_c}}</label>
-                        <i class="bi-check-lg"></i>
-                        <i class="bi-x"></i>
+                            <div class="option flex space-x-3 items-center @if($question->mcq->correct=='c') correct-option @endif">
+                                <input type="radio" id='radioc-{{$question->id}}' class="radio w-4 h-4">
+                                <label for="radioc-{{$question->id}}" class="text-base">{{$question->mcq->choice_c}}</label>
+                            </div>
+                            <div class="option flex space-x-3 items-center @if($question->mcq->correct=='d') correct-option @endif">
+                                <input type="radio" id="radiod-{{$question->id}}" class="radio w-4 h-4">
+                                <label for="radiod-{{$question->id}}" class="text-base">{{$question->mcq->choice_d}}</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="option flex space-x-3 items-center @if($question->mcq->correct=='d') correct @endif">
-                        <input type="radio" id="radiod-{{$question->id}}" class="radio w-4 h-4">
-                        <label for="radiod-{{$question->id}}" class="text-base">{{$question->mcq->choice_d}}</label>
-                        <i class="bi-check-lg"></i>
-                        <i class="bi-x"></i>
+                    <div class="flex justify-center items-center">
+                        <img src="{{url('images/icons/cross.png')}}" alt="cross" class="cross w-12">
+                        <img src="{{url('images/icons/tick.png')}}" alt="tick" class="tick w-12">
                     </div>
                 </div>
-
             </div>
 
         </div>
@@ -139,8 +133,9 @@ $sr=1;
         $('.answer').each(function() {
             $(this).children().find('.radio:checked').each(function() {
                 unAnswered -= 1
-                if ($(this).parent().hasClass('correct')) {
+                if ($(this).parent().hasClass('correct-option')) {
                     $(this).parent().addClass('accepted')
+                    $(this).parent().parent().parent().parent().addClass('correctly-answered')
                     correctAnswers += 1;
                 } else
                     $(this).parent().addClass('rejected')
