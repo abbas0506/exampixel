@@ -15,10 +15,10 @@
         font-weight: bolder;
     }
 
-    /* .bi-x {
+    .bi-x {
         color: red;
         font-weight: bolder;
-    } */
+    }
 
     .answer i {
         display: none;
@@ -28,9 +28,9 @@
         display: block;
     }
 
-    /* .answer.solved .rejected .bi-x {
+    .answer.solved .rejected .bi-x {
         display: block;
-    } */
+    }
 
     .answer.solved .rejected label {
         text-decoration-style: solid;
