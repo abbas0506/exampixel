@@ -32,9 +32,8 @@
         @csrf
 
 
-        <!-- <h1 class="text-3xl">SELF TEST</h1> -->
         <div class="grid md:grid-cols-2 items-end gap-4">
-            <div class="flex flex-col md:flex-row space-x-3 items-center md:items-end">
+            <div class="flex flex-col md:flex-row gap-3 items-center md:items-end">
                 <img src="{{url('images/small/mcqs-1.jpg')}}" alt="mcqs" class="w-24">
                 <div class="flex flex-col">
                     <div class="flex text-left space-x-3">

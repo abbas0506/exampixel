@@ -46,19 +46,25 @@
 $sr=1;
 @endphp
 <div class="w-full md:w-2/3 mx-auto text-center mt-32 px-5">
-    <div class="flex flex-wrap gap-4 items-end">
-        <img src="{{url('images/small/mcqs-1.jpg')}}" alt="mcqs" class="w-24">
-        <div class="text-left flex-1">
-            <h2>{{ $book->name }}</h2>
-            <p>@if(count($chapterNos)>1)Chapters @else Chapter @endif : {{ $chapterNos->implode(',') }}</p>
+
+    <div class="grid md:grid-cols-2 items-end gap-4">
+        <div class="flex flex-col md:flex-row gap-3 items-center md:items-end">
+            <img src="{{url('images/small/mcqs-1.jpg')}}" alt="mcqs" class="w-24">
+            <div class="flex flex-col">
+                <div class="flex text-left space-x-3">
+                    <h2>{{ $book->name }} </h2>
+                    <a href="{{route('self-tests.index')}}" class="btn-blue rounded-lg text-xs"><i class="bx bx-pencil"></i></a>
+                </div>
+                <p class="text-center md:text-left">@if(count($chapterNos)>1)Chapters @else Chapter @endif : {{ $chapterNos->implode(',') }}</p>
+            </div>
         </div>
-        <p class="text-slate-600">MCQs: {{ session('mcqs_count') }}</p>
+        <p class="text-slate-600 text-center md:text-right">MCQs: {{ session('mcqs_count') }}</p>
     </div>
+
     <div class="leading-relaxed mt-6 text-left bg-teal-800 text-slate-300 p-5">
         <ul class="list-disc list-inline text-left text-sm pl-4">
             <li>All questions are compulsory</li>
-            <li>Attempt all questions before you finish the test</li>
-            <li>Once you finish the test,system will display your score and mistakes</li>
+            <li>Once you finish the test, system will display your score and mistakes</li>
         </ul>
     </div>
 
