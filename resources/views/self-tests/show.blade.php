@@ -95,8 +95,8 @@ $sr=1;
                         </div>
                     </div>
                     <div class="flex justify-center items-center">
-                        <img src="{{url('images/icons/cross.png')}}" alt="cross" class="cross w-12">
-                        <img src="{{url('images/icons/tick.png')}}" alt="tick" class="tick w-12">
+                        <img src="{{url('images/icons/cross.png')}}" alt="cross" class="cross w-8">
+                        <img src="{{url('images/icons/tick.png')}}" alt="tick" class="tick w-8">
                     </div>
                 </div>
             </div>
