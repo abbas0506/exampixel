@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
         ]);
 
-        $user->assignRole('admin');
+        $user->assignRole(['admin', 'teacher']);
 
         $user = User::create([
             'name' => 'Azeem Rehan',
@@ -46,20 +46,6 @@ class UserSeeder extends Seeder
 
         $user->assignRole('operator');
 
-        $user = User::create([
-            'name' => 'GHSS Chak Bedi, Pakpattan',
-            'email' => 'principal.ghsschakbedi@gmail.com',
-            'password' => Hash::make('password'),
-
-        ]);
-
-        $user->institution()->create([
-            'logo' => '',
-            'phone' => '03000373004',
-            'address' => 'Village Chak bedi, Pakpattan',
-        ]);
-        $user->assignRole(['institution']);
-
         // physics
         $user = User::create([
             'name' => 'Imran Khan',
@@ -72,7 +58,7 @@ class UserSeeder extends Seeder
             'phone' => '03227881266',
         ]);
 
-        $user->assignRole(['collaborator']);
+        $user->assignRole(['collaborator', 'teacher']);
 
         // math
         $user = User::create([
@@ -86,7 +72,7 @@ class UserSeeder extends Seeder
             'phone' => '03001234567',
         ]);
 
-        $user->assignRole(['collaborator']);
+        $user->assignRole(['collaborator', 'teacher']);
 
         $user = User::create([
             'name' => 'Mubashar Maqbool',
@@ -99,7 +85,7 @@ class UserSeeder extends Seeder
             'phone' => '03001234567',
         ]);
 
-        $user->assignRole(['collaborator']);
+        $user->assignRole(['collaborator', 'teacher']);
 
         // computer science
         $user = User::create([
@@ -113,7 +99,7 @@ class UserSeeder extends Seeder
             'phone' => '03001234567',
         ]);
 
-        $user->assignRole(['collaborator']);
+        $user->assignRole(['collaborator', 'teacher']);
 
         //chemistry
         $user = User::create([
@@ -127,7 +113,7 @@ class UserSeeder extends Seeder
             'phone' => '03167717963',
         ]);
 
-        $user->assignRole(['collaborator']);
+        $user->assignRole(['collaborator', 'teacher']);
 
         $user = User::create([
             'name' => 'Khan Muhammad',
@@ -140,7 +126,7 @@ class UserSeeder extends Seeder
             'phone' => '03001234567',
         ]);
 
-        $user->assignRole(['collaborator']);
+        $user->assignRole(['collaborator', 'teacher']);
 
         //    english
         $user = User::create([
@@ -154,6 +140,6 @@ class UserSeeder extends Seeder
             'phone' => '03001234567',
         ]);
 
-        $user->assignRole(['collaborator']);
+        $user->assignRole(['collaborator', 'teacher']);
     }
 }

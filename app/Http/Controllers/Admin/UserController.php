@@ -7,6 +7,7 @@ use App\Models\Subject;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
@@ -147,6 +148,18 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
+        }
+    }
+
+    public function  switchAs($roleName)
+    {
+        if (Auth::user()->hasRole($roleName)) {
+            session([
+                'role' => $roleName,
+            ]);
+            return redirect($roleName);
+        } else {
+            echo "Invalid role selected!";
         }
     }
 }

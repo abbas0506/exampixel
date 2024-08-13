@@ -7,7 +7,7 @@
             </a>
             <div class="text-base font-semibold ml-2"> {{ $page }} {!! $icon !!}</div>
         </div>
-        <div id="current-user-area" class="flex space-x-3 items-center justify-center relative">
+        <div id=" current-user-area" class="flex space-x-3 items-center justify-center relative">
             <label for="toggle-current-user-dropdown" class="hidden md:flex items-center">
                 <div class="">{{ Auth::user()->name }}</div>
             </label>

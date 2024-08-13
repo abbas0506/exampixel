@@ -31,6 +31,14 @@ use App\Http\Controllers\Operator\GradeBookController;
 use App\Http\Controllers\SelfTestController;
 use App\Http\Controllers\Operator\DashboardController as OperatorDashboardController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\Teacher\DashboardController as TeacherDashboardController;
+use App\Http\Controllers\Teacher\PaperController as TeacherPaperController;
+use App\Http\Controllers\Teacher\PaperLongController;
+use App\Http\Controllers\Teacher\PaperMcqController;
+use App\Http\Controllers\Teacher\PaperPdfController;
+use App\Http\Controllers\Teacher\PaperQuestionController as TeacherPaperQuestionController;
+use App\Http\Controllers\Teacher\PaperQuestionPartController;
+use App\Http\Controllers\Teacher\PaperShortController;
 use App\Http\Middleware\CheckSessionExpiry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +63,8 @@ Route::get('login/as', function () {
     $year = date('Y');
     return view('login_as', compact('year'));
 });
+
+Route::get('switch/as/{role}', [UserController::class, 'switchAs']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('login/as', [AuthController::class, 'loginAs'])->name('login.as');
@@ -104,3 +114,25 @@ Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['rol
 });
 
 Route::post('/generate-pdf', 'PdfController@generatePDF');
+
+
+Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['role:teacher']], function () {
+    Route::get('/', [TeacherDashboardController::class, 'index']);
+    Route::resource('papers', TeacherPaperController::class);
+    Route::resource('papers.pdf', PaperPdfController::class);
+    Route::resource('papers.mcqs', PaperMcqController::class);
+    Route::resource('papers.shorts', PaperShortController::class);
+    Route::resource('papers.longs', PaperLongController::class);
+    Route::resource('paper.questions', TeacherPaperQuestionController::class);
+
+    Route::get('paper-question-part/refresh', [PaperQuestionPartController::class, 'refresh']);
+
+
+    Route::resource('test-questions', TestQuestionController::class);
+    Route::get('test/questions/add/{test}/{questionType}', [TestQuestionController::class, 'add'])->name('tests.questions.add');
+    Route::get('test/{test}/questions/{q}/refresh',);
+    Route::resource('question-parts', TestQuestionPartController::class);
+    Route::get('test/questions/{part}/refresh', [TestQuestionPartController::class, 'refresh'])->name('tests.questions.parts.refresh');
+    Route::get('tests/{test}/anskey', [AnswerKeyController::class, 'show'])->name('tests.anskey.show');
+    Route::get('tests/{test}/anskey/pdf', [AnswerKeyController::class, 'pdf'])->name('tests.anskey.pdf');
+});

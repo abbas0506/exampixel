@@ -127,6 +127,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Roman' => \App\Helpers\Roman::class,
+        'SpellNumber' => Rmunate\Utilities\SpellNumber::class,
 
     ])->toArray(),
 

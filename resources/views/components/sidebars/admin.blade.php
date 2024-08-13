@@ -5,7 +5,18 @@
         </a>
     </div>
     <div class="mt-8 font-bold text-center text-orange-300 uppercase tracking-wide">Exampixel</div>
-    <div class="text-xs text-center text-green-600">admin panel</div>
+    <div class="text-xs text-center text-green-600">Admin Panel</div>
+
+    @if(Auth::user()->roles->count()>1)
+    <div class="flex flex-col mt-4 text">
+        @foreach(Auth::user()->roles as $role)
+        @if($role->name!='admin')
+        <a href="{{ url('switch/as',$role->name) }}" class="btn-teal text-xs font-normal text-center rounded">Switch to {{ $role->name }} </a>
+        @endif
+        @endforeach
+
+    </div>
+    @endif
     <div class="mt-12">
         <ul class="space-y-2">
             <li>

@@ -5,22 +5,8 @@
 @endsection
 
 @section('body')
-<style>
-    .hero {
-        background-image: linear-gradient(rgba(0, 100, 100, 1.0),
-            rgba(128, 128, 128, 0)),
-        url("{{asset('/images/bg/exams1-01.svg')}}");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-clip: border-box;
-        position: relative;
-    }
-</style>
 <div class="w-full md:w-2/3 mx-auto text-center mt-32 px-5">
 
-    <!-- <p class="text-slate-600 leading-relaxed mt-6">Optimize your performance by selecting appropriate number of questions from each chapter. By default one minute per question time is set, however, you can adjust timer as you wish.</p> -->
-    <!-- <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div> -->
     <!-- page message -->
     @if($errors->any())
     <x-message :errors='$errors'></x-message>
@@ -30,7 +16,6 @@
 
     <form id='start-test-form' action="{{route('self-tests.store')}}" method='post' onsubmit="return validate(event)">
         @csrf
-
 
         <div class="grid md:grid-cols-2 items-end gap-4">
             <div class="flex flex-col md:flex-row gap-3 items-center md:items-end">

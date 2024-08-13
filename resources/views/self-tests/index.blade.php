@@ -11,7 +11,7 @@
     <p class="text-slate-600 leading-relaxed mt-6">Self-testing is one of the most effective strategies for exam preparation, as it actively reinforces learning and helps identify areas needing improvement.</p>
     <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
 
-    <h3 class="text-lg mt-8">Grades</h3>
+    <h3 class="text-lg mt-8">Grades / Classes</h3>
     <div class="flex items-center justify-center gap-x-4 mt-5">
         @foreach($grades as $grade)
         <div data-bound='books-{{$grade->id}}' class="round-tab">{{ $grade->grade_no }}</div>

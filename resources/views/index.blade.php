@@ -28,7 +28,7 @@
                     <button class="btn-teal rounded py-3">Generate Question Paper</button>
                 </a>
                 <a href="{{route('self-tests.index')}}" class="">
-                    <button class="btn-cyan rounded py-3">Start Self-Test</button>
+                    <button class="bg-orange-400 hover:bg-orange-500 text-slate-100 rounded p-3">Start Self-Test</button>
                 </a>
             </div>
 

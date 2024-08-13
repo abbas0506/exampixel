@@ -1,3 +1,12 @@
+insert into books
+select * from temp.books;
+
+insert into subtypes
+select * from temp.subtypes;
+
+insert into subtype_mappings
+select * from temp.subtype_mappings;
+
 insert into chapters
 select * from temp.chapters;
 
@@ -7,51 +16,3 @@ select * from temp.questions;
 insert into mcqs
 select * from temp.mcqs;
 
-
-
-
-delete from db.questions;
-
-insert into db.questions(id,user_id, chapter_id, type_id, subtype_id, statement, marks, frequency)
-select id,user_id, chapter_id, type_id, subtype_id, statement, marks, frequency from temp.questions;
-
-
-update db.questions set type_id=3 where subtype_id=3;
-update db.questions set type_id=1 where subtype_id between 4 and 10;
-update db.questions set type_id=3 where subtype_id between 15 and 27;
-update db.questions set type_id=1 where subtype_id =52;
-update db.questions set type_id=1 where subtype_id =53;
-update db.questions set type_id=2 where subtype_id =54;
-update db.questions set subtype_id=null where subtype_id in(1,2,3,8,9,10,12,13,14,54);
-
-update db.questions set subtype_id=subtype_id-3 where subtype_id between 4 and 7;
-update db.questions set subtype_id=subtype_id-8 where subtype_id between 15 and 27;
-update db.questions set subtype_id=5 where subtype_id=52;
-update db.questions set subtype_id=6 where subtype_id=53;
-
-insert into questions(id, chapter_id, type_id, subtype_id, statement,marks, frequency)
-SELECT id, chapter_id, type_id, subtype_id, statement,marks, frequency from db.questions;
-
-insert into mcqs
-select * from temp.mcqs;
-
-select subtype_id, count(*) from db.questions group by subtype_id;
-
-
-update questions set chapter_id=283 where chapter_id in(265,266,267,268,269,270,282);
-update questions set chapter_id=284 where chapter_id in(258,259,260,261,262);
-
-
-UPDATE db.questions q
-JOIN db.chapters c ON q.book_id = c.book_id and q.chapter_no=c.chapter_no
-SET q.chapter_id = c.id;
-
-insert into questions(id, chapter_id, type_id, subtype_id, statement,marks, frequency)
-SELECT id, chapter_id, type_id, subtype_id, statement,marks, frequency from db.questions;
-
-insert into mcqs
-select * from temp.mcqs;
-
-imran1266@gmail.com
-muhammadraza01@gmail.com
-stusman1@gmail.com
