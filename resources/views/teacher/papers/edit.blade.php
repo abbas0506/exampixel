@@ -55,30 +55,12 @@
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-x-4 gap-y-2 p-6 border rounded-b bg-teal-50">
-                    <div class="md:w-2/3">
+                    <div class="w-full">
                         <label for="">Paper Title</label>
                         <input type="text" name="title" value='Sample Paper' placeholder="Paper Title" class="custom-input">
 
                     </div>
-                    <div class="md:w-1/3">
-                        <div class="flex flex-col items-start md:items-end">
-                            <div class="grid grid-cols-1 gap-3 md:ml-8">
-                                <div class="flex items-center space-x-2">
-                                    <input type="checkbox" name="exercise_only" class="custom-input w-5 h-5">
-                                    <label>Questions form exercise only</label>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <input type="checkbox" name="frequent_only" class="custom-input w-5 h-5">
-                                    <label>Most frequent questions only</label>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                 </div>
-
-
 
                 <div class="flex items-center justify-between px-3 mt-6">
                     <div class="text-slate-600 text-sm">Please select chapter(s) for the paper</div>
