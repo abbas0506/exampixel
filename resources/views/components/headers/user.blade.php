@@ -3,7 +3,7 @@
 
         <div class="flex items-center">
             <a href="{{url('/')}}" class="md:hidden flex justify-center">
-                <img alt="logo" src="{{asset('images/logo/app_logo.png')}}" class="w-8 h-8">
+                <img alt="logo" src="{{asset('images/logo/exampixel.png')}}" class="w-8 h-8">
             </a>
             <div class="text-base font-semibold ml-2"> {{ $page }} {!! $icon !!}</div>
         </div>

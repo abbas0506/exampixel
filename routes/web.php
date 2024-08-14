@@ -58,6 +58,7 @@ Route::view('services', 'services');
 Route::view('team', 'team');
 Route::view('blogs', 'blogs');
 Route::view('login', 'login');
+Route::view('signup/me', 'signup');
 
 Route::get('login/as', function () {
     $year = date('Y');
@@ -67,6 +68,8 @@ Route::get('login/as', function () {
 Route::get('switch/as/{role}', [UserController::class, 'switchAs']);
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('signup', [AuthController::class, 'signup']);
+
 Route::post('login/as', [AuthController::class, 'loginAs'])->name('login.as');
 Route::get('signout', [AuthController::class, 'signout'])->name('signout');
 
@@ -132,7 +135,7 @@ Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['role:
     Route::get('test/questions/add/{test}/{questionType}', [TestQuestionController::class, 'add'])->name('tests.questions.add');
     Route::get('test/{test}/questions/{q}/refresh',);
     Route::resource('question-parts', TestQuestionPartController::class);
-    Route::get('test/questions/{part}/refresh', [TestQuestionPartController::class, 'refresh'])->name('tests.questions.parts.refresh');
+    Route::get('paper-question-parts/{part}/refresh', [PaperQuestionPartController::class, 'refresh'])->name('paper-question-parts.refresh');
     Route::get('tests/{test}/anskey', [AnswerKeyController::class, 'show'])->name('tests.anskey.show');
     Route::get('tests/{test}/anskey/pdf', [AnswerKeyController::class, 'pdf'])->name('tests.anskey.pdf');
 });

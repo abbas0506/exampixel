@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('frequency');
             $table->unsignedTinyInteger('marks');
             $table->boolean('is_conceptual')->default(false);
+
             $table->date('approved_at')->nullable();
             $table->foreign('approver_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();

@@ -51,7 +51,7 @@
                     <h2 class="md:col-span-2">Role(s)</h2>
                     <div class="grid gap-2">
                         @foreach($roles as $role)
-                        <div class="checkable-row">
+                        <div class="flex item checkable-row">
                             <label for="role{{$role->id}}" class="text-base hover:cursor-pointer text-slate-800 text-left py-1 flex-1">{{ ucfirst($role->name) }}</label>
                             <input type="checkbox" id='role{{$role->id}}' name='role_names_array[]' class="custom-input w-4 h-4 rounded" value="{{ $role->name }}" @checked($user->hasRole($role->name))>
                             <i class="bx bx-check"></i>

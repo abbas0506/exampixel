@@ -20,7 +20,7 @@
         </div>
 
         <!-- pallets -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <div class="div mt-4">
             <a href="" class="pallet-box">
                 <div class="flex-1">
                     <div class="title">Approved Questions</div>
@@ -30,43 +30,19 @@
                     </div>
                 </div>
                 <div class="ico bg-green-100">
-                    <i class="bi bi-question-circle text-green-600"></i>
+                    {{ Auth::user()->coins() }}
                 </div>
             </a>
-            <a href="" class="pallet-box">
-                <div class="flex-1">
-                    <div class="title">Papers & Keys</div>
-                    <div class="h2"> %</div>
-                </div>
-                <div class="ico bg-indigo-100">
-                    <i class="bi bi-files text-indigo-600"></i>
-                </div>
-            </a>
-            <a href="" class="pallet-box">
-                <div class="flex-1">
-                    <div class="title">Quizzes & Results</div>
-                    <div class="h2"> %</div>
-                </div>
-                <div class="ico bg-sky-100">
-                    <i class="bi bi-graph-up text-sky-600"></i>
-                </div>
-            </a>
-            <a href="" class="pallet-box">
-                <div class="flex-1 ">
-                    <div class="title">Classes / Groups</div>
-                    <div class="h2">%</div>
-                </div>
-                <div class="ico bg-teal-100">
-                    <i class="bi bi-people text-teal-600"></i>
-                </div>
-            </a>
+
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 mt-8 gap-6 rounded">
-            <!-- middle panel  -->
+        <div class="grid mt-8">
             <div class="md:col-span-2">
                 <div class="p-4 bg-white">
-                    <h2>Waiting for your approval</h2>
+                    <div class="flex items-end space-x-4">
+                        <img src="{{ asset('images/small/approval.png') }}" alt="approval" class="w-24">
+                        <h2>Waiting for your approval</h2>
+                    </div>
                     <div class="divider my-3 border-slate-200"></div>
                     <div class="overflow-x-auto mt-4">
                         <table class="table-fixed borderless w-full">
@@ -92,29 +68,6 @@
                         </table>
                     </div>
 
-                </div>
-
-            </div>
-            <!-- middle panel end -->
-            <!-- right side bar starts -->
-            <div class="">
-                <div class="bg-white p-4">
-                    <h2>Profile</h2>
-                    <div class="flex flex-col">
-                        <div class="flex text-sm mt-4">
-                            <div class="w-8"><i class="bi-person"></i></div>
-                            <div>{{ Auth::user()->name }}</div>
-                        </div>
-                        <div class="flex text-sm mt-2">
-                            <div class="w-8"><i class="bi-envelope-at"></i></div>
-                            <div>{{ Auth::user()->email }}</div>
-                        </div>
-                        <div class="divider border-blue-200 mt-4"></div>
-                        <div class="flex text-sm mt-4">
-                            <div class="w-8"><i class="bi-key"></i></div>
-                            <a href="{{route('passwords.edit', Auth::user()->id)}}" class="link">Change Password</a>
-                        </div>
-                    </div>
                 </div>
 
             </div>

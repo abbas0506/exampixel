@@ -91,10 +91,10 @@ $questionSr=1;
                 <div class="question mcq">
                     <div class="head">
                         <div class="sr">Q.{{ $questionSr++ }}</div>
-                        <h2>{{ $paperQuestion->question_title }}</h2>
+                        <h2 class="flex-1">{{ $paperQuestion->question_title }}</h2>
                         <div class="action border border-green-200 rounded bg-green-50 mx-2">
-                            <a modal-id='{{$paperQuestion->id}}' class="show-modal text-cyan-600"><i class="bx bx-pencil"></i></a>
-                            <a href=""><i class="bi-arrow-repeat"></i></a>
+                            <!-- <a modal-id='{{$paperQuestion->id}}' class="show-modal text-cyan-600"><i class="bx bx-pencil"></i></a>
+                            <a href=""><i class="bi-arrow-repeat"></i></a> -->
                             <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
@@ -103,35 +103,35 @@ $questionSr=1;
                         </div>
                     </div>
                     <div class="body">
-                        @foreach($paperQuestion->paperQuestionParts as $part)
+                        @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
                         <div class="sub">
                             <div class="sr">{{$roman->lowercase($i++)}}</div>
-                            <div class="statement">{{$part->question->statement}}</div>
+                            <div class="statement">{{$paperQuestionPart->question->statement}}</div>
                             <div class="action">
-                                <a href=""><i class="bi-arrow-repeat"></i></a>
-                                <form action="{{ route('teacher.paper.questions.destroy',[$paper,$paperQuestion]) }}" method="post">
+                                <a href="{{ route('teacher.paper-question-parts.refresh',$paperQuestionPart) }}"><i class="bi-arrow-repeat"></i></a>
+                                <!-- <form action="{{ route('teacher.paper.questions.destroy',[$paper,$paperQuestion]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button><i class="bx bx-x text-red-600 confirm-del"></i></button>
-                                </form>
+                                </form> -->
                             </div>
                         </div>
                         <div class="choices">
                             <div class="choice">
                                 <div class="sr">a.</div>
-                                <div class="desc">{{$part->question->mcq->choice_a}}</div>
+                                <div class="desc">{{$paperQuestionPart->question->mcq->choice_a}}</div>
                             </div>
                             <div class="choice">
                                 <div class="sr">b.</div>
-                                <div class="desc">{{$part->question->mcq->choice_b}}</div>
+                                <div class="desc">{{$paperQuestionPart->question->mcq->choice_b}}</div>
                             </div>
                             <div class="choice">
                                 <div class="sr">c.</div>
-                                <div class="desc">{{$part->question->mcq->choice_c}}</div>
+                                <div class="desc">{{$paperQuestionPart->question->mcq->choice_c}}</div>
                             </div>
                             <div class="choice">
                                 <div class="sr">d.</div>
-                                <div class="desc">{{$part->question->mcq->choice_d}}</div>
+                                <div class="desc">{{$paperQuestionPart->question->mcq->choice_d}}</div>
                             </div>
 
                         </div>
@@ -145,22 +145,31 @@ $questionSr=1;
 
                 <div class="flex items-center">
                     <div class="w-12">Q. {{ $questionSr++ }}</div>
-                    <div class="flex-1 text-left">{{ $paperQuestion->question_title }}</div>
+                    <h2 class="flex-1 text-left">{{ $paperQuestion->question_title }}</h2>
+                    <div class="action border border-green-200 rounded bg-green-50 mx-2">
+                        <!-- <a modal-id='{{$paperQuestion->id}}' class="show-modal text-cyan-600"><i class="bx bx-pencil"></i></a>
+                            <a href=""><i class="bi-arrow-repeat"></i></a> -->
+                        <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                        </form>
+                    </div>
                 </div>
 
                 @php $i=1; @endphp
-                @foreach($paperQuestion->paperQuestionParts as $part)
+                @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
 
                 <div class="flex items-center">
                     <div class="w-12">{{Str::lower($roman->lowercase($i++))}}</div>
-                    <div class="flex-1 text-left">{{$part->question->statement}}</div>
+                    <div class="flex-1 text-left">{{$paperQuestionPart->question->statement}}</div>
                     <div class="flex items-center space-x-3">
-                        <a href="#"><i class="bi-arrow-repeat text-cyan-600"></i></a>
-                        <form id='formDel{{$part->id}}' action="" method="post">
+                        <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-cyan-600"></i></a>
+                        <!-- <form id='formDel{{$paperQuestionPart->id}}' action="" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit"><i class="bx bx-x text-red-600 confirm-del"></i></button>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
                 @endforeach
@@ -172,12 +181,12 @@ $questionSr=1;
 
                 @php $i=1; @endphp
                 <div class="flex flex-wrap items-center gap-x-8 gapy-3">
-                    @foreach($paperQuestion->paperQuestionParts as $part)
+                    @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
                     <div class="w-12">{{Str::lower($roman->lowercase($i++))}}</div>
-                    <div class="text-left">{{$part->question->statement}}</div>
+                    <div class="text-left">{{$paperQuestionPart->question->statement}}</div>
                     <!-- <div class="flex items-center space-x-3">
                     <a href="#"><i class="bi-arrow-repeat text-cyan-600"></i></a>
-                    <form id='formDel{{$part->id}}' action="" method="post">
+                    <form id='formDel{{$paperQuestionPart->id}}' action="" method="post">
                         @csrf
                         @method('DELETE')
                         <button type="submit"><i class="bx bx-x text-red-600 confirm-del"></i></button>
@@ -194,18 +203,18 @@ $questionSr=1;
                 </div>
                 @else
                 <!-- Or alternatives -->
-                @foreach($paperQuestion->paperQuestionParts as $part)
+                @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
                 <div class="flex items-center">
                     @if($loop->first)
                     <div class="w-12">Q. {{ $questionSr++ }}</div>
-                    <div class="text-left"> {{ $part->question->statement }}</div>
+                    <div class="text-left"> {{ $paperQuestionPart->question->statement }}</div>
                     <div class="ml-2">OR</div>
                     @elseif($loop->last)
                     <div class="w-12"></div>
-                    <div class="text-left"> {{ $part->question->statement }}</div>
+                    <div class="text-left"> {{ $paperQuestionPart->question->statement }}</div>
                     @else
                     <div class="w-12"></div>
-                    <div class="text-left"> {{ $part->question->statement }}</div>
+                    <div class="text-left"> {{ $paperQuestionPart->question->statement }}</div>
                     <div class="ml-2">OR</div>
                     @endif
                 </div>

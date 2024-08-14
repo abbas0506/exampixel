@@ -19,42 +19,22 @@
             <div class="md:hidden text-slate-500">Welcome back!</div>
         </div>
 
+        <!-- page message -->
+        @if($errors->any())
+        <x-message :errors='$errors'></x-message>
+        @else
+        <x-message></x-message>
+        @endif
+
         <!-- pallets -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+        <div class="mt-8">
             <a href="" class="pallet-box">
                 <div class="flex-1">
-                    <div class="title">Q. Bank</div>
-                    <div class="h2"> <i class="bi-arrow-up"></i></span></div>
+                    <div class="title">My Wallet</div>
+                    <label> Expires at: @if(Auth::user()->sales->count()) {{ Auth::user()->sales->max('expiry_at')->format('d/m/Y')}}@endif</label>
                 </div>
-                <div class="ico bg-green-100">
-                    <i class="bi bi-question text-green-600"></i>
-                </div>
-            </a>
-            <a href="{{route('teacher.papers.index')}}" class="pallet-box">
-                <div class="flex-1">
-                    <div class="title">My Papers</div>
-                    <div class="h2">{{ Auth::user()->papers->count() }}</div>
-                </div>
-                <div class="ico bg-indigo-100">
-                    <i class="bi bi-clipboard2 text-indigo-400"></i>
-                </div>
-            </a>
-            <a href="" class="pallet-box">
-                <div class="flex-1 ">
-                    <div class="title">Course Allocations</div>
-                    <div class="h2">%</div>
-                </div>
-                <div class="ico bg-teal-100">
-                    <i class="bi bi-card-checklist text-teal-600"></i>
-                </div>
-            </a>
-            <a href="" class="pallet-box">
-                <div class="flex-1">
-                    <div class="title">Results</div>
-                    <div class="h2"> %</div>
-                </div>
-                <div class="ico bg-sky-100">
-                    <i class="bi bi-graph-up text-sky-600"></i>
+                <div class="ico bg-green-100 text-green-600">
+                    {{ Auth::user()->coins() }}
                 </div>
             </a>
         </div>
@@ -64,14 +44,14 @@
             @if(Auth::user()->papers->count()>0)
             <h2>Recent papers </h2>
             <div class="overflow-x-auto w-full mt-3">
-                <table class="table-fixed xs">
+                <table class="table-fixed sm">
                     <thead>
                         <tr>
-                            <th class="w-10">Sr</th>
-                            <th class="w-64">Title</th>
+                            <th class="w-16">Sr</th>
+                            <th class="w-96">Title</th>
                             <th class="w-32">Date</th>
-                            <th class="w-20">Q.Paper</th>
-                            <th class="w-20">Ans Key</th>
+                            <th class="w-24">Q.Paper</th>
+                            <th class="w-24">Ans Key</th>
                         </tr>
                     <tbody>
                         @php $sr=1; @endphp
@@ -84,6 +64,8 @@
                                 <label>{{$paper->book->grade->name}}-{{$paper->book->name}}</label>
                             </td>
                             <td>{{$paper->paper_date->format('d/m/Y')}}</td>
+                            <td><a href="{{route('teacher.papers.pdf.create',$paper)}}"><i class="bi-printer"></i></a></td>
+                            <td><a href=""><i class="bi-key"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -93,7 +75,7 @@
             @else
             <div class="h-full flex flex-col justify-center items-center">
                 <h3>Currently no paper found!</h3>
-                <label for="">Start Now</label>
+                <a href="{{ route('teacher.papers.index') }}" class="btn-blue mt-6 rounded">Start Creating Now</a>
             </div>
             @endif
         </div>

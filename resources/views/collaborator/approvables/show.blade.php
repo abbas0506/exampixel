@@ -1,6 +1,6 @@
 @extends('layouts.basic')
 @section('header')
-<x-headers.user page="Approve Qs." icon="<i class='bi bi-bookmark-check'></i>"></x-headers.user>
+<x-headers.user page="Q. Approval" icon="<i class='bi bi-patch-check'></i>"></x-headers.user>
 @endsection
 
 @section('sidebar')
@@ -24,13 +24,13 @@
                         <i class="bx bx-chevron-right"></i>
                         <p class="text-sm text-slate-600">Ch. {{ $question->chapter->chapter_no }}</p>
                     </div>
-                    <form action="{{route('collaborator.approvables.destroy', $question)}}" method="POST" onsubmit="return confirmDel(event)">
+                    <!-- <form action="{{route('collaborator.approvables.destroy', $question)}}" method="POST" onsubmit="return confirmDel(event)">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-red rounded text-slate-200">
                             <i class="bx bx-trash"></i> Remove Q.
                         </button>
-                    </form>
+                    </form> -->
                 </div>
                 <div class="divider my-5"></div>
                 <!-- page message -->
@@ -155,7 +155,7 @@
                     <!-- <input type="hidden" name='chapter_no' value="{{ $question->chapterchapter_no }}"> -->
                     <div class="flex justify-end items-center gap-4 col-span-full py-5">
                         <a href="{{url('/')}}" class="btn-blue rounded">Cancel</a>
-                        <button type="submit" class="btn-green rounded">Save & Approve</button>
+                        <button type="submit" class="btn-teal rounded">Save / Approve Now</button>
                     </div>
                 </form>
 

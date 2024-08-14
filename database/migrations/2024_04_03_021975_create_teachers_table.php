@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('subject_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('institution_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('institution')->nullable();
+            $table->string('logo', 50)->nullable();
             $table->string('phone', 13)->nullable();
             $table->timestamps();
         });

@@ -39,4 +39,8 @@ class Paper extends Model
     {
         return $this->hasMany(PaperQuestion::class);
     }
+    public function paperQuestionParts()
+    {
+        return $this->hasManyThrough(PaperQuestionPart::class, PaperQuestion::class);
+    }
 }

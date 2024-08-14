@@ -59,4 +59,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Paper::class);
     }
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
+    }
+    public function  coins()
+    {
+        return $this->sales()->whereDate('expiry_at', '>', today())->sum('coins');
+    }
 }

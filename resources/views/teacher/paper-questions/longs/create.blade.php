@@ -17,7 +17,7 @@
                 <div>/</div>
                 <a href="{{ route('teacher.papers.show', $paper) }}">Paper</a>
                 <div>/</div>
-                <div>Add MCQ</div>
+                <div>Add Long</div>
             </div>
         </div>
 
@@ -43,21 +43,40 @@
         </div>
 
         <div class="divider my-3"></div>
-        <form action="{{ route('teacher.papers.mcqs.store', $paper) }}" method="post">
+        <form action="{{ route('teacher.papers.longs.store', $paper) }}" method="post">
             @csrf
 
-            <!-- <input type="hidden" name="type_id" id="type_id" value='1' class="custom-input-borderless text-sm"> -->
             <input type="hidden" id='book_id' value="{{ $paper->book->id }}">
 
-            <div class="flex items-center bg-slate-100 border border-dashed rounded-lg p-5 mt-5">
+            <div class="flex flex-col md:flex-row md:items-center gap-8 bg-slate-100 border border-dashed rounded-lg p-5 mt-5">
                 <div class="flex flex-col md:w-1/3">
                     <label>Importance Level</label>
-                    <select name="frequency" id="" class="custom-input-borderless">
+                    <select name="frequency" id="" class="custom-input-borderless text-sm">
                         <option value="1">Normal</option>
                         <option value="2">High</option>
                         <option value="3">Very High</option>
                     </select>
                 </div>
+
+                <div class="md:w-1/3" id='display_style_cover'>
+                    <label>Display Style</label>
+                    <select name="display_style" id="display_style" class="custom-input-borderless text-sm">
+                        <option value="compact">Compact</option>
+                        <option value="vertical">Vertical</option>
+                        <option value="horizontal">Horizontal</option>
+                        <option value="horizontal">ORed</option>
+                    </select>
+                </div>
+                @if($paper->book->subtype_mappings->where('type_id', 3)->count()>0)
+                <div class="">
+                    <label>Sub Type</label>
+                    <select name="subtype_id" id="subtype_id" class="custom-input-borderless text-sm">
+                        @foreach($paper->book->subtypes(3) as $subtype)
+                        <option value="{{ $subtype->id }}">{{ $subtype->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endif
             </div>
 
             <!-- Chapters List -->

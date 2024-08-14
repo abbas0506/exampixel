@@ -46,100 +46,100 @@ class UserSeeder extends Seeder
 
         $user->assignRole('operator');
 
-        // physics
-        $user = User::create([
-            'name' => 'Imran Khan',
-            'email' => 'imran@exampixel.com',
-            'password' => Hash::make('password'),
+        // // physics
+        // $user = User::create([
+        //     'name' => 'Imran Khan',
+        //     'email' => 'imran@exampixel.com',
+        //     'password' => Hash::make('password'),
 
-        ]);
-        $user->teacher()->create([
-            'subject_id' => 1,
-            'phone' => '03227881266',
-        ]);
+        // ]);
+        // $user->teacher()->create([
+        //     'subject_id' => 1,
+        //     'phone' => '03227881266',
+        // ]);
 
-        $user->assignRole(['collaborator', 'teacher']);
+        // $user->assignRole(['collaborator', 'teacher']);
 
-        // math
-        $user = User::create([
-            'name' => 'Shakeel Hussain',
-            'email' => 'shakeel@exampixel.com',
-            'password' => Hash::make('password'),
+        // // math
+        // $user = User::create([
+        //     'name' => 'Shakeel Hussain',
+        //     'email' => 'shakeel@exampixel.com',
+        //     'password' => Hash::make('password'),
 
-        ]);
-        $user->teacher()->create([
-            'subject_id' => 2,
-            'phone' => '03001234567',
-        ]);
+        // ]);
+        // $user->teacher()->create([
+        //     'subject_id' => 2,
+        //     'phone' => '03001234567',
+        // ]);
 
-        $user->assignRole(['collaborator', 'teacher']);
+        // $user->assignRole(['collaborator', 'teacher']);
 
-        $user = User::create([
-            'name' => 'Mubashar Maqbool',
-            'email' => 'mubashar@exampixel.com',
-            'password' => Hash::make('password'),
+        // $user = User::create([
+        //     'name' => 'Mubashar Maqbool',
+        //     'email' => 'mubashar@exampixel.com',
+        //     'password' => Hash::make('password'),
 
-        ]);
-        $user->teacher()->create([
-            'subject_id' => 2,
-            'phone' => '03001234567',
-        ]);
+        // ]);
+        // $user->teacher()->create([
+        //     'subject_id' => 2,
+        //     'phone' => '03001234567',
+        // ]);
 
-        $user->assignRole(['collaborator', 'teacher']);
+        // $user->assignRole(['collaborator', 'teacher']);
 
-        // computer science
-        $user = User::create([
-            'name' => 'Atif Zohaib',
-            'email' => 'atifzohaib@exampixel.com',
-            'password' => Hash::make('password'),
+        // // computer science
+        // $user = User::create([
+        //     'name' => 'Atif Zohaib',
+        //     'email' => 'atifzohaib@exampixel.com',
+        //     'password' => Hash::make('password'),
 
-        ]);
-        $user->teacher()->create([
-            'subject_id' => 3,
-            'phone' => '03001234567',
-        ]);
+        // ]);
+        // $user->teacher()->create([
+        //     'subject_id' => 3,
+        //     'phone' => '03001234567',
+        // ]);
 
-        $user->assignRole(['collaborator', 'teacher']);
+        // $user->assignRole(['collaborator', 'teacher']);
 
-        //chemistry
-        $user = User::create([
-            'name' => 'Muzammil Hussain',
-            'email' => 'muzammilhussain@gmail.com',
-            'password' => Hash::make('password'),
+        // //chemistry
+        // $user = User::create([
+        //     'name' => 'Muzammil Hussain',
+        //     'email' => 'muzammilhussain@gmail.com',
+        //     'password' => Hash::make('password'),
 
-        ]);
-        $user->teacher()->create([
-            'subject_id' => 4,
-            'phone' => '03167717963',
-        ]);
+        // ]);
+        // $user->teacher()->create([
+        //     'subject_id' => 4,
+        //     'phone' => '03167717963',
+        // ]);
 
-        $user->assignRole(['collaborator', 'teacher']);
+        // $user->assignRole(['collaborator', 'teacher']);
 
-        $user = User::create([
-            'name' => 'Khan Muhammad',
-            'email' => 'khan@exampixel.com',
-            'password' => Hash::make('password'),
+        // $user = User::create([
+        //     'name' => 'Khan Muhammad',
+        //     'email' => 'khan@exampixel.com',
+        //     'password' => Hash::make('password'),
 
-        ]);
-        $user->teacher()->create([
-            'subject_id' => 4,
-            'phone' => '03001234567',
-        ]);
+        // ]);
+        // $user->teacher()->create([
+        //     'subject_id' => 4,
+        //     'phone' => '03001234567',
+        // ]);
 
-        $user->assignRole(['collaborator', 'teacher']);
+        // $user->assignRole(['collaborator', 'teacher']);
 
-        //    english
-        $user = User::create([
-            'name' => 'Tahir Usman',
-            'email' => 'tahir@exampixel.com',
-            'password' => Hash::make('password'),
+        // //    english
+        // $user = User::create([
+        //     'name' => 'Tahir Usman',
+        //     'email' => 'tahir@exampixel.com',
+        //     'password' => Hash::make('password'),
 
-        ]);
-        $user->teacher()->create([
-            'subject_id' => 6,
-            'phone' => '03001234567',
-        ]);
+        // ]);
+        // $user->teacher()->create([
+        //     'subject_id' => 6,
+        //     'phone' => '03001234567',
+        // ]);
 
-        $user->assignRole(['collaborator', 'teacher']);
+        // $user->assignRole(['collaborator', 'teacher']);
     }
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\PaperQuestionPart;
+use App\Models\Question;
+use Exception;
 use Illuminate\Http\Request;
 
 class PaperQuestionPartController extends Controller
@@ -61,5 +64,27 @@ class PaperQuestionPartController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function refresh($paperQuestionPartId)
+    {
+        $paperQuestionPart = PaperQuestionPart::find($paperQuestionPartId);
+
+        $alreadyIncludedQuestionIds = $paperQuestionPart->paperQuestion->paper->paperQuestionParts->pluck('question_id');
+
+        $replacingQuestion = Question::where('chapter_id', $paperQuestionPart->question->chapter_id)
+            ->where('type_id', $paperQuestionPart->question->type_id)
+            ->whereNotIn('id', $alreadyIncludedQuestionIds)
+            ->get()
+            ->random(1)
+            ->first();
+
+        try {
+            $paperQuestionPart->update([
+                'question_id' => $replacingQuestion->id,
+            ]);
+            return redirect()->back();
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
 }

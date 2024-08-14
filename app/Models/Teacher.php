@@ -9,11 +9,11 @@ class Teacher extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'designation_type',
+        'user_id',
         'subject_id',
-        'phone',
         'institution',
         'logo',
+        'phone',
     ];
 
     public function user()

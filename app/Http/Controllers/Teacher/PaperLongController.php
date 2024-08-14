@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
+use App\Models\Paper;
 use Illuminate\Http\Request;
 
 class PaperLongController extends Controller
@@ -18,9 +20,16 @@ class PaperLongController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
         //
+        if (session('chapterIdsArray')) {
+            $paper = Paper::find($id);
+            $chapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
+            return view('teacher.paper-questions.longs.create', compact('paper', 'chapters'));
+        } else {
+            echo "Chapters not selected!";
+        }
     }
 
     /**

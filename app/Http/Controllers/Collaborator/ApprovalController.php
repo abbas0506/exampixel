@@ -141,6 +141,14 @@ class ApprovalController extends Controller
                 ]);
             }
 
+
+            Auth::user()->sales()->create([
+                'coins' => 20,
+                'price' => 0,
+                'remarks' => 'Question approval',
+                'expiry_at' => now()->addDays(365),
+                'is_verified' => true,
+            ]);
             // commit if all ok
             DB::commit();
             return redirect('/')->with(

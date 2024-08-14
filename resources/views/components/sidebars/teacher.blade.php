@@ -1,7 +1,7 @@
 <aside aria-label="Sidebar" id='sidebar'>
     <div class="flex items-center justify-center w-full mt-16">
         <a href="{{url('/')}}" class="">
-            <img alt="logo" src="{{asset('images/logo/app_logo.png')}}" class="w-8 h-8">
+            <img alt="logo" src="{{asset('images/logo/exampixel.png')}}" class="w-16">
         </a>
     </div>
     <div class="mt-8 font-bold text-center text-orange-300 uppercase tracking-wide">Exampixel</div>
@@ -38,5 +38,25 @@
                     <span class="ml-3">Generate Paper</span>
                 </a>
             </li>
+
+            <li>
+                <a href="" class="flex items-center p-2">
+                    <i class="bi bi-laptop"></i>
+                    <span class="ml-3 text-slate-500">Create Quiz</span>
+                </a>
+            </li>
+            <li>
+                <a href="" class="flex items-center p-2">
+                    <i class="bi-file-medical"></i>
+                    <span class="ml-3 text-slate-500">Feed Result</span>
+                </a>
+            </li>
+            <li>
+                <a href="" class="flex items-center p-2">
+                    <i class="bi bi-graph-up"></i>
+                    <span class="ml-3 text-slate-500">Progress Analysis</span>
+                </a>
+            </li>
+
     </div>
 </aside>

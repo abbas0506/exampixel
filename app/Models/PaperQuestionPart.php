@@ -13,6 +13,10 @@ class PaperQuestionPart extends Model
         'question_id',
     ];
 
+    public function paperQuestion()
+    {
+        return $this->belongsTo(PaperQuestion::class);
+    }
     public function question()
     {
         return $this->belongsTo(Question::class);

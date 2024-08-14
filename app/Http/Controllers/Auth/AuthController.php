@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -17,23 +18,34 @@ class AuthController extends Controller
         //signup  process
         $request->validate([
             'name' => 'required',
-            'phone' => 'required',
-            'password' => 'required',
+            'email' => 'required',
+            // 'password' => 'required',
 
         ]);
 
+
+        DB::beginTransaction();
         try {
 
             $user = User::create([
                 'name' => $request->name,
-                'phone' => $request->phone,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make('123'),
+            ]);
+
+
+
+            $user->assignRole('teacher');
+            session([
+                'role' => 'teacher',
             ]);
             Auth::login($user);
+            DB::commit();
 
-            return redirect('/');
+            // go to related dashboard
+            return redirect('teacher')->with('success', 'We warmly welcome you. Plz use 123 as next time password');
         } catch (Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
         }
     }
