@@ -33,7 +33,13 @@ class AuthController extends Controller
                 'password' => Hash::make('123'),
             ]);
 
+            $user->sales()->create([
+                'coins' => 200,
+                'price' => 0,
+                'expiry_at' => now()->addDays(365),
+                'remarks' => 'Sign up bonus',
 
+            ]);
 
             $user->assignRole('teacher');
             session([
