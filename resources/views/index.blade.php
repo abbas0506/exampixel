@@ -44,7 +44,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 md:w-3/4 mx-auto">
         <div class="feature-box hover:border-pink-300 hover:bg-pink-50" data-aos="fade-up" data-aos-duration="1000">
             <div class="flex items-center justify-center bg-pink-100 rounded-full w-16 h-16">
-                <i class="bi-book text-2xl text-pink-400"></i>
+                <i class="bi-mortarboard text-2xl text-pink-400"></i>
             </div>
             <h3 class="mt-3 text-lg">Students</h3>
             <p class="text-sm text-center">Our online self-assessment service helps you prepare for your exams in a very short time.</p>
@@ -52,7 +52,7 @@
 
         <div class="feature-box hover:border-orange-300 hover:bg-orange-50" data-aos="fade-up" data-aos-duration="1000">
             <div class="flex items-center justify-center bg-orange-100 rounded-full w-16 h-16">
-                <i class="bi-laptop text-2xl text-orange-400"></i>
+                <i class="bi-person text-2xl text-orange-400"></i>
             </div>
             <h3 class="mt-3 text-lg">Teachers</h3>
             <p class="text-sm text-center">Our custom paper generation service saves your effort, time and printing cost.</p>
@@ -73,6 +73,9 @@
                 <li>Instant result on screen </li>
                 <li>Mistakes highlights </li>
             </ul>
+            <div class="mt-3">
+                <a href="{{route('self-tests.index')}}" class="rounded-full link">Start Now <i class="bi-arrow-right"></i></a>
+            </div>
 
         </div>
         <div class="order-first md:order-2  bg-teal-100 w-full h-full flex justify-center p-5">
@@ -92,6 +95,9 @@
                 <li>Multiple papers per sheet</li>
                 <li>Link sharing on whatsapp (soon)</li>
             </ul>
+            <div class="mt-3">
+                <a href="{{ url('login')}}" class="rounded-full link">Start Now <i class="bi-arrow-right"></i></a>
+            </div>
 
         </div>
         <div class="order-3 bg-teal-100 w-full h-full flex justify-center p-5">
