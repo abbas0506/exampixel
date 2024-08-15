@@ -23,12 +23,12 @@
         <div class="p-5 md:w-3/4 mx-auto flex flex-col justify-center items-center text-center h-full">
             <p class="text-teal-600 text-3xl md:text-5xl">We Make Exams Easy </p>
             <p class="text-slate-600 mt-5 text-md md:text-xl leading-relaxed">We empower educators and students with easy to use and interactive tools that make exams easy for them. We have a vast question bank covering all major subjects from grade 9 to 12. </p>
-            <div class="flex flex-col md:flex-row items-center gap-2 mt-8">
-                <a href="{{url('login')}}" class="">
-                    <button class="btn-teal rounded py-3">Generate Question Paper</button>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-2 mt-8 w-full">
+                <a href="{{url('login')}}" class="w-64">
+                    <button class="btn-teal rounded py-3 w-full">Generate Question Paper</button>
                 </a>
-                <a href="{{route('self-tests.index')}}" class="">
-                    <button class="bg-orange-400 hover:bg-orange-500 text-slate-100 rounded p-3">Start Self-Test</button>
+                <a href="{{route('self-tests.index')}}" class="w-64">
+                    <button class="bg-orange-400 hover:bg-orange-500 text-slate-100 rounded p-3 w-full">Start Self-Test</button>
                 </a>
             </div>
 
@@ -40,8 +40,8 @@
 
 <!-- features section -->
 <section id='features' class="mt-12 px-4 md:px-24" data-aos="fade-up" data-aos-duration="1000">
-    <h2 class="text-3xl text-center">It is for you!</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+    <!-- <h2 class="text-3xl text-center">It is for you!</h2> -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 md:w-3/4 mx-auto">
         <div class="feature-box hover:border-pink-300 hover:bg-pink-50" data-aos="fade-up" data-aos-duration="1000">
             <div class="flex items-center justify-center bg-pink-100 rounded-full w-16 h-16">
                 <i class="bi-book text-2xl text-pink-400"></i>
@@ -55,90 +55,53 @@
                 <i class="bi-laptop text-2xl text-orange-400"></i>
             </div>
             <h3 class="mt-3 text-lg">Teachers</h3>
-            <p class="text-sm text-center">Our custom paper generation service saves your time, effort and printing cost.</p>
-        </div>
-
-        <div class="feature-box hover:border-cyan-200 hover:bg-cyan-50" data-aos="fade-up" data-aos-duration="1000">
-            <div class="flex items-center justify-center bg-cyan-100 rounded-full w-16 h-16">
-                <i class="bi bi-palette text-2xl text-cyan-400"></i>
-            </div>
-            <h3 class="mt-3 text-lg">Institutions</h3>
-            <p class="text-sm text-center">Our class analytics service can make your institution distinguished among others </p>
+            <p class="text-sm text-center">Our custom paper generation service saves your effort, time and printing cost.</p>
         </div>
     </div>
 </section>
 
 <!-- distinction -->
-<section class="mt-24 ">
-    <div class="md:px-24">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            <div class="flex flex-col border border-green-200 bg-green-50" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-sine">
-                <!-- videos showing the paper generation -->
-                <div class="h-60 overflow-clip">
-                    <img src="{{url('images/small/quiz.jpg')}}" alt="" class="tool-image w-full h-full skew-x-12 -transform -rotate-12 translate-x-6 -translate-y-12 scale-125">
-                </div>
-                <div class="p-5">
-                    <h2 class="text-center">Self Assessment</h2>
-                    <div class="h-1 w-24 bg-teal-800 mx-auto my-6"></div>
-                    <ul class="list-disc list-inside leading-relaxed">
-                        <li>100% free</li>
-                        <li>No signup required</li>
-                        <li>Online assessment</li>
-                        <li>Time limt option</li>
-                        <li>Fully automated</li>
-                        <li>Multi-chapter selection</li>
-                        <li>Instant result on screen </li>
-                    </ul>
+<section class="mt-24 md:px-24">
+    <div class="grid md:grid-cols-2 place-items-center" data-aos="fade-up" data-aos-duration="500">
+        <div class="order-2 md:order-1 p-5">
+            <h2 class="text-xl md:text-3xl text-center md:text-left">Self Assessment</h2>
+            <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 my-6"></div>
+            <ul class="list-disc list-inside leading-relaxed">
+                <li>100% free, No signup required</li>
+                <li>Online & fully automated</li>
+                <li>Multi-chapter selection</li>
+                <li>Instant result on screen </li>
+                <li>Mistakes highlights </li>
+            </ul>
 
-                </div>
-            </div>
-            <div class="flex flex-col bg-orange-50 border border-orange-200" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-sine">
-                <!-- videos showing the paper generation -->
-                <div class="h-60 overflow-clip">
-                    <img src="{{url('images/small/paper-gen.jpg')}}" alt="" class="tool-image w-full h-full skew-x-12 -transform -rotate-12 translate-x-6 scale-125 -translate-y-12">
-                </div>
-                <div class="p-5">
-                    <h2 class="text-center">Paper Generation</h2>
-                    <div class="h-1 w-24 bg-teal-800 mx-auto my-6"></div>
-                    <ul class="list-disc list-inside leading-relaxed">
-                        <li>Fully automized</li>
-                        <li>Quite simple and easy</li>
-                        <li>Fully customized</li>
-                        <li>PDF format</li>
-                        <li>Font specification, page setting</li>
-                        <li>Multiple papers per sheet</li>
-                        <li>Link sharing on whatsapp</li>
-                    </ul>
+        </div>
+        <div class="order-first md:order-2  bg-teal-100 w-full h-full flex justify-center p-5">
+            <img src="{{ url('images/small/mcqs-2.png') }}" alt="selftest" class="w-64">
+        </div>
 
-                </div>
-            </div>
+        <!-- row 2 -->
+        <div class="order-4 p-5">
+            <h2 class="text-xl md:text-3xl text-center md:text-left">Paper Generation</h2>
+            <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 my-6"></div>
+            <ul class="list-disc list-inside leading-relaxed">
+                <li>Fully automized, simple and easy</li>
+                <li>Multi chapter selection</li>
+                <li>Fully customized</li>
+                <li>PDF format</li>
+                <li>Font specification, page setting</li>
+                <li>Multiple papers per sheet</li>
+                <li>Link sharing on whatsapp (soon)</li>
+            </ul>
 
-            <div class="flex flex-col bg-blue-50 border border-blue-200" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-sine">
-                <!-- videos showing the paper generation -->
-                <div class="h-60 overflow-clip">
-                    <img src="{{url('images/small/paper-gen.jpg')}}" alt="" class="tool-image w-full h-full skew-x-12 -transform -rotate-12 translate-x-6 scale-125 -translate-y-12">
-                </div>
-                <div class="p-5">
-                    <h2 class="text-center">Reporting & Analytics</h2>
-                    <div class="h-1 w-24 bg-teal-800 mx-auto my-6"></div>
-                    <ul class="list-disc list-inside leading-relaxed">
-                        <li>Course management</li>
-                        <li>Time table</li>
-                        <li>Exam datesheet</li>
-                        <li>Class analystics </li>
-                        <li>Annual registration</li>
-                        <li>Unlimited Papers</li>
-                        <li>Upto 50 teachers accounts</li>
-                    </ul>
-
-                </div>
-            </div>
+        </div>
+        <div class="order-3 bg-teal-100 w-full h-full flex justify-center p-5">
+            <img src="{{ url('images/small/paper-4.png') }}" alt="selftest" class="w-64">
         </div>
     </div>
 </section>
 
 <!-- testimonial section -->
-<section class="testimonials pt-0" data-aos="fade-up" data-aos-duration="1000">
+<section class="testimonials pt-0">
     <div class="mt-24 px-4 md:px-16 md:w-3/4 mx-auto">
         <h2 class="text-3xl text-center">Our Team</h2>
         <p class="text-gray-600 text-center mt-8">
@@ -149,7 +112,7 @@
     <div class="testimonials-carousel swiper w-full md:w-3/4 mx-auto mt-12">
         <div class="swiper-wrapper">
             <div class="testimonial-item swiper-slide">
-                <img src="{{asset('images/small/development.jpg')}}" class="testimonial-img" alt="">
+                <img src="{{asset('images/small/development.png')}}" class="testimonial-img" alt="">
                 <h3>Developers</h3>
                 <h4>Web & Android</h4>
                 <p>
@@ -160,7 +123,7 @@
             </div>
 
             <div class="testimonial-item swiper-slide">
-                <img src="{{asset('images/small/collaboration.jpg')}}" class="testimonial-img" alt="">
+                <img src="{{asset('images/small/collaboration.png')}}" class="testimonial-img" alt="">
                 <h3>Collaborators</h3>
                 <h4>Public & Private Sector</h4>
                 <p>
@@ -169,7 +132,7 @@
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
             </div>
-            <div class="testimonial-item swiper-slide">
+            <!-- <div class="testimonial-item swiper-slide">
                 <img src="{{asset('images/small/clients.jpg')}}" class="testimonial-img" alt="">
                 <h3>Clients</h3>
                 <h4>Pubic & Private Sector</h4>
@@ -178,7 +141,7 @@
                     "Our satisfied clients are actually the real players of our team whose positive feedback helps us identifying our deficiencies and improve the user interface and experience"
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
-            </div>
+            </div> -->
 
         </div>
         <div class="swiper-pagination"></div>
