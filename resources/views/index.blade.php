@@ -87,7 +87,7 @@
             <h2 class="text-xl md:text-3xl text-center md:text-left">Paper Generation</h2>
             <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 my-6"></div>
             <ul class="list-disc list-inside leading-relaxed">
-                <li>Fully automized, simple and easy</li>
+                <li>Fully automated, simple & easy</li>
                 <li>Multi chapter selection</li>
                 <li>Fully customized</li>
                 <li>PDF format</li>
