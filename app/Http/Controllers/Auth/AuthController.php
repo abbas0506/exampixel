@@ -47,7 +47,7 @@ class AuthController extends Controller
             // $code = rand(1000, 9999);
             $code = Str::random(5);
 
-            Mail::raw($code . " Password for exampixel.com", function ($message) use ($code, $email) {
+            Mail::raw($code, function ($message) use ($code, $email) {
                 $message->to($email);
                 $message->subject('Password sent by exampixel.com');
             });
