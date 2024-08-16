@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -41,10 +42,21 @@ class AuthController extends Controller
 
             ]);
 
+            $email = $request->email;
+            $code = rand(1000, 9999);
+
+            Mail::raw('Password for login at exampixel.com', function ($message) use ($code, $email) {
+                $message->to($email);
+                $message->subject($code);
+            });
+
             $user->assignRole('teacher');
             session([
                 'role' => 'teacher',
             ]);
+
+
+
             Auth::login($user);
             DB::commit();
 
