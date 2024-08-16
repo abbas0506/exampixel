@@ -29,10 +29,14 @@ class AuthController extends Controller
         DB::beginTransaction();
         try {
 
+            $email = $request->email;
+            // $code = rand(1000, 9999);
+            $code = Str::random(5);
+
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => Hash::make('123'),
+                'password' => Hash::make($code),
             ]);
 
             $user->sales()->create([
@@ -43,11 +47,9 @@ class AuthController extends Controller
 
             ]);
 
-            $email = $request->email;
-            // $code = rand(1000, 9999);
-            $code = Str::random(5);
 
-            Mail::raw($code, function ($message) use ($code, $email) {
+
+            Mail::raw('Password sent by exampixel.com : ' . $code, function ($message) use ($code, $email) {
                 $message->to($email);
                 $message->subject('Password sent by exampixel.com');
             });
@@ -63,7 +65,7 @@ class AuthController extends Controller
             DB::commit();
 
             // go to related dashboard
-            return redirect('teacher')->with('success', 'We warmly welcome you. Plz use 123 as next time password');
+            return redirect('teacher')->with('success', 'We warmly welcome you. Next login password has been sent to your email');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
