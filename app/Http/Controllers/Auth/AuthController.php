@@ -47,8 +47,7 @@ class AuthController extends Controller
 
             ]);
 
-
-
+            // send password to given email for verification
             Mail::raw('Password sent by exampixel.com : ' . $code, function ($message) use ($code, $email) {
                 $message->to($email);
                 $message->subject('Password sent by exampixel.com');

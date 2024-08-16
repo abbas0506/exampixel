@@ -1,10 +1,10 @@
 @extends('layouts.basic')
 @section('header')
-<x-headers.user page="Welcome back!" icon="<i class='bi bi-emoji-smile'></i>"></x-headers.user>
+<x-headers.user page="My Account" icon="<i class='bi bi-wallet'></i>"></x-headers.user>
 @endsection
 
 @section('sidebar')
-<x-sidebars.teacher page='home'></x-sidebars.teacher>
+<x-sidebars.teacher page='account'></x-sidebars.teacher>
 @endsection
 
 @section('body')
@@ -12,11 +12,10 @@
     <div class="container">
         <div class="flex flex-row justify-between items-center">
             <div class="bread-crumb">
-                <div>Dashboard</div>
-                <i class="bx bx-chevron-right"></i>
-                <i class="bi-house"></i>
+                <a href="{{ url('/') }}">Home</a>
+                <div>/</div>
+                <div>My Account</div>
             </div>
-            <div class="md:hidden text-slate-500">Welcome back!</div>
         </div>
 
         <!-- page message -->
@@ -47,31 +46,25 @@
 
 
         <div class="p-4 bg-white mt-6 w-full">
-            @if(Auth::user()->papers->count()>0)
-            <h2>Recent papers </h2>
+            @if(Auth::user()->sales->count()>0)
+            <h2>Account Detail </h2>
             <div class="overflow-x-auto w-full mt-3">
-                <table class="table-fixed sm">
+                <table class="table-fixed">
                     <thead>
                         <tr>
                             <th class="w-16">Sr</th>
-                            <th class="w-96">Title</th>
+                            <th class="w-96">Remarks</th>
                             <th class="w-32">Date</th>
-                            <th class="w-24">Q.Paper</th>
-                            <th class="w-24">Ans Key</th>
+                            <th class="w-32">Coins</th>
                         </tr>
                     <tbody>
                         @php $sr=1; @endphp
-                        @foreach(Auth::user()->papers->sortByDesc('id') as $paper)
+                        @foreach(Auth::user()->sales->sortByDesc('id') as $sale)
                         <tr>
                             <td>{{$sr++}}</td>
-                            <td class="text-left">
-                                <a href="{{route('teacher.papers.show',$paper)}}" class="link">{{$paper->title}}</a>
-                                <br>
-                                <label>{{$paper->book->grade->name}}-{{$paper->book->name}}</label>
-                            </td>
-                            <td>{{$paper->paper_date->format('d/m/Y')}}</td>
-                            <td><a href="{{route('teacher.papers.pdf.create',$paper)}}"><i class="bi-printer"></i></a></td>
-                            <td><a href=""><i class="bi-key"></i></a></td>
+                            <td class="text-left">{{$sale->remarks}}</td>
+                            <td>{{$sale->created_at->format('d/m/Y')}}</td>
+                            <td>{{ $sale->coins }}</td>
                         </tr>
                         @endforeach
                     </tbody>

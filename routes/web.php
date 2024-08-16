@@ -31,6 +31,7 @@ use App\Http\Controllers\Operator\GradeBookController;
 use App\Http\Controllers\SelfTestController;
 use App\Http\Controllers\Operator\DashboardController as OperatorDashboardController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\Teacher\AccountController;
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboardController;
 use App\Http\Controllers\Teacher\PaperController as TeacherPaperController;
 use App\Http\Controllers\Teacher\PaperLongController;
@@ -127,15 +128,9 @@ Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['role:
     Route::resource('papers.shorts', PaperShortController::class);
     Route::resource('papers.longs', PaperLongController::class);
     Route::resource('paper.questions', TeacherPaperQuestionController::class);
+    Route::resource('accounts', AccountController::class);
 
-    Route::get('paper-question-part/refresh', [PaperQuestionPartController::class, 'refresh']);
-
-
-    Route::resource('test-questions', TestQuestionController::class);
-    Route::get('test/questions/add/{test}/{questionType}', [TestQuestionController::class, 'add'])->name('tests.questions.add');
-    Route::get('test/{test}/questions/{q}/refresh',);
-    Route::resource('question-parts', TestQuestionPartController::class);
     Route::get('paper-question-parts/{part}/refresh', [PaperQuestionPartController::class, 'refresh'])->name('paper-question-parts.refresh');
-    Route::get('tests/{test}/anskey', [AnswerKeyController::class, 'show'])->name('tests.anskey.show');
-    Route::get('tests/{test}/anskey/pdf', [AnswerKeyController::class, 'pdf'])->name('tests.anskey.pdf');
+
+    // Route::get('tests/{test}/anskey/pdf', [AnswerKeyController::class, 'pdf'])->name('tests.anskey.pdf');
 });

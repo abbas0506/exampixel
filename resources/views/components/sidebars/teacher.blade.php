@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center p-2">
+                <a href="{{ route('teacher.accounts.index') }}" class="flex items-center p-2">
                     <i class="bi bi-calculator @if($page=='account') current-page @endif"></i>
                     <span class="ml-3">My Account</span>
                 </a>
@@ -55,6 +55,12 @@
                 <a href="" class="flex items-center p-2">
                     <i class="bi bi-graph-up"></i>
                     <span class="ml-3 text-slate-500">Progress Analysis</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('passwords.edit', Auth::user()->id)}}" class="flex items-center p-2">
+                    <i class="bi bi-key"></i>
+                    <span class="ml-3">Change Password</span>
                 </a>
             </li>
 

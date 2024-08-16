@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="text-center text-xs">
-            Dont have an account?<a href="{{ url('signup/me') }}" class="font-bold ml-2">Signup</a>
+            Dont have an account?<a href="{{ url('signup/me') }}" class="font-bold ml-2  link">Signup</a>
         </div>
     </div>
 </div>

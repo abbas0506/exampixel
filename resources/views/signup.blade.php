@@ -29,7 +29,7 @@
             </form>
         </div>
         <div class="text-center text-sm mt-3">
-            I have an account?<a href="{{ url('login') }}" class="font-bold ml-2">Login</a>
+            I have an account?<a href="{{ url('login') }}" class="font-bold ml-2 link">Login</a>
         </div>
     </div>
 
