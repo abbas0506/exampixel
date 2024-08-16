@@ -43,11 +43,12 @@ class AuthController extends Controller
             ]);
 
             $email = $request->email;
-            $code = rand(1000, 9999);
+            // $code = rand(1000, 9999);
+            $code = str()->rand(5);
 
-            Mail::raw('Password for login at exampixel.com', function ($message) use ($code, $email) {
+            Mail::raw($code . " Password for exampixel.com", function ($message) use ($code, $email) {
                 $message->to($email);
-                $message->subject($code);
+                $message->subject('Password sent by exampixel.com');
             });
 
             $user->assignRole('teacher');
