@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +45,7 @@ class AuthController extends Controller
 
             $email = $request->email;
             // $code = rand(1000, 9999);
-            $code = str()->rand(5);
+            $code = Str::random(5);
 
             Mail::raw($code . " Password for exampixel.com", function ($message) use ($code, $email) {
                 $message->to($email);
