@@ -18,7 +18,6 @@
 </style>
 
 <section>
-    <!-- <div class="flex flex-col justify-start md:justify-center h-full px-5 md:pl-24 mt-8 md:mt-24"> -->
     <div class="content w-screen h-screen">
         <div class="p-5 md:w-3/4 mx-auto flex flex-col justify-center items-center text-center h-full">
             <p class="text-teal-600 text-3xl md:text-5xl">We Make Exams Easy </p>
@@ -40,7 +39,6 @@
 
 <!-- features section -->
 <section id='features' class="mt-12 px-4 md:px-24" data-aos="fade-up" data-aos-duration="1000">
-    <!-- <h2 class="text-3xl text-center">It is for you!</h2> -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 md:w-3/4 mx-auto">
         <div class="feature-box hover:border-pink-300 hover:bg-pink-50" data-aos="fade-up" data-aos-duration="1000">
             <div class="flex items-center justify-center bg-pink-100 rounded-full w-16 h-16">
@@ -64,7 +62,7 @@
 <section class="mt-24 md:px-24">
     <div class="grid md:grid-cols-2 place-items-center" data-aos="fade-up" data-aos-duration="500">
         <div class="order-2 md:order-1 p-5">
-            <h2 class="text-xl md:text-3xl text-center md:text-left">Self Assessment</h2>
+            <h2 class="text-xl md:text-2xl text-center md:text-left">Self Assessment</h2>
             <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 my-6"></div>
             <ul class="list-disc list-inside leading-relaxed">
                 <li>100% free, No signup required</li>
@@ -84,7 +82,7 @@
 
         <!-- row 2 -->
         <div class="order-4 p-5">
-            <h2 class="text-xl md:text-3xl text-center md:text-left">Paper Generation</h2>
+            <h2 class="text-xl md:text-2xl text-center md:text-left">Paper Generation</h2>
             <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 my-6"></div>
             <ul class="list-disc list-inside leading-relaxed">
                 <li>Fully automated, simple & easy</li>

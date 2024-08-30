@@ -56,8 +56,8 @@ $questionSr=1;
             </div>
 
             <div class="flex flex-col md:flex-row justify-between items-center mt-6 border bg-slate-200 border-teal-600 rounded-lg text-left p-3 px-5">
-                <div>
-                    ADD QUESTION
+                <div class="text-center md:text-left">
+                    Please click on a button to add questions
                 </div>
                 <div class="flex p-4 rounded gap-x-2 text-green-400 text-sm relative">
                     <a href="{{route('teacher.papers.mcqs.create',$paper)}}" class="btn-teal rounded">MCQs</a>

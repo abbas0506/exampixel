@@ -59,6 +59,10 @@
             $('.books').hide();
             $('#' + $(this).attr('data-bound')).show()
 
+            $('html, body').animate({
+                scrollTop: 500
+            }, 1000); // 1000 milliseconds = 1 second for the scroll duration
+
         })
     </script>
     @endsection

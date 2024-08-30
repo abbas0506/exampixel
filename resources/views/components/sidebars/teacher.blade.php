@@ -39,7 +39,7 @@
                 </a>
             </li>
 
-            <li>
+            <!-- <li>
                 <a href="" class="flex items-center p-2">
                     <i class="bi bi-laptop"></i>
                     <span class="ml-3 text-slate-500">Create Quiz</span>
@@ -56,7 +56,7 @@
                     <i class="bi bi-graph-up"></i>
                     <span class="ml-3 text-slate-500">Progress Analysis</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="{{route('passwords.edit', Auth::user()->id)}}" class="flex items-center p-2">
                     <i class="bi bi-key"></i>

@@ -1,20 +1,23 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\sidebars;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class sidebars.teacher extends Component
+class teacher extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $page;
+    public function __construct($page)
     {
         //
+        $this->page = $page;
     }
+
 
     /**
      * Get the view / contents that represent the component.

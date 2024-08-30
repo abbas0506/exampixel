@@ -38,6 +38,7 @@
                         <label>{{$paper->title}}</label>
                     </div>
                 </div>
+                <h2 class="text-center md:text-right md:pr-5">New Short</h2>
             </div>
 
         </div>
