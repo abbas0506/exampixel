@@ -72,11 +72,11 @@
                     <div class="w-full h-full  flex justify-start items-start space-x-4">
                         <div class="flex justify-center items-start gap-x-4">
                             <div class="page-orientation-container w-16 h-20">
-                                <input type="checkbox" bound='portrait' name="page_orientation" value="portrait" class="page-orientation">
+                                <input type="checkbox" bound='portrait' name="orientation" value="portrait" class="page-orientation">
                                 <div class="text-xs">Portrait</div>
                             </div>
                             <div class="page-orientation-container w-24 h-16 active">
-                                <input type="checkbox" bound='landscape' name="page_orientation" value="landscape" class="page-orientation" checked>
+                                <input type="checkbox" bound='landscape' name="orientation" value="landscape" class="page-orientation" checked>
                                 <div class="text-xs">Landscape</div>
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                                         <div class="text-xs">Horizontal</div>
                                     </div>
                                     <div>
-                                        <input type="number" name="cols" id="cols" value="1" min=1 max=6 class="custom-input text-center" required>
+                                        <input type="number" name="columns" id="columns" value="1" min=1 max=6 class="custom-input text-center" required>
                                         <div class="text-xs">Vertical</div>
                                     </div>
                                 </div>
@@ -237,13 +237,13 @@
             $('#rows').click(function() {
                 $(this).select();
             })
-            $('#cols').click(function() {
+            $('#columns').click(function() {
                 $(this).select();
             })
             $('.page').click(function() {
 
                 $('#rows').val($(this).attr('row'));
-                $('#cols').val($(this).attr('col'));
+                $('#columns').val($(this).attr('col'));
                 $(this).addClass('active');
                 $('.page').not(this).removeClass('active');
 
@@ -276,7 +276,7 @@
                         $('#' + $(this).attr('bound')).children(":first").addClass('active')
                         $('#' + $(this).attr('bound')).children().not(":first").removeClass('active')
                         $('#rows').val(1);
-                        $('#cols').val(1);
+                        $('#columns').val(1);
                         $(this).parent().addClass('active');
 
 

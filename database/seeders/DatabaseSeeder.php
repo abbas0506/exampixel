@@ -23,10 +23,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             GradeSeeder::class,
             SubjectSeeder::class,
-            // BookSeeder::class,
             TypeSeeder::class,
-            // SubtypeSeeder::class,
-            // SubtypeMappingSeeder::class,
             UserSeeder::class,
         ]);
     }

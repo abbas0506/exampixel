@@ -65,7 +65,7 @@ $activeBook=$paper->book;
 
                     <div class="grid" id='marks_cover'>
                         <label>Marks (each)</label>
-                        <input type="number" name="marks_each" class="custom-input-borderless text-sm" value="{{ $type->id==2?2:4 }}" min=1>
+                        <input type="number" name="marks" class="custom-input-borderless text-sm" value="{{ $type->id==2?2:4 }}" min=1>
                     </div>
                     @endif
                     <!-- advanced options -->

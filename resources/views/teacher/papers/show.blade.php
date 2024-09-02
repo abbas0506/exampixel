@@ -62,7 +62,7 @@ $questionSr=1;
                 <div class="flex p-4 rounded gap-x-2 text-green-400 text-sm relative">
                     <a href="{{route('teacher.papers.mcqs.create',$paper)}}" class="btn-teal rounded">MCQs</a>
                     <a href="{{route('teacher.papers.shorts.create',$paper)}}" class="btn-blue rounded">Short</a>
-                    <a href="{{route('teacher.papers.longs.create',$paper)}}" class="btn-red rounded">Long</a>
+                    <a href="{{route('teacher.papers.simple-longs.create',$paper)}}" class="btn-red rounded">Long</a>
                 </div>
             </div>
             @if($paper->paperQuestions->count())
@@ -173,6 +173,8 @@ $questionSr=1;
                     </div>
                 </div>
                 @endforeach
+
+
                 @elseif($paperQuestion->display_style=='horizontal')
                 <div class="flex items-center">
                     <div class="w-12">Q. {{ $questionSr++ }}</div>
@@ -195,7 +197,8 @@ $questionSr=1;
 
                     @endforeach
                 </div>
-                @elseif($paperQuestion->display_style=='compact')
+
+                @elseif($paperQuestion->display_style=='whole')
                 <div class="flex items-center">
                     <div class="w-12">Q. {{ $questionSr++ }}</div>
                     <div class="flex-1 text-left">{{ $paperQuestion->paperQuestionParts->first()->question->statement }}</div>

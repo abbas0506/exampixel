@@ -34,12 +34,14 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Teacher\AccountController;
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboardController;
 use App\Http\Controllers\Teacher\PaperController as TeacherPaperController;
+use App\Http\Controllers\Teacher\PaperKeyController;
 use App\Http\Controllers\Teacher\PaperLongController;
 use App\Http\Controllers\Teacher\PaperMcqController;
 use App\Http\Controllers\Teacher\PaperPdfController;
 use App\Http\Controllers\Teacher\PaperQuestionController as TeacherPaperQuestionController;
 use App\Http\Controllers\Teacher\PaperQuestionPartController;
 use App\Http\Controllers\Teacher\PaperShortController;
+use App\Http\Controllers\Teacher\SimpleLongPaperQuestionController;
 use App\Http\Middleware\CheckSessionExpiry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
@@ -128,9 +130,14 @@ Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['role:
     Route::resource('papers.shorts', PaperShortController::class);
     Route::resource('papers.longs', PaperLongController::class);
     Route::resource('paper.questions', TeacherPaperQuestionController::class);
+    Route::resource('papers.simple-longs', SimpleLongPaperQuestionController::class);
+
     Route::resource('accounts', AccountController::class);
 
     Route::get('paper-question-parts/{part}/refresh', [PaperQuestionPartController::class, 'refresh'])->name('paper-question-parts.refresh');
+
+    Route::get('papers/{paper}/key', [PaperKeyController::class, 'show'])->name('papers.keys.show');
+    Route::get('papers/{paper}/key/pdf', [PaperKeyController::class, 'pdf'])->name('papers.keys.pdf');
 
     // Route::get('tests/{test}/anskey/pdf', [AnswerKeyController::class, 'pdf'])->name('tests.anskey.pdf');
 });

@@ -38,6 +38,7 @@
                         <label>{{$paper->title}}</label>
                     </div>
                 </div>
+                <h2 class="text-center md:text-right md:pr-5">Long Q.</h2>
             </div>
 
         </div>
@@ -80,6 +81,15 @@
             </div>
 
             <!-- Chapters List -->
+            <div class="flex flex-col text-sm p-4 md:p-8">
+                @foreach($chapters->sortBy('chapter_no') as $chapter)
+                <!-- <div class=""> -->
+
+                <a href="#" class="text-sm even:bg-slate-100  text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </a>
+                <!-- </div> -->
+                @endforeach
+            </div>
+
             <div class="p-4 md:p-8 h-[16rem] overflow-y-auto">
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-16 text-left">
 

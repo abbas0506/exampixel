@@ -109,7 +109,7 @@ $i=0;
                                     </div>
                                     <div class="grid" id='marks_cover'>
                                         <label>Marks (each)</label>
-                                        <input type="number" name="marks_each" class="custom-input-borderless" value="1">
+                                        <input type="number" name="marks" class="custom-input-borderless" value="1">
                                     </div>
                                     <div class="">
                                         <label>Exercise Ratio</label>

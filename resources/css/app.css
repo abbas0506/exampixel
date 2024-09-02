@@ -237,17 +237,19 @@
     }
 
     .tab {
-        @apply px-2 text-slate-400 hover:text-blue-600 hover:underline hover:underline-offset-4 hover:cursor-pointer;
+        @apply px-2 text-slate-400 hover:text-slate-600 hover:no-underline hover:cursor-pointer;
     }
     .tab.active {
-        @apply font-semibold text-blue-800 hover:no-underline hover:cursor-auto relative;
+        @apply font-semibold text-slate-600 underline underline-offset-[8px] decoration-teal-400 hover:cursor-auto relative;
     }
+
     .tab.active .bullet {
         @apply absolute -top-1 left-0 bg-red-600 w-2 h-2 rounded-full;
     }
     .bullet-indigo-sm {
         @apply flex-shrink-0 w-2 h-2 rounded-full bg-indigo-500;
     }
+
 
     .zoom-sm {
         @apply scale-110 transition-all duration-500 ease-in-out;

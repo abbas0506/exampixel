@@ -16,7 +16,19 @@
                 <i class="bx bx-chevron-right"></i>
                 <i class="bi-house"></i>
             </div>
-            <div class="md:hidden text-slate-500">Welcome back!</div>
+            <div class="flex items-center gap-3">
+                <div class="w-48">
+                    <div class="flex justify-between items-center my-1">
+                        <label class="">Profile Status</label>
+                        <a href="#" class="link text-xs">Complete Now</a>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 50%"> 50%</div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- <div class="md:hidden text-slate-500">Welcome back!</div> -->
         </div>
 
         <!-- page message -->
@@ -27,8 +39,8 @@
         @endif
 
         <!-- pallets -->
-        <div class="mt-8">
-            <a href="" class="flex items-center  pallet-box">
+        <div class="mt-4">
+            <a href="" class="flex items-center pallet-box">
                 <div class="flex flex-1 items-center space-x-3">
                     <div>
                         <img src="{{ url('images/small/wallet.png') }}" alt="" class="w-12 h-12">
@@ -71,7 +83,7 @@
                             </td>
                             <td>{{$paper->paper_date->format('d/m/Y')}}</td>
                             <td><a href="{{route('teacher.papers.pdf.create',$paper)}}"><i class="bi-printer"></i></a></td>
-                            <td><a href=""><i class="bi-key"></i></a></td>
+                            <td><a href="{{route('teacher.papers.keys.show',$paper)}}"><i class="bi-key"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>

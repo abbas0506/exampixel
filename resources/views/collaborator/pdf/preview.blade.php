@@ -181,7 +181,7 @@ $roman = config('global.romans');
                                                 <li>
                                                     <ul class="list-horizontal w-full">
                                                         <li style='width:90%'>{{$part->question->statement}}</li>
-                                                        <li class="w-4 text-right">{{$part->marks_each}}</li>
+                                                        <li class="w-4 text-right">{{$part->marks}}</li>
                                                     </ul>
                                                 </li>
                                                 @endforeach

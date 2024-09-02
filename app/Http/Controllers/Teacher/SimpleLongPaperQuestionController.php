@@ -7,13 +7,10 @@ use App\Models\Chapter;
 use App\Models\Paper;
 use App\Models\PaperQuestionPart;
 use App\Models\Question;
-use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use NumberFormatter;
 
-class PaperMcqController extends Controller
+class SimpleLongPaperQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,7 +29,7 @@ class PaperMcqController extends Controller
         if (session('chapterIdsArray')) {
             $paper = Paper::find($id);
             $chapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
-            return view('teacher.paper-questions.mcqs.create', compact('paper', 'chapters'));
+            return view('teacher.paper-questions.longs.simple', compact('paper', 'chapters'));
         } else {
             echo "Chapters not selected!";
         }
@@ -45,67 +42,44 @@ class PaperMcqController extends Controller
     {
         //
         $request->validate([
-            'choices' => 'required|numeric',
             'frequency' => 'required|numeric',
-            'choices' => 'required|numeric',
-            'chapter_ids_array' => 'required',
-            'num_of_parts_array' => 'required',
-
+            'chapter_id' => 'required',
         ]);
 
-        DB::beginTransaction();
         try {
             //create test question instance
             $paper = Paper::find($id);
-
             $question_title = '';
-            $formatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
-
-            $mustAttempt = collect($request->num_of_parts_array)->sum() - $request->choices;
-
-            if ($request->choices == 0)
-
-                $question_title = "Attempt all questions.";
-            else
-                $question_title = "Attempt any " . $formatter->format($mustAttempt) . " questions.";
-
             $paperQuestion = $paper->paperQuestions()->create([
-                'type_id' => 1,
-                'question_title' => $question_title,
+                'type_id' => 3,
+                'question_title' => '',
                 'frequency' => $request->frequency,
-                'choices' => $request->choices,
-                'display_style' => '',
+                'choices' => 0,
+                'display_style' => 'whole'
             ]);
             //randomly select question parts from each chapter and save them
-            $chaperIds = array();
-            $numOfParts = array();
-            $chaperIds = $request->chapter_ids_array;
-            $numOfParts = $request->num_of_parts_array;
-            $chapters = Chapter::whereIn('id', $chaperIds)->get();
-
             $i = 0; //for iterating numOfparts
             $threshold = $request->frequency;
 
-            foreach ($chapters as $chapter) {
-                $questions = Question::where('type_id', 1)
-                    ->where('chapter_id', $chapter->id)
-                    // ->where('is_from_exercise', $request->exercise_only)
-                    ->where('frequency', '>=', $threshold)
-                    ->get()
-                    ->random($numOfParts[$i++]);
 
-                foreach ($questions as $question) {
-                    PaperQuestionPart::create([
-                        'paper_question_id' => $paperQuestion->id,
-                        'question_id' => $question->id,
-                        'marks' => $question->marks,
-                    ]);
-                }
-            }
-            DB::commit();
+            $question = Question::where('type_id', 3)
+                ->where('chapter_id', $request->chapter_id)
+                ->where('frequency', '>=', $threshold)
+                ->get()
+                ->random(1)
+                ->first();
+
+
+            PaperQuestionPart::create([
+                'paper_question_id' => $paperQuestion->id,
+                'question_id' => $question->id,
+                'marks' => $question->marks,
+            ]);
+
+            // echo $question->id;
             return redirect()->route('teacher.papers.show', $paper)->with('success', 'Question successfully added!');
         } catch (Exception $e) {
-            DB::rollBack();
+
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
         }

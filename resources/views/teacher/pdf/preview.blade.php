@@ -31,7 +31,6 @@
         .data tr td {
             font-size: 12px;
             text-align: center;
-            /* padding-bottom: 2px; */
             border: 0.5px solid;
         }
     </style>
@@ -54,7 +53,7 @@ $roman = config('global.romans');
                 @endphp
                 <tbody>
                     @for($i=1; $i<=$rows;$i++) <tr>
-                        @for($j=1; $j<=$cols;$j++) @php $questionNo=1; @endphp <td class='@if($j!=1) pl-8 @endif'>
+                        @for($j=1; $j<=$columns;$j++) @php $questionNo=1; @endphp <td class='@if($j!=1) pl-8 @endif'>
 
                             <table class="w-full">
                                 <tbody>
@@ -170,7 +169,7 @@ $roman = config('global.romans');
                                                 <li>
                                                     <ul class="list-horizontal w-full">
                                                         <li style='width:90%'>{{$part->question->statement}}</li>
-                                                        <li class="w-4 text-right">{{$part->marks_each}}</li>
+                                                        <li class="w-4 text-right">{{$part->marks}}</li>
                                                     </ul>
                                                 </li>
                                                 @endforeach
@@ -189,7 +188,7 @@ $roman = config('global.romans');
                             </tr>
                             <!-- rowspacing between each row of papers -->
                             <tr>
-                                <td class="py-4" colspan="{{$cols}}"></td>
+                                <td class="py-4" colspan="{{$columns}}"></td>
                             </tr>
                             @endfor
                 </tbody>

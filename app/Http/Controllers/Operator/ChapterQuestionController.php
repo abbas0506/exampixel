@@ -90,25 +90,28 @@ class ChapterQuestionController extends Controller
                     'correct' => $correct,
                 ]);
             } else {
-                // long question
-                if ($request->type_id == 3) {
-                    // paraphrasing
-                    if ($subtype->tagname == 'paraphrasing') {
-                        foreach ($request->poetry_lines as $poetry_line) {
-                            if ($poetry_line != '')
-                                $question->paraphrasings()->create([
-                                    'poetry_line' => $poetry_line,
-                                ]);
-                        }
-                    }
 
-                    //comprehension
-                    if ($subtype->tagname == 'comprehension') {
-                        foreach ($request->sub_questions as $subQuestion) {
-                            if ($subQuestion != '')
-                                $question->comprehensions()->create([
-                                    'sub_question' => $subQuestion,
-                                ]);
+                if ($subtype) {
+                    // long question
+                    if ($request->type_id == 3) {
+                        // paraphrasing
+                        if ($subtype->tagname == 'paraphrasing') {
+                            foreach ($request->poetry_lines as $poetry_line) {
+                                if ($poetry_line != '')
+                                    $question->paraphrasings()->create([
+                                        'poetry_line' => $poetry_line,
+                                    ]);
+                            }
+                        }
+
+                        //comprehension
+                        if ($subtype->tagname == 'comprehension') {
+                            foreach ($request->sub_questions as $subQuestion) {
+                                if ($subQuestion != '')
+                                    $question->comprehensions()->create([
+                                        'sub_question' => $subQuestion,
+                                    ]);
+                            }
                         }
                     }
                 }

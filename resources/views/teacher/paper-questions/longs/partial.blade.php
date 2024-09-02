@@ -17,7 +17,7 @@
                 <div>/</div>
                 <a href="{{ route('teacher.papers.show', $paper) }}">Paper</a>
                 <div>/</div>
-                <div>Add Short</div>
+                <div>Add Long</div>
             </div>
         </div>
 
@@ -38,13 +38,40 @@
                         <label>{{$paper->title}}</label>
                     </div>
                 </div>
-                <h2 class="text-center md:text-right md:pr-5">Short Q.</h2>
+                <h2 class="text-center md:text-right md:pr-5">Long Q.</h2>
             </div>
 
         </div>
 
         <div class="divider my-3"></div>
-        <form action="{{ route('teacher.papers.shorts.store', $paper) }}" method="post">
+
+        <div class="flex flex-wrap items-center justify-between w-full mt-8 gap-y-4">
+            <div class="flex items-center space-x-4 text-slate-600">
+                <p class="tab active">Whole Q.</p>
+                <a href="#" class="tab">Partial Q. (has parts)</a>
+            </div>
+        </div>
+
+        <!-- <div class="flex flex-col">
+            <label>Select Question Type</label>
+            <select name="" id="" class="custom-input-borderless md:w-1/3 text-sm mt-2">
+                <option value="1">Whole Q. </option>
+                <option value="2">Partial Q. (has parts) </option>
+            </select>
+
+        </div> -->
+
+        <!-- Chapters List -->
+        <div class="flex flex-col text-sm p-4 md:p-8">
+            @foreach($chapters->sortBy('chapter_no') as $chapter)
+            <a href="#" class="text-sm even:bg-slate-100  text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </a>
+            @endforeach
+        </div>
+
+
+
+
+        <form action="{{ route('teacher.papers.longs.store', $paper) }}" method="post">
             @csrf
 
             <input type="hidden" id='book_id' value="{{ $paper->book->id }}">
@@ -62,13 +89,26 @@
                 <div class="md:w-1/3" id='display_style_cover'>
                     <label>Display Style</label>
                     <select name="display_style" id="display_style" class="custom-input-borderless text-sm">
+                        <option value="compact">Compact</option>
                         <option value="vertical">Vertical</option>
                         <option value="horizontal">Horizontal</option>
+                        <option value="horizontal">ORed</option>
                     </select>
                 </div>
+                @if($paper->book->subtype_mappings->where('type_id', 3)->count()>0)
+                <div class="">
+                    <label>Sub Type</label>
+                    <select name="subtype_id" id="subtype_id" class="custom-input-borderless text-sm">
+                        @foreach($paper->book->subtypes(3) as $subtype)
+                        <option value="{{ $subtype->id }}">{{ $subtype->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endif
             </div>
 
-            <!-- Chapters List -->
+
+
             <div class="p-4 md:p-8 h-[16rem] overflow-y-auto">
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-16 text-left">
 
