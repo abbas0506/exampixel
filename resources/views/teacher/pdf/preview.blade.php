@@ -31,6 +31,7 @@
         .data tr td {
             font-size: 12px;
             text-align: center;
+            /* padding-bottom: 2px; */
             border: 0.5px solid;
         }
     </style>
@@ -50,22 +51,23 @@ $roman = config('global.romans');
                 @php
                 $i=1;
                 $j=1;
+                $roman=new Roman;
+                $QNo=1;
+
                 @endphp
                 <tbody>
                     @for($i=1; $i<=$rows;$i++) <tr>
-                        @for($j=1; $j<=$columns;$j++) @php $questionNo=1; @endphp <td class='@if($j!=1) pl-8 @endif'>
+                        @for($j=1; $j<=$columns;$j++) @php $QNo=1; @endphp <td class='@if($j!=1) pl-8 @endif'>
 
                             <table class="w-full">
                                 <tbody>
-                                    <!-- <tr>
-                                        <td colspan="2" class="text-center font-bold m-0 p-0">{{$paper->title}}</td>
-                                    </tr> -->
+
                                     <tr>
                                         <td colspan="2" class="m-0 p-0 font-bold">Govt Higher Secondary School Chak Bedi</td>
                                     </tr>
 
                                     <tr>
-                                        <td colspan="2" class="m-0 p-0">Dated: {{$paper->paper_date->format('d/m/Y')}}</td>
+                                        <td colspan="2" class="m-0 p-0">{{$paper->title}} Dated {{$paper->paper_date->format('d/m/Y')}}</td>
                                     </tr>
 
                                     <tr>
@@ -95,93 +97,96 @@ $roman = config('global.romans');
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($paper->paperQuestions()->mcqs()->get() as $paperQuestion)
+
+                                    @foreach($paper->paperQuestions as $paperQuestion)
+                                    @if($paperQuestion->type_id==1)
                                     <tr>
-                                        <td class="text-left font-bold">Q.{{$questionNo++}} {{ $paperQuestion->question_title }}
-                                        </td>
-                                        <td>{{$paperQuestion->paperQuestionParts()->count()- $paperQuestion->choices}}x1={{ $paperQuestion->paperQuestionParts()->count()- $paperQuestion->choices}}</td>
+                                        <td class="text-left font-bold">Q.{{$QNo++}} {{ $paperQuestion->question_title }}</td>
+                                        <td></td>
                                     </tr>
 
                                     <tr>
                                         <td colspan="2" class="text-left">
                                             <ol class="lower-roman ml-4">
-                                                @foreach($paperQuestion->paperQuestionParts as $part)
+                                                @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
                                                 <li>
-                                                    {{$part->question->statement}}
+                                                    {{ $paperQuestionPart->question->statement }}
                                                     <ol class="list-horizontal lower-alpha pt-1">
-                                                        <li class="text-left w-1-4">a. {{$part->question->mcq->choice_a}}</li>
-                                                        <li class="text-left w-1-4">b. {{$part->question->mcq->choice_b}}</li>
-                                                        <li class="text-left w-1-4">c. {{$part->question->mcq->choice_c}}</li>
-                                                        <li class="text-left w-1-4">d. {{$part->question->mcq->choice_d}}</li>
+                                                        <li class="text-left w-1-4">a. {{$paperQuestionPart->question->mcq->choice_a}}</li>
+                                                        <li class="text-left w-1-4">b. {{$paperQuestionPart->question->mcq->choice_b}}</li>
+                                                        <li class="text-left w-1-4">c. {{$paperQuestionPart->question->mcq->choice_c}}</li>
+                                                        <li class="text-left w-1-4">d. {{$paperQuestionPart->question->mcq->choice_d}}</li>
                                                     </ol>
                                                 </li>
                                                 @endforeach
                                             </ol>
                                         </td>
                                     </tr>
-                                    @endforeach
-                                    @if($paper->paperQuestions()->mcqs()->count()*$paper->paperQuestions()->shorts()->count())
-                                    <tr style="border-style:dotted; border-width:0px 0px 1px 0px;">
-                                        <td colspan="2"></td>
-                                    </tr>
-                                    @endif
-                                    <!-- SHORT Questions -->
-                                    @foreach($paper->paperQuestions()->shorts()->get() as $paperQuestion)
+                                    @endif <!-- end mcqs -->
 
+
+                                    <!-- SHORT Questions -->
+                                    @if($paperQuestion->type_id==2)
                                     <tr>
-                                        <td class="text-left font-bold">Q.{{$questionNo++}} {{ $paperQuestion->question_title }}</td>
-                                        <td>marks</td>
+                                        <td class="text-left font-bold">Q.{{$QNo++}} {{ $paperQuestion->question_title }}</td>
+                                        <td>{{$paperQuestion->necessary_parts}}x2={{$paperQuestion->necessary_parts*2}}</td>
                                     </tr>
 
                                     <tr>
                                         <td colspan="2" class="text-left">
                                             <ol class="lower-roman ml-4">
-                                                @foreach($paperQuestion->paperQuestionParts as $part)
-                                                <li>{{$part->question->statement}}</li>
+                                                @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
+                                                <li>{{ $paperQuestionPart->question->statement }}</li>
                                                 @endforeach
                                             </ol>
                                         </td>
                                     </tr>
-                                    @endforeach
+
+                                    @endif <!-- end short -->
+
 
                                     <!-- LONG Question -->
-                                    @foreach($paper->paperQuestions()->longs()->get() as $paperQuestion)
+                                    @if($paperQuestion->type_id==3)
 
-                                    @if($paperQuestion->paperQuestionParts->count()==1)
+                                    @if($paperQuestion->display_style=='whole')
+
+                                    @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
+
+                                    @if($loop->first)
                                     <tr>
                                         <td class="text-left" colspan="2">
-
                                             <ul class="list-horizontal w-full font-bold">
-                                                <li style='width:90%'>Q.{{$questionNo}} {{$paperQuestion->paperQuestionParts->first()->question->statement}}</li>
-                                                <li class="w-4 text-right">{{$paperQuestion->paperQuestionParts->first()->marks}}</li>
+                                                <li style='width:90%'> Q.{{$QNo++}}</span> {{ $paperQuestionPart->question->statement }}</li>
+                                                <li class="w-4 text-right">{{ $paperQuestion->marks }}</li>
                                             </ul>
 
                                         </td>
                                     </tr>
+
                                     @else
                                     <tr>
-                                        <td class="text-left font-bold" colspan="2">Q.{{$paperQuestion->question_no}} Answer the following</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="text-left">
-                                            <ol class="lower-alpha ml-4">
-                                                @foreach($paperQuestion->paperQuestionParts as $part)
-                                                <li>
-                                                    <ul class="list-horizontal w-full">
-                                                        <li style='width:90%'>{{$part->question->statement}}</li>
-                                                        <li class="w-4 text-right">{{$part->marks}}</li>
-                                                    </ul>
-                                                </li>
-                                                @endforeach
-                                            </ol>
+                                        <td class="text-left" colspan="2">
+                                            <ul class="list-horizontal w-full">
+                                                <li class="w-4"></li>
+                                                <li style='width:90%'><span class="font-semibold">OR</span> {{ $paperQuestionPart->question->statement }}</li>
+                                                <li class="w-4 text-right"></li>
+                                            </ul>
 
                                         </td>
                                     </tr>
                                     @endif
+
+
                                     @endforeach
+
+                                    @endif <!-- end whole long -->
+                                    @endif <!-- end long questions -->
+
+                                    @endforeach <!-- end questions -->
+
                                 </tbody>
                             </table>
-                            @endif
+                            @endif <!-- end if paper has questions -->
 
                             </td>
                             @endfor

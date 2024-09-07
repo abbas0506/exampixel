@@ -92,11 +92,13 @@ $QNo=1;
                     <div class="head">
                         <div class="sr">Q.{{ $QNo++ }}</div>
                         <h2 class="flex-1">{{ $paperQuestion->question_title }}</h2>
-                        <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
-                        </form>
+                        <div class="action border border-green-200 rounded bg-green-50 mx-2">
+                            <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                            </form>
+                        </div>
                     </div>
                     <div class="body">
                         @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
@@ -132,17 +134,18 @@ $QNo=1;
                 @endif
 
                 <!-- Short Question -->
-                @if($paperQuestion->type_id == 2)
+                @if(@if($paperQuestion->type_id == 2))
                 <div class="question">
                     <div class="head">
                         <div class="sr">Q.{{ $QNo++ }}</div>
                         <h2 class="flex-1">{{ $paperQuestion->question_title }}</h2>
-                        <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
-                        </form>
-
+                        <div class="action border border-green-200 rounded bg-green-50 mx-2">
+                            <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                            </form>
+                        </div>
                     </div>
                     <div class="body">
                         @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
@@ -154,74 +157,155 @@ $QNo=1;
                             </div>
                         </div>
                         @endforeach
+                        <div class="text-left">
+                            <ul class="list-horizontal w-full">
+                                <li class="w-4"></li>
+                                <li style='width:90%'><span class="font-semibold">OR</span> {{ $paperQuestionPart->question->statement }}</li>
+                                <li class="w-4 text-right"></li>
+                            </ul>
+
+                        </div>
                     </div>
                 </div>
                 @endif <!--end short -->
 
-                <!-- Long Questions -->
-                @if($paperQuestion->type_id == 3)
 
-                @if($paperQuestion->display_style=='whole')
+                <!-- subjective questions -->
 
+                @if($paperQuestion->display_style=='vertical')
+
+                <div class="flex items-center">
+                    <div class="w-12">Q. {{ $QNo++ }}</div>
+                    <h2 class="flex-1 text-left">{{ $paperQuestion->question_title }}</h2>
+                    <div class="action border border-green-200 rounded bg-green-50 mx-2">
+                        <!-- <a modal-id='{{$paperQuestion->id}}' class="show-modal text-cyan-600"><i class="bx bx-pencil"></i></a>
+                            <a href=""><i class="bi-arrow-repeat"></i></a> -->
+                        <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                        </form>
+                    </div>
+                </div>
+
+                @php $i=1; @endphp
                 @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
-                <div class="flex items-center w-full">
+
+                <div class="flex items-center">
+                    <div class="w-12">{{Str::lower($roman->lowercase($i++))}}</div>
+                    <div class="flex-1 text-left">{{$paperQuestionPart->question->statement}}</div>
+                    <div class="flex items-center space-x-3">
+                        <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-cyan-600"></i></a>
+                        <!-- <form id='formDel{{$paperQuestionPart->id}}' action="" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"><i class="bx bx-x text-red-600 confirm-del"></i></button>
+                        </form> -->
+                    </div>
+                </div>
+                @endforeach
+
+
+                @elseif($paperQuestion->display_style=='horizontal')
+                <div class="flex items-center">
+                    <div class="w-12">Q. {{ $QNo++ }}</div>
+                    <div class="flex-1 text-left">{{ $paperQuestion->question_title }}</div>
+                </div>
+
+                @php $i=1; @endphp
+                <div class="flex flex-wrap items-center gap-x-8 gapy-3">
+                    @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
+                    <div class="w-12">{{Str::lower($roman->lowercase($i++))}}</div>
+                    <div class="text-left">{{$paperQuestionPart->question->statement}}</div>
+                    <!-- <div class="flex items-center space-x-3">
+                    <a href="#"><i class="bi-arrow-repeat text-cyan-600"></i></a>
+                    <form id='formDel{{$paperQuestionPart->id}}' action="" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"><i class="bx bx-x text-red-600 confirm-del"></i></button>
+                    </form>
+                </div> -->
+
+                    @endforeach
+                </div>
+
+                @elseif($paperQuestion->display_style=='whole')
+                <div class="flex items-center flex-wrap">
+
+                    @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
+                    <div class="flex items-center w-full">
+                        @if($loop->first)
+                        <div class="w-12">Q. {{ $QNo++ }}</div>
+                        <div class="flex-1 text-left">{{ $paperQuestionPart->question->statement }}</div>
+                        <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}" class="ml-2"><i class="bi-arrow-repeat text-cyan-600"></i></a>
+
+                        @else
+                        <div class="w-12"></div>
+                        <div class="flex-1 text-left "> <span class="font-semibold">OR</span> &nbsp {{ $paperQuestionPart->question->statement }}</div>
+                        <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}" class="ml-2"><i class="bi-arrow-repeat text-cyan-600"></i></a>
+                        @endif
+                    </div>
+
+                    @endforeach
+                    <div class="flex items-center mt-2">
+                        <div class="w-12"></div>
+                        <a href="{{ route('teacher.paperQuestions.alternativeLongs.create', $paperQuestion) }}" class="btn-blue text-xs w-16">+ OR</a>
+                    </div>
+
+                </div>
+
+                @elseif($paperQuestion->display_style=='partial')
+                <div class="flex items-center flex-wrap">
+                    <div>Q. {{ $QNo++ }} {{ $paperQuestion->statement }}</div>
+                    @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
+                    <div class="flex items-center w-full">
+                        @if($loop->first)
+                        <div class="w-12"></div>
+                        <div class="flex-1 text-left">{{ $paperQuestionPart->question->statement }}</div>
+                        <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}" class="ml-2"><i class="bi-arrow-repeat text-cyan-600"></i></a>
+
+                        @else
+                        <div class="w-12"></div>
+                        <div class="flex-1 text-left "> <span class="font-semibold">OR</span> &nbsp {{ $paperQuestionPart->question->statement }}</div>
+                        <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}" class="ml-2"><i class="bi-arrow-repeat text-cyan-600"></i></a>
+                        @endif
+                    </div>
+
+                    @endforeach
+                    <div class="flex items-center mt-2">
+                        <div class="w-12"></div>
+                        <a href="{{ route('teacher.paperQuestions.alternativeLongs.create', $paperQuestion) }}" class="btn-blue text-xs w-16">+ OR</a>
+                    </div>
+
+                </div>
+
+
+
+                @else
+                <!-- Or alternatives -->
+                @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
+                <div class="flex items-center">
                     @if($loop->first)
                     <div class="w-12">Q. {{ $QNo++ }}</div>
-                    <div class="flex-1 text-left">{{ $paperQuestionPart->question->statement }}</div>
-                    <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}" class="ml-2"><i class="bi-arrow-repeat text-cyan-600"></i></a>
-                    <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
-                    </form>
+                    <div class="text-left"> {{ $paperQuestionPart->question->statement }}</div>
+                    <div class="ml-2">OR</div>
+                    @elseif($loop->last)
+                    <div class="w-12"></div>
+                    <div class="text-left"> {{ $paperQuestionPart->question->statement }}</div>
                     @else
                     <div class="w-12"></div>
-                    <div class="flex-1 text-left "><span class="font-semibold">OR</span> &nbsp {{ $paperQuestionPart->question->statement }}</div>
-                    <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}" class="ml-2"><i class="bi-arrow-repeat text-cyan-600"></i></a>
+                    <div class="text-left"> {{ $paperQuestionPart->question->statement }}</div>
+                    <div class="ml-2">OR</div>
                     @endif
                 </div>
+                @endforeach
+                @endif
 
-                @endforeach <!-- end iterating whole question/alternatives -->
-                <div class="flex items-center mt-2">
-                    <div class="w-12"></div>
-                    <a href="{{ route('teacher.paperQuestions.alternativeLongs.create', $paperQuestion) }}" class="btn-blue text-xs">OR</a>
-                </div>
+                @endif
 
-                @endif <!-- end whole -->
-
-                <!-- Partial Question Starts -->
-                @if($paperQuestion->display_style=='partial')
-
-                @php
-                $alphabets=range('a','z');
-                @endphp
-
-                @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
-                <div class="flex items-center w-full">
-                    <div class="w-12">@if($loop->first) Q. {{ $QNo++ }} @endif</div>
-                    <div class="flex-1 text-left">{{ $alphabets[$loop->index] }}). {{ $paperQuestionPart->question->statement }}</div>
-                    <a href="{{ route('teacher.paper-question-parts.refresh', $paperQuestionPart) }}" class="ml-2"><i class="bi-arrow-repeat text-cyan-600"></i></a>
-                    <form action="{{ route('teacher.paper.questions.destroy',[$paper, $paperQuestion]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
-                    </form>
-
-                </div>
-
-                @endforeach <!-- end iterating partial question/alternatives -->
-                <div class="flex items-center mt-2">
-                    <div class="w-12"></div>
-                    <a href="{{ route('teacher.paperQuestions.complementQuestions.create', $paperQuestion) }}" class="btn-blue text-xs">Other</a>
-                </div>
-
-                @endif <!-- end partial -->
-
-                @endif <!-- end longs -->
-                @endforeach <!-- end paper questions -->
+                @endforeach
             </div>
             @else
-
             <div class="divider my-3"></div>
             <div class="h-full flex flex-col justify-center items-center py-4 gap-3">
                 <i class="bi-emoji-smile text-4xl"></i>
@@ -231,7 +315,6 @@ $QNo=1;
         </div>
     </div>
     @endsection
-
     @section('script')
     <script type="module">
         $('document').ready(function() {

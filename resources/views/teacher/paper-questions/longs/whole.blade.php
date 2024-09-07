@@ -48,11 +48,11 @@
         <div class="flex flex-wrap items-center justify-between w-full mt-8 gap-y-4">
             <div class="flex items-center space-x-4 text-slate-600">
                 <p class="tab active">Whole Q.</p>
-                <a href="#" class="tab">Partial Q. (has parts)</a>
+                <a href="{{ route('teacher.papers.partialQuestions.create', $paper) }}" class="tab">Partial Q. (has parts)</a>
             </div>
         </div>
 
-        <form id='data-form' action="{{ route('teacher.papers.simple-longs.store', $paper) }}" method="post">
+        <form id='data-form' action="{{ route('teacher.papers.wholeQuestions.store', $paper) }}" method="post">
             @csrf
 
             <input type="hidden" id='book_id' value="{{ $paper->book->id }}">
@@ -60,12 +60,27 @@
             <input type="hidden" name="chapter_id" id='chapter_id' value="">
 
             <div class="flex flex-col md:flex-row md:items-center gap-8 bg-slate-100 border border-dashed rounded-lg p-5 mt-5">
-                <div class="flex flex-col md:w-1/3">
+                <div class="flex flex-col md:w-1/4">
                     <label>Importance Level</label>
                     <select name="frequency" id="" class="custom-input-borderless text-sm">
                         <option value="1">Normal</option>
                         <option value="2">High</option>
                         <option value="3">Very High</option>
+                    </select>
+                </div>
+                <div class="md:w-1/4" id='marks'>
+                    <label>Marks</label>
+                    <select name="marks" id="marks" class="custom-input-borderless text-sm">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
                     </select>
                 </div>
 
@@ -85,6 +100,7 @@
 
         <!-- Chapters List -->
         <div class="flex flex-col p-4 md:p-8">
+            <label class="text-teal-600 mb-3">Click on any chapter</label>
             @foreach($chapters->sortBy('chapter_no') as $chapter)
             <div data-val='{{$chapter->id}}' class="manual-form-submition text-sm even:bg-slate-100  text-slate-800 py-3 hover:cursor-pointer w-full text-left">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </div>
             @endforeach

@@ -32,6 +32,8 @@ use App\Http\Controllers\SelfTestController;
 use App\Http\Controllers\Operator\DashboardController as OperatorDashboardController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\Teacher\AccountController;
+use App\Http\Controllers\Teacher\AlternativeLongController;
+use App\Http\Controllers\Teacher\ComplementQuestionController;
 use App\Http\Controllers\Teacher\DashboardController as TeacherDashboardController;
 use App\Http\Controllers\Teacher\PaperController as TeacherPaperController;
 use App\Http\Controllers\Teacher\PaperKeyController;
@@ -41,7 +43,9 @@ use App\Http\Controllers\Teacher\PaperPdfController;
 use App\Http\Controllers\Teacher\PaperQuestionController as TeacherPaperQuestionController;
 use App\Http\Controllers\Teacher\PaperQuestionPartController;
 use App\Http\Controllers\Teacher\PaperShortController;
+use App\Http\Controllers\Teacher\PartialQuestionController;
 use App\Http\Controllers\Teacher\SimpleLongPaperQuestionController;
+use App\Http\Controllers\Teacher\WholeQuestionController;
 use App\Http\Middleware\CheckSessionExpiry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
@@ -130,7 +134,10 @@ Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['role:
     Route::resource('papers.shorts', PaperShortController::class);
     Route::resource('papers.longs', PaperLongController::class);
     Route::resource('paper.questions', TeacherPaperQuestionController::class);
-    Route::resource('papers.simple-longs', SimpleLongPaperQuestionController::class);
+    Route::resource('papers.wholeQuestions', WholeQuestionController::class);
+    Route::resource('papers.partialQuestions', PartialQuestionController::class);
+    Route::resource('paperQuestions.complementQuestions', ComplementQuestionController::class);
+    Route::resource('paperQuestions.alternativeLongs', AlternativeLongController::class);
 
     Route::resource('accounts', AccountController::class);
 

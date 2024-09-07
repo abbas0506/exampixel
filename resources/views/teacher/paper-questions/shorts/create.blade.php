@@ -69,7 +69,7 @@
             </div>
 
             <!-- Chapters List -->
-            <div class="p-4 md:p-8 h-[16rem] overflow-y-auto">
+            <div class="p-4 md:p-8">
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-16 text-left">
 
                     <div class="grid col-span-full text-sm">

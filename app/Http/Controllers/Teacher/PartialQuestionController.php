@@ -10,7 +10,7 @@ use App\Models\Question;
 use Exception;
 use Illuminate\Http\Request;
 
-class SimpleLongPaperQuestionController extends Controller
+class PartialQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,7 +29,7 @@ class SimpleLongPaperQuestionController extends Controller
         if (session('chapterIdsArray')) {
             $paper = Paper::find($id);
             $chapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
-            return view('teacher.paper-questions.longs.simple', compact('paper', 'chapters'));
+            return view('teacher.paper-questions.longs.partial', compact('paper', 'chapters'));
         } else {
             echo "Chapters not selected!";
         }
@@ -55,7 +55,7 @@ class SimpleLongPaperQuestionController extends Controller
                 'question_title' => '',
                 'frequency' => $request->frequency,
                 'choices' => 0,
-                'display_style' => 'whole'
+                'display_style' => 'partial'
             ]);
             //randomly select question parts from each chapter and save them
             $i = 0; //for iterating numOfparts
