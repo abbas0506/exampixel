@@ -156,8 +156,9 @@ $roman = config('global.romans');
                                     <tr>
                                         <td class="text-left" colspan="2">
                                             <ul class="list-horizontal w-full font-bold">
-                                                <li style='width:90%'> Q.{{$QNo++}}</span> {{ $paperQuestionPart->question->statement }}</li>
-                                                <li class="w-4 text-right">{{ $paperQuestion->marks }}</li>
+                                                <li class="w-8">Q.{{$QNo++}}</li>
+                                                <li style='width:90%'>{{ $paperQuestionPart->question->statement }}</li>
+                                                <li class="text-right">{{ $paperQuestion->marks }}</li>
                                             </ul>
 
                                         </td>
@@ -167,7 +168,7 @@ $roman = config('global.romans');
                                     <tr>
                                         <td class="text-left" colspan="2">
                                             <ul class="list-horizontal w-full">
-                                                <li class="w-4"></li>
+                                                <li class="w-8"></li>
                                                 <li style='width:90%'><span class="font-semibold">OR</span> {{ $paperQuestionPart->question->statement }}</li>
                                                 <li class="w-4 text-right"></li>
                                             </ul>
@@ -180,6 +181,33 @@ $roman = config('global.romans');
                                     @endforeach
 
                                     @endif <!-- end whole long -->
+
+                                    <!-- Partial starts -->
+                                    @if($paperQuestion->display_style=='partial')
+
+                                    @php
+                                    $alphabets=range('a','z');
+                                    @endphp
+
+                                    @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
+
+
+                                    <tr>
+                                        <td class="text-left" colspan="2">
+                                            <ul class="list-horizontal w-full font-bold">
+                                                <li class="w-8">@if($loop->first) Q. {{ $QNo++ }} @endif</li>
+                                                <li style='width:90%'>{{ $alphabets[$loop->index] }}). {{ $paperQuestionPart->question->statement }} </li>
+                                                <li class="text-right"></li>
+                                            </ul>
+
+                                        </td>
+                                    </tr>
+
+                                    @endforeach
+
+                                    @endif <!-- end partial  -->
+
+
                                     @endif <!-- end long questions -->
 
                                     @endforeach <!-- end questions -->
