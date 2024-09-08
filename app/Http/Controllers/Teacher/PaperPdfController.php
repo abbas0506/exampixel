@@ -45,40 +45,41 @@ class PaperPdfController extends Controller
         $paper = Paper::find($paperId);
         $fontSize = $request->font_size;
 
-        $pdf = PDF::loadView('teacher.pdf.preview', compact('paper', 'rows', 'columns', 'fontSize'))->setPaper($pageSize, $orientation);
-        $pdf->set_option("isPhpEnabled", true);
-        $file = "paper.pdf";
-        return $pdf->stream($file, ['Attachment' => 0]);
+        // $pdf = PDF::loadView('teacher.pdf.preview', compact('paper', 'rows', 'columns', 'fontSize'))->setPaper($pageSize, $orientation);
+        // $pdf->set_option("isPhpEnabled", true);
+        // $file = "paper.pdf";
+        // return $pdf->stream($file, ['Attachment' => 0]);
 
 
-        // $orientation = $request->orientation;
-        // $pageSize = $request->page_size;
-        // $rows = $request->rows;
-        // $columns = $request->cols;
-        // $test = Paper::find($paperId);
-        // $fontSize = $request->font_size;
+        $orientation = $request->orientation;
+        $pageSize = $request->page_size;
+        $rows = $request->rows;
+        $cols = $request->cols;
+        $test = Paper::find($paperId);
+        $fontSize = $request->font_size;
 
-        //     $data = view('pdf.latex', compact('paper', 'orientation', 'pageSize', 'cols', 'fontSize'))->render();
-        //     if (Storage::disk('local')->exists('paper.tex')) {
-        //         Storage::disk('local')->delete('paper.tex');
-        //     }
-        //     $file = Storage::disk('local')->put('paper.tex', $data);
-        //     try {
-        //         $res = Http::attach('file', $data, 'paper.tex')
-        //             ->post('http://16.171.40.228/latex-to-pdf');
-        //         if ($res->failed()) {
-        //             return $res->body();
-        //         }
-        //         $output = Storage::disk('local')->put('paper.pdf', $res->body());
-        //         return response()->file(storage_path('app/paper.pdf'));
-        //     } catch (\Exception $e) {
-        //         return $e->getMessage();
-        //     }
+            $data = view('teacher.pdf.latex4', compact('paper', 'orientation', 'pageSize', 'cols', 'fontSize','test'))->render();
+            if (Storage::disk('local')->exists('paper.tex')) {
+                Storage::disk('local')->delete('paper.tex');
+            }
+            $file = Storage::disk('local')->put('paper.tex', $data);
+            // return response()->file(storage_path('app/paper.tex'));
+            try {
+                $res = Http::attach('file', $data, 'paper.tex')
+                    ->post('http://16.171.40.228/latex-to-pdf');
+                if ($res->failed()) {
+                    return $res->body();
+                }
+                $output = Storage::disk('local')->put('paper.pdf', $res->body());
+                return response()->file(storage_path('app/paper.pdf'));
+            } catch (\Exception $e) {
+                return $e->getMessage();
+            }
 
-        //     $pdf = PDF::loadView('pdf.preview', compact('paper', 'rows', 'cols', 'fontSize'))->setPaper($pageSize, $orientation);
-        //     $pdf->set_option("isPhpEnabled", true);
-        //     $file = "paper.pdf";
-        //     return $pdf->stream($file);
+            $pdf = PDF::loadView('pdf.preview', compact('paper', 'rows', 'cols', 'fontSize'))->setPaper($pageSize, $orientation);
+            $pdf->set_option("isPhpEnabled", true);
+            $file = "paper.pdf";
+            return $pdf->stream($file);
     }
 
     /**

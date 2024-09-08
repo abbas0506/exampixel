@@ -17,6 +17,7 @@ class Helper
         $replacementAnd = '$1\\&$2';
         $text = preg_replace($patternForAnd, $replacementAnd, $text);
         $text = str_replace("%", "\%", $text);
+        $text = str_replace("both a & b", "both a \& b" , $text);
         return $text;
         // $text = str_replace("&","\&",$text);
         $pattern = "/([\x{0600}-\x{06FF}\x{0750}-\x{077F}\x{FB50}-\x{FDFF}\x{FE70}-\x{FEFF}]+)/u";
@@ -33,6 +34,7 @@ class Helper
     static function parseAnswer($text, bool $last = false)
     {
         $text = Helper::parseTex($text);
+        return $text;
         // $len = strlen($text);
         // if($len > 50){
         //     $cm = 10;

@@ -7,7 +7,7 @@
 \usepackage{amsmath}
 \usepackage{adjustbox}
 \usepackage{multicol}
-\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,{{$pageOrientation}},{{$pageSize}}paper]{geometry}
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,{{$orientation}},{{$pageSize}}paper]{geometry}
 \usepackage{polyglossia}
 \usepackage{fontspec}
 \usepackage{bidi}
