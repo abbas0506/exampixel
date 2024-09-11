@@ -13,11 +13,15 @@ class Helper
                 return '\\_';
             }
         }, $text);
-        $patternForAnd = '/(\b\w{2,}+)\s*&\s*(\w{2,}+\b)/';
+        $patternForAnd = '/(\b\w{2,}+)\s*&\s*(\w{2,}+\b)/';    
         $replacementAnd = '$1\\&$2';
         $text = preg_replace($patternForAnd, $replacementAnd, $text);
-        $text = str_replace("%", "\%", $text);
+        // $text = str_replace("%", "\%", $text);
         $text = str_replace("both a & b", "both a \& b" , $text);
+        $text = strlen(trim($text)) == 2 && $text == '&&' ? '\&\&' : $text;
+        $text = strlen(trim($text)) == 1 && $text == '#' ? '\#' : $text;
+        $text = strlen(trim($text)) == 1 && $text == '%' ? '\%' : $text;
+        $text = strlen(trim($text)) == 1 && $text == "\\" ? "\\textbackslash" : $text;
         return $text;
         // $text = str_replace("&","\&",$text);
         $pattern = "/([\x{0600}-\x{06FF}\x{0750}-\x{077F}\x{FB50}-\x{FDFF}\x{FE70}-\x{FEFF}]+)/u";

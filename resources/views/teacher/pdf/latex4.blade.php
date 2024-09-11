@@ -1,4 +1,4 @@
-\documentclass[addpoints,8pt]{exam}
+\documentclass{exam}
 \renewcommand{\thepartno}{\roman{partno}}
 \renewcommand{\choicelabel}{\alph{choice})}
 {{-- \qformat{\question \dotfill \thepoints} --}}
@@ -12,8 +12,10 @@
 \usepackage{fontspec}
 \usepackage{bidi}
 \setmainlanguage{english}
+{{-- @if ($test->book->subject->text_direction == 'R') --}}
 \setotherlanguage{urdu}
 \setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
+{{-- @endif --}}
 {{-- \setmainfont{Jameel Noori Nastaleeq.ttf}[Path=D:/] --}}
 \begin{document}
 {{-- \newcommand{\numRows}{3} % Number of rows
