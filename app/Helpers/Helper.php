@@ -22,6 +22,8 @@ class Helper
         $text = strlen(trim($text)) == 1 && $text == '#' ? '\#' : $text;
         $text = strlen(trim($text)) == 1 && $text == '%' ? '\%' : $text;
         $text = strlen(trim($text)) == 1 && $text == "\\" ? "\\textbackslash" : $text;
+        $text = str_replace('\\\\', '\\textbackslash\\textbackslash', $text);
+
         return $text;
         // $text = str_replace("&","\&",$text);
         $pattern = "/([\x{0600}-\x{06FF}\x{0750}-\x{077F}\x{FB50}-\x{FDFF}\x{FE70}-\x{FEFF}]+)/u";

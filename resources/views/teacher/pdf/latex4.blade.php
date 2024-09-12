@@ -1,13 +1,12 @@
 \documentclass{exam}
 \renewcommand{\thepartno}{\roman{partno}}
 \renewcommand{\choicelabel}{\alph{choice})}
-{{-- \qformat{\question \dotfill \thepoints} --}}
-{{-- \renewcommand\partshook{\hspace{2em}} --}}
+\usepackage[{{ $fontSize }}pt]{extsizes}
 \usepackage{amsfonts}
 \usepackage{mathrsfs}
 \usepackage{amsmath}
 \usepackage{adjustbox}
-\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,{{ $orientation }},{{ $pageSize }}paper]{geometry}
+\usepackage[left=0.5cm,right=0.5cm,top=0.5cm,bottom=0.5cm,{{ $orientation }},{{ $pageSize }}paper]{geometry}
 \usepackage{polyglossia}
 \usepackage{fontspec}
 \usepackage{bidi}
@@ -16,13 +15,7 @@
 \setotherlanguage{urdu}
 \setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
 {{-- @endif --}}
-{{-- \setmainfont{Jameel Noori Nastaleeq.ttf}[Path=D:/] --}}
-\begin{document}
-{{-- \newcommand{\numRows}{3} % Number of rows
-\newcommand{\numCols}{4} % Number of columns --}}
-{{-- \begin{tabular}{|*{\numCols}{c|}} --}}
-{{-- @for ($i = 1; $i <= 3; $i++)
-    @for ($j = 1; $j <= 4; $j++) --}}
+\newcommand{\cellcontent}{
 \begin{center} \large{\uppercase{GHSS Chak Bedi, Pakpattan}}\\ \small {{ $test->paper_date->format('d/m/Y') }}
 \end{center} Subject :{{ $test->book->name }} \hfill Roll \# : \_\_\_\_\_\_\_\_\_ \hfill Name: \_\_\_\_\_\_\_\_\_\_\_
 \vspace{2mm} \hrule \vspace{2mm} Marks : {{ 100 }} \hfill Time : {{ '02 hours' }} \vspace{2mm}
@@ -107,16 +100,14 @@
         @endif
     @endif
 @endforeach
-{{-- @foreach ($test->paperQuestions()->long()->get() as $paperQuestion)
-    
-@endforeach --}}
 \end{questions}
-{{-- @if ($j < 4)
-    &
-@else
-    \\
+}
+\begin{document}
+@if ($rows == 1)
+    \cellcontent
+@elseif($rows == 2)
+    \cellcontent \dotfill \cellcontent
+@elseif($rows == 3)
+    \cellcontent \dotfill \cellcontent \dotfill \cellcontent
 @endif
-@endfor
-@endfor --}}
-{{-- \end{tabular} --}}
 \end{document}

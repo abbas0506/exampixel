@@ -57,28 +57,39 @@ class PaperPdfController extends Controller
         $cols = $request->cols;
         $test = Paper::find($paperId);
         $fontSize = $request->font_size;
+        if($fontSize === 'text-xxs'){
+            $fontSize = 8;
+        }else if($fontSize === 'text-xs'){
+            $fontSize = 10;
+        }else if($fontSize === 'text-sm'){
+            $fontSize = 12;
+        }else if($fontSize === 'text-base'){
+            $fontSize = 14;
+        }else {
+            $fontSize = 16;
+        }
 
-            $data = view('teacher.pdf.latex4', compact('paper', 'orientation', 'pageSize', 'cols', 'fontSize','test'))->render();
-            // store the latex file
-            Storage::disk('local')->put('paper.tex', $data);
-            try {
-                $res =  Http::timeout(8)->attach('file', $data, 'paper.tex')
-                    ->post('http://16.171.40.228/latex-to-pdf');
-                if($res->failed() && auth()->user()->email === 'mazeemrehan@gmail.com'){
-                    return response()->file(storage_path('app/paper.tex'));
-                }
-                if ($res->failed()) {
-                    return $res->body();
-                }
-                Storage::disk('local')->delete('paper.pdf');
-                $output = Storage::disk('local')->put('paper.pdf', $res->body());
-                return response()->file(storage_path('app/paper.pdf'));
-            } catch (\Exception $e) {
-                if(auth()->user()->email === 'mazeemrehan@gmail.com'){
-                    return response()->file(storage_path('app/paper.tex'));
-                }
-                return $e->getMessage();
+        $data = view('teacher.pdf.latex4', compact('paper', 'orientation', 'pageSize', 'cols', 'fontSize','test','rows'))->render();
+        // store the latex file
+        Storage::disk('local')->put('paper.tex', $data);
+        try {
+            $res =  Http::timeout(8)->attach('file', $data, 'paper.tex')
+                ->post('http://16.171.40.228/latex-to-pdf');
+            if($res->failed() && auth()->user()->email === 'mazeemrehan@gmail.com'){
+                return response()->file(storage_path('app/paper.tex'));
             }
+            if ($res->failed()) {
+                return $res->body();
+            }
+            Storage::disk('local')->delete('paper.pdf');
+            $output = Storage::disk('local')->put('paper.pdf', $res->body());
+            return response()->file(storage_path('app/paper.pdf'));
+        } catch (\Exception $e) {
+            if(auth()->user()->email === 'mazeemrehan@gmail.com'){
+                return response()->file(storage_path('app/paper.tex'));
+            }
+            return $e->getMessage();
+        }
     }
 
     /**
