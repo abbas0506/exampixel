@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('titl', 'Exampixel - An art for educators')</title>
+    <title>@yield('title', 'Exampixel - An art for educators')</title>
     <link rel="icon" href="{{ asset('/images/logo/logo-light.png') }}">
     <!-- Fonts -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -37,14 +37,35 @@
     {{-- og tags for social media --}}
     <meta property="og:title" content="Exampixel - An art for educators">
     <meta property="og:description" content="Exampixel is build for the educators and students">
-    <meta property="og:image" content="{{ asset('/images/logo/logo-light.png') }}">
+    <meta property="og:image" content="@yield('ogimage', asset('/images/logo/logo-light.png'))">
     <meta property="og:url" content="{{ Request::url() }}">
     <meta property="og:site_name" content="Exampixel">
     <meta property="og:type" content="website">
-
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TD8RFZQV');
+    </script>
+    <!-- End Google Tag Manager -->
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TD8RFZQV" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     @yield('header')
     @yield('sidebar')
