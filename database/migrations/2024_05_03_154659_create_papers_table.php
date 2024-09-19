@@ -19,12 +19,8 @@ return new class extends Migration
             $table->string('institution', 300)->nullable();
             $table->date('paper_date');
             $table->unsignedTinyInteger('duration')->default(0); //in munites
+            $table->boolean('is_printed')->default(0); //in munites
 
-            $table->unsignedTinyInteger('font_size')->default(12);
-            $table->string('page_size', 10)->default('a4');
-            $table->string('page_layout', 10)->default('portrait');
-            $table->unsignedTinyInteger('page_rows')->default(1);
-            $table->unsignedTinyInteger('page_cols')->default(1);
             $table->timestamps();
         });
     }

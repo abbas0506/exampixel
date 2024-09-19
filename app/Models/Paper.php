@@ -14,11 +14,7 @@ class Paper extends Model
         'title',
         'institution',
         'paper_date',
-        'font_size',
-        'page_size',
-        'page_layout',
-        'page_rows',
-        'page_cols',
+        'is_printed',
     ];
 
     protected $casts = [
