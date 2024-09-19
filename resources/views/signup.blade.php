@@ -9,14 +9,16 @@
         <h2 class="text-4xl font-bold">NEW USER</h2>
         <label for="">https://wwww.exampixel.com</label>
 
-        <!-- page message -->
-        @if($errors->any())
-        <x-message :errors='$errors'></x-message>
-        @else
-        <x-message></x-message>
-        @endif
         <form action="{{url('signup')}}" method="post" class="w-full mt-8">
             @csrf
+
+            <!-- page message -->
+            @if($errors->any())
+            <x-message :errors='$errors'></x-message>
+            @else
+            <x-message></x-message>
+            @endif
+
             <div class="flex flex-col w-full items-start">
                 <div class="flex items-center w-full relative">
                     <i class="bi bi-person absolute left-2 text-slate-600"></i>
