@@ -31,22 +31,22 @@ use App\Http\Controllers\Operator\GradeBookController;
 use App\Http\Controllers\SelfTestController;
 use App\Http\Controllers\Operator\DashboardController as OperatorDashboardController;
 use App\Http\Controllers\PdfController;
-use App\Http\Controllers\Teacher\AccountController;
-use App\Http\Controllers\Teacher\AlternativeLongController;
-use App\Http\Controllers\Teacher\ComplementQuestionController;
-use App\Http\Controllers\Teacher\DashboardController as TeacherDashboardController;
-use App\Http\Controllers\Teacher\PaperController as TeacherPaperController;
-use App\Http\Controllers\Teacher\PaperKeyController;
-use App\Http\Controllers\Teacher\PaperLongController;
-use App\Http\Controllers\Teacher\PaperMcqController;
-use App\Http\Controllers\Teacher\PaperPdfController;
-use App\Http\Controllers\Teacher\PaperQuestionController as TeacherPaperQuestionController;
-use App\Http\Controllers\Teacher\PaperQuestionPartController;
-use App\Http\Controllers\Teacher\PaperShortController;
-use App\Http\Controllers\Teacher\PartialQuestionController;
-use App\Http\Controllers\Teacher\ProfileController;
-use App\Http\Controllers\Teacher\SimpleLongPaperQuestionController;
-use App\Http\Controllers\Teacher\WholeQuestionController;
+use App\Http\Controllers\User\AccountController;
+use App\Http\Controllers\User\AlternativeLongController;
+use App\Http\Controllers\User\ComplementQuestionController;
+use App\Http\Controllers\User\DashboardController as TeacherDashboardController;
+use App\Http\Controllers\User\PaperController as TeacherPaperController;
+use App\Http\Controllers\User\PaperKeyController;
+use App\Http\Controllers\User\PaperLongController;
+use App\Http\Controllers\User\PaperMcqController;
+use App\Http\Controllers\User\PaperPdfController;
+use App\Http\Controllers\User\PaperQuestionController as UserPaperQuestionController;
+use App\Http\Controllers\User\PaperQuestionPartController;
+use App\Http\Controllers\User\PaperShortController;
+use App\Http\Controllers\User\PartialQuestionController;
+use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\SimpleLongPaperQuestionController;
+use App\Http\Controllers\User\WholeQuestionController;
 use App\Http\Middleware\CheckSessionExpiry;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +68,9 @@ Route::view('blogs', 'blogs');
 Route::view('login', 'login');
 Route::view('signup/me', 'signup');
 Route::view('signup/success', 'signup-success');
+
+Route::view('forgot', 'forgot');
+Route::post('forgot', [AuthController::class, 'forgot']);
 
 Route::get('login/as', function () {
     $year = date('Y');
@@ -128,14 +131,13 @@ Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['rol
 Route::post('/generate-pdf', 'PdfController@generatePDF');
 
 
-Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['role:teacher']], function () {
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']], function () {
     Route::get('/', [TeacherDashboardController::class, 'index']);
     Route::resource('papers', TeacherPaperController::class);
     Route::resource('papers.pdf', PaperPdfController::class);
     Route::resource('papers.mcqs', PaperMcqController::class);
     Route::resource('papers.shorts', PaperShortController::class);
-    Route::resource('papers.longs', PaperLongController::class);
-    Route::resource('paper.questions', TeacherPaperQuestionController::class);
+    Route::resource('paper.questions', UserPaperQuestionController::class);
     Route::resource('papers.wholeQuestions', WholeQuestionController::class);
     Route::resource('papers.partialQuestions', PartialQuestionController::class);
     Route::resource('paperQuestions.complementQuestions', ComplementQuestionController::class);

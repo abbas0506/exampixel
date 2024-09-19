@@ -45,19 +45,13 @@ class AuthController extends Controller
 
             ]);
 
-            $email = $request->email;
             // send password to given email for verification
+            $email = $request->email;
             Mail::raw('Password sent by exampixel.com : ' . $code, function ($message) use ($code, $email) {
                 $message->to($email);
-                $message->subject('Password sent by exampixel.com');
+                $message->subject('Signup on exampixel');
             });
 
-
-            // session([
-            //     'role' => 'teacher',
-            // ]);
-
-            // Auth::login($user);
             DB::commit();
 
             // go to related dashboard
@@ -189,6 +183,35 @@ class AuthController extends Controller
             return redirect()->back()
                 ->withErrors($e->getMessage());
             // something went wrong
+        }
+    }
+    public function  forgot(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        $email = $request->email;
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $code = Str::random(5);
+
+            $user->update([
+                'password' => Hash::make($code),
+            ]);
+
+            try {
+
+                Mail::raw('Password reset code', function ($message) use ($code, $email) {
+                    $message->to($email);
+                    $message->subject($code);
+                });
+
+                return redirect()->route('login')->with('success', 'Password sent to your email');
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        } else {
+            return redirect()->back()->with('warning', 'The email does not exist in record');
         }
     }
 }

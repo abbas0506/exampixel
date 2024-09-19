@@ -57,7 +57,7 @@ class UserController extends Controller
                 $user->assignRole($roleName);
                 $roles = array('collaborator', 'teacher');
                 if (in_array($roleName, $roles)) {
-                    $user->teacher()->create([
+                    $user->profile()->create([
                         'subject_id' => $request->subject_id,
                         'phone' => $request->phone,
                     ]);

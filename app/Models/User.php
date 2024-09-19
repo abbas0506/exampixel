@@ -51,13 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Institution::class);
     }
-    public function teacher()
-    {
-        return $this->hasOne(Teacher::class);
-    }
     public function profile()
     {
-        return $this->hasOne(Teacher::class, 'user_id');
+        return $this->hasOne(Profile::class, 'user_id');
     }
     public function papers()
     {

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class teacher extends Component
+class user extends Component
 {
     /**
      * Create a new component instance.
@@ -17,7 +17,6 @@ class teacher extends Component
         //
         $this->page = $page;
     }
-
 
     /**
      * Get the view / contents that represent the component.

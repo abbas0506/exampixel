@@ -35,11 +35,11 @@
         </form>
 
         <div class="text-center mt-6 text-slate-600 text-sm">
-            <a href="">Forgot Password?</a>
+            <a href="{{ url('forgot') }}" class="text-xs link">Forgot Password?</a>
         </div>
         <!-- </div> -->
         <div class="text-center text-xs">
-            Dont have an account?<a href="{{ url('signup/me') }}" class="font-bold ml-2  link">Signup</a>
+            Dont have an account?<a href="{{ url('signup/me') }}" class="font-bold ml-2 link">Signup</a>
         </div>
     </div>
 </div>

@@ -99,7 +99,7 @@ class PdfController extends Controller
         // } catch (\Exception $e) {
         //     return $e->getMessage();
         // }
-        // $pdf = PDF::loadView('teacher.papers.pdf.preview', compact('paper', 'rows', 'cols', 'fontSize'))->setPaper($pageSize, $pageOrientation);
+        // $pdf = PDF::loadView('user.papers.pdf.preview', compact('paper', 'rows', 'cols', 'fontSize'))->setPaper($pageSize, $pageOrientation);
         // $pdf->set_option("isPhpEnabled", true);
         // $file = "paper.pdf";
         // return $pdf->stream($file);

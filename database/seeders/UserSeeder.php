@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
 
         ]);
 
-        $user->assignRole(['admin', 'teacher']);
+        $user->assignRole(['admin', 'user']);
 
         $user = User::create([
             'name' => 'Azeem Rehan',
