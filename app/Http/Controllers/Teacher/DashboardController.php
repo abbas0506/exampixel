@@ -14,10 +14,10 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        $profileStatus = 60;
+        $profileStatus = 50;
         $user = Auth::user();
         if ($user->profile) {
-            if ($user->profile->subject_id) $profileStatus += 10;
+            if ($user->profile->subject_id) $profileStatus += 20;
             if ($user->profile->institution) $profileStatus += 10;
             if ($user->profile->logo) $profileStatus += 10;
             if ($user->profile->phone) $profileStatus += 10;
