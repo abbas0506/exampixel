@@ -35,7 +35,7 @@ class AuthController extends Controller
                 'password' => Hash::make($code),
             ]);
 
-            $user->assignRole('teacher');
+            $user->assignRole('user');
 
             $user->sales()->create([
                 'coins' => 500,
