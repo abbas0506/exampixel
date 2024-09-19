@@ -23,7 +23,7 @@
                     <input type="text" id="name" name="name" class="w-full custom-input px-8" placeholder="Your name">
                 </div>
                 <div class="flex items-center w-full relative">
-                    <i class="bi bi-envelope-at absolute left-2 text-slate-600"></i>
+                    <i class="bi bi-at absolute left-2 text-slate-600"></i>
                     <input type="text" id="email" name="email" class="w-full custom-input px-8" placeholder="Your email">
                 </div>
 
