@@ -206,7 +206,7 @@ class AuthController extends Controller
                     $message->subject($code);
                 });
 
-                return redirect()->route('login')->with('success', 'Password sent to your email');
+                return redirect('login')->with('success', 'Password sent to your email');
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
