@@ -201,9 +201,9 @@ class AuthController extends Controller
 
             try {
 
-                Mail::raw('Password reset code', function ($message) use ($code, $email) {
+                Mail::raw('Password has been reset by exampixel.com : ' . $code, function ($message) use ($email) {
                     $message->to($email);
-                    $message->subject($code);
+                    $message->subject('Password reset');
                 });
 
                 return redirect('login')->with('success', 'Password sent to your email');
