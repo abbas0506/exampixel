@@ -27,8 +27,6 @@ class AuthController extends Controller
         DB::beginTransaction();
         try {
 
-            $email = $request->email;
-            // $code = rand(1000, 9999);
             $code = Str::random(5);
 
             $user = User::create([
@@ -37,26 +35,27 @@ class AuthController extends Controller
                 'password' => Hash::make($code),
             ]);
 
+            $user->assignRole('teacher');
+
             $user->sales()->create([
-                'coins' => 200,
+                'coins' => 500,
                 'price' => 0,
                 'expiry_at' => now()->addDays(365),
                 'remarks' => 'Sign up bonus',
 
             ]);
 
+            $email = $request->email;
             // send password to given email for verification
             Mail::raw('Password sent by exampixel.com : ' . $code, function ($message) use ($code, $email) {
                 $message->to($email);
                 $message->subject('Password sent by exampixel.com');
             });
 
-            // $user->assignRole('teacher');
+
             // session([
             //     'role' => 'teacher',
             // ]);
-
-
 
             // Auth::login($user);
             DB::commit();
