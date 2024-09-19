@@ -43,7 +43,7 @@ class PaperQuestionController extends Controller
             'type_id' => 'required|numeric',
             'subtype_id' => 'nullable|numeric',
             'question_title' => 'nullable|max:100',
-            // 'display_style' => 'required',
+            // 'question_nature' => 'required',
             // 'exercise_ratio' => 'required|numeric',
             // 'conceptual_ratio' => 'required|numeric',
             'frequency' => 'required|numeric',
@@ -74,7 +74,7 @@ class PaperQuestionController extends Controller
             $paperQuestion = $paper->paperQuestions()->create([
                 'type_id' => $request->type_id,
                 'question_title' => $question_title,
-                'display_style' => $request->display_style ? $request->display_style : 'compact',
+                'question_nature' => $request->question_nature ? $request->question_nature : 'compact',
                 // 'exercise_ratio' => $request->exercise_ratio,
                 // 'conceptual_ratio' => $request->conceptual_ratio,
                 'frequency' => $request->frequency,

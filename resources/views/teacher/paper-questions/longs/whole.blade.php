@@ -56,7 +56,7 @@
             @csrf
 
             <input type="hidden" id='book_id' value="{{ $paper->book->id }}">
-            <input type="hidden" name="display_style" value="whole">
+            <input type="hidden" name="question_nature" value="whole">
             <input type="hidden" name="chapter_id" id='chapter_id' value="">
 
             <div class="flex flex-col md:flex-row md:items-center gap-8 bg-slate-100 border border-dashed rounded-lg p-5 mt-5">

@@ -43,4 +43,20 @@ class Paper extends Model
     {
         return $this->hasManyThrough(PaperQuestionPart::class, PaperQuestion::class);
     }
+
+    public function marks()
+    {
+        $marks = 0;
+        foreach ($this->paperQuestions as $paperQuestion) {
+            if ($paperQuestion->type_id == 1 || $paperQuestion->type_id == 2)
+                $marks += $paperQuestion->compulsoryParts() * $paperQuestion->type_id;
+
+            elseif ($paperQuestion->question_nature == 'whole')
+                $marks += $paperQuestion->paperQuestionParts->first()->marks;
+
+            elseif ($paperQuestion->question_nature == 'partial')
+                $marks += $paperQuestion->paperQuestionParts()->sum('marks');
+        }
+        return $marks;
+    }
 }

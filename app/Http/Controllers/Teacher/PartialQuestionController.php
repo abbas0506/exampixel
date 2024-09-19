@@ -55,7 +55,7 @@ class PartialQuestionController extends Controller
                 'question_title' => '',
                 'frequency' => $request->frequency,
                 'choices' => 0,
-                'display_style' => 'partial'
+                'question_nature' => 'partial'
             ]);
             //randomly select question parts from each chapter and save them
             $i = 0; //for iterating numOfparts
@@ -73,7 +73,7 @@ class PartialQuestionController extends Controller
             PaperQuestionPart::create([
                 'paper_question_id' => $paperQuestion->id,
                 'question_id' => $question->id,
-                'marks' => $question->marks,
+                'marks' => $request->marks,
             ]);
 
             // echo $question->id;

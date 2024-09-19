@@ -51,7 +51,7 @@ class ComplementQuestionController extends Controller
             $paperQuestion->paperQuestionParts()->create([
                 'paper_question_id' => $paperQuestion->id,
                 'question_id' => $question->id,
-                'marks' => $question->marks,
+                'marks' => $request->marks,
             ]);
 
             // echo $question->id;

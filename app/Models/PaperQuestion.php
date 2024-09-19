@@ -12,14 +12,15 @@ class PaperQuestion extends Model
         'paper_id',
         'type_id',
         'question_title',
-        'display_style',
+        'question_nature',
         'exercise_ratio',
         'conceptual_ratio',
         'frequency',
         'choices',
         'number_style',
         'display_cols',
-        'position'
+        'position',
+
     ];
 
     public function  paper()
@@ -46,5 +47,12 @@ class PaperQuestion extends Model
     public function scopeLongs($query)
     {
         return $query->where('type_id', 3);
+    }
+
+    public function compulsoryParts()
+    {
+        if ($this->type_id == 1 || $this->type_id == 2) //mcqs , short
+            return $this->paperQuestionParts->count() - $this->choices;
+        else return 0;
     }
 }

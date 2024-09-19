@@ -53,9 +53,9 @@ $activeBook=$paper->book;
                     @endif
 
                     @if($type->id>1)
-                    <div class="" id='display_style_cover'>
+                    <div class="" id='question_nature_cover'>
                         <label>Display Format</label>
-                        <select name="display_style" id="display_style" class="custom-input-borderless text-sm">
+                        <select name="question_nature" id="question_nature" class="custom-input-borderless text-sm">
                             <option value="compact">Compact Question</option>
                             <option value="vertical">Vertical List</option>
                             <option value="horizontal">Horizontal List </option>
@@ -71,7 +71,7 @@ $activeBook=$paper->book;
                     <!-- advanced options -->
                     <!-- <div class="">
                         <label>Exercise Ratio</label>
-                        <select name="exercise_ratio" id="display_style" class="custom-input-borderless text-sm">
+                        <select name="exercise_ratio" id="question_nature" class="custom-input-borderless text-sm">
                             <option value="0">0 %</option>
                             <option value="10">10 %</option>
                             <option value="20">20 %</option>

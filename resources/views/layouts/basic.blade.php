@@ -12,28 +12,21 @@
     <!-- Styles -->
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 
-    <!-- <script src="{{ asset('/fonts/bootstrap-icons/bootstrap-icons.min.css') }}"></script> -->
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-    <!-- <script src="{{ asset('js/jsqrcode-combined.min.js') }}"></script> -->
-    <script src="{{ asset('js/html5-qrcode.min.js') }}"></script>
+    <!-- <script src="{{ asset('js/html5-qrcode.min.js') }}"></script> -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/swiper.css') }}">
-    <style>
-        body {
-            /* font-family: Nunito, sans-serif; */
-            /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
-        }
-    </style>
+
     {{-- Meta Tags for SEO --}}
     <meta name="description" content="Exampixel is build for the educators and students">
     <meta name="keywords"
         content="Exampixel, Exam, Quiz, Test, Online Test, Online Exam, Online Quiz, Online Test Platform, Online Exam Platform, Online Quiz Platform, Online Test Software, Online Exam Software, Online Quiz Software, Online Test System, Online Exam System, Online Quiz System, Online Test Website, Online Exam Website, Online Quiz Website, Online Test Portal, Online Exam Portal, Online Quiz Portal, Online Test Builder, Online Exam Builder, Online Quiz Builder, Online Test Maker, Online Exam Maker, Online Quiz Maker, Online Test Creator, Online Exam Creator, Online Quiz Creator, Online Test Generator, Online Exam Generator, Online Quiz Generator, Online Test Management System, Online Exam Management System, Online Quiz Management System, Online Test Management Software, Online Exam Management Software, Online Quiz Management Software, Online Test Management Platform, Online Exam Management Platform, Online Quiz Management Platform">
+
     {{-- og tags for social media --}}
     <meta property="og:title" content="Exampixel - An art for educators">
     <meta property="og:description" content="Exampixel is build for the educators and students">
@@ -41,6 +34,7 @@
     <meta property="og:url" content="{{ Request::url() }}">
     <meta property="og:site_name" content="Exampixel">
     <meta property="og:type" content="website">
+
     <!-- Google Tag Manager -->
     <script>
         (function(w, d, s, l, i) {

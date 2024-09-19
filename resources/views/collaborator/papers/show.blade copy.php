@@ -98,9 +98,9 @@ $i=0;
                                         </select>
                                     </div>
                                     @endif
-                                    <div class="" id='display_style_cover'>
+                                    <div class="" id='question_nature_cover'>
                                         <label>Display Format</label>
-                                        <select name="display_style" id="display_style" class="custom-input-borderless text-sm">
+                                        <select name="question_nature" id="question_nature" class="custom-input-borderless text-sm">
                                             <option value="compact">Compact Question</option>
                                             <option value="vertical">Vertical List</option>
                                             <option value="horizontal">Horizontal List </option>
@@ -113,7 +113,7 @@ $i=0;
                                     </div>
                                     <div class="">
                                         <label>Exercise Ratio</label>
-                                        <select name="exercise_ratio" id="display_style" class="custom-input-borderless text-sm">
+                                        <select name="exercise_ratio" id="question_nature" class="custom-input-borderless text-sm">
                                             <option value="0">0 %</option>
                                             <option value="10">10 %</option>
                                             <option value="20">20 %</option>
@@ -247,7 +247,7 @@ $i=0;
             @else
             <!-- subjective questions -->
 
-            @if($paperQuestion->display_style=='vertical')
+            @if($paperQuestion->question_nature=='vertical')
 
             <div class="flex items-center">
                 <div class="w-12">Q. {{ $questionSr++ }}</div>
@@ -270,7 +270,7 @@ $i=0;
                 </div>
             </div>
             @endforeach
-            @elseif($paperQuestion->display_style=='horizontal')
+            @elseif($paperQuestion->question_nature=='horizontal')
             <div class="flex items-center">
                 <div class="w-12">Q. {{ $questionSr++ }}</div>
                 <div class="flex-1 text-left">{{ $paperQuestion->question_title }}</div>
@@ -292,7 +292,7 @@ $i=0;
 
                 @endforeach
             </div>
-            @elseif($paperQuestion->display_style=='compact')
+            @elseif($paperQuestion->question_nature=='compact')
             <div class="flex items-center">
                 <div class="w-12">Q. {{ $questionSr++ }}</div>
                 <div class="flex-1 text-left">{{ $paperQuestion->paperQuestionParts->first()->question->statement }}</div>
@@ -332,20 +332,20 @@ $i=0;
 
                 // initialize controls
                 if ($('#type_id').val() == 1) {
-                    $('#display_style_cover').hide();
+                    $('#question_nature_cover').hide();
                     $('#marks_cover').hide();
                 }
 
                 $('#type_id').change(function() {
                     // objetive selected
                     if ($(this).val() == 1) {
-                        $('#display_style_cover').hide();
+                        $('#question_nature_cover').hide();
                         $('#marks_cover').hide();
                         $('.questionable').hide()
                         $('#mcqCover').show()
                         $('')
                     } else {
-                        $('#display_style_cover').show();
+                        $('#question_nature_cover').show();
                         $('#marks_cover').show();
                         $('#mcqCover').hide()
                     }

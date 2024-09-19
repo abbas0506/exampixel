@@ -11,24 +11,13 @@
 <div class="responsive-container">
     <div class="container">
         <div class="flex flex-row justify-between items-center">
-            <div class="bread-crumb">
+            <div class="bread-crumb mt-2">
                 <div>Dashboard</div>
                 <i class="bx bx-chevron-right"></i>
                 <i class="bi-house"></i>
             </div>
-            <div class="flex items-center gap-3">
-                <div class="w-48">
-                    <div class="flex justify-between items-center my-1">
-                        <label class="">Profile Status</label>
-                        <a href="#" class="link text-xs">Complete Now</a>
-                    </div>
-                    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-                        <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style="width: 50%"> 50%</div>
-                    </div>
-                </div>
 
-            </div>
-            <!-- <div class="md:hidden text-slate-500">Welcome back!</div> -->
+
         </div>
 
         <!-- page message -->
@@ -39,7 +28,7 @@
         @endif
 
         <!-- pallets -->
-        <div class="mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
             <a href="" class="flex items-center pallet-box">
                 <div class="flex flex-1 items-center space-x-3">
                     <div>
@@ -55,14 +44,30 @@
                     {{ Auth::user()->coins() }}
                 </div>
             </a>
+
+            <a href="{{ route('teacher.profiles.edit', Auth::user()) }}" class="flex items-center pallet-box">
+                <div class="flex flex-1 items-center space-x-3">
+                    <div>
+                        <i class="bx bx-user text-2xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-slate-600">Profile Status</h2>
+                        <label>{{ $profileStatus }} % complete </label>
+                    </div>
+
+                </div>
+                <div class="w-16 h-16">
+                    <canvas id="profileStatusChart"></canvas>
+                </div>
+            </a>
         </div>
 
 
-        <div class="p-4 bg-white mt-6 w-full">
+        <div class="bg-white mt-6 w-full">
             @if(Auth::user()->papers->count()>0)
             <h2>Recent papers </h2>
             <div class="overflow-x-auto w-full mt-3">
-                <table class="table-fixed sm">
+                <table class="table-fixed w-full sm">
                     <thead>
                         <tr>
                             <th class="w-16">Sr</th>
@@ -102,24 +107,26 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-    function confirmDel(event) {
-        event.preventDefault(); // prevent form submit
-        var form = event.target; // storing the form
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                form.submit();
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('profileStatusChart').getContext('2d');
+        const profileStatusChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                // labels: ['Red', 'Blue', 'Yellow'],
+                datasets: [{
+                    // label: 'My Dataset',
+                    data: @json($data['values']),
+                    backgroundColor: ['teal', 'lightgray'],
+                    borderColor: ['teal', 'gray'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '60%'
             }
-        })
-    }
+        });
+    });
 </script>
 
 @endsection

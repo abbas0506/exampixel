@@ -11,6 +11,7 @@ class PaperQuestionPart extends Model
     protected $fillable = [
         'paper_question_id',
         'question_id',
+        'marks', //individual marks for partial long
     ];
 
     public function paperQuestion()

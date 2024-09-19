@@ -22,92 +22,92 @@
 \hrule \vspace{1mm}
 \begin{questions}
 @foreach ($test->paperQuestions as $paperQuestion)
-    @if ($paperQuestion->type_id == 1)
-        \question{ {{ $paperQuestion->question_title }} \dotfill {{ $paperQuestion->paperQuestionParts->count() }}
-        marks}
-        \begin{parts}
-        @foreach ($paperQuestion->paperQuestionParts as $part)
-            @if (Helper::hasUrdu($part->question->statement))
-                \begin{RTL}
-            @endif
-            \part
-            {!! Helper::parseTex($part->question->statement, true) !!}\\
-            \begin{oneparchoices}
-            \choice {!! Helper::parseAnswer($part->question->mcq->choice_a) !!}
-            \choice {!! Helper::parseAnswer($part->question->mcq->choice_b) !!}
-            \choice {!! Helper::parseAnswer($part->question->mcq->choice_c) !!}
-            \choice {!! Helper::parseAnswer($part->question->mcq->choice_d, true) !!}
-            \end{oneparchoices}
-            @if (Helper::hasUrdu($part->question->statement))
-                \end{RTL}
-            @endif
-        @endforeach
-        \end{parts}
-    @endif
-    @if ($paperQuestion->type_id == 2)
-        \question{ {{ $paperQuestion->question_title }} \dotfill
-        ({{ $paperQuestion->necessary_parts }}x2={{ $paperQuestion->necessary_parts * 2 }}) marks }
+@if ($paperQuestion->type_id == 1)
+\question{ {{ $paperQuestion->question_title }} \dotfill {{ $paperQuestion->paperQuestionParts->count() }}
+marks}
+\begin{parts}
+@foreach ($paperQuestion->paperQuestionParts as $part)
+@if (Helper::hasUrdu($part->question->statement))
+\begin{RTL}
+@endif
+\part
+{!! Helper::parseTex($part->question->statement, true) !!}\\
+\begin{oneparchoices}
+\choice {!! Helper::parseAnswer($part->question->mcq->choice_a) !!}
+\choice {!! Helper::parseAnswer($part->question->mcq->choice_b) !!}
+\choice {!! Helper::parseAnswer($part->question->mcq->choice_c) !!}
+\choice {!! Helper::parseAnswer($part->question->mcq->choice_d, true) !!}
+\end{oneparchoices}
+@if (Helper::hasUrdu($part->question->statement))
+\end{RTL}
+@endif
+@endforeach
+\end{parts}
+@endif
+@if ($paperQuestion->type_id == 2)
+\question{ {{ $paperQuestion->question_title }} \dotfill
+({{ $paperQuestion->necessary_parts }}x2={{ $paperQuestion->necessary_parts * 2 }}) marks }
 
-        \begin{parts}
-        @foreach ($paperQuestion->paperQuestionParts as $part)
-            @if (Helper::hasUrdu($part->question->statement))
-                \begin{RTL}
-            @endif
-            \part
-            {!! Helper::parseTex($part->question->statement) !!}
-            @if (Helper::hasUrdu($part->question->statement))
-                \end{RTL}
-            @endif
-        @endforeach
-        \end{parts}
+\begin{parts}
+@foreach ($paperQuestion->paperQuestionParts as $part)
+@if (Helper::hasUrdu($part->question->statement))
+\begin{RTL}
+@endif
+\part
+{!! Helper::parseTex($part->question->statement) !!}
+@if (Helper::hasUrdu($part->question->statement))
+\end{RTL}
+@endif
+@endforeach
+\end{parts}
 
-        \hspace{0.5mm}
-    @endif
-    @if ($paperQuestion->type_id == 3)
-        @if ($paperQuestion->display_style == 'whole')
-            \question{
-            {{-- \begin{parts} --}}
-            @foreach ($paperQuestion->paperQuestionParts as $part)
-                @if (Helper::hasUrdu($part->question->statement))
-                    \begin{RTL}
-                @endif
-                {{-- \part --}}
-                @if (!$loop->first)
-                    \textbf{OR}
-                @endif
-                {!! Helper::parseTex($part->question->statement) !!}
-                @if (Helper::hasUrdu($part->question->statement))
-                    \end{RTL}
-                @endif
-            @endforeach
-            }
+\hspace{0.5mm}
+@endif
+@if ($paperQuestion->type_id == 3)
+@if ($paperQuestion->question_nature == 'whole')
+\question{
+{{-- \begin{parts} --}}
+@foreach ($paperQuestion->paperQuestionParts as $part)
+@if (Helper::hasUrdu($part->question->statement))
+\begin{RTL}
+@endif
+{{-- \part --}}
+@if (!$loop->first)
+\textbf{OR}
+@endif
+{!! Helper::parseTex($part->question->statement) !!}
+@if (Helper::hasUrdu($part->question->statement))
+\end{RTL}
+@endif
+@endforeach
+}
 
-            {{-- \end{parts} --}}
-        @elseif ($paperQuestion->display_style == 'partial')
-            \titledquestion{Answer the Questions. \dotfill}
-            \begin{parts}
-            @foreach ($paperQuestion->paperQuestionParts as $part)
-                @if (Helper::hasUrdu($part->question->statement))
-                    \begin{RTL}
-                @endif
-                \part
-                {!! Helper::parseTex($part->question->statement) !!}
-                @if (Helper::hasUrdu($part->question->statement))
-                    \end{RTL}
-                @endif
-            @endforeach
-            \end{parts}
-        @endif
-    @endif
+{{-- \end{parts} --}}
+@elseif ($paperQuestion->question_nature == 'partial')
+\titledquestion{Answer the Questions. \dotfill}
+\begin{parts}
+@foreach ($paperQuestion->paperQuestionParts as $part)
+@if (Helper::hasUrdu($part->question->statement))
+\begin{RTL}
+@endif
+\part
+{!! Helper::parseTex($part->question->statement) !!}
+@if (Helper::hasUrdu($part->question->statement))
+\end{RTL}
+@endif
+@endforeach
+\end{parts}
+@endif
+@endif
 @endforeach
 \end{questions}
 }
 \begin{document}
 @if ($rows == 1)
-    \cellcontent
+\cellcontent
 @elseif($rows == 2)
-    \cellcontent \dotfill \cellcontent
+\cellcontent \dotfill \cellcontent
 @elseif($rows == 3)
-    \cellcontent \dotfill \cellcontent \dotfill \cellcontent
+\cellcontent \dotfill \cellcontent \dotfill \cellcontent
 @endif
 \end{document}

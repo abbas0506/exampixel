@@ -65,7 +65,7 @@
             @csrf
 
             <input type="hidden" id='book_id' value="{{ $paper->book->id }}">
-            <!-- <input type="hidden" name="display_style" value="partial"> -->
+            <!-- <input type="hidden" name="question_nature" value="partial"> -->
             <input type="hidden" name="chapter_id" id='chapter_id' value="">
             <div class="flex flex-col md:flex-row md:items-center gap-8 bg-slate-100 border border-dashed rounded-lg p-5 mt-5">
                 <div class="flex flex-col md:w-1/4">
@@ -77,9 +77,9 @@
                     </select>
                 </div>
 
-                <div class="md:w-1/4" id='display_style_cover'>
+                <div class="md:w-1/4" id='question_nature_cover'>
                     <label>Display Style</label>
-                    <select name="display_style" id="display_style" class="custom-input-borderless text-sm">
+                    <select name="question_nature" id="question_nature" class="custom-input-borderless text-sm">
                         <option value="vertical">Vertical</option>
                         <option value="horizontal">Horizontal</option>
                     </select>

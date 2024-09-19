@@ -74,7 +74,7 @@ class PaperMcqController extends Controller
                 'question_title' => $question_title,
                 'frequency' => $request->frequency,
                 'choices' => $request->choices,
-                'display_style' => '',
+                'question_nature' => '',
             ]);
             //randomly select question parts from each chapter and save them
             $chaperIds = array();

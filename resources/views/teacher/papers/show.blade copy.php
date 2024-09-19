@@ -172,7 +172,7 @@ $QNo=1;
 
                 <!-- subjective questions -->
 
-                @if($paperQuestion->display_style=='vertical')
+                @if($paperQuestion->question_nature=='vertical')
 
                 <div class="flex items-center">
                     <div class="w-12">Q. {{ $QNo++ }}</div>
@@ -206,7 +206,7 @@ $QNo=1;
                 @endforeach
 
 
-                @elseif($paperQuestion->display_style=='horizontal')
+                @elseif($paperQuestion->question_nature=='horizontal')
                 <div class="flex items-center">
                     <div class="w-12">Q. {{ $QNo++ }}</div>
                     <div class="flex-1 text-left">{{ $paperQuestion->question_title }}</div>
@@ -229,7 +229,7 @@ $QNo=1;
                     @endforeach
                 </div>
 
-                @elseif($paperQuestion->display_style=='whole')
+                @elseif($paperQuestion->question_nature=='whole')
                 <div class="flex items-center flex-wrap">
 
                     @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)
@@ -254,7 +254,7 @@ $QNo=1;
 
                 </div>
 
-                @elseif($paperQuestion->display_style=='partial')
+                @elseif($paperQuestion->question_nature=='partial')
                 <div class="flex items-center flex-wrap">
                     <div>Q. {{ $QNo++ }} {{ $paperQuestion->statement }}</div>
                     @foreach($paperQuestion->paperQuestionParts as $paperQuestionPart)

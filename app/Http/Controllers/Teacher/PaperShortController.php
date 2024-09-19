@@ -45,7 +45,7 @@ class PaperShortController extends Controller
         //
         $request->validate([
             'frequency' => 'required|numeric',
-            'display_style' => 'required',
+            'question_nature' => 'required',
             'choices' => 'required|numeric',
             'chapter_ids_array' => 'required',
             'num_of_parts_array' => 'required',
@@ -73,7 +73,7 @@ class PaperShortController extends Controller
                 'question_title' => $question_title,
                 'frequency' => $request->frequency,
                 'choices' => $request->choices,
-                'display_style' => $request->display_style,
+                'question_nature' => $request->question_nature,
             ]);
             //randomly select question parts from each chapter and save them
             $chaperIds = array();

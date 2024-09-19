@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('paper_question_id')->constrained()->cascadeOnDelete();
             $table->foreignId('question_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('marks');
             $table->timestamps();
         });
     }

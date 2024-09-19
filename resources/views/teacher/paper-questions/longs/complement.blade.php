@@ -47,7 +47,7 @@
 
         <p class="tab active">Complement Q.</p>
 
-        <form id='data-form' action="{{ route('teacher.paperQuestions.alternativeLongs.store', $paperQuestion) }}" method="post">
+        <form id='data-form' action="{{ route('teacher.paperQuestions.complementQuestions.store', $paperQuestion) }}" method="post">
             @csrf
 
             <input type="hidden" name="chapter_id" id='chapter_id' value="">

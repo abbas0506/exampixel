@@ -44,6 +44,7 @@ use App\Http\Controllers\Teacher\PaperQuestionController as TeacherPaperQuestion
 use App\Http\Controllers\Teacher\PaperQuestionPartController;
 use App\Http\Controllers\Teacher\PaperShortController;
 use App\Http\Controllers\Teacher\PartialQuestionController;
+use App\Http\Controllers\Teacher\ProfileController;
 use App\Http\Controllers\Teacher\SimpleLongPaperQuestionController;
 use App\Http\Controllers\Teacher\WholeQuestionController;
 use App\Http\Middleware\CheckSessionExpiry;
@@ -66,6 +67,7 @@ Route::view('team', 'team');
 Route::view('blogs', 'blogs');
 Route::view('login', 'login');
 Route::view('signup/me', 'signup');
+Route::view('signup/success', 'signup-success');
 
 Route::get('login/as', function () {
     $year = date('Y');
@@ -140,6 +142,7 @@ Route::group(['prefix' => 'teacher', 'as' => 'teacher.', 'middleware' => ['role:
     Route::resource('paperQuestions.alternativeLongs', AlternativeLongController::class);
 
     Route::resource('accounts', AccountController::class);
+    Route::resource('profiles', ProfileController::class);
 
     Route::get('paper-question-parts/{part}/refresh', [PaperQuestionPartController::class, 'refresh'])->name('paper-question-parts.refresh');
 

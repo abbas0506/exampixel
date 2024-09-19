@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('paper_id')->constrained()->cascadeOnDelete();
             $table->foreignId('type_id')->constrained()->cascadeOnDelete();
             $table->string('question_title', 100)->nullable();
-            $table->string('display_style', 10)->nullable();
+            $table->string('question_nature', 10)->nullable();
             $table->unsignedTinyInteger('marks')->default(1);
             $table->unsignedTinyInteger('exercise_ratio')->default(0);
             $table->unsignedTinyInteger('conceptual_ratio')->default(0);

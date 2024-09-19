@@ -11,7 +11,7 @@ class Subtype extends Model
     protected $fillable = [
         'name',
         'tagname',
-        'display_style',
+        'question_nature',
     ];
     public function subtype_mappings()
     {

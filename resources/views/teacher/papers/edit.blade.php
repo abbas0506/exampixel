@@ -37,6 +37,7 @@
                     <div class="flex flex-col md:flex-row gap-3 items-center md:items-end">
                         <img src="{{url('images/small/paper-0.png')}}" alt="paper" class="h-24">
                         <div class="flex flex-col">
+                            <h2>{{ Auth::user()->profile?->institution }}</h2>
                             <div class="flex text-left space-x-3">
                                 <h2>{{ $book->name }} </h2>
                                 <a href="{{route('teacher.papers.index')}}" class="btn-blue rounded-lg text-xs"><i class="bx bx-pencil"></i></a>

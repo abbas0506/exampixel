@@ -21,8 +21,6 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            // 'password' => 'required',
-
         ]);
 
 
@@ -53,18 +51,18 @@ class AuthController extends Controller
                 $message->subject('Password sent by exampixel.com');
             });
 
-            $user->assignRole('teacher');
-            session([
-                'role' => 'teacher',
-            ]);
+            // $user->assignRole('teacher');
+            // session([
+            //     'role' => 'teacher',
+            // ]);
 
 
 
-            Auth::login($user);
+            // Auth::login($user);
             DB::commit();
 
             // go to related dashboard
-            return redirect('teacher')->with('success', 'We warmly welcome you. Next login password has been sent to your email');
+            return redirect('signup/success');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());

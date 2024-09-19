@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('tagname', 50)->nullable();
-            $table->string('display_style')->nullable();
+            $table->string('question_nature')->nullable();
             $table->unsignedTinyInteger('position')->default(1);
             $table->timestamps();
         });

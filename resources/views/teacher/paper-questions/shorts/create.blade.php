@@ -59,9 +59,9 @@
                     </select>
                 </div>
 
-                <div class="md:w-1/3" id='display_style_cover'>
+                <div class="md:w-1/3" id='question_nature_cover'>
                     <label>Display Style</label>
-                    <select name="display_style" id="display_style" class="custom-input-borderless text-sm">
+                    <select name="question_nature" id="question_nature" class="custom-input-borderless text-sm">
                         <option value="vertical">Vertical</option>
                         <option value="horizontal">Horizontal</option>
                     </select>

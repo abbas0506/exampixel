@@ -34,38 +34,38 @@ class SubtypeSeeder extends Seeder
         Subtype::create([
             'name' => 'Essay',
             'position' => 1,
-            'display_style' => 'horizontal'
+            'question_nature' => 'horizontal'
         ]);
         Subtype::create([
             'name' => 'Paragraph writing',
             'position' => 1,
-            'display_style' => 'horizontal'
+            'question_nature' => 'horizontal'
         ]);
         Subtype::create([
             'name' => 'Idioms/Phrases',
             'position' => 1,
-            'display_style' => 'horizontal'
+            'question_nature' => 'horizontal'
         ]);
         Subtype::create([
             'name' => 'Active/Passive',
             'position' => 1,
-            'display_style' => 'horizontal'
+            'question_nature' => 'horizontal'
         ]);
         Subtype::create([
             'name' => 'Direct/indirect',
             'position' => 1,
-            'display_style' => 'horizontal'
+            'question_nature' => 'horizontal'
         ]);
         Subtype::create([
             'name' =>
             'Pair of words',
             'position' => 1,
-            'display_style' => 'horizontal'
+            'question_nature' => 'horizontal'
         ]);
         Subtype::create([
             'name' => 'Urdu sentences to english',
             'position' => 1,
-            'display_style' => 'horizontal'
+            'question_nature' => 'horizontal'
         ]);
 
         Subtype::create(['name' => 'Synonyms/Antonyms', 'position' => 1,]);
