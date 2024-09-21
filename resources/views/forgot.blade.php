@@ -15,8 +15,8 @@
 
         <form action="{{url('forgot')}}" method="post" class="flex flex-col mt-8">
             @csrf
-            <label for="" class="mt-3">Your Email</label>
-            <input type="text" name="email" class="custom-input" placeholder="Enter your email" required>
+            <label for="" class="mt-3">Email Address</label>
+            <input type="text" name="email" class="custom-input" placeholder="Enter your email address" required>
             <div class="text-xs mt-1">Password will be sent to only registered email account.</div>
             <div class="flex space-x-4">
                 <button type="submit" class="w-full mt-6 btn-teal p-2">Send Now</button>

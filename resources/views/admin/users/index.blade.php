@@ -18,6 +18,14 @@
             <div>Users</div>
         </div>
 
+        <div class="flex flex-wrap items-center justify-between w-full mt-6">
+            <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
+                <p class="tab active">All Users</p>
+                <a href="" class="tab">Collaborators</a>
+                <a href="" class="tab">New Requests for Collaboration</a>
+            </div>
+        </div>
+
         <!-- page message -->
         @if($errors->any())
         <x-message :errors='$errors'></x-message>
@@ -25,7 +33,7 @@
         <x-message></x-message>
         @endif
 
-        <div class="container-light overflow-x-auto">
+        <div class="container-light overflow-x-auto px-0">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex relative w-full md:w-1/3">
                     <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">

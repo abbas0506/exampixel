@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Book;
-use App\Models\SubtypeMapping;
 use App\Models\Type;
-use Exception;
 use Illuminate\Http\Request;
 
-class MappingController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,15 +14,8 @@ class MappingController extends Controller
     public function index()
     {
         //
-        $books = Book::all();
         $types = Type::all();
-        if (session('bookId') && session('typeId'))
-            $mappings = SubtypeMapping::where('book_id', session('bookId'))
-                ->where('type_id', session('typeId'))
-                ->get();
-        else
-            $mappings = SubtypeMapping::where('id', 0)->get();
-        return view('admin.mapping.index', compact('books', 'types', 'mappings'));
+        return view('admin.types.index', compact('types'));
     }
 
     /**
@@ -42,21 +32,6 @@ class MappingController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'book_id' => 'required',
-            'type_id' => 'required|numeric',
-        ]);
-
-        try {
-            session([
-                'bookId' => $request->book_id,
-                'typeId' => $request->type_id,
-            ]);
-
-            return redirect()->route('admin.mappings.index');
-        } catch (Exception $ex) {
-            return redirect()->back()->withErrors($ex->getMessage());
-        }
     }
 
     /**

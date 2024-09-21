@@ -75,7 +75,9 @@ class PaperPdfController extends Controller
             $output = Storage::disk('local')->put('paper.pdf', $res->body());
 
             $user = Auth::user();
-            $user->sales()->create([]);
+            $paper->update([
+                'is_printed' => true,
+            ]);
             return response()->file(storage_path('app/paper.pdf'));
         } catch (\Exception $e) {
             if (auth()->user()->email === 'mazeemrehan@gmail.com') {

@@ -7,9 +7,12 @@ use App\Http\Controllers\Admin\GradeBookController as AdminGradeBookController;
 use App\Http\Controllers\Admin\BookChapterController as AdminBookChapterController;
 use App\Http\Controllers\Admin\GradeBookChapterController as AdminGradeBookChapterController;
 use App\Http\Controllers\Admin\ChapterQuestionController as AdminChapterQuestionController;
+use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\MappingController;
+use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\SubtypeController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\Auth\AuthController;
@@ -95,9 +98,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admi
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('users', UserController::class);
     Route::resource('grades', GradeController::class);
+    Route::resource('config', ConfigController::class);
+    Route::resource('packages', PackageController::class);
+    Route::resource('types', TypeController::class);
+
     Route::resource('subtypes', SubtypeController::class);
     Route::resource('mappings', MappingController::class);
     Route::resource('book.type.mappings', BookAndTypeMappingController::class);
+    Route::resource('book.type.subtypes', SubtypeController::class);
 
     Route::resource('subjects', SubjectController::class);
     Route::resource('grade.books', AdminGradeBookController::class);

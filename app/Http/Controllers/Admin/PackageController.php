@@ -3,29 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Book;
-use App\Models\Subtype;
-use App\Models\Type;
+use App\Models\Package;
 use Exception;
 use Illuminate\Http\Request;
 
-class SubtypeController extends Controller
+class PackageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index($bookId = null, $typeId = null)
+    public function index()
     {
         //
-        $books = Book::all();
-        $types = Type::all();
-        $subtypes = Subtype::all();
-        // if ($bookId && $typeId) {
-        $book = Book::find($bookId);
-        $type = Type::find($typeId);
-        return view('admin.subtypes.index', compact('books', 'types', 'subtypes', 'book', 'type'));
-        // } else
-        // return view('admin.subtypes.index', compact('books', 'types', 'subtypes', 'book', 'type'));
     }
 
     /**
@@ -34,7 +23,7 @@ class SubtypeController extends Controller
     public function create()
     {
         //
-        return view('admin.subtypes.create');
+        return view('admin.packages.create');
     }
 
     /**
@@ -45,12 +34,15 @@ class SubtypeController extends Controller
         //
         $request->validate([
             'name' => 'required',
+            'coins' => 'required|numeric',
+            'price' => 'required|numeric',
+            'duration' => 'required|numeric',
         ]);
 
         try {
-            Subtype::create($request->all());
-            return redirect()->route('admin.subtypes.index')->with('success', 'Successfully added');;
-        } catch (Exception  $ex) {
+            $package = Package::create($request->all());
+            return redirect()->route('admin.config.index')->with('success', 'Successfully created');;
+        } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
     }
@@ -69,8 +61,8 @@ class SubtypeController extends Controller
     public function edit(string $id)
     {
         //
-        $subtype = Subtype::find($id);
-        return view('admin.subtypes.edit', compact('subtype'));
+        $package = Package::find($id);
+        return view('admin.packages.edit', compact('package'));
     }
 
     /**
@@ -81,15 +73,20 @@ class SubtypeController extends Controller
         //
         $request->validate([
             'name' => 'required',
+            'coins' => 'required|numeric',
+            'price' => 'required|numeric',
+            'duration' => 'required|numeric',
         ]);
-        $subtype = Subtype::findOrFail($id);
+
         try {
-            $subtype->update($request->all());
-            return redirect()->route('admin.subtypes.index')->with('success', 'Successfully updated');;
+            $package = Package::find($id);
+            $package->update($request->all());
+            return redirect()->route('admin.config.index')->with('success', 'Successfully created');;
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
     }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -97,8 +94,8 @@ class SubtypeController extends Controller
     {
         //
         try {
-            $subtype = Subtype::find($id);
-            $subtype->delete();
+            $model = Package::find($id);
+            $model->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
