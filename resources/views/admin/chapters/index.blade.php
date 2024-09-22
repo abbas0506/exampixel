@@ -48,7 +48,7 @@ $i=0;
                         @foreach($book->chapters->sortBy('chapter_no') as $chapter)
                         <div class="flex items-center odd:bg-slate-100 space-x-3">
                             <a href="{{route('admin.chapter.questions.index', $chapter)}}" class="flex flex-1 items-center justify-between p-3 space-x-2">
-                                <div class="flex-1">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </div>
+                                <div class="flex-1">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} ({{ $chapter->id }})</div>
                                 <div class="text-xs">
                                     @if($chapter->questions()->today()->count()>0)
                                     {{ $chapter->questions()->today()->count() }}<i class="bi-arrow-up"></i>

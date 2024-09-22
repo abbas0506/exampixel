@@ -42,24 +42,25 @@ class PaperController extends Controller
         //
 
         $request->validate([
-            'book_id' => 'required|numeric',
             'title' => 'required',
-            'paper_date' => 'required|date',
+            'book_id' => 'required|numeric',
+            'chapter_ids_array' => 'required',
         ]);
 
         $request->merge([
+            'paper_date' => date('Y/m/d'),
             'institution' => Auth::user()->profile?->institution,
         ]);
 
         try {
             $user = Auth::user();
             $paper = $user->papers()->create($request->all());
-            // $chapterIdsArray = array();
-            // $chapterIdsArray = $request->chapter_ids_array;
+            $chapterIdsArray = array();
+            $chapterIdsArray = $request->chapter_ids_array;
 
-            // session([
-            //     'chapterIdsArray' => $chapterIdsArray,
-            // ]);
+            session([
+                'chapterIdsArray' => $chapterIdsArray,
+            ]);
 
             return redirect()->route('user.papers.chapters.index', $paper);
         } catch (Exception $e) {

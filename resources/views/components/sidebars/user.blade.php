@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('user.papers.index') }}" class="flex items-center p-2">
+                <a href="{{ route('user.papers.create') }}" class="flex items-center p-2">
                     <i class="bi bi-file-earmark-pdf @if($page=='paper') current-page @endif"></i>
                     <span class="ml-3">Generate Paper</span>
                 </a>

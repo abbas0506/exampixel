@@ -11,7 +11,10 @@ class Chapter extends Model
     protected $fillable = [
         'book_id',
         'chapter_no',
-        'name',
+        'name', //title
+
+        // 'chapter_type_id', 
+
     ];
 
     public function book()

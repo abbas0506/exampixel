@@ -30,39 +30,29 @@
             <x-message></x-message>
             @endif
 
+
+
+            <div class="grid md:grid-cols-2 items-end gap-4">
+                <div class="flex flex-col md:flex-row gap-3 items-center md:items-end">
+                    <img src="{{url('images/small/paper-0.png')}}" alt="paper" class="h-24">
+                    <div class="flex flex-col">
+                        <h2>{{ Auth::user()->profile?->institution }}</h2>
+                        <div class="flex text-left space-x-3">
+                            <h2>{{ $book->name }} </h2>
+                            <a href="{{route('user.papers.index')}}" class="btn-blue rounded-lg text-xs"><i class="bx bx-pencil"></i></a>
+                        </div>
+                        <p class="text-slate-600">Chaper selection</p>
+                    </div>
+                </div>
+
+            </div>
+
+            @if($paper->title)
+            <!-- if paper title provided  -->
+            <h2> $paper->title </h2>
+
             <form action="{{route('user.papers.store')}}" method='post' onsubmit="return validate(event)">
                 @csrf
-
-                <div class="grid md:grid-cols-2 items-end gap-4">
-                    <div class="flex flex-col md:flex-row gap-3 items-center md:items-end">
-                        <img src="{{url('images/small/paper-0.png')}}" alt="paper" class="h-24">
-                        <div class="flex flex-col">
-                            <h2>{{ Auth::user()->profile?->institution }}</h2>
-                            <div class="flex text-left space-x-3">
-                                <h2>{{ $book->name }} </h2>
-                                <a href="{{route('user.papers.index')}}" class="btn-blue rounded-lg text-xs"><i class="bx bx-pencil"></i></a>
-                            </div>
-                            <p class="text-slate-600">Chaper selection</p>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="leading-relaxed mt-6 text-left bg-teal-800 text-slate-300 p-5">
-                    <ul class="list-disc list-inline text-left text-sm pl-4">
-                        <li>You may select multiple chapters</li>
-                        <li>After selecting chapters, click on start now button</li>
-                    </ul>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-x-4 gap-y-2 p-6 border rounded-b bg-teal-50">
-                    <div class="w-full">
-                        <label for="">Paper Title</label>
-                        <input type="text" name="title" value='Sample Paper' placeholder="Paper Title" class="custom-input">
-
-                    </div>
-                </div>
-
                 <div class="flex items-center justify-between px-3 mt-6">
                     <div class="text-slate-600 text-sm">Please select chapter(s) for the paper</div>
                     <div class="flex items-center space-x-2">
@@ -96,6 +86,31 @@
 
 
             </form>
+
+
+            @else
+            <!-- if paper title missing -->
+            <div class="w-full">
+                <label for="">Paper Title</label>
+                <input type="text" name="title" value='Sample Paper' placeholder="Paper Title" class="custom-input">
+
+            </div>
+            @endif
+            <!-- <div class="leading-relaxed mt-6 text-left bg-teal-800 text-slate-300 p-5">
+                <ul class="list-disc list-inline text-left text-sm pl-4">
+                    <li>You may select multiple chapters</li>
+                    <li>After selecting chapters, click on start now button</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-x-4 gap-y-2 p-6 border rounded-b bg-teal-50">
+                <div class="w-full">
+                    <label for="">Paper Title</label>
+                    <input type="text" name="title" value='Sample Paper' placeholder="Paper Title" class="custom-input">
+
+                </div>
+            </div> -->
+
 
         </div>
     </div>

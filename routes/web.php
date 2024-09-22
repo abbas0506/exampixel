@@ -38,6 +38,7 @@ use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\AlternativeLongController;
 use App\Http\Controllers\User\ComplementQuestionController;
 use App\Http\Controllers\User\DashboardController as TeacherDashboardController;
+use App\Http\Controllers\User\PaperChapterController;
 use App\Http\Controllers\User\PaperController as TeacherPaperController;
 use App\Http\Controllers\User\PaperKeyController;
 use App\Http\Controllers\User\PaperLongController;
@@ -142,6 +143,7 @@ Route::post('/generate-pdf', 'PdfController@generatePDF');
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']], function () {
     Route::get('/', [TeacherDashboardController::class, 'index']);
     Route::resource('papers', TeacherPaperController::class);
+    Route::resource('papers.chapters', PaperChapterController::class);
     Route::resource('papers.pdf', PaperPdfController::class);
     Route::resource('papers.mcqs', PaperMcqController::class);
     Route::resource('papers.shorts', PaperShortController::class);

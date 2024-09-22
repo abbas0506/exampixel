@@ -26,6 +26,7 @@
         @else
         <x-message></x-message>
         @endif
+
         <div class="container-light">
             <div class="flex items-center">
                 <h3 class="text-green-600 bg-green-100 px-3 py-1 rounded-full">New Book <i class="bx bx-book"></i></h3>

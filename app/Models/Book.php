@@ -38,7 +38,6 @@ class Book extends Model
 
     public function  subtypes($type_id)
     {
-
         $subtypes = Subtype::whereRelation('subtype_mappings', function ($query) use ($type_id) {
             return $query->where('book_id', $this->id)
                 ->where('type_id', $type_id);

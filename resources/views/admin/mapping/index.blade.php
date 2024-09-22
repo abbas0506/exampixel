@@ -38,7 +38,7 @@
                     @csrf
                     <select name="book_id" id="" class="custom-input">
                         @foreach($books as $book)
-                        <option value="{{ $book->id }}" @if($book->id==session('bookId')) selected @endif>{{ $book->name }}</option>
+                        <option value="{{ $book->id }}" @if($book->id==session('bookId')) selected @endif>({{ $book->id }}) {{ $book->name }}</option>
                         @endforeach
                     </select>
                     <select name="type_id" id="" class="custom-input">
@@ -68,7 +68,7 @@
                         <tr class="tr">
                             <td>{{$sr++}}</td>
                             <td class="">{{ $mapping->type->name }}</td>
-                            <td class="text-left">{{ $mapping->subtype->name }}</td>
+                            <td class="text-left">({{$mapping->subtype->id}}) {{ $mapping->subtype->name }}</td>
                             <td>
                                 <div class="flex justify-center items-center space-x-2">
                                     <a href="{{route('admin.subtypes.edit', $mapping->subtype)}}">
