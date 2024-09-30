@@ -35,14 +35,14 @@ $i=0;
                 <!-- <div class="divider my-5"></div> -->
                 <div class="flex flex-wrap items-center gap-3">
                     <h3>Chapters</h3>
-                    @foreach($activeBook->chapters->sortBy('chapter_no') as $chapter)
+                    @foreach($activeBook->chapters->sortBy('sr') as $chapter)
                     @if($activeChapter->id == $chapter->id)
                     <a href="#" class="flex items-center justify-center text-xs py-3 w-8 h-8 space-x-3 rounded-full bg-green-800 text-slate-50">
-                        {{ $chapter->chapter_no }}
+                        {{ $chapter->sr }}
                     </a>
                     @else
                     <a href="{{ route('collaborator.chapter.approvables.index', $chapter) }}" class="flex items-center justify-center text-xs py-3 w-8 h-8 space-x-3 rounded-full bg-slate-100 text-slate-600">
-                        {{ $chapter->chapter_no }}
+                        {{ $chapter->sr }}
                     </a>
                     @endif
                     @endforeach

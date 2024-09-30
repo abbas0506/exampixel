@@ -13,27 +13,23 @@
         <div class="bread-crumb">
             <a href="{{url('/')}}">Home</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('operator.book.chapters.index', $chapter->book)}}">{{ $chapter->book->name }}</a>
+            <a href="{{route('operator.books.index')}}">Books</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('operator.chapter.questions.index', $chapter)}}">Ch. {{ $chapter->chapter_no }}</a>
+            <a href="{{route('operator.books.chapters.index', $chapter->book)}}">Chapters</a>
+            <i class="bx bx-chevron-right"></i>
+            <a href="{{route('operator.chapter.questions.index', $chapter)}}">Questions</a>
             <i class="bx bx-chevron-right"></i>
             <div>View Q.</div>
         </div>
 
-        <div class="flex flex-wrap items-center space-x-6 mt-5">
-            <h3 class="bg-green-800 text-green-100 px-3 py-1 rounded-full">Question</h3>
-            <div class="flex items-center space-x-1 ">
-                <h3>{{ $question->chapter->book->name }}</h3>
-                <i class="bx bx-chevron-right"></i>
-                <p class="text-sm">Chapter {{ $chapter->chapter_no }}</p>
-            </div>
-        </div>
         <div class="md:w-4/5 mx-auto mt-8">
-            <div class="grid gap-6 md:gap-y-8 md:gap-x-16">
-                <div class="grid md:grid-cols-3  items-center text-sm">
-                    <div><label>Question Type: </label>&nbsp<span class="font-semibold">{{ $question->type->name }}</span> </div>
-                    <div><label>Sub Type: </label> &nbsp<span class="font-semibold">{{ $question->subtype->name ?? '' }}</span> </div>
-                    <div><label>Marks: </label> &nbsp<span class="font-semibold">{{ $question->marks }}</span> </div>
+            <h2>{{ $question->chapter->book->name }}</h2>
+            <label>Ch # {{ $question->chapter->sr }}. {{ $question->chapter->title }}</label>
+
+            <div class="grid gap-6 mt-6">
+                <div>
+                    <label for="">Q. Type</label>
+                    <h3>{{ $question->type->name}} ({{ $question->marks }})</h3>
                 </div>
 
                 <div class="grid gap-y-1 col-span-full">

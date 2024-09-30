@@ -51,17 +51,24 @@
                 </div>
                 <div class="mt-4">
                     <div class="grid text-sm">
-                        @foreach($paper->book->chapters->sortBy('chapter_no') as $chapter)
-                        <div class="flex items-center odd:bg-slate-100 space-x-3 checkable-row">
-                            <div class="flex flex-1 items-center justify-between space-x-2 pr-3">
-                                <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </label>
-                                <div class="text-base font-extrabold">
-                                    <input type="checkbox" id='chapter{{$chapter->id}}' name='chapter_ids_array[]' class="custom-input w-4 h-4 rounded hidden" value="{{ $chapter->id }}">
-                                    <i class="bx bx-check"></i>
+                        @foreach($tags->sortBy('sr') as $tag)
+                        <div class="">
+                            <h3>{{ $tag->name }}</h3>
+                            @foreach($paper->book->chapters->where('tag_id', $tag->id)->sortBy('sr') as $chapter)
+                            <div class="flex items-center odd:bg-slate-100 space-x-3 checkable-row pl-8">
+                                <div class="flex flex-1 items-center justify-between space-x-2 pr-3">
+                                    <div class="text-base font-extrabold mr-3">
+                                        <input type="checkbox" id='chapter{{$chapter->id}}' name='chapter_ids_array[]' class="custom-input w-4 h-4 rounded hidden" value="{{ $chapter->id }}">
+                                        <i class="bx bx-check"></i>
+                                    </div>
+                                    <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </label>
+
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                         @endforeach
+
                     </div>
 
                     <div class="divider my-5"></div>

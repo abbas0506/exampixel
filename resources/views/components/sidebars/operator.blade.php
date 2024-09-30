@@ -19,7 +19,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{route('operator.grade.books.index',1)}}" class="flex items-center justify-between p-2">
+                <a href="{{route('operator.books.index')}}" class="flex items-center justify-between p-2">
                     <div>
                         <i class="bi bi-database-gear @if($page=='questions') current-page @endif"></i>
                         <span class="ml-2">Questions </span>

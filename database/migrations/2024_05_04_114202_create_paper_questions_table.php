@@ -13,18 +13,19 @@ return new class extends Migration
     {
         Schema::create('paper_questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('paper_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('type_id')->constrained()->cascadeOnDelete();
+            // 1:mcq, 2: short - single col, 3:double - col, 4: long - simple + statement only
+            $table->unsignedTinyInteger('question_type');
             $table->string('question_title', 100)->nullable();
-            $table->string('question_nature', 10)->nullable();
-            $table->unsignedTinyInteger('marks')->default(1);
-            $table->unsignedTinyInteger('exercise_ratio')->default(0);
-            $table->unsignedTinyInteger('conceptual_ratio')->default(0);
             $table->unsignedTinyInteger('frequency')->default(1);
             $table->unsignedTinyInteger('choices')->default(0);
-            $table->string('number_style', 10)->default('alpha');   //alpha, numeric, roman, urdu
             $table->unsignedTinyInteger('display_cols')->default(1);
-            $table->unsignedTinyInteger('position')->default(1);
+            $table->unsignedTinyInteger('sr')->default(1);
+            $table->string('number_style', 10)->default('alpha');   //alpha, numeric, roman, urdu
+
+            // $table->boolean('is_exercise')->default(1);
+            // $table->boolean('is_conceptual')->default(1);
+
+            $table->foreignId('paper_id')->constrained()->cascadeOnDelete();
 
             $table->timestamps();
         });

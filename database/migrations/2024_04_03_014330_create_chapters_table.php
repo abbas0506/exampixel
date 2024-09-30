@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
-            $table->unsignedTinyInteger('chapter_no');
-            $table->string('name', 100);
-
+            $table->string('title', 100);
+            $table->unsignedTinyInteger('sr');
             $table->timestamps();
+
+            $table->foreignId('book_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('tag_id')->constrained()->cascadeOnDelete();
         });
     }
 

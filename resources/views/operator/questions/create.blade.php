@@ -13,23 +13,16 @@
         <div class="bread-crumb">
             <a href="{{url('/')}}">Home</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('operator.book.chapters.index', $chapter->book)}}">{{ $chapter->book->name }}</a>
+            <a href="{{route('operator.books.index')}}">Books</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('operator.chapter.questions.index', $chapter)}}">Ch. {{ $chapter->chapter_no }}</a>
+            <a href="{{route('operator.books.chapters.index', $chapter->book)}}">Chapters</a>
             <i class="bx bx-chevron-right"></i>
-            <div>New Q.</div>
+            <a href="{{route('operator.chapter.questions.index', $chapter)}}">Questions</a>
+            <i class="bx bx-chevron-right"></i>
+            <div>New</div>
         </div>
 
-        <div class="flex flex-wrap items-center space-x-6 mt-5">
-            <h3 class="bg-green-800 text-green-100 px-3 py-1 rounded-full">New Question</h3>
-            <div class="flex items-center space-x-1 ">
-                <h3>{{ $chapter->book->name }}</h3>
-                <i class="bx bx-chevron-right"></i>
-                <p class="text-sm">Chapter {{ $chapter->chapter_no }}</p>
-            </div>
-        </div>
-
-        <div class="divider my-5"></div>
+        <div class="divider my-2"></div>
 
         <div class="md:w-3/4 mx-auto">
             <!-- page message -->
@@ -38,46 +31,27 @@
             @else
             <x-message></x-message>
             @endif
-            <form action="{{route('operator.chapter.questions.store', $chapter)}}" method='post' class="grid md:grid-cols-3 gap-6 md:gap-y-8 md:gap-x-16 mt-12" onsubmit="return validate(event)">
-                @csrf
-                <input type="hidden" id='book_id' value="{{$chapter->book_id}}">
-                <div class="grid gap-y-1">
-                    <label>Question Type</label>
-                    <select name="type_id" id="type_id" class="custom-input-borderless text-sm">
-                        @foreach($types as $type)
-                        <option value="{{ $type->id }}" @selected(session('type_id')==$type->id)> {{ $type->name }} </option>
-                        @endforeach
-                    </select>
-                </div>
 
-                <div class="grid gap-y-1" id='subtypeIdCover'>
-                    <label>Sub Type</label>
-                    <select name="subtype_id" id="subtype_id" class="custom-input-borderless text-sm">
-                        <!-- <option value="">Select ...</option> -->
-                        @if(Session::has('subtypes'))
-                        @foreach(session('subtypes') as $subtype)
-                        <option value="{{ $subtype->id }}" @selected(session('subtype_id')==$subtype->id)>{{$subtype->name}}</option>
-                        @endforeach
-                        @elseif($subtypes->count()>0)
-                        @foreach($subtypes as $subtype)
-                        <option value="{{ $subtype->id }}" @selected(session('subtype_id')==$subtype->id)>{{$subtype->name}}</option>
-                        @endforeach
-                        @endif
-                    </select>
-                </div>
+            <h2>{{ $chapter->book->name }}</h2>
+            <label>Ch # {{ $chapter->sr }}. {{ $chapter->title }}</label>
+
+            <form action="{{route('operator.chapter.questions.store', $chapter)}}" method='post' class="grid md:grid-cols-3 gap-6 mt-6" onsubmit="return validate(event)">
+                @csrf
+                <input type="hidden" name="type_id" value="{{$questionableType>2?3:$questionableType}}">
+                <input type="hidden" name="questionableType" value="{{$questionableType}}">
 
                 <div class="grid gap-y-1">
                     <label for="">Marks</label>
-                    <input type="number" name="marks" value="{{ session('marks') ? session('marks') : 1}}" min=1 class="custom-input-borderless">
+                    <input type="number" name="marks" value="{{$questionableType>2?5:$questionableType}}" min=1 class="custom-input-borderless">
                 </div>
 
                 <div class="grid gap-y-1 col-span-full">
                     <label for="">Question Statement</label>
                     <textarea type="text" id='statement' name="statement" class="custom-input py-2 mt-2" rows='3' placeholder="Type here"></textarea>
                 </div>
-
+                @if($questionableType==1)
                 <!-- MCQs -->
-                <div id='mcqChoicesCover' class="questionable col-span-full">
+                <div class="col-span-full">
                     <label for="">Choices</label>
                     <div class="grid gap-4 mt-2">
                         <div class="flex items-center space-x-2">
@@ -98,9 +72,12 @@
                         </div>
                     </div>
                 </div>
+                @elseif($questionableType==2)
 
+                @elseif($questionableType==3)
+                @elseif($questionableType==4)
                 <!-- Paraphrasing question -->
-                <div id='paraphrasingCover' class="questionable col-span-full hidden">
+                <div class="col-span-full">
                     <label for="">Paraphrasing: Poetry Lines</label>
                     <div class="grid gap-4 md:grid-cols-2 mt-2">
                         <input type="text" name='poetry_lines[]' class="custom-input-borderless" placeholder="Poetry line 1">
@@ -116,8 +93,9 @@
                     </div>
                 </div>
 
+                @elseif($questionableType==5)
                 <!-- Comprehension question -->
-                <div id='comprehensionCover' class="questionable col-span-full hidden">
+                <div class="col-span-ful">
                     <label for="">Comprehension Questions</label>
                     <div class="grid gap-4 mt-2">
                         <input type="text" name='sub_questions[]' class="custom-input-borderless" placeholder="Sub Q.">
@@ -131,6 +109,12 @@
                     </div>
                 </div>
 
+                @else
+                Invalid Question Type
+                @endif
+
+
+
                 <!-- preview -->
                 <div class="col-span-full border p-6">
                     <!-- <span id="math" class="text-left no-line-break text-slate-400">Preview</span> -->
@@ -143,7 +127,7 @@
                         @if($chapter->book->subject->name_en!='Mathematics')
                         <option value="0">Basic</option>
                         @else
-                        @for($i=1;$i<=20;$i++) <option value="{{$i}}" @selected(session('exercise_no')==$i)>{{ $chapter->chapter_no }}.{{$i}}</option>
+                        @for($i=1;$i<=20;$i++) <option value="{{$i}}" @selected(session('exercise_no')==$i)>{{ $chapter->sr }}.{{$i}}</option>
                             @endfor
                             @endif
                     </select>
@@ -161,7 +145,7 @@
                     <label for="">Bise Frequency</label>
                     <input type="number" name="frequency" value="1" min=0 class="custom-input-borderless">
                 </div>
-                <input type="hidden" name='chapter_no' value="{{ $chapter->chapter_no }}">
+                <input type="hidden" name='sr' value="{{ $chapter->sr }}">
                 <div class="text-right col-span-full">
                     <button type="submit" class="btn-green">Create Now</button>
                 </div>
@@ -197,65 +181,6 @@
             $('#math').html($('#statement').val());
             MathJax.typeset();
         });
-
-        $('#type_id').change(function() {
-            //objetive selected
-            if ($(this).val() == 1) {
-                $('.questionable').hide()
-                $('#mcqChoicesCover').show()
-            } else {
-                $('#mcqChoicesCover').hide()
-                if ($(this).val() == 2)
-                    $('#subtypeIdCover').hide();
-            }
-
-
-            var token = $("meta[name='csrf-token']").attr("content");
-            var book_id = $('#book_id').val();
-            //fetch subtypes
-
-            $.ajax({
-                type: 'GET',
-                url: "{{url('fetchSubTypesByTypeId')}}",
-                data: {
-                    "type_id": $(this).val(),
-                    "book_id": book_id,
-                    "_token": token,
-                },
-                success: function(response) {
-                    //
-                    $('#subtype_id').html(response.options);
-                    if (response.options != '')
-                        $('#subtypeIdCover').show()
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: errorThrown
-                    });
-                }
-            }); //ajax end
-
-
-
-        });
-
-        $('#subtype_id').change(function() {
-
-            $('.questionable').hide()
-            // paraphrasing
-
-            //objective
-            if ($('#type_id').val() == 1)
-                $('#mcqChoicesCover').show()
-            else if ($(this).val() == 10)
-                $('#paraphrasingCover').show()
-            // comprehensions 
-            else if ($(this).val() == 11)
-                $('#comprehensionCover').show()
-
-
-        })
 
         $('.choice').bind('input propertychange', function() {
             $('#math').html($(this).val());

@@ -22,123 +22,83 @@ $i=0;
             <i class="bx bx-chevron-right"></i>
             <a href="{{route('operator.grade.books.index', $book->grade)}}">Books</a>
             <i class="bx bx-chevron-right"></i>
-            <div>{{ $book->name }}</div>
+            <div>Chapters</div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- mid panel  -->
-            <div class="md:col-span-2 lg:col-span-3">
-                <div class="p-4 border rounded-lg bg-green-100 border-green-200">
-                    <div class="flex flex-wrap gap-4 justify-between items-cente">
-                        <h2>{{ $book->name }} <i class="bx bx-chevron-right"></i> Chapters &nbsp<i class="bi-layers"></i></h2>
-                        <a href="{{ route('operator.book.chapters.create', $book) }}" class="btn-green rounded text-sm">Add Chapter</a>
 
-                    </div>
+        <div class="p-4 border rounded-lg bg-green-100 border-green-200">
+            <div class="flex flex-wrap gap-4 justify-between items-center">
+                <div>
+                    <h2>{{ $book->name }} </h2>
+                    <label><i class="bi-layers"></i> {{ $book->chapters->count() }} chapters &nbsp <i class="bi-question-circle"></i> {{ $book->questions->count() }}</label>
+
+                </div>
+                <div>
+                    <a href="{{ route('operator.books.chapters.create', $book) }}" class="btn-green rounded text-sm">Add Chapter</a>
                 </div>
 
-                <!-- page message -->
-                @if($errors->any())
-                <x-message :errors='$errors'></x-message>
-                @else
-                <x-message></x-message>
-                @endif
+            </div>
+        </div>
 
-                <div class="mt-4">
-                    <div class="grid text-sm">
-                        @foreach($book->chapters->sortBy('chapter_no') as $chapter)
-                        <div class="flex items-center odd:bg-slate-100 space-x-3">
-                            <a href="{{route('operator.chapter.questions.index', $chapter)}}" class="flex flex-1 items-center justify-between p-3 space-x-2">
-                                <div class="flex-1">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </div>
-                                <div class="text-xs">
-                                    @if($chapter->questions()->today()->count()>0)
-                                    {{ $chapter->questions()->today()->count() }}<i class="bi-arrow-up"></i>
-                                    @endif
-                                </div>
-                                <div class="text-xs">
-                                    {{ $chapter->questions()->count()}} <i class="bi-question-circle"></i>
-                                </div>
-                            </a>
-                            <div class="flex items-center space-x-3 p-2 rounded">
-                                <!-- <a href="" class="">
-                                    <i class="bx bx-show-alt"></i>
-                                </a> -->
-                                <a href="{{route('operator.book.chapters.edit', [$chapter->book, $chapter])}}" class="text-green-600">
-                                    <i class="bx bx-pencil"></i>
+        <!-- page message -->
+        @if($errors->any())
+        <x-message :errors='$errors'></x-message>
+        @else
+        <x-message></x-message>
+        @endif
+
+
+        <div class="overflow-x-auto">
+            <table class="table-fixed borderless w-full mt-3">
+                <thead>
+                    <tr>
+                        <th class="w-12">Sr</th>
+                        <th class="w-48">Chapter</th>
+                        <th class="w-12"><i class="bi-question-circle"></i></th>
+                        <th class="w-24">Desc</th>
+                        <th class="w-20">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($book->chapters->sortBy('sr') as $chapter)
+                    <tr class="tr">
+                        <td>{{ $chapter->sr}}</td>
+                        <td class="text-left"> <a href="{{ route('operator.chapter.questions.index', $chapter) }}" class="link"> {{ $chapter->title }} </a></td>
+                        <td class="text-xs">{{ $chapter->questions->count() }}
+                            @if($chapter->questions()->today()->count()>0)
+                            {{ $chapter->questions()->today()->count() }}<i class="bi-arrow-up text-green-600"></i>
+                            @endif
+                        </td>
+                        <td class="text-xs">
+                            {{ $chapter->questions()->mcqs()->count() }}+{{ $chapter->questions()->shorts()->count() }}+{{ $chapter->questions()->longs()->count() }}
+                        </td>
+                        <td>
+                            <div class="flex justify-center items-center space-x-3">
+                                <a href="{{route('operator.books.chapters.edit', [$chapter->book, $chapter])}}">
+                                    <i class="bx bx-pencil text-green-600"></i>
                                 </a>
-                                <form action="{{route('operator.book.chapters.destroy',[$book,$chapter])}}" method="POST" onsubmit="return confirmDel(event)">
+                                <span class="text-slate-400">|</span>
+                                <form action="{{route('operator.books.chapters.destroy',[$book,$chapter])}}" method="POST" onsubmit="return confirmDel(event)">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-transparent p-0 border-0" @disabled($chapter->questions()->count())>
+
+                                    <button type="submit" class="bg-transparent p-0 border-0" @disabled($chapter->questions->count())>
                                         <i class="bx bx-trash text-red-600"></i>
                                     </button>
                                 </form>
                             </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <!-- right panel -->
-            <div class="">
-                <div class="p-4 border rounded-lg">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-sm">Grades <i class="bi-mortarboard-fill"></i></h2>
-                    </div>
 
-                    <div class="flex items-center space-x-3 mt-3">
-                        @foreach($grades as $grade)
-                        @if($grade->id==$book->grade_id)
-                        <a href="#" class="flex items-center justify-center text-xs py-3 w-8 h-8 space-x-3 rounded-full bg-green-800 text-slate-50">
-                            {{ $grade->grade_no }}
-                        </a>
-                        @else
-                        <a href="{{route('operator.grade.book.chapters.index',[$grade, 0])}}" class="flex items-center justify-center text-xs py-3 w-8 h-8 space-x-3 rounded-full bg-slate-100 text-slate-600">
-                            {{ $grade->grade_no }}
-                        </a>
-                        @endif
-                        @php $i++; @endphp
-                        @endforeach
-                    </div>
-                </div>
+                        </td>
+                    </tr>
+                    @endforeach
 
-                <div class="p-4 border rounded-lg mt-3">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-sm">Books <i class="bx bx-book"></i></h2>
-                        <div class="flex items-center justify-center rounded-full px-2 bg-green-200  text-xs font-semibold"> {{ $activeBook->grade->books->count() }}</i></div>
-                    </div>
-                    <div class="grid divide-y mt-3">
-                        @foreach($activeBook->grade->books->sortBy(' display_order') as $book)
-                        <a href="{{route('operator.grade.book.chapters.index',[$grade, $book])}}" class="flex items-center text-xs py-3">
-                            <div class="flex justify-center items-center w-8 h-8 rounded bg-{{ $colors[$i % 5] }}-100 text-{{ $colors[$i % 5] }}-600"><i class="bx bx-book text-sm"></i></div>
-                            <div class="flex justify-between items-center flex-1 pl-3 gap-y-1">
-                                <div>
-                                    <div class="font-semibold">{{ $book->name }}</div>
-                                    <div class="flex space-x-5 text-slate-600 text-[10px]">
-                                        <div> <i class="bi-question-circle"></i> {{ $book->questions->count() }}</div>
-                                        <div> <i class="bi-layers"></i> {{ $book->chapters->count() }} chapters</div>
-                                        <div class="">
-                                            @if($book->questions()->today()->count()>0)
-                                            {{ $book->questions()->today()->count() }}<i class="bi-arrow-up"></i>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                @if($activeBook->id==$book->id)
-                                <div class="w-2 h-2  bg-red-600 rounded-full">
-                                </div>
-                                @endif
-                            </div>
-                        </a>
-                        @php $i++; @endphp
-                        @endforeach
-                    </div>
-                </div>
-
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
-
 </div>
+@endsection
+@section('script')
 <script type="text/javascript">
     function confirmDel(event) {
         event.preventDefault(); // prevent form submit

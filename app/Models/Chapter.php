@@ -10,10 +10,10 @@ class Chapter extends Model
     use HasFactory;
     protected $fillable = [
         'book_id',
-        'chapter_no',
-        'name', //title
+        'title', //title
+        'sr',
 
-        // 'chapter_type_id', 
+        'tag_id',
 
     ];
 
@@ -21,12 +21,16 @@ class Chapter extends Model
     {
         return $this->belongsTo(Book::class);
     }
+    public function tag()
+    {
+        return $this->belongsTo(Tag::class);
+    }
     public function questions()
     {
-
         return $this->hasMany(Question::class);
-        // return Question::where('book_id', $this->book_id)
-        //     ->where('chapter_no', $this->chapter_no);
-        // // ->get();
+    }
+    public function  scopeFilterByTag($query, $tagId)
+    {
+        return $query->where('tag_id', $tagId);
     }
 }

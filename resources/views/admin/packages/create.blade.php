@@ -13,15 +13,17 @@
         <div class="bread-crumb">
             <a href="{{url('/')}}">Home</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('admin.config.index')}}">Config</a>
+            <div>Config</div>
             <i class="bx bx-chevron-right"></i>
-            <div>New Package</div>
+            <a href="{{route('admin.packages.index')}}">Packages</a>
+            <i class="bx bx-chevron-right"></i>
+            <div>New</div>
         </div>
 
         <div class="flex flex-wrap items-center gap-3 text-slate-600 mt-6">
             <p class="tab active">Packages</p>
-            <a href="{{ route('admin.types.index') }}" class="tab">Question Types</a>
-            <a href="" class="tab">Subtypes</a>
+            <a href="{{ route('admin.types.index') }}" class="tab">Q. Types</a>
+            <a href="{{ route('admin.tags.index') }}" class="tab">Tags</a>
         </div>
 
         <!-- page message -->

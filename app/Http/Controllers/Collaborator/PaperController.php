@@ -20,6 +20,7 @@ class PaperController extends Controller
     {
         //
         $grades = Grade::all();
+
         return view('collaborator.papers.index', compact('grades'));
     }
 

@@ -34,12 +34,12 @@
                 <form action="{{route('admin.grade.books.update', [$book->grade, $book])}}" method='post' class="md:w-2/3">
                     @csrf
                     @method('PATCH')
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="md:col-span-2">
+                    <div class="grid gap-8">
+                        <div class="">
                             <label>Book Name</label>
                             <input type="text" name='name' class="custom-input-borderless" placeholder="Enter book name" value="{{ $book->name }}" required>
                         </div>
-                        <div>
+                        <div class="w-1/2">
                             <label>Grade</label>
                             <select name="grade_id" class="custom-input-borderless">
                                 <option value="">...</option>
@@ -48,7 +48,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div>
+                        <div class="w-1/2">
                             <label>Subject</label>
                             <select name="subject_id" class="custom-input-borderless" required>
                                 <option value="">...</option>

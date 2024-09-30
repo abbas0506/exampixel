@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             SubjectSeeder::class,
             TypeSeeder::class,
             UserSeeder::class,
+            // TagSeeder::class,
         ]);
     }
 }

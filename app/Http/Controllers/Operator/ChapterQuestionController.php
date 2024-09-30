@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Chapter;
 use App\Models\Question;
-use App\Models\Subtype;
 use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
@@ -18,26 +17,23 @@ class ChapterQuestionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($chapterId)
+    public function index($chapterId, $questionableType = null)
     {
         //
         $chapter = Chapter::find($chapterId);
-        $book = $chapter->book;
-        $questions = $chapter->questions;
-        return view('operator.questions.index', compact('book', 'chapter', 'questions'));
+        return view('operator.questions.index', compact('chapter'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create($chapterId)
+    public function create($chapterId, $questionableType)
     {
         //
         $chapter = Chapter::find($chapterId);
         $types = Type::all();
-        $subtypes = $chapter->book->subtypes(1); //objectives
 
-        return view('operator.questions.create', compact('chapter', 'types', 'subtypes'));
+        return view('operator.questions.create', compact('chapter', 'types', 'questionableType'));
     }
 
     /**
@@ -52,7 +48,8 @@ class ChapterQuestionController extends Controller
             'exercise_no' => 'nullable|numeric',
             'frequency' => 'required|numeric',
             'is_conceptual' => 'required|boolean',
-            'type_id' => 'required',
+            'type_id' => 'required|numeric',
+            'questionableType' => 'required|numeric|max:5',
         ]);
 
         $chapter = Chapter::find($chapterId);
@@ -61,12 +58,9 @@ class ChapterQuestionController extends Controller
         try {
 
 
-            $subtype = Subtype::find($request->subtype_id);
-
             $question = $chapter->questions()->create([
                 'user_id' => Auth::user()->id,
                 'type_id' => $request->type_id,
-                'subtype_id' => $request->subtype_id,
                 'statement' => $request->statement,
                 'marks' => $request->marks,
                 'exercise_no' => $request->exercise_no,
@@ -75,7 +69,7 @@ class ChapterQuestionController extends Controller
             ]);
 
             // mcqs
-            if ($request->type_id == 1) {
+            if ($request->questionableType == 1) {
                 $correct = '';
                 if ($request->check_a) $correct = 'a';
                 if ($request->check_b) $correct = 'b';
@@ -89,48 +83,33 @@ class ChapterQuestionController extends Controller
                     'choice_d' => $request->choice_d,
                     'correct' => $correct,
                 ]);
-            } else {
-
-                if ($subtype) {
-                    // long question
-                    if ($request->type_id == 3) {
-                        // paraphrasing
-                        if ($subtype->tagname == 'paraphrasing') {
-                            foreach ($request->poetry_lines as $poetry_line) {
-                                if ($poetry_line != '')
-                                    $question->paraphrasings()->create([
-                                        'poetry_line' => $poetry_line,
-                                    ]);
-                            }
-                        }
-
-                        //comprehension
-                        if ($subtype->tagname == 'comprehension') {
-                            foreach ($request->sub_questions as $subQuestion) {
-                                if ($subQuestion != '')
-                                    $question->comprehensions()->create([
-                                        'sub_question' => $subQuestion,
-                                    ]);
-                            }
-                        }
-                    }
+            } elseif ($request->questionableType == 4) {
+                // poetry: prarphrasing
+                foreach ($request->poetry_lines as $poetry_line) {
+                    if ($poetry_line != '')
+                        $question->paraphrasings()->create([
+                            'poetry_line' => $poetry_line,
+                        ]);
                 }
+            } elseif ($request->questionableType == 5) {
+                //comprehension
+                foreach ($request->sub_questions as $subQuestion) {
+                    if ($subQuestion != '')
+                        $question->comprehensions()->create([
+                            'sub_question' => $subQuestion,
+                        ]);
+                }
+            } else {
+                echo "Invalid question type detected";
             }
+
             // commit if all ok
             DB::commit();
-            return redirect()->back()->with(
+            return redirect()->route('operator.chapter.questionables.questions.create', [$chapter, $request->questionableType])->with(
                 [
-                    'type_id' => $request->type_id,
-                    'subtype_id' => $request->subtype_id,
-                    'marks' => $request->marks,
-                    'exercise_no' => $request->exercise_no,
-                    'frequency' => $request->frequency,
-                    'is_conceptual' => $request->is_conceptual,
-                    'subtypes' => $chapter->book->subtypes($request->type_id),
                     'success' => 'Successfully added',
                 ]
             );
-            // return redirect()->route('admin.chapter.questions.index', [$bookId, $chapterId])->with('success', 'Successfully added');;
         } catch (Exception $ex) {
             DB::rollBack();
             return redirect()->back()->withErrors($ex->getMessage());

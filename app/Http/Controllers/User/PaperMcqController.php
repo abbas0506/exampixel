@@ -29,13 +29,14 @@ class PaperMcqController extends Controller
     public function create($id)
     {
         //
-        if (session('chapterIdsArray')) {
-            $paper = Paper::find($id);
-            $chapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
-            return view('user.paper-questions.mcqs.create', compact('paper', 'chapters'));
-        } else {
-            echo "Chapters not selected!";
-        }
+        // if (session('chapterIdsArray')) {
+        //     $paper = Paper::find($id);
+        //     //send only those chapters which have MCQs 
+        //     $chapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
+        //     return view('user.paper-questions.mcqs.create', compact('paper', 'chapters'));
+        // } else {
+        //     echo "Chapters not selected!";
+        // }
     }
 
     /**
@@ -45,7 +46,6 @@ class PaperMcqController extends Controller
     {
         //
         $request->validate([
-            'choices' => 'required|numeric',
             'frequency' => 'required|numeric',
             'choices' => 'required|numeric',
             'chapter_ids_array' => 'required',
@@ -70,11 +70,10 @@ class PaperMcqController extends Controller
                 $question_title = "Attempt any " . $formatter->format($mustAttempt) . " questions.";
 
             $paperQuestion = $paper->paperQuestions()->create([
-                'type_id' => 1,
+                'question_type' => 1,   //mcq
                 'question_title' => $question_title,
                 'frequency' => $request->frequency,
                 'choices' => $request->choices,
-                'question_nature' => '',
             ]);
             //randomly select question parts from each chapter and save them
             $chaperIds = array();
@@ -89,7 +88,6 @@ class PaperMcqController extends Controller
             foreach ($chapters as $chapter) {
                 $questions = Question::where('type_id', 1)
                     ->where('chapter_id', $chapter->id)
-                    // ->where('is_from_exercise', $request->exercise_only)
                     ->where('frequency', '>=', $threshold)
                     ->get()
                     ->random($numOfParts[$i++]);
@@ -98,7 +96,7 @@ class PaperMcqController extends Controller
                     PaperQuestionPart::create([
                         'paper_question_id' => $paperQuestion->id,
                         'question_id' => $question->id,
-                        'marks' => $question->marks,
+                        'marks' => 1,
                     ]);
                 }
             }

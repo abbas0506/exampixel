@@ -9,111 +9,74 @@ use App\Models\PaperQuestionPart;
 use App\Models\Question;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PartialQuestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create($id)
-    {
-        //
-        if (session('chapterIdsArray')) {
-            $paper = Paper::find($id);
-            $chapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
-            return view('user.paper-questions.longs.partial', compact('paper', 'chapters'));
-        } else {
-            echo "Chapters not selected!";
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request, $id)
     {
         //
         $request->validate([
+            'question_type' => 'required',
+            'question_title' => 'nullable',
             'frequency' => 'required|numeric',
             'chapter_id' => 'required',
         ]);
 
+        DB::beginTransaction();
         try {
             //create test question instance
             $paper = Paper::find($id);
-            $question_title = '';
             $paperQuestion = $paper->paperQuestions()->create([
-                'type_id' => 3,
-                'question_title' => '',
+                'question_type' => $request->question_type,
+                'question_title' => $request->question_title,
                 'frequency' => $request->frequency,
-                'choices' => 0,
-                'question_nature' => 'partial'
+                'choices' => $request->choices,
             ]);
             //randomly select question parts from each chapter and save them
-            $i = 0; //for iterating numOfparts
             $threshold = $request->frequency;
 
+            // if multipart long question
+            if ($request->num_of_parts) {
+                $numOfParts = $request->num_of_parts;
+                $questions = Question::where('type_id', 3)
+                    ->where('chapter_id', $request->chapter_id)
+                    ->where('frequency', '>=', $threshold)
+                    ->get()
+                    ->random($numOfParts);
 
-            $question = Question::where('type_id', 3)
-                ->where('chapter_id', $request->chapter_id)
-                ->where('frequency', '>=', $threshold)
-                ->get()
-                ->random(1)
-                ->first();
+                // if there are more than one questions selected
+                foreach ($questions as $question) {
+                    PaperQuestionPart::create([
+                        'paper_question_id' => $paperQuestion->id,
+                        'question_id' => $question->id,
+                        'marks' => $request->marks,
+                    ]);
+                }
+            } else {
 
+                // long question: single part
+                $question = Question::where('type_id', 3)
+                    ->where('chapter_id', $request->chapter_id)
+                    ->where('frequency', '>=', $threshold)
+                    ->get()
+                    ->random(1)
+                    ->first();
 
-            PaperQuestionPart::create([
-                'paper_question_id' => $paperQuestion->id,
-                'question_id' => $question->id,
-                'marks' => $request->marks,
-            ]);
+                PaperQuestionPart::create([
+                    'paper_question_id' => $paperQuestion->id,
+                    'question_id' => $question->id,
+                    'marks' => $request->marks,
+                ]);
+            }
 
+            dB::commit();
             // echo $question->id;
             return redirect()->route('user.papers.show', $paper)->with('success', 'Question successfully added!');
         } catch (Exception $e) {
-
+            db::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

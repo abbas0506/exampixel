@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Chapter;
 use App\Models\Grade;
+use App\Models\Tag;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,8 @@ class BookChapterController extends Controller
     {
         //
         $book = Book::find($bookId);
-        return view('operator.chapters.create', compact('book'));
+        $tags = Tag::all();
+        return view('operator.chapters.create', compact('book', 'tags'));
     }
 
     /**
@@ -39,21 +41,16 @@ class BookChapterController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required',
-            'chapter_no' => 'required|numeric',
+            'title' => 'required',
+            'sr' => 'required|numeric',
+            'tag_id' => 'required|numeric',
         ]);
 
-        $request->merge(['book_id' => $bookId]);
         $book = Book::find($bookId);
         try {
             // 
-
-            if ($book->chapters()->where('chapter_no', $request->chapter_no)->count() == 0) {
-                Chapter::create($request->all());
-                return redirect()->route('operator.grade.book.chapters.index', [$book->grade, $book])->with('success', 'Successfully added');;
-            } else {
-                return redirect()->back()->with(['warning' => 'Chapter already exists']);
-            }
+            $book->chapters()->create($request->all());
+            return redirect()->route('operator.grade.book.chapters.index', [$book->grade, $book])->with('success', 'Successfully added');;
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
@@ -85,15 +82,15 @@ class BookChapterController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required',
-            'chapter_no' => 'required|numeric',
+            'title' => 'required',
+            'sr' => 'required|numeric',
         ]);
 
         $chapter = Chapter::find($chapterId);
 
         try {
             $chapter->update($request->all());
-            return redirect()->route('operator.book.chapters.index', $chapter->book_id)->with('success', 'Successfully updated');;
+            return redirect()->route('operator.books.chapters.index', $chapter->book_id)->with('success', 'Successfully updated');;
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }

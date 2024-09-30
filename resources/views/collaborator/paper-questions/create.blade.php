@@ -111,9 +111,9 @@ $activeBook=$paper->book;
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-16 text-left">
 
                         <div class="grid col-span-full text-sm">
-                            @foreach($selectedChapters->sortBy('chapter_no') as $chapter)
+                            @foreach($selectedChapters->sortBy('sr') as $chapter)
                             <div class="flex items-center odd:bg-transparent px-3">
-                                <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </label>
+                                <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </label>
                                 <input type="hidden" name='chapter_ids_array[]' value="{{$chapter->id}}">
                                 <input type="number" name='parts_count_array[]' autocomplete="off" class="parts-count custom-input-borderless w-16 h-8 text-center px-0" min='0' value="0" oninput="syncNumOfParts()">
 

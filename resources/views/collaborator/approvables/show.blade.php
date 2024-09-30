@@ -22,7 +22,7 @@
                     <div class="flex items-center space-x-1 ">
                         <h2>{{ $question->chapter->book->name }}</h2>
                         <i class="bx bx-chevron-right"></i>
-                        <p class="text-sm text-slate-600">Ch. {{ $question->chapter->chapter_no }}</p>
+                        <p class="text-sm text-slate-600">Ch. {{ $question->chapter->sr }}</p>
                     </div>
                     <!-- <form action="{{route('collaborator.approvables.destroy', $question)}}" method="POST" onsubmit="return confirmDel(event)">
                         @csrf
@@ -134,7 +134,7 @@
                             @if($question->chapter->book->subject->name_en!='Mathematics')
                             <option value="0">Basic</option>
                             @else
-                            @for($i=1;$i<=20;$i++) <option value="{{$i}}" @selected(session('exercise_no')==$i)>{{ $question->chapterchapter_no }}.{{$i}}</option>
+                            @for($i=1;$i<=20;$i++) <option value="{{$i}}" @selected(session('exercise_no')==$i)>{{ $question->chaptersr }}.{{$i}}</option>
                                 @endfor
                                 @endif
                         </select>
@@ -152,7 +152,7 @@
                         <label for="">Bise Frequency</label>
                         <input type="number" name="frequency" value="1" min=0 class="custom-input-borderless">
                     </div>
-                    <!-- <input type="hidden" name='chapter_no' value="{{ $question->chapterchapter_no }}"> -->
+                    <!-- <input type="hidden" name='sr' value="{{ $question->chaptersr }}"> -->
                     <div class="flex justify-end items-center gap-4 col-span-full py-5">
                         <a href="{{url('/')}}" class="btn-blue rounded">Cancel</a>
                         <button type="submit" class="btn-teal rounded">Save / Approve Now</button>

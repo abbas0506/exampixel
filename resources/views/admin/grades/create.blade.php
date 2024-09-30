@@ -32,14 +32,15 @@
                 <!-- page message -->
                 <form action="{{route('admin.grades.store')}}" method='post' class="w-full">
                     @csrf
-                    <div>
-                        <label>Grade Name</label>
-                        <input type="text" name='name' class="custom-input-borderless" placeholder="Enter grade name" value="" required>
-                    </div>
-                    <div class="mt-6">
+                    <div class="md:w-1/3">
                         <label>Grade No.</label>
                         <input type="text" name='grade_no' class="custom-input-borderless" placeholder="Enter grade name" min=9 value="{{ $grades->max('grade_no')+1 }}" required>
                     </div>
+                    <div class="mt-6">
+                        <label>Grade Name</label>
+                        <input type="text" name='name' class="custom-input-borderless" placeholder="Enter grade name" value="" required>
+                    </div>
+
 
                     <button type="submit" class="btn-green rounded mt-6">Create</button>
                 </form>

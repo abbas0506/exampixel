@@ -12,27 +12,6 @@ use Illuminate\Support\Facades\Auth;
 class AjaxController extends Controller
 {
     //
-    public function fetchSubtypesByTypeId(Request $request)
-    {
-        $request->validate([
-            'type_id' => 'required',
-            'book_id' => 'required',
-        ]);
-        $book = Book::find($request->book_id);
-
-        $text = '';
-
-        $subtypes = $book->subtypes($request->type_id);
-
-        foreach ($subtypes as $subtype) {
-            $text .= "<option value='" . $subtype->id . "'>" . $subtype->name . "</option>";
-        }
-
-        return response()->json([
-            'options' => $text,
-        ]);
-    }
-
     public function findSimilarQuestions(Request $request)
     {
         $request->validate([

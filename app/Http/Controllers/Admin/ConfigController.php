@@ -14,8 +14,6 @@ class ConfigController extends Controller
     public function index()
     {
         //
-        $packages = Package::all();
-        return view('admin.config.index', compact('packages'));
     }
 
     /**

@@ -33,14 +33,15 @@
                 <form action="{{route('admin.grades.update',$grade)}}" method='post' class="md:w-2/3" onsubmit="return validate(event)">
                     @csrf
                     @method('PATCH')
-                    <div>
-                        <label>Grade Name</label>
-                        <input type="text" name='name' class="custom-input-borderless" placeholder="Enter grade name" value="{{$grade->name}}" required>
-                    </div>
-                    <div class="mt-6">
+                    <div class="md:w-1/3">
                         <label>Grade No.</label>
                         <input type="text" name='grade_no' class="custom-input-borderless" placeholder="Enter grade name" min=9 value="{{ $grade->grade_no }}" required>
                     </div>
+                    <div class="mt-6">
+                        <label>Grade Name</label>
+                        <input type="text" name='name' class="custom-input-borderless" placeholder="Enter grade name" value="{{$grade->name}}" required>
+                    </div>
+
                     <button type="submit" class="btn-green rounded mt-6">Update</button>
                 </form>
 

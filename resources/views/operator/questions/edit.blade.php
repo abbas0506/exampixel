@@ -15,7 +15,7 @@
             <i class="bx bx-chevron-right"></i>
             <a href="{{route('operator.book.chapters.index', $chapter->book)}}">{{ $chapter->book->name }}</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('operator.chapter.questions.index', $chapter)}}">Ch. {{ $chapter->chapter_no }}</a>
+            <a href="{{route('operator.chapter.questions.index', $chapter)}}">Ch. {{ $chapter->sr }}</a>
             <i class="bx bx-chevron-right"></i>
             <div>Edit Q.</div>
         </div>
@@ -25,7 +25,7 @@
             <div class="flex items-center space-x-1 ">
                 <h3>{{ $chapter->book->name }}</h3>
                 <i class="bx bx-chevron-right"></i>
-                <p class="text-sm">Chapter {{ $chapter->chapter_no }}</p>
+                <p class="text-sm">Chapter {{ $chapter->sr }}</p>
             </div>
         </div>
         <div class="divider my-5"></div>
@@ -127,7 +127,7 @@
                         @if($chapter->book->subject->name_en!='Mathematics')
                         <option value="0">Basic</option>
                         @else
-                        @for($i=1;$i<=20;$i++) <option value="{{$i}}" @selected(session('exercise_no')==$i)>{{ $chapter->chapter_no }}.{{$i}}</option>
+                        @for($i=1;$i<=20;$i++) <option value="{{$i}}" @selected(session('exercise_no')==$i)>{{ $chapter->sr }}.{{$i}}</option>
                             @endfor
                             @endif
                     </select>
@@ -145,7 +145,7 @@
                     <label for="">Bise Frequency</label>
                     <input type="number" name="frequency" value="1" min=0 class="custom-input-borderless">
                 </div>
-                <input type="hidden" name='chapter_no' value="{{ $chapter->chapter_no }}">
+                <input type="hidden" name='sr' value="{{ $chapter->sr }}">
                 <div class="text-right col-span-full">
                     <button type="submit" class="btn-green">Update Now</button>
                 </div>

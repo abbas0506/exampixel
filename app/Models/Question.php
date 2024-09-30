@@ -14,8 +14,6 @@ class Question extends Model
         'user_id', //owner id
         'chapter_id',
         'type_id',
-        'subtype_id',
-        'topic_id',
 
         'statement',
         'exercise_no',
@@ -42,10 +40,6 @@ class Question extends Model
     {
         return $this->belongsTo(Type::class);
     }
-    public function subtype()
-    {
-        return $this->belongsTo(Subtype::class);
-    }
 
     public function mcq()
     {
@@ -68,11 +62,11 @@ class Question extends Model
     {
         return $query->where('type_id', 1);
     }
-    public function scopeShort($query)
+    public function scopeShorts($query)
     {
         return $query->where('type_id', 2);
     }
-    public function scopeLong($query)
+    public function scopeLongs($query)
     {
         return $query->where('type_id', 3);
     }
@@ -84,9 +78,9 @@ class Question extends Model
     {
         return $query->whereBetween('type_id', [2, 3]);
     }
-    public function scopeChapter($query, $chapter_no)
+    public function scopeChapter($query, $sr)
     {
-        return $query->where('chapter_no', $chapter_no);
+        return $query->where('sr', $sr);
     }
     public function scopeApproved($query)
     {
@@ -107,13 +101,43 @@ class Question extends Model
         // 'he', 'she', 'it', 'its', 'his', 'him', 'her', 
 
         $wordsToRemove = [
-            'define', 'explain', 'describe', 'write', 'down',
-            'what', 'which', 'where', 'whose', 'when',
-            'were', 'shall', 'will', 'would', 'should',
-            'could', 'might', 'here', 'there',  'have',
-            'this', 'that', 'such', 'with',
-            'three', 'four', 'five', 'seven', 'eight', 'nine',
-            'your', 'they', 'their', 'them', 'differentiate', 'between', 'find'
+            'define',
+            'explain',
+            'describe',
+            'write',
+            'down',
+            'what',
+            'which',
+            'where',
+            'whose',
+            'when',
+            'were',
+            'shall',
+            'will',
+            'would',
+            'should',
+            'could',
+            'might',
+            'here',
+            'there',
+            'have',
+            'this',
+            'that',
+            'such',
+            'with',
+            'three',
+            'four',
+            'five',
+            'seven',
+            'eight',
+            'nine',
+            'your',
+            'they',
+            'their',
+            'them',
+            'differentiate',
+            'between',
+            'find'
 
         ];
 

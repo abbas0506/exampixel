@@ -46,9 +46,6 @@
         <div class="divider my-3"></div>
         <form action="{{ route('user.papers.shorts.store', $paper) }}" method="post">
             @csrf
-
-            <input type="hidden" id='book_id' value="{{ $paper->book->id }}">
-
             <div class="flex flex-col md:flex-row md:items-center gap-8 bg-slate-100 border border-dashed rounded-lg p-5 mt-5">
                 <div class="flex flex-col md:w-1/3">
                     <label>Importance Level</label>
@@ -58,14 +55,6 @@
                         <option value="3">Very High</option>
                     </select>
                 </div>
-
-                <div class="md:w-1/3" id='question_nature_cover'>
-                    <label>Display Style</label>
-                    <select name="question_nature" id="question_nature" class="custom-input-borderless text-sm">
-                        <option value="vertical">Vertical</option>
-                        <option value="horizontal">Horizontal</option>
-                    </select>
-                </div>
             </div>
 
             <!-- Chapters List -->
@@ -73,13 +62,16 @@
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-16 text-left">
 
                     <div class="grid col-span-full text-sm">
-                        @foreach($chapters->sortBy('chapter_no') as $chapter)
+                        @foreach($chapters->sortBy('sr') as $chapter)
+                        <!-- list only that chapter which has shorts -->
+                        @if($chapter->questions()->shorts()->count())
                         <div class="flex items-center odd:bg-transparent px-3">
-                            <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </label>
+                            <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </label>
                             <input type="hidden" name='chapter_ids_array[]' value="{{$chapter->id}}">
                             <input type="number" name='num_of_parts_array[]' autocomplete="off" class="parts-count custom-input-borderless w-16 h-8 text-center px-0" min='0' value="0" oninput="syncNumOfParts()">
 
                         </div>
+                        @endif
                         @endforeach
                     </div>
 

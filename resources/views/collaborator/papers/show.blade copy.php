@@ -147,9 +147,9 @@ $i=0;
                                     </div>
 
                                     <div class="grid col-span-full text-sm overflow-auto">
-                                        @foreach($selectedChapters->sortBy('chapter_no') as $chapter)
+                                        @foreach($selectedChapters->sortBy('sr') as $chapter)
                                         <div class="flex items-center odd:bg-transparent px-3">
-                                            <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </label>
+                                            <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </label>
                                             <input type="hidden" name='chapter_ids_array[]' value="{{$chapter->id}}">
                                             <input type="number" name='parts_count_array[]' autocomplete="off" class="parts-count custom-input-borderless w-16 h-8 text-center px-0" min='0' value="0" oninput="syncNumOfParts()">
 
@@ -335,67 +335,6 @@ $i=0;
                     $('#question_nature_cover').hide();
                     $('#marks_cover').hide();
                 }
-
-                $('#type_id').change(function() {
-                    // objetive selected
-                    if ($(this).val() == 1) {
-                        $('#question_nature_cover').hide();
-                        $('#marks_cover').hide();
-                        $('.questionable').hide()
-                        $('#mcqCover').show()
-                        $('')
-                    } else {
-                        $('#question_nature_cover').show();
-                        $('#marks_cover').show();
-                        $('#mcqCover').hide()
-                    }
-
-                    var token = $("meta[name='csrf-token']").attr("content");
-                    var book_id = $('#book_id').val();
-
-                    //fetch subtypes
-
-                    $.ajax({
-                        type: 'GET',
-                        url: "{{url('fetchSubTypesByTypeId')}}",
-                        data: {
-                            "type_id": $(this).val(),
-                            "book_id": book_id,
-                            "_token": token,
-                        },
-                        success: function(response) {
-                            //
-                            $('#subtype_id').html(response.options);
-                        },
-                        error: function(XMLHttpRequest, textStatus, errorThrown) {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: errorThrown
-                            });
-                        }
-                    }); //ajax end
-                    $('.show-confirm').click(function(event) {
-                        var form = $(this).closest("form");
-                        // var name = $(this).data("name");
-                        event.preventDefault();
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            type: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-                            if (result.value) {
-                                //submit corresponding form
-                                form.submit();
-                            }
-                        });
-                    });
-
-
-                });
 
                 $('.parts-count').click(function() {
                     $(this).select();

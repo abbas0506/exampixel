@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Paper;
+use App\Models\Tag;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,9 @@ class PaperChapterController extends Controller
     {
         //
         $paper = Paper::find($id);
-        return view('user.paper-chapters.index', compact('paper'));
+        $tagIds = $paper->book->chapters->sortBy('tag_id')->pluck('tag_id')->unique();
+        $tags = Tag::whereIn('id', $tagIds)->get();
+        return view('user.paper-chapters.index', compact('paper', 'tags'));
     }
 
     /**

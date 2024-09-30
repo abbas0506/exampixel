@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('chapter_id')->constrained()->cascadeOnDelete();
             $table->foreignId('type_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('subtype_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('topic_id')->nullable()->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger('approver_id')->nullable();
 

@@ -42,9 +42,9 @@
         </div>
 
         <div class="mt-3">
-            @foreach($book->chapters->sortBy('chapter_no') as $chapter)
+            @foreach($book->chapters->sortBy('sr') as $chapter)
             <div class="flex items-center justify-between space-x-2 border-b">
-                <label for="chapter{{$chapter->id}}" class="hover:cursor-pointer text-base text-slate-800 text-left py-3 flex-1">{{$chapter->chapter_no}}. &nbsp {{$chapter->name}}</label>
+                <label for="chapter{{$chapter->id}}" class="hover:cursor-pointer text-base text-slate-800 text-left py-3 flex-1">{{$chapter->sr}}. &nbsp {{$chapter->title}}</label>
                 <input type="checkbox" id='chapter{{$chapter->id}}' name='chapter_ids_array[]' class="custom-input w-4 h-4" value="{{ $chapter->id }}">
             </div>
             @endforeach

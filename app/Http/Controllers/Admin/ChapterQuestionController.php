@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Question;
-use App\Models\Subtype;
 use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,7 +22,7 @@ class ChapterQuestionController extends Controller
         $chapter = Chapter::find($chapterId);
         $book = $chapter->book;
         $questions = $chapter->questions;
-        return view('admin.questions.index', compact('book', 'chapter', 'questions'));
+        return view('admin.qbank.questions.index', compact('book', 'chapter', 'questions'));
     }
 
     /**
@@ -37,8 +36,7 @@ class ChapterQuestionController extends Controller
         $book = $chapter->book;
 
         $types = Type::all();
-        $subtypes = $book->subtypes(1); //objectives
-        return view('admin.questions.create', compact('book', 'chapter', 'questions', 'types', 'subtypes'));
+        return view('admin.qbank.questions.create', compact('book', 'chapter', 'questions', 'types'));
     }
 
     /**
@@ -62,13 +60,11 @@ class ChapterQuestionController extends Controller
         DB::beginTransaction();
 
         try {
-            $subtype = Subtype::find($request->subtype_id);
 
             $question = $chapter->questions()->create([
                 'user_id' => Auth::user()->id,
                 'book_id' => $chapter->book_id,
                 'type_id' => $request->type_id,
-                'subtype_id' => $request->subtype_id,
                 'marks' => $request->marks,
 
                 'statement' => $request->statement,
@@ -144,7 +140,7 @@ class ChapterQuestionController extends Controller
         $chapter = Chapter::find($chapterId);
         $book = $chapter->book;
         $question = Question::find($questionId);
-        return view('admin.questions.show', compact('book', 'chapter', 'question'));
+        return view('admin.qbank.questions.show', compact('book', 'chapter', 'question'));
     }
 
     /**
@@ -156,7 +152,7 @@ class ChapterQuestionController extends Controller
         $chapter = Chapter::find($chapterId);
         $book = $chapter->book;
         $question = Question::find($questionId);
-        return view('admin.questions.edit', compact('book', 'chapter', 'question'));
+        return view('admin.qbank.questions.edit', compact('book', 'chapter', 'question'));
     }
 
     /**
@@ -166,7 +162,7 @@ class ChapterQuestionController extends Controller
     {
         //
         $request->validate([
-            'chapter_no' => 'required|numeric',
+            'sr' => 'required|numeric',
             'exercise_no' => 'nullable|numeric',
             'statement' => 'required',
             'marks' => 'required|numeric',

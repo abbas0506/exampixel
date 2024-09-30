@@ -1,17 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\BookAndTypeMappingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GradeController;
 use App\Http\Controllers\Admin\GradeBookController as AdminGradeBookController;
 use App\Http\Controllers\Admin\BookChapterController as AdminBookChapterController;
 use App\Http\Controllers\Admin\GradeBookChapterController as AdminGradeBookChapterController;
 use App\Http\Controllers\Admin\ChapterQuestionController as AdminChapterQuestionController;
-use App\Http\Controllers\Admin\ConfigController;
-use App\Http\Controllers\Admin\MappingController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\QbankBooksController;
 use App\Http\Controllers\Admin\SubjectController;
-use App\Http\Controllers\Admin\SubtypeController;
+use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AjaxController;
@@ -19,29 +17,27 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Collaborator\ApprovalController;
 use App\Http\Controllers\Collaborator\BookApprovableController;
-use App\Http\Controllers\Collaborator\BookChapterQuestionController;
 use App\Http\Controllers\Collaborator\ChapterApprovableController;
-use App\Http\Controllers\Collaborator\ChapterQuestionController as CollaboratorChapterQuestionController;
 use App\Http\Controllers\Collaborator\DashboardController as CollaboratorDashboardController;
 use App\Http\Controllers\Collaborator\PaperController;
 use App\Http\Controllers\Collaborator\PaperGradeBookChapterController;
 use App\Http\Controllers\Collaborator\PaperQuestionController;
 use App\Http\Controllers\Collaborator\PaperTypeQuestionController;
 use App\Http\Controllers\Operator\BookChapterController;
+use App\Http\Controllers\Operator\BookController;
 use App\Http\Controllers\Operator\ChapterQuestionController;
 use App\Http\Controllers\Operator\GradeBookChapterController;
 use App\Http\Controllers\Operator\GradeBookController;
 use App\Http\Controllers\SelfTestController;
 use App\Http\Controllers\Operator\DashboardController as OperatorDashboardController;
+use App\Http\Controllers\Operator\QuestionChoiceController as OperatorQuestionChoiceController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\User\AccountController;
-use App\Http\Controllers\User\AlternativeLongController;
-use App\Http\Controllers\User\ComplementQuestionController;
 use App\Http\Controllers\User\DashboardController as TeacherDashboardController;
+use App\Http\Controllers\User\ExtendedPartController;
 use App\Http\Controllers\User\PaperChapterController;
 use App\Http\Controllers\User\PaperController as TeacherPaperController;
 use App\Http\Controllers\User\PaperKeyController;
-use App\Http\Controllers\User\PaperLongController;
 use App\Http\Controllers\User\PaperMcqController;
 use App\Http\Controllers\User\PaperPdfController;
 use App\Http\Controllers\User\PaperQuestionController as UserPaperQuestionController;
@@ -49,10 +45,8 @@ use App\Http\Controllers\User\PaperQuestionPartController;
 use App\Http\Controllers\User\PaperShortController;
 use App\Http\Controllers\User\PartialQuestionController;
 use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\User\SimpleLongPaperQuestionController;
-use App\Http\Controllers\User\WholeQuestionController;
-use App\Http\Middleware\CheckSessionExpiry;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\User\QuestionChoiceController;
+use App\Http\Controllers\User\SimpleQuestionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -92,27 +86,21 @@ Route::get('signout', [AuthController::class, 'signout'])->name('signout');
 Route::resource('passwords', PasswordController::class);
 
 Route::resource('self-tests', SelfTestController::class);
-Route::get('fetchSubTypesByTypeId', [AjaxController::class, 'fetchSubTypesByTypeId']);
 Route::get('findSimilarQuestions', [AjaxController::class, 'findSimilarQuestions']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('users', UserController::class);
-    Route::resource('grades', GradeController::class);
-    Route::resource('config', ConfigController::class);
-    Route::resource('packages', PackageController::class);
-    Route::resource('types', TypeController::class);
-
-    Route::resource('subtypes', SubtypeController::class);
-    Route::resource('mappings', MappingController::class);
-    Route::resource('book.type.mappings', BookAndTypeMappingController::class);
-    Route::resource('book.type.subtypes', SubtypeController::class);
-
     Route::resource('subjects', SubjectController::class);
+    Route::resource('grades', GradeController::class);
+    Route::resource('types', TypeController::class);
+    Route::resource('tags', TagController::class);
+    Route::resource('packages', PackageController::class);
     Route::resource('grade.books', AdminGradeBookController::class);
-    Route::resource('book.chapters', AdminBookChapterController::class);
+    Route::resource('qbank-books', QbankBooksController::class);
+    Route::resource('qbank-books.chapters', AdminBookChapterController::class);
+
     Route::resource('chapter.questions', AdminChapterQuestionController::class);
-    Route::resource('grade.book.chapters', AdminGradeBookChapterController::class);
     Route::view('change/password', 'admin.change_password');
     Route::post('change/password', [AuthController::class, 'changePassword'])->name('change.password');
 });
@@ -131,10 +119,14 @@ Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' 
 });
 Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['role:operator']], function () {
     Route::get('/', [OperatorDashboardController::class, 'index']);
+
+    Route::resource('books', BookController::class);
     Route::resource('grade.books', GradeBookController::class);
-    Route::resource('book.chapters', BookChapterController::class);
+    Route::resource('books.chapters', BookChapterController::class);
     Route::resource('grade.book.chapters', GradeBookChapterController::class);
+    Route::resource('chapter.question-choices', OperatorQuestionChoiceController::class);
     Route::resource('chapter.questions', ChapterQuestionController::class);
+    Route::resource('chapter.questionables.questions', ChapterQuestionController::class);
 });
 
 Route::post('/generate-pdf', 'PdfController@generatePDF');
@@ -144,15 +136,14 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
     Route::get('/', [TeacherDashboardController::class, 'index']);
     Route::resource('papers', TeacherPaperController::class);
     Route::resource('papers.chapters', PaperChapterController::class);
-    Route::resource('papers.pdf', PaperPdfController::class);
+    Route::resource('papers.questionChoices', QuestionChoiceController::class);
     Route::resource('papers.mcqs', PaperMcqController::class);
     Route::resource('papers.shorts', PaperShortController::class);
     Route::resource('paper.questions', UserPaperQuestionController::class);
-    Route::resource('papers.wholeQuestions', WholeQuestionController::class);
-    Route::resource('papers.partialQuestions', PartialQuestionController::class);
-    Route::resource('paperQuestions.complementQuestions', ComplementQuestionController::class);
-    Route::resource('paperQuestions.alternativeLongs', AlternativeLongController::class);
-
+    Route::resource('papers.simpleQuestions', SimpleQuestionController::class)->only('store');
+    Route::resource('papers.partialQuestions', PartialQuestionController::class)->only('store');
+    Route::resource('paperQuestions.extendedParts', ExtendedPartController::class);
+    Route::resource('papers.pdf', PaperPdfController::class);
     Route::resource('accounts', AccountController::class);
     Route::resource('profiles', ProfileController::class);
 
@@ -160,6 +151,4 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
 
     Route::get('papers/{paper}/key', [PaperKeyController::class, 'show'])->name('papers.keys.show');
     Route::get('papers/{paper}/key/pdf', [PaperKeyController::class, 'pdf'])->name('papers.keys.pdf');
-
-    // Route::get('tests/{test}/anskey/pdf', [AnswerKeyController::class, 'pdf'])->name('tests.anskey.pdf');
 });

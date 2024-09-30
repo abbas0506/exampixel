@@ -64,10 +64,10 @@ $activeBook=$book;
                     </div>
                     <div class="mt-4">
                         <div class="grid text-sm">
-                            @foreach($book->chapters->sortBy('chapter_no') as $chapter)
+                            @foreach($book->chapters->sortBy('sr') as $chapter)
                             <div class="flex items-center odd:bg-slate-100 space-x-3 checkable-row">
                                 <div class="flex flex-1 items-center justify-between space-x-2 pr-3">
-                                    <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->chapter_no}}. &nbsp {{ $chapter->name }} </label>
+                                    <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </label>
                                     <div class="text-base font-extrabold">
                                         <input type="checkbox" id='chapter{{$chapter->id}}' name='chapter_ids_array[]' class="custom-input w-4 h-4 rounded hidden" value="{{ $chapter->id }}">
                                         <i class="bx bx-check"></i>

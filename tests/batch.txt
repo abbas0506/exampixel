@@ -1,18 +1,14 @@
 insert into books
 select * from temp.books;
 
-insert into subtypes
-select * from temp.subtypes;
-
-insert into subtype_mappings
-select * from temp.subtype_mappings;
+insert into tags
+select * from temp.tags;
 
 insert into chapters
 select * from temp.chapters;
 
-insert into questions
-select * from temp.questions;
+insert into questions(id, user_id, chapter_id,type_id,statement,exercise_no,frequency,marks)
+select id, user_id, chapter_id,type_id,statement,exercise_no,frequency,marks from temp.questions;
 
 insert into mcqs
 select * from temp.mcqs;
-

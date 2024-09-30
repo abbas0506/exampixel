@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.config.index') }}" class="flex items-center p-2">
+                <a href="{{ route('admin.subjects.index') }}" class="flex items-center p-2">
                     <i class="bi bi-gear @if($page=='config') current-page @endif"></i>
                     <span class="ml-3">Config</span>
                 </a>
@@ -39,9 +39,9 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.grades.index') }}" class="flex items-center p-2">
-                    <i class="bi bi-database-gear @if($page=='qbank') current-page @endif"></i>
-                    <span class="ml-3">Q.Bank</span>
+                <a href="{{ route('admin.qbank-books.index') }}" class="flex items-center p-2">
+                    <i class="bi bi-question-circle @if($page=='qbank') current-page @endif"></i>
+                    <span class="ml-3">Q. Bank</span>
                 </a>
             </li>
         </ul>

@@ -15,6 +15,8 @@ class PackageController extends Controller
     public function index()
     {
         //
+        $packages = Package::all();
+        return view('admin.packages.index', compact('packages'));
     }
 
     /**
@@ -41,7 +43,7 @@ class PackageController extends Controller
 
         try {
             $package = Package::create($request->all());
-            return redirect()->route('admin.config.index')->with('success', 'Successfully created');;
+            return redirect()->route('admin.packages.index')->with('success', 'Successfully created');;
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
@@ -81,7 +83,7 @@ class PackageController extends Controller
         try {
             $package = Package::find($id);
             $package->update($request->all());
-            return redirect()->route('admin.config.index')->with('success', 'Successfully created');;
+            return redirect()->route('admin.packages.index')->with('success', 'Successfully created');;
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }

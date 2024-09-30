@@ -44,13 +44,15 @@ class Paper extends Model
     {
         $marks = 0;
         foreach ($this->paperQuestions as $paperQuestion) {
-            if ($paperQuestion->type_id == 1 || $paperQuestion->type_id == 2)
-                $marks += $paperQuestion->compulsoryParts() * $paperQuestion->type_id;
+            if ($paperQuestion->question_type == 1 || $paperQuestion->question_type == 2)
+                $marks += $paperQuestion->compulsoryParts() * $paperQuestion->question_type;
 
-            elseif ($paperQuestion->question_nature == 'whole')
-                $marks += $paperQuestion->paperQuestionParts->first()->marks;
+            // simple long question
+            elseif ($paperQuestion->question_type == 3 || $paperQuestion->question_type == 4)
+                $marks += $paperQuestion->paperQuestionParts()->first()->marks;
 
-            elseif ($paperQuestion->question_nature == 'partial')
+            // partial question
+            elseif ($paperQuestion->question_type > 4)
                 $marks += $paperQuestion->paperQuestionParts()->sum('marks');
         }
         return $marks;

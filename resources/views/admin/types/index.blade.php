@@ -13,17 +13,20 @@
         <div class="bread-crumb">
             <a href="{{url('/')}}">Home</a>
             <i class="bx bx-chevron-right"></i>
-            <div>Config</div>
+            <a href="{{route('admin.subjects.index')}}">Config</a>
             <i class="bx bx-chevron-right"></i>
             <div>Types</div>
         </div>
 
 
         <div class="flex flex-wrap items-center gap-3 text-slate-600 mt-6">
-            <a href="{{ route('admin.config.index') }}" class="tab">Packages</a>
-            <p class="tab active">Question Types</p>
-            <a href="" class="tab">Subtypes</a>
+            <a href="{{ route('admin.subjects.index') }}" class="tab">Subjects</a>
+            <a href="{{ route('admin.grades.index') }}" class="tab">Grades & Books</a>
+            <p class="tab active">Q. Types</p>
+            <a href="{{ route('admin.tags.index') }}" class="tab">Chapter Tags</a>
+            <a href="{{ route('admin.packages.index') }}" class="tab">Packages</a>
         </div>
+
 
         <!-- page message -->
         @if($errors->any())
@@ -32,24 +35,29 @@
         <x-message></x-message>
         @endif
 
-        <div class="overflow-x-auto w-full mt-6">
-            <table class="w-full sm">
-                <thead>
-                    <tr>
-                        <th>Sr</th>
-                        <th>Question Type</th>
-                    </tr>
-                <tbody>
-                    @php $sr=1; @endphp
-                    @foreach($types as $type)
-                    <tr class="text-sm tr">
-                        <td>{{$sr++}}</td>
-                        <td>{{ $type->name }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                </thead>
-            </table>
+        <div class="container-light">
+            <div class="flex items-center">
+                <h3 class="text-green-600 bg-green-100 px-3 py-1 rounded-full">Question Types <i class="bx bx-layer"></i></h3>
+            </div>
+            <div class="overflow-x-auto w-full mt-6">
+                <table class="w-full sm">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th>Question Type</th>
+                        </tr>
+                    <tbody>
+                        @php $sr=1; @endphp
+                        @foreach($types as $type)
+                        <tr class="text-sm tr">
+                            <td>{{$sr++}}</td>
+                            <td>{{ $type->name }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 </div>
