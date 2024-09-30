@@ -35,11 +35,11 @@ $QNo = 1;
             <x-message></x-message>
             @endif
 
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 ">
-                <div class="flex flex-col md:flex-row gap-3 items-center">
-                    <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="h-16">
+            <div class="flex flex-row flex-wrap justify-between items-center gap-4 ">
+                <div class="flex flex-row items-center gap-3">
+                    <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="h-12 md:h-16">
                     <div class="flex flex-col">
-                        <h2>{{ $paper->institution }}</h2>
+                        <!-- <h2>{{ $paper->institution }}</h2> -->
                         <h2>{{ $paper->book->name }} </h2>
                         <div class="flex items-center space-x-3">
                             <label>{{ $paper->title }}</label> <a href="{{ route('user.papers.edit', $paper) }}"
