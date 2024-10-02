@@ -17,7 +17,7 @@
                 <div>/</div>
                 <a href="{{ route('user.papers.show', $paper) }}">Paper</a>
                 <div>/</div>
-                <div>Add Long Q.</div>
+                <div>Extend Q.</div>
             </div>
         </div>
 

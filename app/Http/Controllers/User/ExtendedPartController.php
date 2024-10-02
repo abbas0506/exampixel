@@ -28,7 +28,7 @@ class ExtendedPartController extends Controller
         $paperQuestion = PaperQuestion::find($id);
         $paper = $paperQuestion->paper;
         $chapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
-        return view('user.paper-questions.longs.partial.extended-part', compact('paperQuestion', 'paper', 'chapters'));
+        return view('user.paper-questions.extended-part', compact('paperQuestion', 'paper', 'chapters'));
     }
 
     /**

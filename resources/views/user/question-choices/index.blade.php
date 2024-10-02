@@ -29,7 +29,7 @@ $QNo = 1;
         </div>
 
 
-        <div class="content-section rounded-lg mt-8 text-sm ">
+        <div class="content-section rounded-lg mt-3 text-sm">
             <!-- page message -->
             @if ($errors->any())
             <x-message :errors='$errors'></x-message>
@@ -37,8 +37,8 @@ $QNo = 1;
             <x-message></x-message>
             @endif
 
-            <h1>Question Choices</h1>
-            <div class="grid md:grid-cols-3 gap-8 mt-6">
+            <h2 class="text-center bg-teal-200">Click on a type</h2>
+            <div class="grid md:grid-cols-3 gap-8 mt-8">
                 <a href="{{ route('user.papers.questionChoices.show',[$paper,1]) }}" class="bg-slate-100 hover:bg-slate-200 rounded p-4 relative text-xs">
                     <p class="absolute -top-3 left-4 text-sm font-semibold text-green-700">[ MCQ ]</p>
                     <h4 for="font-semibold">Q. Answer any three questions </h4>
@@ -106,7 +106,7 @@ $QNo = 1;
                 </a>
 
                 <a href="{{ route('user.papers.questionChoices.show',[$paper,5]) }}" class="bg-slate-100 hover:bg-slate-200 rounded p-4 relative text-xs">
-                    <p class="absolute -top-3 left-4 text-sm font-semibold text-emerald-600">[ Long : Partial (optional) ]</p>
+                    <p class="absolute -top-3 left-4 text-sm font-semibold text-emerald-600">[ Long : Partial (optional-or) ]</p>
                     <div>Q. Write a letter to your father for money <span class="ml-3  font-semibold">OR</span></div>
                     <div class="ml-4">Write an application for fee concession<span class="ml-3  font-semibold">OR</span></div>
                     <div class="ml-4">Write a story on the title "Union is strength"</div>

@@ -46,10 +46,12 @@
 
             <form action="{{route('user.papers.chapters.store', $paper)}}" method='post' class="mt-6 w-full md:w-4/5 mx-auto" onsubmit="return validate(event)">
                 @csrf
-                <h2 class="mt-4">Which chapters would you like to consider?</h2>
-                <div class="flex items-center space-x-2 mt-3">
-                    <p class="text-red-600">Full Book</p>
-                    <input type="checkbox" id='check_all' class="custom-input w-4 h-4 rounded">
+                <div class="flex justify-between items-center">
+                    <h2 class="mt-4">Which chapters would you like to include?</h2>
+                    <div class="flex items-center space-x-2 mt-3">
+                        <p class="text-red-600">Full Book</p>
+                        <input type="checkbox" id='check_all' class="custom-input w-4 h-4 rounded">
+                    </div>
                 </div>
                 <div class="mt-4">
                     <div class="grid text-sm">

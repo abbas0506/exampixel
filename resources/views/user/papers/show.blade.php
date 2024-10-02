@@ -207,10 +207,30 @@ $QNo = 1;
                             <td class="text-left">{{ $paperQuestionPart->question->statement }} @if(!$loop->last) <span class="font-bold">OR</span> @endif</td>
                             <td> ({{ $paperQuestion->paperQuestionParts()->first()->marks }}) </td>
                             <td>
+                                @if($loop->first)
+                                <form
+                                    action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                                </form>
+                                @endif
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="flex items-center">
+                                    <a href="{{ route('user.paperQuestions.extendedParts.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
+                                    &nbsp;<label for="">(add another part)</label>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         @endif
 
                         <!-- Long: mendatory parts -->
@@ -224,10 +244,30 @@ $QNo = 1;
                             <td class="text-left">{{ $alphabets[$loop->index] }}).{{ $paperQuestionPart->question->statement }}</td>
                             <td>({{ $paperQuestionPart->marks }})</td>
                             <td>
+                                @if($loop->first)
+                                <form
+                                    action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                                </form>
+                                @endif
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="flex items-center">
+                                    <a href="{{ route('user.paperQuestions.extendedParts.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
+                                    &nbsp;<label for="">(add another part)</label>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         @endif
 
                         <!--Long: title + mulitpart + vertical -->

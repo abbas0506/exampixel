@@ -35,6 +35,8 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\DashboardController as TeacherDashboardController;
 use App\Http\Controllers\User\ExtendedPartController;
+use App\Http\Controllers\User\MultipartFromMultiChapterController;
+use App\Http\Controllers\User\MultipartFromSingleChapterController;
 use App\Http\Controllers\User\PaperChapterController;
 use App\Http\Controllers\User\PaperController as TeacherPaperController;
 use App\Http\Controllers\User\PaperKeyController;
@@ -142,7 +144,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
     Route::resource('papers.shorts', PaperShortController::class);
     Route::resource('paper.questions', UserPaperQuestionController::class);
     Route::resource('papers.simpleQuestions', SimpleQuestionController::class)->only('store');
-    Route::resource('papers.partialQuestions', PartialQuestionController::class)->only('store');
+
+    // Route::resource('papers.partialQuestions', PartialQuestionController::class)->only('store');
+    Route::resource('papers.multipart-singlechapter-questions', MultipartFromSingleChapterController::class)->only('store');
+    Route::resource('papers.multipart-multichapter-questions', MultipartFromMultiChapterController::class)->only('store');
+
     Route::resource('paperQuestions.extendedParts', ExtendedPartController::class);
     Route::resource('papers.pdf', PaperPdfController::class);
     Route::resource('papers.simple-pdf', SimplePdfController::class);
