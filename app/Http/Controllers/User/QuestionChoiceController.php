@@ -60,6 +60,10 @@ class QuestionChoiceController extends Controller
                 return view('user.paper-questions.longs.partial.vertical', compact('paper', 'chapters'));
             elseif ($choice == 8) //simple long- statement only
                 return view('user.paper-questions.longs.partial.horizontal', compact('paper', 'chapters'));
+            elseif ($choice == 9) //simple long- statement only
+                return view('user.paper-questions.longs.paraphrasing', compact('paper', 'chapters'));
+            elseif ($choice == 10) //simple long- statement only
+                return view('user.paper-questions.longs.comprehension', compact('paper', 'chapters'));
         } else {
             echo "Chapters not selected!";
         }

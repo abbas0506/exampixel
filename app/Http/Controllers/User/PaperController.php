@@ -44,22 +44,16 @@ class PaperController extends Controller
         $request->validate([
             'book_id' => 'required|numeric',
             'title' => 'required',
-            'paper_date' => 'required|date',
         ]);
 
         $request->merge([
             'institution' => Auth::user()->profile?->institution,
+            'paper_date' => date('Y/m/d'),
         ]);
 
         try {
             $user = Auth::user();
             $paper = $user->papers()->create($request->all());
-            // $chapterIdsArray = array();
-            // $chapterIdsArray = $request->chapter_ids_array;
-
-            // session([
-            //     'chapterIdsArray' => $chapterIdsArray,
-            // ]);
 
             return redirect()->route('user.papers.chapters.index', $paper);
         } catch (Exception $e) {
@@ -84,8 +78,8 @@ class PaperController extends Controller
     public function edit(string $id)
     {
         //
-        $book = Book::find($id);
-        return view('user.papers.edit', compact('book'));
+        $paper = Paper::find($id);
+        return view('user.papers.edit', compact('paper'));
     }
 
     /**
@@ -94,6 +88,19 @@ class PaperController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'title' => 'required',
+            // 'paper_date' => 'date',
+            'institution' => 'nullable',
+        ]);
+
+        try {
+            $paper = Paper::find($id);
+            $paper->update($request->all());
+            return redirect()->route('user.papers.show', $paper)->with('success', 'Successfully updated!');;
+        } catch (Exception $ex) {
+            return redirect()->back()->withErrors($ex->getMessage());
+        }
     }
 
     /**

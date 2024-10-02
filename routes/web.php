@@ -46,6 +46,7 @@ use App\Http\Controllers\User\PaperShortController;
 use App\Http\Controllers\User\PartialQuestionController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\QuestionChoiceController;
+use App\Http\Controllers\User\SimplePdfController;
 use App\Http\Controllers\User\SimpleQuestionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -144,6 +145,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
     Route::resource('papers.partialQuestions', PartialQuestionController::class)->only('store');
     Route::resource('paperQuestions.extendedParts', ExtendedPartController::class);
     Route::resource('papers.pdf', PaperPdfController::class);
+    Route::resource('papers.simple-pdf', SimplePdfController::class);
+
     Route::resource('accounts', AccountController::class);
     Route::resource('profiles', ProfileController::class);
 

@@ -101,9 +101,8 @@ $QNo = 1;
 
                 <a href="{{ route('user.papers.questionChoices.show',[$paper,4]) }}" class="bg-slate-100 hover:bg-slate-200 rounded p-4 relative text-xs">
                     <p class="absolute -top-3 left-4 text-sm font-semibold text-sky-600">[ Long : simple (statement only) ]</p>
-                    <div>Q. Explain information network in detail</div>
-                    <div>Q. Explain the component of computer in detail</div>
-                    <div>Q. What do you know about intenet? Explain</div>
+                    <div>Q. Explain information network in detail. </div>
+
                 </a>
 
                 <a href="{{ route('user.papers.questionChoices.show',[$paper,5]) }}" class="bg-slate-100 hover:bg-slate-200 rounded p-4 relative text-xs">
@@ -139,8 +138,8 @@ $QNo = 1;
                     </div>
                 </a>
                 @if($paper->book->subject->name_en=='English' ||$paper->book->subject->name_en=='Urdu')
-                <a href="" class="bg-slate-100 hover:bg-slate-200 rounded p-4 relative text-xs">
-                    <p class="absolute -top-3 left-4 text-sm">[ Long : Paraphrasing ]</p>
+                <a href="{{ route('user.papers.questionChoices.show',[$paper,9]) }}" class="bg-slate-100 hover:bg-slate-200 rounded p-4 relative text-xs">
+                    <p class="absolute -top-3 left-4 text-sm text-blue-500">[ Long : Paraphrasing ]</p>
                     <div class="font-semibold">Q. Paraphrase the following</div>
                     <div class="grid grid-cols-2 gap-x-3">
                         <div>A verse or poetry </div>
@@ -153,8 +152,8 @@ $QNo = 1;
                         <div>A verse or poetry </div>
                     </div>
                 </a>
-                <a href="" class="bg-slate-100 hover:bg-slate-200 rounded p-4 relative text-xs">
-                    <p class="absolute -top-3 left-4 text-sm">[ Long : Comprehension ]</p>
+                <a href="{{ route('user.papers.questionChoices.show',[$paper,10]) }}" class="bg-slate-100 hover:bg-slate-200 rounded p-4 relative text-xs">
+                    <p class="absolute -top-3 left-4 text-sm text-teal-600">[ Long : Comprehension ]</p>
                     <div class="font-semibold">Q. Read the paragraph and answer the following</div>
                     <div class="ml-4">Quaid-e-Azam was a great leader. He was a truthful and brave leader who fought for his nation and won a separate piece of land. </div>
                     <ul class=" flex flex-col list-inside list-[lower-alpha]">

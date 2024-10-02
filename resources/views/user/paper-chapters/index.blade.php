@@ -30,17 +30,19 @@
             <x-message></x-message>
             @endif
 
-            <div class="grid p-4 place-items-center relative bg-teal-100">
-                <!-- <img src="{{url('images/small/paper-0.png')}}" alt="paper" class="h-24"> -->
-                <div class="flex flex-col text-center ">
-                    <h2>{{ Auth::user()->profile?->institution }}</h2>
-                    <h2>{{ $paper->title }} </h2>
-                    <p>{{ $paper->book->name }} </p>
-                    <p class="text-sm text-slate-600">Dated: {{ $paper->paper_date->format('d/m/Y') }}</p>
-
-                    <a href="{{route('user.papers.edit', $paper)}}" class="absolute w-8 h-8 -bottom-4 left-[calc(50%-16px)] rounded-full btn-blue flex items-center justify-center"><i class="bx bx-pencil"></i></a>
+            <div class="flex flex-row items-center gap-3">
+                <a href="{{ route('user.papers.simple-pdf.create', $paper) }}">
+                    <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="h-12 md:h-16">
+                </a>
+                <div class="flex flex-col">
+                    <h2>{{ $paper->book->name }} </h2>
+                    <div class="flex items-center space-x-3">
+                        <label>{{ $paper->title }}</label>
+                    </div>
                 </div>
             </div>
+
+            <div class="divider my-3"></div>
 
             <form action="{{route('user.papers.chapters.store', $paper)}}" method='post' class="mt-6 w-full md:w-4/5 mx-auto" onsubmit="return validate(event)">
                 @csrf

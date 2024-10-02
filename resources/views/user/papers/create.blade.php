@@ -1,8 +1,9 @@
 @extends('layouts.basic')
 
 @section('header')
-<x-headers.user page="Welcome back!" icon="<i class='bi bi-emoji-smile'></i>"></x-headers.user>
+<x-headers.user page="Q. Paper" icon="<i class='bi bi-file-earmark-text'></i>"></x-headers.user>
 @endsection
+
 
 @section('sidebar')
 <x-sidebars.user page='paper'></x-sidebars.user>
@@ -58,10 +59,10 @@
                         <label for="">Paper Title</label>
                         <input type="text" name="title" class="custom-input-borderless" placeholder="Series Test">
                     </div>
-                    <div>
+                    <!-- <div>
                         <label for="">Paper Date</label>
                         <input type="date" name="paper_date" id='paper_date' class="custom-input-borderless" placeholder="Paper Date" value="{{today()}}->format('m/d/Y')">
-                    </div>
+                    </div> -->
                     <div>
                         <button type="submit" class="btn-teal">Next</button>
                     </div>
