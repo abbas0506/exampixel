@@ -15,14 +15,14 @@ class Helper
         }, $text);
         $patternForAnd = '/(\b\w{2,}+)\s*&\s*(\w{2,}+\b)/';    
         $replacementAnd = '$1\\&$2';
-        $text = preg_replace($patternForAnd, $replacementAnd, $text);
+        // $text = str_replace(['\(', '\)'], '$', $text);
         // $text = str_replace("%", "\%", $text);
         $text = str_replace("both a & b", "both a \& b" , $text);
         $text = strlen(trim($text)) == 2 && $text == '&&' ? '\&\&' : $text;
         $text = strlen(trim($text)) == 1 && $text == '#' ? '\#' : $text;
         $text = strlen(trim($text)) == 1 && $text == '%' ? '\%' : $text;
-        $text = strlen(trim($text)) == 1 && $text == "\\" ? "\\textbackslash" : $text;
-        $text = str_replace('\\\\', '\\textbackslash\\textbackslash', $text);
+        // $text = strlen(trim($text)) == 1 && $text == "\\" ? "\\backslash" : $text;
+        // $text = str_replace('\\\\', '\\backslash\\backslash', $text);
 
         return $text;
         // $text = str_replace("&","\&",$text);

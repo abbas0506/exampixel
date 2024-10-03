@@ -47,45 +47,45 @@ class PaperPdfController extends Controller
 
         $paper = Paper::find($paperId);
 
-        $pdf = PDF::loadView('user.pdf.preview', compact('paper', 'rows', 'columns', 'fontSize'))->setPaper($pageSize, $orientation);
-        $pdf->set_option("isPhpEnabled", true);
-        $file = "paper.pdf";
-        return $pdf->stream($file);
+        // $pdf = PDF::loadView('user.pdf.preview', compact('paper', 'rows', 'columns', 'fontSize'))->setPaper($pageSize, $orientation);
+        // $pdf->set_option("isPhpEnabled", true);
+        // $file = "paper.pdf";
+        // return $pdf->stream($file);
 
 
-        // $orientation = $request->orientation;
-        // $pageSize = $request->page_size;
-        // $rows = $request->rows;
-        // $cols = $request->cols;
-        // $paper = Paper::find($paperId);
-        // $fontSize = $request->font_size;
+        $orientation = $request->orientation;
+        $pageSize = $request->page_size;
+        $rows = $request->rows;
+        $cols = $request->cols;
+        $paper = Paper::find($paperId);
+        $fontSize = $request->font_size;
 
-        // $data = view('user.pdf.latex4', compact('paper', 'orientation', 'pageSize', 'rows', 'cols', 'fontSize', 'paper'))->render();
-        // // store the latex file
-        // Storage::disk('local')->put('paper.tex', $data);
-        // try {
-        //     $res =  Http::timeout(8)->attach('file', $data, 'paper.tex')
-        //         ->post('http://16.171.40.228/latex-to-pdf');
-        //     if ($res->failed() && auth()->user()->email === 'mazeemrehan@gmail.com') {
-        //         return response()->file(storage_path('app/paper.tex'));
-        //     }
-        //     if ($res->failed()) {
-        //         return $res->body();
-        //     }
-        //     Storage::disk('local')->delete('paper.pdf');
-        //     $output = Storage::disk('local')->put('paper.pdf', $res->body());
+        $data = view('user.pdf.latex', compact('paper', 'orientation', 'pageSize', 'rows', 'cols', 'fontSize', 'paper'))->render();
+        // store the latex file
+        Storage::disk('local')->put('paper.tex', $data);
+        try {
+            $res =  Http::timeout(8)->attach('file', $data, 'paper.tex')
+                ->post('http://16.171.40.228/latex-to-pdf');
+            if ($res->failed() && auth()->user()->email === 'mazeemrehan@gmail.com') {
+                return response()->file(storage_path('app/paper.tex'));
+            }
+            if ($res->failed()) {
+                return $res->body();
+            }
+            Storage::disk('local')->delete('paper.pdf');
+            $output = Storage::disk('local')->put('paper.pdf', $res->body());
 
-        //     $user = Auth::user();
-        //     $paper->update([
-        //         'is_printed' => true,
-        //     ]);
-        //     return response()->file(storage_path('app/paper.pdf'));
-        // } catch (\Exception $e) {
-        //     if (auth()->user()->email === 'mazeemrehan@gmail.com') {
-        //         return response()->file(storage_path('app/paper.tex'));
-        //     }
-        //     return $e->getMessage();
-        // }
+            $user = Auth::user();
+            $paper->update([
+                'is_printed' => true,
+            ]);
+            return response()->file(storage_path('app/paper.pdf'));
+        } catch (\Exception $e) {
+            if (auth()->user()->email === 'mazeemrehan@gmail.com') {
+                return response()->file(storage_path('app/paper.tex'));
+            }
+            return $e->getMessage();
+        }
     }
 
     /**

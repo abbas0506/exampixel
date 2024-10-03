@@ -1,7 +1,7 @@
 <header class="sticky-header" id='header'>
     <div class="flex flex-wrap justify-between items-center w-full">
-        <a href="{{url('/')}}" class="flex text-xl flex-wrap font-bold items-center">
-            <img src="{{asset('images/logo/exampixel.png')}}" alt="" class="w-8 md:w-12">
+        <a href="{{ url('/') }}" class="flex text-xl flex-wrap font-bold items-center">
+            <img src="{{ asset('images/logo/exampixel.png') }}" alt="" class="w-8 md:w-12">
             <div class="text-lg font-medium">ExamPixel</div>
 
         </a>
@@ -15,7 +15,7 @@
                 <li><a href="#" class="nav-item">Services</a></li>
                 <li><a href="#" class="nav-item">Packages</a></li>
                 <li><a href="#" class="nav-item">Contact Us</a></li>
-                <li><a href="{{url('login')}}" class="nav-item">Login</a></li>
+                <li><a href="{{ url('login') }}" class="nav-item">Login</a></li>
             </ul>
         </nav>
 
