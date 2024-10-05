@@ -15,24 +15,26 @@
             <i class="bx bx-chevron-right"></i>
             <div>Approval</div>
         </div>
+
+
+        <h2 class="mt-6">{{ $question->chapter->book->name }}</h2>
+        <label>Ch#{{ $question->chapter->sr }}. {{ $question->chapter->title }}</label>
+        <div class="divider my-5"></div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- mid panel  -->
             <div class="md:col-span-2 order-last md:order-first">
-                <div class="flex flex-wrap items-center justify-between">
-                    <div class="flex items-center space-x-1 ">
-                        <h2>{{ $question->chapter->book->name }}</h2>
-                        <i class="bx bx-chevron-right"></i>
-                        <p class="text-sm text-slate-600">Ch. {{ $question->chapter->sr }}</p>
-                    </div>
-                    <!-- <form action="{{route('collaborator.approvables.destroy', $question)}}" method="POST" onsubmit="return confirmDel(event)">
+
+
+
+                <!-- <form action="{{route('collaborator.approvables.destroy', $question)}}" method="POST" onsubmit="return confirmDel(event)">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn-red rounded text-slate-200">
                             <i class="bx bx-trash"></i> Remove Q.
                         </button>
                     </form> -->
-                </div>
-                <div class="divider my-5"></div>
+
                 <!-- page message -->
                 @if($errors->any())
                 <x-message :errors='$errors'></x-message>
@@ -40,7 +42,7 @@
                 <x-message></x-message>
                 @endif
 
-                <form action="{{route('collaborator.approvables.update', $question)}}" method='post' class="grid md:grid-cols-3 gap-6 md:gap-y-8 md:gap-x-16 mt-12" onsubmit="return validate(event)">
+                <form action="{{route('collaborator.approvables.update', $question)}}" method='post' class="grid md:grid-cols-3 gap-6 md:gap-y-8 md:gap-x-16" onsubmit="return validate(event)">
                     @csrf
                     @method('PATCH')
                     <div class="grid gap-y-1">
@@ -48,12 +50,6 @@
                         <p>{{ $question->type->name }}</p>
                     </div>
 
-                    @if($question->subtype)
-                    <div class="grid gap-y-1">
-                        <label>Sub Type</label>
-                        <p>{{ $question->subtype->name  ?? '' }}</p>
-                    </div>
-                    @endif
                     <div class="grid gap-y-1">
                         <label for="">Marks</label>
                         <input type="number" name="marks" value="{{ $question->marks }}" min=1 class="custom-input-borderless">
@@ -91,8 +87,7 @@
                             </div>
                         </div>
                     </div>
-                    @elseif($question->type_id == 3)
-                    @if($question->subtype->tagname=='paraphrasing')
+                    @elseif($question->paraphrasings->count())
                     <!-- paraphrasing question -->
                     <div id='paraphrasingCover' class="questionable col-span-full">
                         <label for="">Paraphrasing: Poetry Lines</label>
@@ -105,9 +100,7 @@
 
                         </div>
                     </div>
-                    @endif
-
-                    @if($question->subtype->tagname=='comprehension')
+                    @elseif($question->comprehensions->count())
                     <!-- Comprehension question -->
                     <div class="col-span-full">
                         <label for="">Comprehension Questions</label>
@@ -121,7 +114,6 @@
                     </div>
                     @endif
 
-                    @endif
                     <!-- preview -->
                     <div class="col-span-full border p-6">
                         <!-- <span id="math" class="text-left no-line-break text-slate-400">Preview</span> -->

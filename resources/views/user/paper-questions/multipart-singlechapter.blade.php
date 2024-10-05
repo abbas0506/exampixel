@@ -47,7 +47,9 @@
         <div class="divider my-3"></div>
 
         <div class="grid gap-6 md:w-3/4 mx-auto mt-6">
+
             <h2>{{ $questionTitle }}</h2>
+
             <form id='data-form' action="{{ route('user.papers.multipart-singlechapter-questions.store', $paper) }}" method="post">
                 @csrf
 

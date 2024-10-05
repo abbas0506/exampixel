@@ -50,17 +50,14 @@
                                 <tr class="">
                                     <th class="w-8">Sr</th>
                                     <th class='w-60 text-left'>Question</th>
-                                    <th class='w-6'>...</th>
+                                    <th class='w-6'>Type</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                $sr=1;
-                                @endphp
                                 @foreach($questions->whereNull('approver_id')->take(5) as $question) <tr class="tr">
-                                    <td>{{$sr++}}</td>
-                                    <td class=" text-left">{{ $question->statement }}</td>
-                                    <td><a href="{{route('collaborator.approvables.show',$question)}}" class="text-orange-600"><i class="bx bx-show-alt"></i></a></td>
+                                    <td>{{ $loop->index+1 }}</td>
+                                    <td class=" text-left"><a href="{{route('collaborator.approvables.show',$question)}}" class="link">{{ $question->statement }}</a></td>
+                                    <td>{{ $question->type->name }}</td>
                                 </tr>
                                 @endforeach
 

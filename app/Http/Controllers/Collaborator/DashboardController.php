@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         //
-        $subjectId = Auth::user()->teacher->subject_id;
+        $subjectId = Auth::user()->profile->subject_id;
 
         $questions = Question::whereRelation('chapter', function ($query) use ($subjectId) {
             $query->whereRelation('book', function ($query) use ($subjectId) {

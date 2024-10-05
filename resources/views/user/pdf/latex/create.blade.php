@@ -47,7 +47,7 @@
             <div class="divider my-3"></div>
             @endif
             @if($paper->paperQuestions->count()>0)
-            <form action="{{route('user.papers.pdf.store',$paper)}}" method="post">
+            <form action="{{route('user.papers.latex-pdf.store',$paper)}}" method="post">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-center justify-center p-6 md:w-4/5 mx-auto">
                     <div class="callable">
@@ -71,12 +71,12 @@
                     </div>
                     <div class="w-full h-full  flex justify-start items-start space-x-4">
                         <div class="flex justify-center items-start gap-x-4">
-                            <div class="page-orientation-container w-16 h-20">
-                                <input type="checkbox" bound='portrait' name="orientation" value="portrait" class="page-orientation">
+                            <div class="page-orientation-container w-16 h-20 active">
+                                <input type="checkbox" bound='portrait' name="orientation" value="portrait" class="page-orientation" checked>
                                 <div class="text-xs">Portrait</div>
                             </div>
-                            <div class="page-orientation-container w-24 h-16 active">
-                                <input type="checkbox" bound='landscape' name="orientation" value="landscape" class="page-orientation" checked>
+                            <div class="page-orientation-container w-24 h-16">
+                                <input type="checkbox" bound='landscape' name="orientation" value="landscape" class="page-orientation">
                                 <div class="text-xs">Landscape</div>
                             </div>
                         </div>

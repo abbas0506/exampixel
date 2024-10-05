@@ -56,7 +56,7 @@
 
                     <div>
                         <label for="">Paper Title</label>
-                        <input type="text" name="title" class="custom-input-borderless" placeholder="Series Test">
+                        <input type="text" name="title" class="custom-input-borderless" placeholder="Series Test" required>
                     </div>
                     <div class="text-center mt-4">
                         <button type="submit" class="btn-teal rounded py-2 px-4">Next <i class="bi-arrow-right"></i></button>

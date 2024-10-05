@@ -87,7 +87,7 @@
                                 <label>{{$paper->book->grade->name}}-{{$paper->book->name}}</label>
                             </td>
                             <td>{{$paper->paper_date->format('d/m/Y')}}</td>
-                            <td><a href="{{route('user.papers.pdf.create',$paper)}}"><i class="bi-printer"></i></a></td>
+                            <td><a href="{{route('user.papers.latex-pdf.create',$paper)}}"><i class="bi-printer"></i></a></td>
                             <td><a href="{{route('user.papers.keys.show',$paper)}}"><i class="bi-key"></i></a></td>
                         </tr>
                         @endforeach
@@ -98,7 +98,7 @@
             @else
             <div class="h-full flex flex-col justify-center items-center">
                 <h3 class="text-slate-600">Currently no paper found!</h3>
-                <a href="{{ route('user.papers.index') }}" class="btn-blue mt-6 rounded">Start Creating Now</a>
+                <a href="{{ route('user.papers.create') }}" class="btn-blue mt-6 rounded">Start Creating Now</a>
             </div>
             @endif
         </div>

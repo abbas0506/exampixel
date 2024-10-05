@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('collaborator.papers.index') }}" class="flex items-center p-2">
+                <a href="" class="flex items-center p-2">
                     <i class="bi bi-patch-check"></i>
                     <span class="ml-3">My Approvals</span>
                 </a>

@@ -31,9 +31,7 @@
             @endif
 
             <div class="flex flex-row items-center gap-3">
-                <a href="{{ route('user.papers.simple-pdf.create', $paper) }}">
-                    <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="h-12 md:h-16">
-                </a>
+                <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="h-12 md:h-16">
                 <div class="flex flex-col">
                     <h2>{{ $paper->book->name }} </h2>
                     <div class="flex items-center space-x-3">

@@ -13,23 +13,22 @@
         <div class="bread-crumb">
             <a href="{{url('/')}}">Home</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('operator.book.chapters.index', $chapter->book)}}">{{ $chapter->book->name }}</a>
+            <a href="{{route('operator.books.index')}}">Books</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('operator.chapter.questions.index', $chapter)}}">Ch. {{ $chapter->sr }}</a>
+            <a href="{{route('operator.books.chapters.index', $chapter->book)}}">Chapters</a>
+            <i class="bx bx-chevron-right"></i>
+            <a href="{{route('operator.chapter.questions.index', $chapter)}}">Questions</a>
             <i class="bx bx-chevron-right"></i>
             <div>Edit Q.</div>
         </div>
 
-        <div class="flex flex-wrap items-center space-x-6 mt-5">
-            <h3 class="bg-green-800 text-green-100 px-3 py-1 rounded-full">Edit Question</h3>
-            <div class="flex items-center space-x-1 ">
-                <h3>{{ $chapter->book->name }}</h3>
-                <i class="bx bx-chevron-right"></i>
-                <p class="text-sm">Chapter {{ $chapter->sr }}</p>
-            </div>
-        </div>
-        <div class="divider my-5"></div>
+        <div class="divider"></div>
+
         <div class="md:w-3/4 mx-auto mt-8">
+
+            <h2>{{ $question->chapter->book->name }}</h2>
+            <label>Ch # {{ $question->chapter->sr }}. {{ $question->chapter->title }}</label>
+
             <!-- page message -->
             @if($errors->any())
             <x-message :errors='$errors'></x-message>
@@ -43,16 +42,6 @@
                 <div class="grid gap-y-1">
                     <label>Question Type</label>
                     <p>{{ $question->type->name }}</p>
-                </div>
-
-                <div class="grid gap-y-1">
-                    <label>Sub Type</label>
-                    <p>{{ $question->subtype->name ?? '' }}</p>
-                </div>
-
-                <div class="grid gap-y-1">
-                    <label for="">Marks</label>
-                    <input type="number" name="marks" value="{{ $question->marks }}" min=1 class="custom-input-borderless">
                 </div>
 
                 <div class="grid gap-y-1 col-span-full">

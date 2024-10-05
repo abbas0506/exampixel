@@ -45,69 +45,72 @@
         </div>
 
         <div class="divider my-3"></div>
-
-        <div class="grid gap-6 md:w-3/4 mx-auto mt-6">
+        <form action="{{ route('user.papers.multipart-multichapter-questions.store', $paper) }}" method="post" class="grid gap-6 md:w-3/4 mx-auto mt-6">
+            @csrf
             <h2>{{ $questionTitle }}</h2>
+            <input type="hidden" name="question_type" value="{{ $choice }}">
 
-            <form action="{{ route('user.papers.multipart-multichapter-questions.store', $paper) }}" method="post">
-                @csrf
+            <div class="md:w-1/3">
+                <label>Importance Level</label>
+                <select name="frequency" id="" class="custom-input-borderless text-sm">
+                    <option value="1">Normal</option>
+                    <option value="2">High</option>
+                    <option value="3">Very High</option>
+                </select>
+            </div>
 
-                <!-- <input type="hidden" name="type_id" id="type_id" value='1' class="custom-input-borderless text-sm"> -->
-                <input type="hidden" name="question_type" value="{{ $choice }}">
+            <div class="grid text-sm border p-6">
 
-                <div class="flex items-center bg-slate-100 border border-dashed rounded-lg p-5 mt-5">
-                    <div class="flex flex-col md:w-1/3">
-                        <label>Importance Level</label>
-                        <select name="frequency" id="" class="custom-input-borderless">
-                            <option value="1">Normal</option>
-                            <option value="2">High</option>
-                            <option value="3">Very High</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Chapters List -->
-                <div class="p-4 md:p-8">
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-x-16 text-left">
-
-                        <div class="grid col-span-full text-sm">
-                            @foreach($chapters->sortBy('sr') as $chapter)
-                            <!-- list only that chapter which has mcq -->
-                            <!-- @if($chapter->questions()->mcqs()->count()) -->
-                            <div class="flex items-center odd:bg-transparent px-3">
-                                <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </label>
+                <table class="borderless">
+                    <thead>
+                        <tr>
+                            <th>Sr</th>
+                            <th class="text-left">Chapter</th>
+                            <th>Parts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($chapters->sortBy('sr') as $chapter)
+                        <tr>
+                            <td>{{ $chapter->sr}}.</td>
+                            <td class="text-left">{{ $chapter->title }}</td>
+                            <td>
                                 <input type="hidden" name='chapter_ids_array[]' value="{{$chapter->id}}">
                                 <input type="number" name='num_of_parts_array[]' autocomplete="off" class="parts-count custom-input-borderless w-16 h-8 text-center px-0" min='0' value="0" oninput="syncNumOfParts()">
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
 
-                            </div>
-                            <!-- @endif -->
-                            @endforeach
-                        </div>
 
-                    </div>
 
-                </div>
-                <!-- Modal footer -->
+            </div>
 
-                <div class="flex flex-wrap justify-center items-center p-4 md:p-5 gap-6 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <div class="md:w-1/3">
+                <label>Total Parts</label>
+                <input type="number" id="total_parts" class="custom-input-borderless" value="0" disabled>
+            </div>
+            <div class="md:w-1/3">
+                <label>Choices</label>
+                <input type="number" id='choices' name="choices" class="custom-input-borderless text-red-600" value="0">
+            </div>
 
-                    <div class="flex flex-wrap gap-4">
-                        <div>
-                            <label>Total Parts</label>
-                            <input type="number" id="total_parts" class="custom-input-borderless w-16 h-8 text-center font-bold" value="0" disabled>
-                        </div>
-                        <div> <label>Choices</label>
-                            <input type="number" id='choices' name="choices" class="custom-input-borderless w-16 h-8 text-center font-bold text-red-600" value="0">
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit" class="btn-blue px-5 py-2.5 rounded-lg">Add Q.</button>
-                    </div>
+            <div>
+                <button type="submit" class="btn-blue px-5 py-2.5 rounded">Add Q.</button>
+            </div>
 
-                </div>
 
-            </form>
-        </div>
+            <!-- Modal footer -->
+
+            <div class="flex flex-wrap items-center p-4 md:p-5 gap-6 border-t border-gray-200 rounded-b dark:border-gray-600">
+
+
+
+            </div>
+
+        </form>
+
     </div>
     @endsection
     @section('script')

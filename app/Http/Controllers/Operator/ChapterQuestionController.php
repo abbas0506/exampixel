@@ -147,7 +147,6 @@ class ChapterQuestionController extends Controller
         $request->validate([
             'statement' => 'required',
             'exercise_no' => 'nullable|numeric',
-            'marks' => 'required|numeric',
             'frequency' => 'required|numeric',
             'is_conceptual' => 'required|boolean',
         ]);
@@ -158,7 +157,6 @@ class ChapterQuestionController extends Controller
 
         try {
             $question->update([
-                'marks' => $request->marks,
                 'statement' => $request->statement,
                 'exercise_no' => $request->exercise_no,
                 'is_conceptual' => $request->is_conceptual,

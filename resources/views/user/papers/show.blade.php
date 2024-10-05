@@ -54,7 +54,7 @@ $QNo = 1;
                     @if ($paper->paperQuestions->count() > 0)
                     <div
                         class="flex w-12 h-12 items-center justify-center rounded-full bg-orange-100 hover:bg-orange-200">
-                        <a href="{{ route('user.papers.pdf.create', $paper) }}"><i class="bi-printer"></i></a>
+                        <a href="{{ route('user.papers.latex-pdf.create', $paper) }}"><i class="bi-printer"></i></a>
                     </div>
                     @endif
                 </div>

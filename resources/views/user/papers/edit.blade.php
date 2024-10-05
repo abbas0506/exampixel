@@ -36,8 +36,7 @@
                 <div class="grid gap-8">
                     <div class="w-1/2">
                         <label>Current Paper Date: {{ $paper->paper_date->format('d/m/Y') }}</label>
-                        <p>Will be available soon</p>
-                        <!-- <input type="date" name='paper_date' class="custom-input-borderless" value="{{ $paper->paper_date->format('Y/m/d') }}"> -->
+                        <input type="date" name='paper_date' class="custom-input-borderless" value="{{ date('Y-m-d') }} }}">
                     </div>
                     <div class="">
                         <label>Paper Title</label>
