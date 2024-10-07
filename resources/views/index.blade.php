@@ -5,28 +5,8 @@
 @endsection
 
 @section('body')
-<style>
-    .content {
-        background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
-        url("{{asset('/images/bg/study.jpg')}}");
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        margin: 0;
-
-    }
-
-    .bg-dark {
-        background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9));
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        margin: 0;
-    }
-</style>
-
 <section>
-    <div class="w-screen h-screen bg-slate-100">
+    <div class="w-screen h-screen bg-teal-50">
         <div class="p-5 md:w-3/4 mx-auto flex flex-col justify-center items-center text-center h-full">
             <img src="{{asset('/images/bg/exam-min.png')}}" alt="bg" class="w-36 md:w-48">
             <p class="text-teal-600 text-2xl md:text-4xl mt-6">We Make Exams Easy </p>

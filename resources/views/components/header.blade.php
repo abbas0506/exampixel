@@ -1,3 +1,31 @@
+<style>
+    /* Custom styles for the animated underline */
+    .animated-underline {
+        position: relative;
+        display: inline-block;
+    }
+
+    .animated-underline::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        height: 2px;
+        /* Adjust height as needed */
+        width: 100%;
+        background-color: #0D9488;
+        /* Tailwind's blue-500 */
+        transform: scaleX(0);
+        transition: transform 0.25s ease;
+        transform-origin: bottom center;
+    }
+
+    .animated-underline:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom center;
+    }
+</style>
+
 <header class="sticky-header" id='header'>
     <div class="flex flex-wrap justify-between items-center w-full">
         <a href="{{ url('/') }}" class="flex text-xl flex-wrap font-bold items-center">
@@ -10,12 +38,12 @@
                 <li class="float-right md:hidden" onclick="toggleNavbarMobile()">
                     <i class="bi-x-lg text-xl text-orange-300 hover:-rotate-90 transition duration-500 ease-in-out"></i>
                 </li>
-                <li><a href="{{ url('/') }}" class="nav-item">Home</a></li>
-                <li><a href="#" class="nav-item">About</a></li>
-                <li><a href="#" class="nav-item">Services</a></li>
-                <li><a href="#" class="nav-item">Packages</a></li>
-                <li><a href="#" class="nav-item">Contact Us</a></li>
-                <li><a href="{{ url('login') }}" class="nav-item">Login</a></li>
+                <li><a href="{{ url('/') }}" class="nav-item animated-underline">Home</a></li>
+                <li><a href="#" class="nav-item animated-underline">About</a></li>
+                <li><a href="#" class="nav-item animated-underline">Services</a></li>
+                <li><a href="#" class="nav-item animated-underline">Packages</a></li>
+                <li><a href="#" class="nav-item animated-underline">Contact Us</a></li>
+                <li><a href="{{ url('login') }}" class="nav-item animated-underline">Login</a></li>
             </ul>
         </nav>
 
