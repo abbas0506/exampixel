@@ -29,7 +29,7 @@
 <header class="sticky-header" id='header'>
     <div class="flex flex-wrap justify-between items-center w-full">
         <a href="{{ url('/') }}" class="flex text-xl flex-wrap font-bold items-center">
-            <img src="{{ url('images/logo/exampixel-0.png') }}" alt="" class="w-12">
+            <img src="{{ url('images/logo/exampixel.png') }}" alt="" class="w-12">
             <div class="text-lg font-medium ml-2">ExamPixel</div>
 
         </a>
