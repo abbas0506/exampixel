@@ -29,8 +29,8 @@
 <header class="sticky-header" id='header'>
     <div class="flex flex-wrap justify-between items-center w-full">
         <a href="{{ url('/') }}" class="flex text-xl flex-wrap font-bold items-center">
-            <img src="{{ asset('images/logo/exampixel.png') }}" alt="" class="w-8 md:w-12">
-            <div class="text-lg font-medium">ExamPixel</div>
+            <img src="{{ url('images/logo/exampixel.png') }}" alt="" class="w-12">
+            <div class="text-lg font-medium ml-2">ExamPixel</div>
 
         </a>
         <nav id='navbar' class="navbar">

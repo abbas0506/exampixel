@@ -1,5 +1,5 @@
 <div class="w-screen mt-12">
-    <div class="flex flex-wrap justify-center gap-6">
+    <!-- <div class="flex flex-wrap justify-center gap-6">
         <a href="{{url('https://elibrary.punjab.gov.pk/')}}">
             <img src="{{url('images/logo/govt.png')}}" alt="logo" target="_blank" class="w-12 h-12">
         </a>
@@ -13,7 +13,7 @@
             <img src="{{url('images/logo/hec.png')}}" alt="logo" target="_blank" class="w-12 h-12">
         </a>
 
-    </div>
+    </div> -->
     <div class="grid grid-cols-1 md:grid-cols-3 bg-slate-800 gap-6 md:gap-x-20 p-4 md:px-24 mt-12">
         <div>
             <h3 class="text-base text-orange-300">ExamPixel</h3>
@@ -35,8 +35,8 @@
                 <p></p>
                 <p>abbas.sscs@gmail.com</p>
                 <div class="flex flex-row flex-wrap space-x-2 mt-2">
-                    <a href="{{url('https://web.facebook.com/ghsschakbedi.pakpattan.1')}}" target="_blank"><i class="bi-facebook text-slate-400 w-4 h-4"></i></a>
-                    <a href="{{url('https://web.facebook.com/ghsschakbedi.pakpattan.1')}}" target="_blank"><i class="bi-twitter text-slate-400 w-4 h-4"></i></a>
+                    <a href="#" target="_blank"><i class="bi-facebook text-slate-400 w-4 h-4"></i></a>
+                    <a href="#" target="_blank"><i class="bi-twitter text-slate-400 w-4 h-4"></i></a>
                 </div>
             </div>
         </div>

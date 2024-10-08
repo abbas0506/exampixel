@@ -8,7 +8,7 @@
 <section>
     <div class="w-screen h-screen bg-teal-50">
         <div class="p-5 md:w-3/4 mx-auto flex flex-col justify-center items-center text-center h-full">
-            <img src="{{asset('/images/bg/exam-min.png')}}" alt="bg" class="w-36 md:w-48">
+            <img src="{{asset('/images/bg/exam-min.png')}}" alt="bg" class="w-36 md:w-48 md:mt-16">
             <p class="text-teal-600 text-2xl md:text-4xl mt-6">We Make Exams Easy </p>
             <p class="text-slate-600 mt-5 text-sm md:text-xl leading-relaxed font-normal">We empower educators and students with easy to use and interactive tools that make exams easy for them. We have a vast question bank covering all major subjects from grade 9 to 12. </p>
             <div class="flex flex-col md:flex-row items-center justify-center gap-2 mt-8 w-full">
@@ -52,8 +52,8 @@
     <div class="grid md:grid-cols-2 place-items-center" data-aos="fade-up" data-aos-duration="500">
         <div class="order-2 md:order-1 p-5">
             <h2 class="text-xl md:text-2xl text-center md:text-left">Self Assessment</h2>
-            <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 my-6"></div>
-            <ul class="list-disc list-inside leading-relaxed">
+            <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 mt-3 mb-6"></div>
+            <ul class="list-disc list-inside leading-relaxed text-sm md:text-base">
                 <li>100% free, No signup required</li>
                 <li>Online & fully automated</li>
                 <li>Multi-chapter selection</li>
@@ -66,14 +66,14 @@
 
         </div>
         <div class="order-first md:order-2  bg-teal-100 w-full h-full flex justify-center p-5">
-            <img src="{{ url('images/small/mcqs-2.png') }}" alt="selftest" class="w-64">
+            <img src="{{ url('images/small/online-test-min.png') }}" alt="selftest" class="w-60">
         </div>
 
         <!-- row 2 -->
         <div class="order-4 p-5">
             <h2 class="text-xl md:text-2xl text-center md:text-left">Paper Generation</h2>
-            <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 my-6"></div>
-            <ul class="list-disc list-inside leading-relaxed">
+            <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 mt-3 mb-6"></div>
+            <ul class="list-disc list-inside leading-relaxed text-sm md:text-base">
                 <li>Fully automated, simple & easy</li>
                 <li>Multi chapter selection</li>
                 <li>Fully customized</li>
@@ -87,8 +87,8 @@
             </div>
 
         </div>
-        <div class="order-3 bg-teal-100 w-full h-full flex justify-center p-5">
-            <img src="{{ url('images/small/paper-4.png') }}" alt="selftest" class="w-64">
+        <div class="order-3 bg-teal-100 w-full h-full flex justify-center items-center p-5">
+            <img src="{{ url('images/small/pdf-0.png') }}" alt="selftest" class="w-60">
         </div>
     </div>
 </section>
@@ -105,7 +105,7 @@
     <div class="testimonials-carousel swiper w-full md:w-3/4 mx-auto mt-12">
         <div class="swiper-wrapper">
             <div class="testimonial-item swiper-slide">
-                <img src="{{asset('images/small/development.png')}}" class="testimonial-img" alt="">
+                <img src="{{asset('images/small/developers.png')}}" class="testimonial-img" alt="">
                 <h3>Developers</h3>
                 <h4>Web & Android</h4>
                 <p>
@@ -116,7 +116,7 @@
             </div>
 
             <div class="testimonial-item swiper-slide">
-                <img src="{{asset('images/small/collaboration.png')}}" class="testimonial-img" alt="">
+                <img src="{{asset('images/small/collaborations-min.png')}}" class="testimonial-img" alt="">
                 <h3>Collaborators</h3>
                 <h4>Public & Private Sector</h4>
                 <p>
@@ -125,16 +125,6 @@
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
             </div>
-            <!-- <div class="testimonial-item swiper-slide">
-                <img src="{{asset('images/small/clients.jpg')}}" class="testimonial-img" alt="">
-                <h3>Clients</h3>
-                <h4>Pubic & Private Sector</h4>
-                <p>
-                    <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    "Our satisfied clients are actually the real players of our team whose positive feedback helps us identifying our deficiencies and improve the user interface and experience"
-                    <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
-            </div> -->
 
         </div>
         <div class="swiper-pagination"></div>
