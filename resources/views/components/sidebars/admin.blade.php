@@ -1,7 +1,7 @@
 <aside aria-label="Sidebar" id='sidebar'>
     <div class="flex items-center justify-center w-full mt-16">
         <a href="{{url('/')}}" class="">
-            <img alt="logo" src="{{asset('images/logo/exampixel.png')}}" class="w-16">
+            <img alt="logo" src="{{asset('images/logo/exampixel-0.png')}}" class="w-16">
         </a>
     </div>
     <div class="mt-8 font-bold text-center text-orange-300 uppercase tracking-wide">Exampixel</div>
