@@ -5,7 +5,7 @@
     <div><img src="{{ url('images/small/key.png') }}" alt="signup" class="md:w-full"></div>
     <div class="grid place-items-center">
         <div class="">
-            <!-- <img class="w-36 md:w-40 mx-auto" alt="logo" src="{{asset('images/logo/exampixel.png')}}"> -->
+            <!-- <img class="w-36 md:w-40 mx-auto" alt="logo" src="{{asset('images/logo/exampixel-0.png')}}"> -->
             <!-- page message -->
             @if($errors->any())
             <x-message :errors='$errors'></x-message>
