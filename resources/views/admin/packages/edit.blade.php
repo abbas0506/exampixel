@@ -13,7 +13,7 @@
         <div class="bread-crumb">
             <a href="{{url('/')}}">Home</a>
             <i class="bx bx-chevron-right"></i>
-            <div>Config</div>
+            <a href="{{route('admin.subjects.index')}}">Config</a>
             <i class="bx bx-chevron-right"></i>
             <a href="{{route('admin.packages.index')}}">Packages</a>
             <i class="bx bx-chevron-right"></i>

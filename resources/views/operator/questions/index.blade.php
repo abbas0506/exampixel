@@ -53,6 +53,8 @@ $activeChapter=$chapter;
                 <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
 
+            <a href="{{route('operator.chapter.multi-questions.index', $chapter)}}" class="link text-xs text-orange-600">Change Q.Type</a>
+
             <div class="overflow-x-auto">
                 <table class="table-fixed borderless w-full mt-3">
                     <thead>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Type;
+use Exception;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
@@ -24,6 +25,7 @@ class TypeController extends Controller
     public function create()
     {
         //
+        return view('admin.types.create');
     }
 
     /**
@@ -32,6 +34,16 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        try {
+            $package = Type::create($request->all());
+            return redirect()->route('admin.types.index')->with('success', 'Successfully created');;
+        } catch (Exception $ex) {
+            return redirect()->back()->withErrors($ex->getMessage());
+        }
     }
 
     /**
@@ -48,6 +60,8 @@ class TypeController extends Controller
     public function edit(string $id)
     {
         //
+        $type = Type::find($id);
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -56,6 +70,17 @@ class TypeController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        try {
+            $type = Type::find($id);
+            $type->update($request->all());
+            return redirect()->route('admin.types.index')->with('success', 'Successfully updated');;
+        } catch (Exception $ex) {
+            return redirect()->back()->withErrors($ex->getMessage());
+        }
     }
 
     /**
@@ -64,5 +89,12 @@ class TypeController extends Controller
     public function destroy(string $id)
     {
         //
+        try {
+            $model = Type::find($id);
+            $model->delete();
+            return redirect()->back()->with('success', 'Successfully deleted!');
+        } catch (Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
     }
 }

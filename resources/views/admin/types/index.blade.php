@@ -35,9 +35,10 @@
         <x-message></x-message>
         @endif
 
+        <a href="{{route('admin.types.create')}}" class="fixed bottom-6 right-6 btn-green w-14 h-14 flex justify-center items-center rounded-full text-sm">New</a>
         <div class="container-light">
             <div class="flex items-center">
-                <h3 class="text-green-600 bg-green-100 px-3 py-1 rounded-full">Question Types <i class="bx bx-layer"></i></h3>
+                <h3 class="text-green-600 bg-green-100 px-3 py-1 rounded-full">Question Types</h3>
             </div>
             <div class="overflow-x-auto w-full mt-6">
                 <table class="w-full sm">
@@ -45,6 +46,7 @@
                         <tr>
                             <th>Sr</th>
                             <th>Question Type</th>
+                            <th>Actions</th>
                         </tr>
                     <tbody>
                         @php $sr=1; @endphp
@@ -52,6 +54,16 @@
                         <tr class="text-sm tr">
                             <td>{{$sr++}}</td>
                             <td>{{ $type->name }}</td>
+                            <td>
+                                <div class="flex justify-center items-center space-x-2">
+                                    <a href="{{route('admin.types.edit', $type)}}" class="flex justify-center text-teal-600"><i class="bx bx-pencil"></i></a>
+                                    <form action="{{route('admin.types.destroy',$type)}}" method="POST" onsubmit="return confirmDel(event)">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="text-red-600"><i class="bi bi-trash3 text-xs"></i></button>
+                                    </form>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -61,4 +73,41 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script type="text/javascript">
+    function confirmDel(event) {
+        event.preventDefault(); // prevent form submit
+        var form = event.target; // storing the form
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                form.submit();
+            }
+        })
+    }
+
+    function search(event) {
+        var searchtext = event.target.value.toLowerCase();
+        var str = 0;
+        $('.tr').each(function() {
+            if (!(
+                    $(this).children().eq(1).prop('outerText').toLowerCase().includes(searchtext)
+                )) {
+                $(this).addClass('hidden');
+            } else {
+                $(this).removeClass('hidden');
+            }
+        });
+    }
+</script>
+
 @endsection

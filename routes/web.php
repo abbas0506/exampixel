@@ -25,7 +25,10 @@ use App\Http\Controllers\Collaborator\PaperQuestionController;
 use App\Http\Controllers\Collaborator\PaperTypeQuestionController;
 use App\Http\Controllers\Operator\BookChapterController;
 use App\Http\Controllers\Operator\BookController;
+use App\Http\Controllers\Operator\ChapterBulkQuestionController;
+use App\Http\Controllers\Operator\ChapterMultiQuestionController;
 use App\Http\Controllers\Operator\ChapterQuestionController;
+use App\Http\Controllers\Operator\ChapterQuestionTypeController;
 use App\Http\Controllers\Operator\GradeBookChapterController;
 use App\Http\Controllers\Operator\GradeBookController;
 use App\Http\Controllers\Operator\DashboardController as OperatorDashboardController;
@@ -122,6 +125,7 @@ Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['rol
     Route::resource('chapter.question-choices', OperatorQuestionChoiceController::class);
     Route::resource('chapter.questions', ChapterQuestionController::class);
     Route::resource('chapter.questionables.questions', ChapterQuestionController::class);
+    Route::resource('chapter.multi-questions', ChapterMultiQuestionController::class);
 });
 
 Route::post('/generate-pdf', 'PdfController@generatePDF');
