@@ -63,7 +63,7 @@ class PackageController extends Controller
     public function edit(string $id)
     {
         //
-        $package = Package::find($id);
+        $package = Package::findOrFail($id);
         return view('admin.packages.edit', compact('package'));
     }
 
@@ -81,7 +81,7 @@ class PackageController extends Controller
         ]);
 
         try {
-            $package = Package::find($id);
+            $package = Package::findOrFail($id);
             $package->update($request->all());
             return redirect()->route('admin.packages.index')->with('success', 'Successfully created');;
         } catch (Exception $ex) {
@@ -96,7 +96,7 @@ class PackageController extends Controller
     {
         //
         try {
-            $model = Package::find($id);
+            $model = Package::findOrFail($id);
             $model->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

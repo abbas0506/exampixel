@@ -17,7 +17,7 @@ class BookApprovableController extends Controller
         $books = Book::where('subject_id', Auth::user()->teacher->subject_id)->get();
 
         if ($bookId) {
-            $activeBook = Book::find($bookId);
+            $activeBook = Book::findOrFail($bookId);
         } else {
             $activeBook = $books->first();
         }

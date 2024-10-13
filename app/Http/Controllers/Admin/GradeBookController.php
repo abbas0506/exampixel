@@ -18,7 +18,7 @@ class GradeBookController extends Controller
     {
         //
         $grades = Grade::all();
-        $grade = Grade::find($id);
+        $grade = Grade::findOrFail($id);
         return view('admin.books.index', compact('grades', 'grade'));
     }
 
@@ -28,7 +28,7 @@ class GradeBookController extends Controller
     public function create($gradeId)
     {
         //
-        $grade = Grade::find($gradeId);
+        $grade = Grade::findOrFail($gradeId);
         $grades = Grade::all();
         $subjects = Subject::all();
         return view('admin.books.create', compact('grades', 'subjects', 'grade'));
@@ -45,7 +45,7 @@ class GradeBookController extends Controller
             'subject_id' => 'required|numeric',
         ]);
 
-        $grade = Grade::find($gradeId);
+        $grade = Grade::findOrFail($gradeId);
         try {
             $grade->books()->create($request->all());
             return redirect()->route('admin.grade.books.index', $grade)->with('success', 'Successfully added');;
@@ -60,7 +60,7 @@ class GradeBookController extends Controller
     public function show(string $id)
     {
         //
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         return view('administration.grade.books.show', compact('book'));
     }
 
@@ -70,7 +70,7 @@ class GradeBookController extends Controller
     public function edit(string $gradeId, $bookId)
     {
         //
-        $book = Book::find($bookId);
+        $book = Book::findOrFail($bookId);
         $grades = Grade::all();
         $subjects = Subject::all();
         return view('admin.books.edit', compact('book', 'grades', 'subjects'));
@@ -89,7 +89,7 @@ class GradeBookController extends Controller
         ]);
 
         try {
-            $book = Book::find($bookId);
+            $book = Book::findOrFail($bookId);
             $book->update($request->all());
             return redirect()->route('admin.grade.books.index', $book->grade)->with('success', 'Successfully updated!');;
         } catch (Exception $ex) {
@@ -103,7 +103,7 @@ class GradeBookController extends Controller
     public function destroy($gradeId, $bookId)
     {
         //
-        $book = Book::find($bookId);
+        $book = Book::findOrFail($bookId);
         $grade = $book->grade;
         try {
             $book->delete();

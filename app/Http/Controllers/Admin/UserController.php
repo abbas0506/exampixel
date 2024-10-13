@@ -86,7 +86,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         //
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $roles = Role::all();
         return view('admin.users.edit', compact('user', 'roles'));
     }
@@ -143,7 +143,7 @@ class UserController extends Controller
     {
         //
         try {
-            $user = User::find($id);
+            $user = User::findOrFail($id);
             $user->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

@@ -19,7 +19,7 @@ class BookChapterController extends Controller
     {
         //
         $grades = Grade::all();
-        $book = Book::find($bookId);
+        $book = Book::findOrFail($bookId);
         $tagIds = $book->chapters->sortBy('tag_id')->pluck('tag_id')->unique();
         $tags = Tag::whereIn('id', $tagIds)->get();
 
@@ -33,7 +33,7 @@ class BookChapterController extends Controller
     {
         //
         $tags = Tag::all();
-        $book = Book::find($bookId);
+        $book = Book::findOrFail($bookId);
         return view('admin.qbank.chapters.create', compact('book', 'tags'));
     }
 
@@ -50,7 +50,7 @@ class BookChapterController extends Controller
         ]);
 
         $request->merge(['book_id' => $bookId]);
-        $book = Book::find($bookId);
+        $book = Book::findOrFail($bookId);
         try {
             // if no chapter exists against this serial, create new
             // if ($book->chapters()->where('sr', $request->sr)->count() == 0) {
@@ -78,8 +78,8 @@ class BookChapterController extends Controller
     public function edit($bookId, string $id)
     {
         //
-        $book = Book::find($bookId);
-        $chapter = Chapter::find($id);
+        $book = Book::findOrFail($bookId);
+        $chapter = Chapter::findOrFail($id);
         $tags = Tag::all();
         return view('admin.qbank.chapters.edit', compact('book', 'chapter', 'tags'));
     }
@@ -96,7 +96,7 @@ class BookChapterController extends Controller
             'tag_id' => 'required|numeric',
         ]);
 
-        $chapter = Chapter::find($chapterId);
+        $chapter = Chapter::findOrFail($chapterId);
 
         try {
             $chapter->update($request->all());
@@ -112,7 +112,7 @@ class BookChapterController extends Controller
     public function destroy($bookId, string $id)
     {
         //
-        $chapter = Chapter::find($id);
+        $chapter = Chapter::findOrFail($id);
         try {
             $chapter->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');

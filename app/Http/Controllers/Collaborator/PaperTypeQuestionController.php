@@ -13,9 +13,9 @@ class PaperTypeQuestionController extends Controller
     //
     public function  create($paperId, $typeId)
     {
-        $paper = Paper::find($paperId);
+        $paper = Paper::findOrFail($paperId);
         $book = $paper->book;
-        $type = Type::find($typeId);
+        $type = Type::findOrFail($typeId);
 
         // $selectedChapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
         $selectedChapters = Chapter::whereIn('id', session('chapterIdsArray'))

@@ -9,7 +9,7 @@ use App\Models\Question;
 use Exception;
 use Illuminate\Http\Request;
 
-class ExtendedPartController extends Controller
+class PaperQuestionExtensionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,10 +25,11 @@ class ExtendedPartController extends Controller
     public function create($id)
     {
         //
-        $paperQuestion = PaperQuestion::find($id);
+        $paperQuestion = PaperQuestion::findOrFail($id);
         $paper = $paperQuestion->paper;
-        $chapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();
-        return view('user.paper-questions.extended-part', compact('paperQuestion', 'paper', 'chapters'));
+
+        $chapters = Chapter::whereIn('id', $paper->chapterIdsArray())->get();
+        return view('user.paper-questions.extension', compact('paperQuestion', 'paper', 'chapters'));
     }
 
     /**
@@ -43,13 +44,12 @@ class ExtendedPartController extends Controller
         ]);
 
         try {
-            $paperQuestion = PaperQuestion::find($id);
+            $paperQuestion = PaperQuestion::findOrFail($id);
             //randomly select question parts from each chapter and save them
 
             $threshold = $request->frequency;
 
-            $question = Question::where('type_id', 3)
-                ->where('chapter_id', $request->chapter_id)
+            $question = Question::where('chapter_id', $request->chapter_id)
                 ->where('frequency', '>=', $threshold)
                 ->get()
                 ->random(1)
@@ -61,6 +61,12 @@ class ExtendedPartController extends Controller
                 'marks' => $request->marks,
             ]);
 
+            $previousMakrs = $paperQuestion->marks;
+            if ($paperQuestion->type_name == 'simple-and') {
+                $paperQuestion->update([
+                    'marks' => $previousMakrs + $request->marks,
+                ]);
+            }
             // echo $question->id;
             return redirect()->route('user.papers.show', $paperQuestion->paper)->with('success', 'Question successfully added!');
         } catch (Exception $e) {

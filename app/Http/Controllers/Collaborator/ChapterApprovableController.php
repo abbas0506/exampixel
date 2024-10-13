@@ -13,7 +13,7 @@ class ChapterApprovableController extends Controller
     //
     public function index($chapterId)
     {
-        $activeChapter = Chapter::find($chapterId);
+        $activeChapter = Chapter::findOrFail($chapterId);
         $activeBook = $activeChapter->book;
         $books = Book::where('subject_id', Auth::user()->teacher->subject_id)->get();
 

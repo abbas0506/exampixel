@@ -67,7 +67,7 @@ class PaperQuestionPartController extends Controller
     }
     public function refresh($paperQuestionPartId)
     {
-        $paperQuestionPart = PaperQuestionPart::find($paperQuestionPartId);
+        $paperQuestionPart = PaperQuestionPart::findOrFail($paperQuestionPartId);
 
         $alreadyIncludedQuestionIds = $paperQuestionPart->paperQuestion->paper->paperQuestionParts->pluck('question_id');
 

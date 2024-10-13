@@ -19,7 +19,7 @@ class ChapterQuestionController extends Controller
     public function index($chapterId)
     {
         //
-        $chapter = Chapter::find($chapterId);
+        $chapter = Chapter::findOrFail($chapterId);
         $book = $chapter->book;
         $questions = $chapter->questions;
         return view('admin.qbank.questions.index', compact('book', 'chapter', 'questions'));
@@ -31,7 +31,7 @@ class ChapterQuestionController extends Controller
     public function create($chapterId)
     {
         //
-        $chapter = Chapter::find($chapterId);
+        $chapter = Chapter::findOrFail($chapterId);
         $questions = $chapter->questions;
         $book = $chapter->book;
 
@@ -54,7 +54,7 @@ class ChapterQuestionController extends Controller
             'type_id' => 'required',
         ]);
 
-        $chapter = Chapter::find($chapterId);
+        $chapter = Chapter::findOrFail($chapterId);
         $book = $chapter->book;
 
         DB::beginTransaction();
@@ -137,9 +137,9 @@ class ChapterQuestionController extends Controller
     public function show($chapterId, $questionId)
     {
         //
-        $chapter = Chapter::find($chapterId);
+        $chapter = Chapter::findOrFail($chapterId);
         $book = $chapter->book;
-        $question = Question::find($questionId);
+        $question = Question::findOrFail($questionId);
         return view('admin.qbank.questions.show', compact('book', 'chapter', 'question'));
     }
 
@@ -149,9 +149,9 @@ class ChapterQuestionController extends Controller
     public function edit($chapterId, $questionId)
     {
         //
-        $chapter = Chapter::find($chapterId);
+        $chapter = Chapter::findOrFail($chapterId);
         $book = $chapter->book;
-        $question = Question::find($questionId);
+        $question = Question::findOrFail($questionId);
         return view('admin.qbank.questions.edit', compact('book', 'chapter', 'question'));
     }
 
@@ -170,7 +170,7 @@ class ChapterQuestionController extends Controller
             'is_conceptual' => 'required|boolean',
         ]);
 
-        $question = Question::find($questionId);
+        $question = Question::findOrFail($questionId);
 
         DB::beginTransaction();
 
@@ -241,7 +241,7 @@ class ChapterQuestionController extends Controller
     {
         //
         try {
-            $question = Question::find($questionId);
+            $question = Question::findOrFail($questionId);
             $question->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

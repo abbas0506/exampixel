@@ -47,7 +47,7 @@ class ApprovalController extends Controller
     public function show(string $id)
     {
         //
-        $question = Question::find($id);
+        $question = Question::findOrFail($id);
         $similarQuestions = $question->similarQuestions();
         return view('collaborator.approvables.show', compact('question', 'similarQuestions'));
     }
@@ -75,7 +75,7 @@ class ApprovalController extends Controller
             'is_conceptual' => 'required|boolean',
         ]);
 
-        $question = Question::find($questionId);
+        $question = Question::findOrFail($questionId);
 
         DB::beginTransaction();
 
@@ -169,7 +169,7 @@ class ApprovalController extends Controller
     {
         //
         try {
-            $question = Question::find($id);
+            $question = Question::findOrFail($id);
             $question->delete();
             return redirect('/')->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

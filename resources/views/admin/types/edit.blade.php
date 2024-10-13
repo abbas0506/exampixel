@@ -32,14 +32,29 @@
             <form action="{{route('admin.types.update', $type)}}" method='post' class="">
                 @csrf
                 @method('PATCH')
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <h2 class="md:col-span-2 text-green-600">Edit Type <i class="bi-box"></i></h2>
-                    <div class="md:col-span-2">
+                <div class="grid gap-6">
+                    <h2 class="text-green-600">New Type <i class="bi-box"></i></h2>
+                    <div class="md:w-1/4">
+                        <label for="">Sr</label>
+                        <input type="number" id='' name='sr' class="custom-input-borderless" placeholder="Question Type" value="{{ $type->sr }}">
+                    </div>
+                    <div>
                         <label for="">Type Name</label>
                         <input type="text" id='' name='name' class="custom-input-borderless" placeholder="Question Type" value="{{ $type->name }}">
                     </div>
+                    <div class="md:w-1/4">
+                        <label for="">Allows Parts</label>
+                        <select name="display_style" id="" class="custom-input-borderless">
+                            <option value="1" @selected($type->display_style)>Yes</option>
+                            <option value="0" @selected(!$type->display_style)>No</option>
+                        </select>
+                    </div>
 
-                    <div class="md:col-span-2 text-right">
+                    <div>
+                        <label for="">Default Title</label>
+                        <input type="text" id='' name='default_title' class="custom-input-borderless" placeholder="Default title" value="{{ $type->default_title }}">
+                    </div>
+                    <div class="text-right">
                         <button type="submit" class="btn-teal rounded">Update Now</button>
                     </div>
                 </div>

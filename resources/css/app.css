@@ -567,4 +567,11 @@
         @apply bg-green-800 text-white hover:bg-green-600;
     }
 
+    .choice-box label .box{
+        @apply flex bg-slate-100 hover:bg-slate-200 rounded p-4 text-xs;
+    }
+    .choice-box input[type="checkbox"]:checked ~label .box{
+        @apply flex bg-slate-200 hover:bg-slate-200 border border-slate-400 rounded p-4 text-xs;
+    }
+
 }

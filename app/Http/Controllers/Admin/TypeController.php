@@ -36,6 +36,9 @@ class TypeController extends Controller
         //
         $request->validate([
             'name' => 'required',
+            'sr' => 'required|numeric',
+            'display_style' => 'required|boolean',
+            'default_title' => 'nullable',
         ]);
 
         try {
@@ -60,7 +63,7 @@ class TypeController extends Controller
     public function edit(string $id)
     {
         //
-        $type = Type::find($id);
+        $type = Type::findOrFail($id);
         return view('admin.types.edit', compact('type'));
     }
 
@@ -72,10 +75,13 @@ class TypeController extends Controller
         //
         $request->validate([
             'name' => 'required',
+            'sr' => 'required|numeric',
+            'display_style' => 'required|boolean',
+            'default_title' => 'nullable',
         ]);
 
         try {
-            $type = Type::find($id);
+            $type = Type::findOrFail($id);
             $type->update($request->all());
             return redirect()->route('admin.types.index')->with('success', 'Successfully updated');;
         } catch (Exception $ex) {
@@ -90,7 +96,7 @@ class TypeController extends Controller
     {
         //
         try {
-            $model = Type::find($id);
+            $model = Type::findOrFail($id);
             $model->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

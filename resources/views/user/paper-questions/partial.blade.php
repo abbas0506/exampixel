@@ -45,19 +45,32 @@
         </div>
 
         <div class="divider my-3"></div>
-        <form action="{{ route('user.papers.multipart-multichapter-questions.store', $paper) }}" method="post" class="grid gap-6 md:w-3/4 mx-auto mt-6">
+        <form action="{{ route('user.papers.question-types.partial-questions.store', [$paper, $type]) }}" method="post" class="grid gap-6 md:w-3/4 mx-auto mt-6">
             @csrf
-            <h2>{{ $questionTitle }}</h2>
-            <input type="hidden" name="question_type" value="{{ $choice }}">
+            <h2>{{ $type->name }}</h2>
+            <input type="hidden" name="type_name" value="{{ $type->display_style }}">
 
-            <div class="md:w-1/3">
-                <label>Importance Level</label>
-                <select name="frequency" id="" class="custom-input-borderless text-sm">
-                    <option value="1">Normal</option>
-                    <option value="2">High</option>
-                    <option value="3">Very High</option>
-                </select>
+            <div class="grid md:grid-cols-3 gap-6 items-center">
+                <div class="">
+                    <label>Importance Level</label>
+                    <select name="frequency" id="" class="custom-input-borderless text-sm py-1">
+                        <option value="1">Normal</option>
+                        <option value="2">High</option>
+                        <option value="3">Very High</option>
+                    </select>
+                </div>
+
+                <div class="" id='marks' @if(in_array($type->id,[1,2])) hidden @endif>
+                    <label>Marks</label>
+                    <input type="number" name="marks" class="custom-input-borderless" min=1 max=100 value="5">
+                </div>
             </div>
+
+            <div>
+                <label for="">Question Title</label>
+                <input type="text" name="question_title" value="{{ $type->default_title }}" class="custom-input-borderless">
+            </div>
+
 
             <div class="grid text-sm border p-6">
 
@@ -92,8 +105,8 @@
                 <input type="number" id="total_parts" class="custom-input-borderless" value="0" disabled>
             </div>
             <div class="md:w-1/3">
-                <label>Choices</label>
-                <input type="number" id='choices' name="choices" class="custom-input-borderless text-red-600" value="0">
+                <label>Compulsory Parts</label>
+                <input type="number" id='compulsory_parts' name="compulsory_parts" class="custom-input-borderless text-red-600" value="" min=1>
             </div>
 
             <div>
@@ -120,7 +133,7 @@
             $('.parts-count').click(function() {
                 $(this).select();
             })
-            $('#choices').click(function() {
+            $('#compulsory_parts').click(function() {
                 $(this).select();
             })
 
@@ -133,18 +146,18 @@
 
                 sumOfParts = parseInt(sumOfParts);
                 $('#total_parts').val(sumOfParts);
-                // $('#choices').val(sumOfParts);
+                $('#compulsory_parts').val(sumOfParts);
             });
 
 
             $('form').submit(function(event) {
                 var validated = true;
-                var choices = $('#choices').val();
+                var compulsory_parts = $('#compulsory_parts').val();
                 if ($('#total_parts').val() == '')
                     validated = false
-                else if ($.isNumeric(choices)) {
+                else if ($.isNumeric(compulsory_parts)) {
                     var totalParts = $('#total_parts').val()
-                    if (choices < 0 || choices >= totalParts)
+                    if (compulsory_parts <= 0 || compulsory_parts > totalParts)
                         validated = false
                 } else {
                     validated = false
@@ -154,7 +167,7 @@
                     event.preventDefault();
                     Swal.fire({
                         title: "Warning",
-                        text: "Review number of parts carefully!",
+                        text: "Review compulsory parts carefully!",
                         icon: "warning",
                         showConfirmButton: false,
                         timer: 1500

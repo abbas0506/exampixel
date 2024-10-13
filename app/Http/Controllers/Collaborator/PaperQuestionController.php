@@ -56,7 +56,7 @@ class PaperQuestionController extends Controller
 
         ]);
 
-        $paper = Paper::find($paperId);
+        $paper = Paper::findOrFail($paperId);
         DB::beginTransaction();
 
         $question_title = '';
@@ -161,7 +161,7 @@ class PaperQuestionController extends Controller
     {
         //
         try {
-            $paperQuestion = PaperQuestion::find($paperQuestionId);
+            $paperQuestion = PaperQuestion::findOrFail($paperQuestionId);
             $paperQuestion->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

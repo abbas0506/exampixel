@@ -19,8 +19,11 @@ class BookChapterController extends Controller
     {
         //
         $grades = Grade::all();
-        $book = Book::find($bookId);
-        return view('operator.chapters.index', compact('grades', 'book'));
+        $book = Book::findOrFail($bookId);
+        $tagIds = $book->chapters->pluck('tag_id')->unique();
+        $tags = Tag::whereIn('id', $tagIds)->get();
+
+        return view('operator.chapters.index', compact('grades', 'book', 'tags'));
     }
 
     /**
@@ -29,7 +32,7 @@ class BookChapterController extends Controller
     public function create($bookId)
     {
         //
-        $book = Book::find($bookId);
+        $book = Book::findOrFail($bookId);
         $tags = Tag::all();
         return view('operator.chapters.create', compact('book', 'tags'));
     }
@@ -46,7 +49,7 @@ class BookChapterController extends Controller
             'tag_id' => 'required|numeric',
         ]);
 
-        $book = Book::find($bookId);
+        $book = Book::findOrFail($bookId);
         try {
             // 
             $book->chapters()->create($request->all());
@@ -70,8 +73,8 @@ class BookChapterController extends Controller
     public function edit($bookId, string $id)
     {
         //
-        $book = Book::find($bookId);
-        $chapter = Chapter::find($id);
+        $book = Book::findOrFail($bookId);
+        $chapter = Chapter::findOrFail($id);
         return view('operator.chapters.edit', compact('book', 'chapter'));
     }
 
@@ -86,7 +89,7 @@ class BookChapterController extends Controller
             'sr' => 'required|numeric',
         ]);
 
-        $chapter = Chapter::find($chapterId);
+        $chapter = Chapter::findOrFail($chapterId);
 
         try {
             $chapter->update($request->all());
@@ -102,7 +105,7 @@ class BookChapterController extends Controller
     public function destroy($bookId, string $id)
     {
         //
-        $chapter = Chapter::find($id);
+        $chapter = Chapter::findOrFail($id);
         try {
             $chapter->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');

@@ -18,7 +18,7 @@ class GradeBookController extends Controller
     {
         //
         $grades = Grade::all();
-        $grade = Grade::find($id);
+        $grade = Grade::findOrFail($id);
         return view('operator.books.index', compact('grades', 'grade'));
     }
 }

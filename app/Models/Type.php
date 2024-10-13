@@ -10,6 +10,9 @@ class Type extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'sr',
+        'display_style',
+        'default_title',
     ];
 
     public function questions()

@@ -63,7 +63,7 @@ class ProfileController extends Controller
     public function edit(string $id)
     {
         //
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $subjects = Subject::all();
         return view('user.profiles.edit', compact('user', 'subjects'));
     }
@@ -81,7 +81,7 @@ class ProfileController extends Controller
 
         ]);
 
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
         try {
             if ($user->profile)

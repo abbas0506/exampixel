@@ -50,7 +50,7 @@ $QNo = 1;
                 <!-- show print button only if paper has some questions -->
 
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('user.paper.questions.create', $paper) }}" class="flex w-12 h-12 items-center justify-center rounded-full bg-teal-200 hover:bg-teal-400">Q+</a>
+                    <a href="{{ route('user.papers.questionTypes.index', $paper) }}" class="flex w-12 h-12 items-center justify-center rounded-full bg-teal-200 hover:bg-teal-400">Q+</a>
                     @if ($paper->paperQuestions->count() > 0)
                     <div
                         class="flex w-12 h-12 items-center justify-center rounded-full bg-orange-100 hover:bg-orange-200">
@@ -64,8 +64,8 @@ $QNo = 1;
 
             @if ($paper->paperQuestions->count())
             <div class="flex flex-row justify-between items-center w-full">
-                <label>Suggested Time: &nbsp {{ $paper->suggestedTime() }}</label>
-                <label>Max marks: {{ $paper->paperQuestions->sum('marks') }}</label>
+                <label>Suggested Time: &nbsp {{ $paper->marks()*1.5 }}min</label>
+                <label>Max marks: {{ $paper->marks() }}</label>
             </div>
 
             <div class="divider my-3"></div>
@@ -85,11 +85,11 @@ $QNo = 1;
                         @foreach ($paper->paperQuestions as $paperQuestion)
 
                         <!-- MCQs -->
-                        @if ($paperQuestion->type_name == 'mcq')
+                        @if ($paperQuestion->question_type == 1)
                         <tr>
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
-                            <td>({{ $paperQuestion->marks }})</td>
+                            <td>({{ $paperQuestion->compulsoryParts() }})</td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -127,12 +127,12 @@ $QNo = 1;
                         @endforeach
                         @endif
 
-                        <!-- partial -->
-                        @if ($paperQuestion->type_name == 'partial' || $paperQuestion->type_name == 'partial-x')
+                        <!-- Short -->
+                        @if ($paperQuestion->question_type == 2)
                         <tr>
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
-                            <td> ({{ $paperQuestion->marks }})</td>
+                            <td>({{ $paperQuestion->compulsoryParts()*2 }})</td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -155,12 +155,12 @@ $QNo = 1;
                         @endforeach
                         @endif
 
-                        <!-- simple question -->
-                        @if ($paperQuestion->type_name == 'simple')
+                        <!-- simple long with title -->
+                        @if ($paperQuestion->question_type == 3)
                         <tr>
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
-                            <td>({{ $paperQuestion->marks }})</td>
+                            <td>({{ $paperQuestion->paperQuestionParts()->first()->marks }})</td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -176,18 +176,16 @@ $QNo = 1;
                             <td></td>
                             <td class="text-left">{{$paperQuestion->paperQuestionParts()->first()->question->statement }}</td>
                             <td></td>
-                            <td>
-                                <a href="{{ route('user.paper-question-parts.refresh', $paperQuestion->paperQuestionParts()->first()) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
-                            </td>
+                            <td></td>
                         </tr>
                         @endif
 
-                        <!-- simple-or -->
-                        @if ($paperQuestion->type_name == 'simple-or')
+                        <!-- long (simple) -->
+                        @if ($paperQuestion->question_type == 4)
                         <tr>
-                            <td class="font-bold">Q.{{ $QNo++ }}</td>
-                            <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
-                            <td>({{ $paperQuestion->marks }})</td>
+                            <td>Q.{{ $QNo++ }}</td>
+                            <td class="text-left">{{ $paperQuestion->paperQuestionParts()->first()->question->statement }}</td>
+                            <td>({{ $paperQuestion->paperQuestionParts()->first()->marks }})</td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -198,12 +196,26 @@ $QNo = 1;
                                 </form>
                             </td>
                         </tr>
+
+                        @endif
+
+                        <!-- long  (parts with or) -->
+                        @if ($paperQuestion->question_type == 5)
                         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
                         <tr>
-                            <td></td>
+                            <td>@if ($loop->first) Q.{{ $QNo++ }} @endif</td>
                             <td class="text-left">{{ $paperQuestionPart->question->statement }} @if(!$loop->last) <span class="font-bold">OR</span> @endif</td>
-                            <td>{{ $paperQuestionPart->marks }}</td>
+                            <td> ({{ $paperQuestion->paperQuestionParts()->first()->marks }}) </td>
                             <td>
+                                @if($loop->first)
+                                <form
+                                    action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                                </form>
+                                @endif
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
                         </tr>
@@ -221,17 +233,18 @@ $QNo = 1;
                         </tr>
                         @endif
 
-                        <!-- simple-and -->
-                        @if ($paperQuestion->type_name == 'simple-and')
+                        <!-- Long: mendatory parts -->
+                        @if ($paperQuestion->question_type == 6)
                         @php
                         $alphabets = range('a', 'z');
                         @endphp
-
+                        @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
                         <tr>
-                            <td class="font-bold">Q.{{ $QNo++ }}</td>
-                            <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
-                            <td>({{ $paperQuestion->marks }})</td>
+                            <td>@if ($loop->first) Q.{{ $QNo++ }} @endif</td>
+                            <td class="text-left">{{ $alphabets[$loop->index] }}).{{ $paperQuestionPart->question->statement }}</td>
+                            <td>({{ $paperQuestionPart->marks }})</td>
                             <td>
+                                @if($loop->first)
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
                                     method="post">
@@ -239,15 +252,7 @@ $QNo = 1;
                                     @method('DELETE')
                                     <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
                                 </form>
-                            </td>
-                        </tr>
-
-                        @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
-                        <tr>
-                            <td></td>
-                            <td class="text-left">{{ $alphabets[$loop->index] }}).{{ $paperQuestionPart->question->statement }}</td>
-                            <td>{{ $paperQuestionPart->marks }}</td>
-                            <td>
+                                @endif
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
                         </tr>
@@ -264,6 +269,123 @@ $QNo = 1;
                             <td></td>
                         </tr>
                         @endif
+
+                        <!--Long: title + mulitpart + vertical -->
+                        @if ($paperQuestion->question_type == 7)
+                        <tr>
+                            <td class="font-bold">Q.{{ $QNo++ }}</td>
+                            <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
+                            <td>()</td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
+                        <tr>
+                            <td>{{$roman->lowercase($loop->index+1)}}</td>
+                            <td class="text-left">{{ $paperQuestionPart->question->statement }}</td>
+                            <td></td>
+                            <td>
+                                <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @endif
+
+                        <!--Long: title + mulitpart + horizontal -->
+                        @if ($paperQuestion->question_type == 8)
+                        <tr>
+                            <td class="font-bold">Q.{{ $QNo++ }}</td>
+                            <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
+                            <td>()</td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-left">
+                                @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
+                                {{$roman->lowercase($loop->index+1)}}) {{ $paperQuestionPart->question->statement }} <span> </span>
+                                @endforeach
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        @endif
+
+                        <!--Long: poetry -->
+                        @if ($paperQuestion->question_type == 'stanza')
+                        <tr>
+                            <td class="font-bold">Q.{{ $QNo++ }}</td>
+                            <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
+                            <td>({{$paperQuestion->paperQuestionParts->first()->marks}})</td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        @foreach ($paperQuestion->paperQuestionParts->first()->question->paraphrasings as $paraphrase)
+                        <tr>
+                            <td></td>
+                            <td class="text-left">{{ $paraphrase->poetry_line }}</td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                        @endforeach
+                        @endif
+
+                        <!--Long: comprehension -->
+                        @if ($paperQuestion->question_type == 'comprehension')
+                        <tr>
+                            <td class="font-bold">Q.{{ $QNo++ }}</td>
+                            <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
+                            <td>({{$paperQuestion->paperQuestionParts->first()->marks}})</td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-left">{{ $paperQuestion->paperQuestionParts->first()->question->statement }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        @foreach ($paperQuestion->paperQuestionParts->first()->question->comprehensions as $comprehension)
+                        <tr>
+                            <td></td>
+                            <td class="text-left">{{ $comprehension->sub_question }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        @endforeach
+                        @endif
+
 
                         @endforeach <!-- end iterating questions -->
 

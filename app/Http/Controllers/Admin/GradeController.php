@@ -53,7 +53,7 @@ class GradeController extends Controller
     public function show(string $id)
     {
         //
-        $grade = Grade::find($id);
+        $grade = Grade::findOrFail($id);
         return view('admin.grades.show', compact('grade'));
     }
 
@@ -63,7 +63,7 @@ class GradeController extends Controller
     public function edit(string $id)
     {
         //
-        $grade = Grade::find($id);
+        $grade = Grade::findOrFail($id);
         return view('admin.grades.edit', compact('grade'));
     }
 
@@ -78,7 +78,7 @@ class GradeController extends Controller
         ]);
 
         try {
-            $grade = Grade::find($id);
+            $grade = Grade::findOrFail($id);
             $grade->update($request->all());
             return redirect()->route('admin.grades.index')->with('success', 'Successfully updated!');;
         } catch (Exception $ex) {
@@ -92,9 +92,9 @@ class GradeController extends Controller
     public function destroy(string $id)
     {
         //
-        $grade = Grade::find($id);
+        $grade = Grade::findOrFail($id);
         try {
-            $grade = Grade::find($id);
+            $grade = Grade::findOrFail($id);
             $grade->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

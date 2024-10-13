@@ -54,7 +54,7 @@ class TagController extends Controller
     public function show(string $id)
     {
         //
-        $tag = Tag::find($id);
+        $tag = Tag::findOrFail($id);
         return view('admin.tags.show', compact('tag'));
     }
 
@@ -64,7 +64,7 @@ class TagController extends Controller
     public function edit(string $id)
     {
         //
-        $tag = Tag::find($id);
+        $tag = Tag::findOrFail($id);
         return view('admin.tags.edit', compact('tag'));
     }
 
@@ -79,7 +79,7 @@ class TagController extends Controller
         ]);
 
         try {
-            $tag = Tag::find($id);
+            $tag = Tag::findOrFail($id);
             $tag->update($request->all());
             return redirect()->route('admin.tags.index')->with('success', 'Successfully updated!');;
         } catch (Exception $ex) {
@@ -93,9 +93,9 @@ class TagController extends Controller
     public function destroy(string $id)
     {
         //
-        $tag = Tag::find($id);
+        $tag = Tag::findOrFail($id);
         try {
-            $tag = Tag::find($id);
+            $tag = Tag::findOrFail($id);
             $tag->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

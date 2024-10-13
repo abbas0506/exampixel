@@ -19,7 +19,7 @@ class AjaxController extends Controller
             'question_id' => 'required|numeric',
         ]);
 
-        $question = Question::find($request->question_id);
+        $question = Question::findOrFail($request->question_id);
         $statement = Str::lower($question->statement);
 
         $wordsToRemove = ['define', 'what', 'is', 'am', 'are', 'was', 'were', 'of', 'describe', '.', ',', '?'];

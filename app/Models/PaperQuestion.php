@@ -10,13 +10,13 @@ class PaperQuestion extends Model
     use HasFactory;
     protected $fillable = [
         'paper_id',
-        'question_type',
         'question_title',
-        'frequency',
-        'choices',
-        'number_style',
-        'display_cols',
+        'type_name',       //question type: mcq, partial, simple etc
         'sr',
+        'frequency',        //question frequency
+        'marks',
+        'compulsory_parts', //number of compulsory parts in partial question
+        'number_style',
 
     ];
 
@@ -33,22 +33,10 @@ class PaperQuestion extends Model
     {
         return $this->hasMany(PaperQuestionPart::class);
     }
-    public function scopeMcqs($query)
-    {
-        return $query->where('question_type', 1);
-    }
-    public function scopeShorts($query)
-    {
-        return $query->where('question_type', 2);
-    }
-    public function scopeLongs($query)
-    {
-        return $query->where('question_type', '>=', 3);
-    }
 
     public function compulsoryParts()
     {
-        if ($this->question_type == 1 || $this->question_type == 2) //mcqs , short
+        if ($this->display_style == 'mcq' || $this->question_type == 'partial' || $this->question_type == 'partial-x') //mcqs , partial (horizontal or vertical)
             return $this->paperQuestionParts->count() - $this->choices;
         else return 0;
     }

@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('book_id')->constrained()->cascadeOnDelete();
-            $table->string('title', 300)->nullable();
-            $table->string('institution', 300)->nullable();
+            $table->string('chapter_ids', 200)->nullable(); //comma separted list of source chapters
+            $table->string('title', 100)->nullable();
+            $table->string('institution', 100)->nullable();
             $table->date('paper_date');
             $table->unsignedTinyInteger('duration')->default(0); //in munites
             $table->boolean('is_printed')->default(0); //in munites

@@ -66,7 +66,7 @@ class SelfTestController extends Controller
     public function show(string $id)
     {
         //
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
 
         $chapterIdsArray = session('chapterIdsArray');
 
@@ -110,7 +110,7 @@ class SelfTestController extends Controller
     public function edit(string $id)
     {
         //
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         // $chapters = Chapter::where('subject_id', $id)
         //     ->whereHas('questions')
         //     ->get();

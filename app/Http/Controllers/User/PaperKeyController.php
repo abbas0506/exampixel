@@ -15,7 +15,7 @@ class PaperKeyController extends Controller
     public function show($id)
     {
         //
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
         return view('user.answer-keys.show', compact('paper'));
     }
 
@@ -25,7 +25,7 @@ class PaperKeyController extends Controller
     public function pdf($id)
     {
         //
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
         $pdf = PDF::loadView('user.answer-keys.pdf', compact('paper'));
         $pdf->set_option("isPhpEnabled", true);
         $file = "key.pdf";

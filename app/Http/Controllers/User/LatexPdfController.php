@@ -15,7 +15,7 @@ class LatexPdfController extends Controller
     public function create($id)
     {
         // simple pdf
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
         return view('user.pdf.latex.create', compact('paper'));
     }
 
@@ -25,13 +25,13 @@ class LatexPdfController extends Controller
     public function store(Request $request, $paperId)
     {
 
-        $paper = Paper::find($paperId);
+        $paper = Paper::findOrFail($paperId);
 
         $orientation = $request->orientation;
         $pageSize = $request->page_size;
         $rows = $request->rows;
         $cols = $request->cols;
-        $paper = Paper::find($paperId);
+        $paper = Paper::findOrFail($paperId);
         $fontSize = $request->font_size;
 
         $data = view('user.pdf.latex.preview', compact('paper', 'orientation', 'pageSize', 'rows', 'cols', 'fontSize', 'paper'))->render();

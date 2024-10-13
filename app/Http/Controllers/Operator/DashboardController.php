@@ -17,7 +17,7 @@ class DashboardController extends Controller
         //
         $grades = Grade::all();
         $questions = Question::all();
-        $grade = Grade::find(2);
+        $grade = Grade::findOrFail(2);
         return view('operator.dashboard', compact('grades', 'questions'));
     }
 

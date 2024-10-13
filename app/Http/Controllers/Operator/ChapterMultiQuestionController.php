@@ -18,7 +18,7 @@ class ChapterMultiQuestionController extends Controller
     {
         //
         $types = Type::all();
-        $chapter = Chapter::find($id);
+        $chapter = Chapter::findOrFail($id);
         return view('operator.multi-questions.index', compact('chapter', 'types'));
     }
 
@@ -66,7 +66,7 @@ class ChapterMultiQuestionController extends Controller
         ]);
 
         try {
-            $chapter = Chapter::find($id);
+            $chapter = Chapter::findOrFail($chapterId);
             $type_id = $request->type_id;
 
             $questionIdsArray = array();

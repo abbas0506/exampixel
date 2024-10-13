@@ -22,13 +22,13 @@
 Institution Title
 @endif }}\\ \small {{ $paper->paper_date->format('d/m/Y') }}
 \end{center} Subject :{{ $paper->book->name }} \hfill Roll \# : \_\_\_\_\_\_\_\_\_ \hfill Name: \_\_\_\_\_\_\_\_\_\_\_
-\vspace{2mm} \hrule \vspace{2mm} Marks : {{ $paper->paperQuestions->sum('marks') }} \hfill Time : {{ $paper->suggestedTime() }}
+\vspace{2mm} \hrule \vspace{2mm} Marks : {{ $paper->paperQuestions->sum('marks') }} \hfill Time : {{ $paper->suggestedTime() }} min
 \vspace{2mm}
 \hrule \vspace{1mm}
 \begin{questions}
 @foreach ($paper->paperQuestions as $paperQuestion)
 @if ($paperQuestion->type_name == 'mcq')
-\question{ {{ $paperQuestion->question_title }} \dotfill {{ $paperQuestion->marks }}
+\question{ {{ $paperQuestion->question_title }} \dotfill {{ $paperQuestion->compulsoryParts() }}
 marks}
 \begin{parts}
 @foreach ($paperQuestion->paperQuestionParts as $part)
@@ -51,8 +51,9 @@ marks}
 @endif
 @if ($paperQuestion->type_name == 'partial')
 \question{ {{ $paperQuestion->question_title }} \dotfill
-{{ $paperQuestion->marks }}
+({{ $paperQuestion->compulsoryParts() }}x2={{ $paperQuestion->compulsoryParts() * 2 }})
 marks }
+
 \begin{parts}
 @foreach ($paperQuestion->paperQuestionParts as $part)
 @if (Helper::hasUrdu($part->question->statement))
@@ -90,7 +91,7 @@ marks }
 \end{parts}
 @endif
 
-@if ($paperQuestion->type_name == 'simple')
+@if ($paperQuestion->type_name == 4)
 \question{
 @if (Helper::hasUrdu($paperQuestion->paperQuestionParts()->first()->question->statement))
 \begin{RTL}
@@ -101,7 +102,7 @@ marks }
 @endif
 }
 @endif
-@if ($paperQuestion->type_name == 'simple-or')
+@if ($paperQuestion->type_name == 5)
 \question{
 @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
 @if (Helper::hasUrdu($paperQuestionPart->question->statement))
@@ -117,7 +118,7 @@ marks }
 @endforeach
 }
 @endif
-@if ($paperQuestion->type_name == 'simpple-and')
+@if ($paperQuestion->type_name == 6)
 \question
 \begin{parts}
 @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
@@ -152,7 +153,7 @@ marks }
 @endforeach
 \end{parts}
 @endif
-@if ($paperQuestion->type_name == 'partial-x')
+@if ($paperQuestion->type_name == 8)
 \question{
 {{ $paperQuestion->question_title }}
 } \\

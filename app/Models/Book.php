@@ -30,4 +30,12 @@ class Book extends Model
     {
         return $this->hasManyThrough(Question::class, Chapter::class);
     }
+
+    public function questionTypes()
+    {
+
+        $questionTypeIdsArray = $this->questions->pluck('type_id')->unique();
+        $types = Type::whereIn('id', $questionTypeIdsArray)->get();
+        return $types;
+    }
 }

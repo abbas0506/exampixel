@@ -28,7 +28,7 @@ class SimplePdfController extends Controller
     public function create($id)
     {
         // simple pdf
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
         return view('user.pdf.simple.create', compact('paper'));
     }
 
@@ -53,7 +53,7 @@ class SimplePdfController extends Controller
         $columns = $request->columns;
         $fontSize = $request->font_size;
 
-        $paper = Paper::find($paperId);
+        $paper = Paper::findOrFail($paperId);
 
         $pdf = PDF::loadView('user.pdf.simple.preview', compact('paper', 'rows', 'columns', 'fontSize'))->setPaper($pageSize, $orientation);
         $pdf->set_option("isPhpEnabled", true);
@@ -65,7 +65,7 @@ class SimplePdfController extends Controller
         // $pageSize = $request->page_size;
         // $rows = $request->rows;
         // $cols = $request->cols;
-        // $paper = Paper::find($paperId);
+        // $paper = Paper::findOrFail($paperId);
         // $fontSize = $request->font_size;
 
 

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use function PHPUnit\Framework\isEmpty;
+
 class Paper extends Model
 {
     use HasFactory;
@@ -15,6 +17,7 @@ class Paper extends Model
         'institution',
         'paper_date',
         'is_printed',
+        'chapter_ids', //comma separted list of source chapters
     ];
 
     protected $casts = [
@@ -40,21 +43,20 @@ class Paper extends Model
         return $this->hasManyThrough(PaperQuestionPart::class, PaperQuestion::class);
     }
 
-    public function marks()
+    public function chapterIdsArray()
     {
-        $marks = 0;
-        foreach ($this->paperQuestions as $paperQuestion) {
-            if ($paperQuestion->question_type == 1 || $paperQuestion->question_type == 2)
-                $marks += $paperQuestion->compulsoryParts() * $paperQuestion->question_type;
+        return explode(',', $this->chapter_ids);
+    }
 
-            // simple long question
-            elseif ($paperQuestion->question_type == 3 || $paperQuestion->question_type == 4)
-                $marks += $paperQuestion->paperQuestionParts()->first()->marks;
+    public function suggestedTime()
+    {
+        $sumOfMarks = $this->paperQuestions->sum('marks');
+        $m = round($sumOfMarks * 1.5, 0);   //1.5 time the total marks
+        $hr = intdiv($m, 60);
 
-            // partial question
-            elseif ($paperQuestion->question_type > 4)
-                $marks += $paperQuestion->paperQuestionParts()->sum('marks');
-        }
-        return $marks;
+        if ($hr > 0)
+            return $hr . "h " . $m % 60 . "m";
+        else
+            return $m . "m";
     }
 }

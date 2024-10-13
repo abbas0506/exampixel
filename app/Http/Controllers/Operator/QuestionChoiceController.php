@@ -14,7 +14,7 @@ class QuestionChoiceController extends Controller
     public function index($id)
     {
         //
-        $chapter = Chapter::find($id);
+        $chapter = Chapter::findOrFail($id);
         return view('operator.question-choices.index', compact('chapter'));
     }
 

@@ -60,7 +60,11 @@ $i=0;
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($book->chapters->sortBy('sr') as $chapter)
+                    @foreach($tags->sortBy('sr') as $tag)
+                    <tr>
+                        <td class="font-semibold">{{ $tag->name }}</td>
+                    </tr>
+                    @foreach($book->chapters->where('tag_id', $tag->id)->sortBy('sr') as $chapter)
                     <tr class="tr">
                         <td>{{ $chapter->sr}}</td>
                         <td class="text-left"> <a href="{{ route('operator.chapter.questions.index', $chapter) }}" class="link"> {{ $chapter->title }} </a></td>
@@ -90,6 +94,7 @@ $i=0;
 
                         </td>
                     </tr>
+                    @endforeach
                     @endforeach
 
                 </tbody>

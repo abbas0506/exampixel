@@ -16,7 +16,7 @@ class PaperChapterController extends Controller
     public function index($id)
     {
         //
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
         $tagIds = $paper->book->chapters->sortBy('tag_id')->pluck('tag_id')->unique();
         $tags = Tag::whereIn('id', $tagIds)->get();
         return view('user.paper-chapters.index', compact('paper', 'tags'));
@@ -41,9 +41,15 @@ class PaperChapterController extends Controller
         ]);
 
         try {
-            $paper = Paper::find($id);
+            $paper = Paper::findOrFail($id);
             $chapterIdsArray = array();
             $chapterIdsArray = $request->chapter_ids_array;
+            $commaSeparatedChapterIds = implode(',', $chapterIdsArray);
+
+            $paper->update([
+                'chapter_ids' => $commaSeparatedChapterIds,
+            ]);
+
             session([
                 'chapterIdsArray' => $chapterIdsArray,
             ]);
@@ -61,6 +67,7 @@ class PaperChapterController extends Controller
     public function show(string $id)
     {
         //
+        echo "show paper chapters";
     }
 
     /**

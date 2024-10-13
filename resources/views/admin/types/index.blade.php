@@ -28,32 +28,38 @@
         </div>
 
 
-        <!-- page message -->
-        @if($errors->any())
-        <x-message :errors='$errors'></x-message>
-        @else
-        <x-message></x-message>
-        @endif
 
-        <a href="{{route('admin.types.create')}}" class="fixed bottom-6 right-6 btn-green w-14 h-14 flex justify-center items-center rounded-full text-sm">New</a>
+        <a href="{{route('admin.types.create')}}" class="fixed bottom-6 right-6 btn-green w-10 h-10 flex justify-center items-center rounded-full text-xs">New</a>
         <div class="container-light">
+
+            <!-- page message -->
+            @if($errors->any())
+            <x-message :errors='$errors'></x-message>
+            @else
+            <x-message></x-message>
+            @endif
+
             <div class="flex items-center">
                 <h3 class="text-green-600 bg-green-100 px-3 py-1 rounded-full">Question Types</h3>
             </div>
             <div class="overflow-x-auto w-full mt-6">
-                <table class="w-full sm">
+                <table class="table-fixed w-full sm">
                     <thead>
                         <tr>
-                            <th>Sr</th>
-                            <th>Question Type</th>
-                            <th>Actions</th>
+                            <th class="w-8">Sr</th>
+                            <th class="w-32">Question Type</th>
+                            <th class="w-12">Display Style</th>
+                            <th class="w-64">Default Title</th>
+                            <th class="w-12">Actions</th>
                         </tr>
                     <tbody>
                         @php $sr=1; @endphp
-                        @foreach($types as $type)
+                        @foreach($types->sortBy('sr') as $type)
                         <tr class="text-sm tr">
-                            <td>{{$sr++}}</td>
-                            <td>{{ $type->name }}</td>
+                            <td>{{ $type->sr }}</td>
+                            <td class="text-left">{{ $type->name }}</td>
+                            <td>{{ $type->display_style }}</td>
+                            <td class="text-left">{{ $type->default_title }}</td>
                             <td>
                                 <div class="flex justify-center items-center space-x-2">
                                     <a href="{{route('admin.types.edit', $type)}}" class="flex justify-center text-teal-600"><i class="bx bx-pencil"></i></a>

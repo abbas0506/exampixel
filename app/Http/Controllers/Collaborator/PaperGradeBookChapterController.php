@@ -16,9 +16,9 @@ class PaperGradeBookChapterController extends Controller
     {
         //
         $grades = Grade::all();
-        $grade = Grade::find($gradeId);
+        $grade = Grade::findOrFail($gradeId);
         if ($bookId)
-            $book = Book::find($bookId);
+            $book = Book::findOrFail($bookId);
         else
             $book = $grade->books->first();
         return view('collaborator.papers.create', compact('grades', 'grade', 'book'));

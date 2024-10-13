@@ -74,7 +74,7 @@ class PaperController extends Controller
     public function show(string $id)
     {
         //
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
         $book = $paper->book;
         $types = Type::all();
         $selectedChapters = Chapter::whereIn('id', session('chapterIdsArray'))->get();

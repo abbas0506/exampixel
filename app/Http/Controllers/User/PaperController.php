@@ -68,7 +68,7 @@ class PaperController extends Controller
     public function show(string $id)
     {
         //
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
         return view('user.papers.show', compact('paper'));
     }
 
@@ -78,7 +78,7 @@ class PaperController extends Controller
     public function edit(string $id)
     {
         //
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
         return view('user.papers.edit', compact('paper'));
     }
 
@@ -95,7 +95,7 @@ class PaperController extends Controller
         ]);
 
         try {
-            $paper = Paper::find($id);
+            $paper = Paper::findOrFail($id);
             $paper->update($request->all());
             return redirect()->route('user.papers.show', $paper)->with('success', 'Successfully updated!');;
         } catch (Exception $ex) {

@@ -54,7 +54,7 @@ class SubjectController extends Controller
     public function show(string $id)
     {
         //
-        $subject = Subject::find($id);
+        $subject = Subject::findOrFail($id);
         return view('admin.subjects.show', compact('subject'));
     }
 
@@ -64,7 +64,7 @@ class SubjectController extends Controller
     public function edit(string $id)
     {
         //
-        $subject = Subject::find($id);
+        $subject = Subject::findOrFail($id);
         return view('admin.subjects.edit', compact('subject'));
     }
 
@@ -81,7 +81,7 @@ class SubjectController extends Controller
         ]);
 
         try {
-            $subject = Subject::find($id);
+            $subject = Subject::findOrFail($id);
             $subject->update($request->all());
             return redirect()->route('admin.subjects.index')->with('success', 'Successfully updated!');;
         } catch (Exception $ex) {
@@ -95,9 +95,9 @@ class SubjectController extends Controller
     public function destroy(string $id)
     {
         //
-        $subject = Subject::find($id);
+        $subject = Subject::findOrFail($id);
         try {
-            $subject = Subject::find($id);
+            $subject = Subject::findOrFail($id);
             $subject->delete();
             return redirect()->back()->with('success', 'Successfully deleted!');
         } catch (Exception $e) {

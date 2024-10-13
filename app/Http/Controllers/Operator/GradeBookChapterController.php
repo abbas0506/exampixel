@@ -16,9 +16,9 @@ class GradeBookChapterController extends Controller
     {
         //
         $grades = Grade::all();
-        $grade = Grade::find($gradeId);
+        $grade = Grade::findOrFail($gradeId);
         if ($bookId)
-            $book = Book::find($bookId);
+            $book = Book::findOrFail($bookId);
         else
             $book = $grade->books->first();
         return view('operator.chapters.index', compact('grades', 'grade', 'book'));
