@@ -63,7 +63,7 @@ $activeChapter=$chapter;
                             <label for="">Change to Q Type</label>
                             <select name="type_id" id="" class="custom-input-borderless">
 
-                                @foreach($types as $type)
+                                @foreach($types->sortBy('sr') as $type)
                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
