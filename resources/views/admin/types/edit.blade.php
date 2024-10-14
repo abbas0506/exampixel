@@ -43,10 +43,16 @@
                         <input type="text" id='' name='name' class="custom-input-borderless" placeholder="Question Type" value="{{ $type->name }}">
                     </div>
                     <div class="md:w-1/4">
-                        <label for="">Allows Parts</label>
+                        <label for="">Display Style</label>
                         <select name="display_style" id="" class="custom-input-borderless">
-                            <option value="1" @selected($type->display_style)>Yes</option>
-                            <option value="0" @selected(!$type->display_style)>No</option>
+                            <option value="mcq" @selected($type->display_style=='mcq')>MCQ</option>
+                            <option value="partial" @selected($type->display_style=='partial')>Partial</option>
+                            <option value="partial-x" @selected($type->display_style=='partial-x')>Partial-x</option>
+                            <option value="simple" @selected($type->display_style=='simple')>Simple</option>
+                            <option value="simple-or" @selected($type->display_style=='simple-or')>Simple-or</option>
+                            <option value="simple-and" @selected($type->display_style=='simple-and')>Simple-and</option>
+                            <option value="stanza" @selected($type->display_style=='stanza')>Stanza</option>
+                            <option value="comprehension" @selected($type->display_style=='comprehension')>Comprehension</option>
                         </select>
                     </div>
 

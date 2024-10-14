@@ -42,10 +42,16 @@
                         <input type="text" id='' name='name' class="custom-input-borderless" placeholder="Question Type" value="">
                     </div>
                     <div class="md:w-1/4">
-                        <label for="">Allows Parts</label>
+                        <label for="">Default Style</label>
                         <select name="display_style" id="" class="custom-input-borderless">
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
+                            <option value="mcq">MCQ</option>
+                            <option value="partial">Partial</option>
+                            <option value="partial-x">Partial-x</option>
+                            <option value="simple">Simple</option>
+                            <option value="simple-or">Simple-or</option>
+                            <option value="simple-and">Simple-and</option>
+                            <option value="stanza">Stanza</option>
+                            <option value="comprehension">Comprehension</option>
                         </select>
                     </div>
 

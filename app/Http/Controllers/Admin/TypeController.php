@@ -37,7 +37,7 @@ class TypeController extends Controller
         $request->validate([
             'name' => 'required',
             'sr' => 'required|numeric',
-            'display_style' => 'required|boolean',
+            'display_style' => 'required',
             'default_title' => 'nullable',
         ]);
 
@@ -76,7 +76,7 @@ class TypeController extends Controller
         $request->validate([
             'name' => 'required',
             'sr' => 'required|numeric',
-            'display_style' => 'required|boolean',
+            'display_style' => 'required',
             'default_title' => 'nullable',
         ]);
 
