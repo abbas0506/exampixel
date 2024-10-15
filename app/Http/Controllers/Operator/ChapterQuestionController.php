@@ -135,7 +135,8 @@ class ChapterQuestionController extends Controller
         //
         $chapter = Chapter::findOrFail($chapterId);
         $question = Question::findOrFail($questionId);
-        return view('operator.questions.edit', compact('chapter', 'question'));
+        $types = Type::all();
+        return view('operator.questions.edit', compact('chapter', 'question', 'types'));
     }
 
     /**

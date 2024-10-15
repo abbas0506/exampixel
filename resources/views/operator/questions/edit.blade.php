@@ -72,9 +72,8 @@
                         </div>
                     </div>
                 </div>
-
-                @elseif($question->type_id == 3)
-                @if($question->subtype->tagname=='paraphrasing')
+                <!-- other than mcq, short -->
+                @elseif($question->type->name=='stanza')
                 <!-- paraphrasing question -->
                 <div id='paraphrasingCover' class="questionable col-span-full">
                     <label for="">Paraphrasing: Poetry Lines</label>
@@ -87,9 +86,8 @@
 
                     </div>
                 </div>
-                @endif
 
-                @if($question->subtype->tagname=='comprehension')
+                @elseif($question->type->name=='comprehension')
                 <!-- Comprehension question -->
                 <div class="col-span-full">
                     <label for="">Comprehension Questions</label>
@@ -101,7 +99,6 @@
 
                     </div>
                 </div>
-                @endif
                 @endif
 
                 <!-- preview -->
