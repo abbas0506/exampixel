@@ -21,7 +21,7 @@ $activeChapter=$chapter;
             <i class="bx bx-chevron-right"></i>
             <a href="{{route('admin.qbank-books.index',)}}">Books</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('admin.qbank-books.chapters.index',$book)}}">Chapters</a>
+            <a href="{{route('admin.qbank-books.chapters.index',$chapter->book)}}">Chapters</a>
             <i class="bx bx-chevron-right"></i>
             <div>Ch. {{ $chapter->sr }}</div>
         </div>
@@ -30,7 +30,7 @@ $activeChapter=$chapter;
 
         <div class="flex flex-wrap items-center justify-between p-4 border rounded-lg bg-green-100 border-green-200">
             <div>
-                <h2>{{ $book->name }}</h2>
+                <h2>{{ $chapter->book->name }}</h2>
                 <p>Ch # {{ $chapter->sr}}. {{ $chapter->title }}</p>
             </div>
             <div class="flex items-center flex-wrap justify-between gap-x-6">
@@ -61,22 +61,18 @@ $activeChapter=$chapter;
                         <th class="w-8">Sr</th>
                         <th class="w-48">Question</th>
                         <th class="w-20">Type</th>
-                        <th class="w-12">View</th>
                         <th class="w-12">Action</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach($questions->sortByDesc('updated_at') as $question)
+                    @foreach($chapter->questions->sortByDesc('updated_at') as $question)
                     <tr class="tr">
                         <td>{{$sr++}}</td>
-                        <td class="text-left">{{ $question->statement }}</td>
-                        <td>{{ $question->type->name }}</td>
-                        <td>
-                            <a href="{{ route('admin.chapter.questions.show',[$chapter,$question]) }}">
-                                <i class="bx bx-show-alt"></i>
-                            </a>
+                        <td class="text-left">
+                            <a href="{{ route('admin.chapter.questions.show',[$chapter,$question]) }}" class="link">{{ $question->statement }}</a>
                         </td>
+                        <td>{{ $question->type->name }}</td>
                         <td>
                             <div class="flex justify-center items-center space-x-2">
                                 <a href="{{route('admin.chapter.questions.edit', [$chapter, $question])}}">

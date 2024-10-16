@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Paraphrasing extends Model
+class PoetryLine extends Model
 {
     use HasFactory;
     protected $fillable = [
         'question_id',
-        'poetry_line',
+        'line_a',
+        'line_b',
+        'sr',
     ];
-
-    public function question()
-    {
-        return $this->belongsTo(Question::class);
-    }
 }

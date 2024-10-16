@@ -9,17 +9,11 @@ use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
 
-class ChapterMultiQuestionController extends Controller
+class QuestionTypeChangeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index($id)
     {
         //
-        $types = Type::all();
-        $chapter = Chapter::findOrFail($id);
-        return view('operator.multi-questions.index', compact('chapter', 'types'));
     }
 
     /**
@@ -52,12 +46,15 @@ class ChapterMultiQuestionController extends Controller
     public function edit(string $id)
     {
         //
+        $types = Type::all();
+        $chapter = Chapter::findOrFail($id);
+        return view('operator.questions.type-change', compact('chapter', 'types'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $chapterId, string $id)
+    public function update(Request $request, $chapterId)
     {
         //
         $request->validate([
@@ -77,7 +74,7 @@ class ChapterMultiQuestionController extends Controller
             ];
 
             $questions = Question::whereIn('id', $questionIdsArray)->update($data);
-            return redirect()->route('operator.chapter.multi-questions.index', $chapter);
+            return redirect()->route('operator.type-changes.edit', $chapter);
         } catch (Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
             // something went wrong

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\GradeBookController as AdminGradeBookController;
 use App\Http\Controllers\Admin\BookChapterController as AdminBookChapterController;
 use App\Http\Controllers\Admin\ChapterQuestionController as AdminChapterQuestionController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\PoetryLineController as AdminPoetryLineController;
 use App\Http\Controllers\Admin\QbankBooksController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TagController;
@@ -25,7 +26,10 @@ use App\Http\Controllers\Operator\ChapterQuestionController;
 use App\Http\Controllers\Operator\GradeBookChapterController;
 use App\Http\Controllers\Operator\GradeBookController;
 use App\Http\Controllers\Operator\DashboardController as OperatorDashboardController;
+use App\Http\Controllers\Operator\PoetryLineController;
 use App\Http\Controllers\Operator\QuestionChoiceController as OperatorQuestionChoiceController;
+use App\Http\Controllers\Operator\QuestionMovementController;
+use App\Http\Controllers\Operator\QuestionTypeChangeController;
 use App\Http\Controllers\SelfTestController;
 use App\Http\Controllers\User\AccountController;
 use App\Http\Controllers\User\AvailableQuestionTypesController;
@@ -42,6 +46,7 @@ use App\Http\Controllers\User\PartialQuestionController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\SimplePdfController;
 use App\Http\Controllers\User\SimpleQuestionController;
+use App\Models\PoetryLine;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -96,6 +101,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admi
     Route::resource('qbank-books.chapters', AdminBookChapterController::class);
 
     Route::resource('chapter.questions', AdminChapterQuestionController::class);
+    Route::resource('chapter.poetry-lines', AdminPoetryLineController::class);
     Route::view('change/password', 'admin.change_password');
     Route::post('change/password', [AuthController::class, 'changePassword'])->name('change.password');
 });
@@ -114,13 +120,13 @@ Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['rol
     Route::resource('grade.books', GradeBookController::class);
     Route::resource('books.chapters', BookChapterController::class);
     Route::resource('grade.book.chapters', GradeBookChapterController::class);
-    Route::resource('chapter.question-choices', OperatorQuestionChoiceController::class);
     Route::resource('chapter.questions', ChapterQuestionController::class);
-    Route::resource('chapter.questionables.questions', ChapterQuestionController::class);
-    Route::resource('chapter.multi-questions', ChapterMultiQuestionController::class);
+    Route::resource('chapter.poetry-lines', PoetryLineController::class);
+    Route::resource('type-changes', QuestionTypeChangeController::class);
+    Route::resource('question-movements', QuestionMovementController::class);
 });
 
-Route::post('/generate-pdf', 'PdfController@generatePDF');
+// Route::post('/generate-pdf', 'PdfController@generatePDF');
 
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']], function () {

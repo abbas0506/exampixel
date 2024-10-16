@@ -27,67 +27,50 @@
             <label>Ch # {{ $question->chapter->sr }}. {{ $question->chapter->title }}</label>
 
             <div class="grid gap-6 mt-6">
-                <div>
-                    <label for="">Q. Type</label>
-                    <h3>{{ $question->type->name}} ({{ $question->marks }})</h3>
-                </div>
-
-                <div class="grid gap-y-1 col-span-full">
+                <div class="">
                     <label for="">Question Statement</label>
                     <div class="custom-input-borderless">{{ $question->statement }}</div>
                 </div>
-                <!-- MCQs -->
-                @if($question->type->name=='MCQs')
+                <!-- MCQs or معروضی -->
+                @if(in_array($question->type_id,[1,23]))
                 <div class="text-sm">
                     <label for="">Choices</label>
-                    <div class="grid gap-4 mt-2">
+                    <div class="grid gap-6 mt-2">
                         <div class="text-sm md:w-1/2">a. &nbsp{{ $question->mcq->choice_a }}</div>
                         <div class="text-sm md:w-1/2">b. &nbsp{{ $question->mcq->choice_b }}</div>
                         <div class="text-sm md:w-1/2">c. &nbsp{{ $question->mcq->choice_c }}</div>
                         <div class="text-sm md:w-1/2">d. &nbsp{{ $question->mcq->choice_d }}</div>
                     </div>
                 </div>
-                @elseif($question->type->name=='Long')
-                <!-- Paraphrasing -->
-                @if($question->subtype->tagname=='paraphrasing')
+                @elseif(in_array($question->type_id,[11,25]))
+                <!-- poetry -->
                 <div class="text-sm">
                     <label for="">Parahrasing: Poetry lines</label>
-                    <div class="grid gap-4 md:grid-cols-2 mt-2">
-                        @foreach($question->paraphrasings as $paraphrasing)
-                        <div class="text-sm">{{ $paraphrasing->poetry_line }}</div>
+                    <div class="grid gap-2 mt-2">
+                        @foreach($question->poetryLines as $poetryLine)
+                        <div class="text-sm">{{ $poetryLine->line_a }}</div>
+                        <div class="text-sm">{{ $poetryLine->line_b }}</div>
                         @endforeach
                     </div>
                 </div>
-                @endif
-
-                <!-- Comprehension -->
-                @if($question->subtype->tagname=='comprehension')
+                <!-- Comprehension or عبارت سے سوالات -->
+                @elseif(in_array($question->type_id,[19,29]))
                 <div class="text-sm">
-                    <label for="">Comprehension Questions</label>
-                    <div class="grid gap-4 mt-2">
-                        @php
-                        $i=1;
-                        @endphp
+                    <label for="">Sub Questions</label>
+                    <div class="grid gap-2 mt-2">
                         @foreach($question->comprehensions as $comprehension)
-                        <div class="text-sm">{{ Roman::lowercase($i++) }} &nbsp {{ $comprehension->sub_question }}</div>
+                        <div class="text-sm">{{ Roman::lowercase($loop->index+1) }} &nbsp {{ $comprehension->sub_question }}</div>
                         @endforeach
                     </div>
                 </div>
                 @endif
 
-                @endif
-
-                <div class="grid gap-1">
-                    <label>Exercise No.</label>
-                    <div>{{ $question->exercise_no }}</div>
-                </div>
-
-                <div class="grid gap-1">
+                <div class="">
                     <label>Conceptual?</label>
                     <div>@if($question->is_conceptual) Yes @else No @endif</div>
                 </div>
 
-                <div class="grid gap-y-1">
+                <div class="">
                     <label for="">Bise Frequency</label>
                     <div>{{ $question->frequency }}</div>
                 </div>

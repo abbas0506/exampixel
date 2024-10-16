@@ -16,13 +16,11 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('chapter_id')->constrained()->cascadeOnDelete();
             $table->foreignId('type_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('topic_id')->nullable()->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger('approver_id')->nullable();
 
             $table->string('statement', 800)->nullable();
-            $table->unsignedTinyInteger('exercise_no')->nullable();
-            $table->unsignedTinyInteger('frequency');
-            $table->unsignedTinyInteger('marks');
+            $table->string('exercise_no', 20)->nullable();
+            $table->unsignedTinyInteger('frequency')->default(1);
             $table->boolean('is_conceptual')->default(false);
 
             $table->date('approved_at')->nullable();

@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             GradeSeeder::class,
             SubjectSeeder::class,
-            TypeSeeder::class,
+            // TypeSeeder::class,
             // UserSeeder::class,
             // TagSeeder::class,
         ]);

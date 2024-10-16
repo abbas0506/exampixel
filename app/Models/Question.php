@@ -18,7 +18,6 @@ class Question extends Model
         'statement',
         'exercise_no',
         'frequency',
-        'marks',
         'is_conceptual',
         'approver_id',
         'approved_at',
@@ -49,11 +48,10 @@ class Question extends Model
     {
         return $this->hasMany(Comprehension::class);
     }
-    public function paraphrasings()
+    public function poetryLines()
     {
-        return $this->hasMany(Paraphrasing::class);
+        return $this->hasMany(PoetryLine::class);
     }
-
     public function scopeToday($query)
     {
         return $query->whereDate('questions.created_at', today());

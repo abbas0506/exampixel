@@ -35,23 +35,30 @@
             @else
             <x-message></x-message>
             @endif
-            <form action="{{route('operator.chapter.questions.update', [$chapter, $question])}}" method='post' class="grid md:grid-cols-3 gap-6 md:gap-y-8 md:gap-x-16 mt-12" onsubmit="return validate(event)">
+            <form action="{{route('operator.chapter.questions.update', [$chapter, $question])}}" method='post' class="grid gap-6 mt-12" onsubmit="return validate(event)">
                 @csrf
                 @method('PATCH')
+
                 <input type="hidden" id='book_id' value="{{ $chapter->book->id }}">
-                <div class="grid gap-y-1">
+                <div class="">
                     <label>Question Type</label>
                     <p>{{ $question->type->name }}</p>
                 </div>
 
-                <div class="grid gap-y-1 col-span-full">
+                <div class="">
                     <label for="">Question Statement</label>
                     <textarea type="text" id='statement' name="statement" class="custom-input py-2 mt-2" rows='3' placeholder="Type here">{{ $question->statement }}</textarea>
                 </div>
 
+                <!-- preview -->
+                <div class="col-span-full border p-6">
+                    <!-- <span id="math" class="text-left no-line-break text-slate-400">Preview</span> -->
+                    <span id="math" class="text-left text-slate-400">Preview</span>
+                </div>
+
                 <!-- MCQs -->
                 @if($question->type_id == 1)
-                <div id='mcqCover' class="questionable col-span-full">
+                <div id='mcq'>
                     <label for="">Choices</label>
                     <div class="grid gap-4 mt-2">
                         <div class="flex items-center space-x-2">
@@ -72,54 +79,40 @@
                         </div>
                     </div>
                 </div>
-                <!-- other than mcq, short -->
-                @elseif($question->type->name=='stanza')
-                <!-- paraphrasing question -->
-                <div id='paraphrasingCover' class="questionable col-span-full">
-                    <label for="">Paraphrasing: Poetry Lines</label>
-                    <div class="grid gap-4 md:grid-cols-2 mt-2">
-                        @foreach($question->paraphrasings as $paraphrasing)
-                        <input type="text" name='poetry_lines[]' class="custom-input-borderless" placeholder="Poetry line 1" value="{{ $paraphrasing->poetry_line }}">
-                        @endforeach
-                        <input type="text" name='poetry_lines[]' class="custom-input-borderless" placeholder="Poetry line">
-                        <input type="text" name='poetry_lines[]' class="custom-input-borderless" placeholder="">
 
+                <!-- poetry lines -->
+                @elseif(in_array($question->type_id,[11,25]))
+                <div class="md:w-1/3">
+                    <label for="">Sr</label>
+                    <input type="text" name='sr' class="custom-input-borderless" placeholder="Sr" value="{{ $question->poetryLines->first()->sr }}">
+                </div>
+
+                <div>
+                    <label for="">Poetry Line</label>
+                    <div class="grid gap-4 md:grid-cols-2 mt-2">
+                        <input type="text" name='line_a' class="custom-input-borderless" placeholder="Line A" value="{{ $question->poetryLines->first()->line_a }}">
+                        <input type="text" name='line_b' class="custom-input-borderless" placeholder="Line B" value="{{ $question->poetryLines->first()->line_b }}">
                     </div>
                 </div>
 
-                @elseif($question->type->name=='comprehension')
-                <!-- Comprehension question -->
-                <div class="col-span-full">
+
+                <!-- comprehension questions-->
+                @elseif(in_array($question->type_id,[19,29]))
+                <div class="">
                     <label for="">Comprehension Questions</label>
                     <div class="grid gap-4 mt-2">
                         @foreach($question->comprehensions as $comprehension)
                         <input type="text" name='sub_questions[]' class="custom-input-borderless" placeholder="Q." value="{{ $comprehension->sub_question }}">
+                        <input type="hidden" name='sub_question_ids[]' value="{{ $comprehension->id }}">
                         @endforeach
-                        <input type="text" name='sub_questions[]' class="custom-input-borderless" placeholder="Q.">
 
                     </div>
                 </div>
                 @endif
 
-                <!-- preview -->
-                <div class="col-span-full border p-6">
-                    <!-- <span id="math" class="text-left no-line-break text-slate-400">Preview</span> -->
-                    <span id="math" class="text-left text-slate-400">Preview</span>
-                </div>
-                <div class="grid gap-1">
-                    <label>Exercise No.</label>
-                    <select name="exercise_no" id="" class="custom-input-borderless">
-                        <option value="">NA</option>
-                        @if($chapter->book->subject->name_en!='Mathematics')
-                        <option value="0">Basic</option>
-                        @else
-                        @for($i=1;$i<=20;$i++) <option value="{{$i}}" @selected(session('exercise_no')==$i)>{{ $chapter->sr }}.{{$i}}</option>
-                            @endfor
-                            @endif
-                    </select>
-                </div>
 
-                <div class="grid gap-1">
+
+                <div class="md:w-1/3">
                     <label>Conceptual?</label>
                     <select name="is_conceptual" id="" class="custom-input-borderless">
                         <option value="1" @selected(session('is_conceptual'))>Yes</option>
@@ -127,14 +120,16 @@
                     </select>
                 </div>
 
-                <div class="grid gap-y-1">
+                <div class="md:w-1/3">
                     <label for="">Bise Frequency</label>
                     <input type="number" name="frequency" value="1" min=0 class="custom-input-borderless">
                 </div>
+
                 <input type="hidden" name='sr' value="{{ $chapter->sr }}">
                 <div class="text-right col-span-full">
                     <button type="submit" class="btn-green">Update Now</button>
                 </div>
+
             </form>
 
         </div>
@@ -144,80 +139,11 @@
 @section('script')
 <script type="module">
     $(document).ready(function() {
-        // show or hide on page load
-        if ($('#type_id').val() == 1) {
-            $('.questionable').hide()
-            $('#mcqCover').show()
-        } else if ($('#subtype_id').val() == 18) {
-            $('.questionable').hide()
-            $('#paraphrasingCover').show()
-        } else if ($('#subtype_id').val() == 19) {
-            $('.questionable').hide()
-            $('#divComprehension').show()
-        }
-
 
         $('#statement').bind('input propertychange', function() {
             $('#math').html($('#statement').val());
             MathJax.typeset();
         });
-
-        $('#type_id').change(function() {
-            //objetive selected
-            if ($(this).val() == 1) {
-                $('.questionable').hide()
-                $('#mcqCover').show()
-            } else {
-                $('#mcqCover').hide()
-            }
-
-            var token = $("meta[name='csrf-token']").attr("content");
-            var book_id = $('#book_id').val();
-
-            //fetch subtypes
-
-            $.ajax({
-                type: 'GET',
-                url: "{{url('fetchSubTypesByTypeId')}}",
-                data: {
-                    "type_id": $(this).val(),
-                    "book_id": book_id,
-                    "_token": token,
-                },
-                success: function(response) {
-                    //
-                    $('#subtype_id').html(response.options);
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: errorThrown
-                    });
-                }
-            }); //ajax end
-
-
-
-        });
-
-        $('#subtype_id').change(function() {
-            // paraphrasing
-            if ($(this).val() == 18) {
-                $('.questionable').hide()
-                $('#paraphrasingCover').show()
-            } else {
-                $('#paraphrasingCover').hide()
-            }
-
-            // if comprehension option 
-            if ($(this).val() == 19) {
-                $('.questionable').hide()
-                $('#divComprehension').show()
-            } else {
-                $('#divComprehension').hide()
-            }
-
-        })
 
         $('.choice').bind('input propertychange', function() {
             $('#math').html($(this).val());

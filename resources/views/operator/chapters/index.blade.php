@@ -66,7 +66,7 @@ $i=0;
                     </tr>
                     @foreach($book->chapters->where('tag_id', $tag->id)->sortBy('sr') as $chapter)
                     <tr class="tr">
-                        <td>{{ $chapter->sr}}</td>
+                        <td>{{ $chapter->id}}</td>
                         <td class="text-left"> <a href="{{ route('operator.chapter.questions.index', $chapter) }}" class="link"> {{ $chapter->title }} </a></td>
                         <td class="text-xs">{{ $chapter->questions->count() }}
                             @if($chapter->questions()->today()->count()>0)

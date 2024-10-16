@@ -36,7 +36,7 @@ $activeChapter=$chapter;
                     <label>Ch # {{ $chapter->sr }}. {{ $chapter->title }}</label>
                 </div>
 
-                <a href="{{route('operator.chapter.question-choices.index', $chapter)}}" class="btn-green rounded">New Q.</a>
+                <a href="{{route('operator.chapter.questions.create', $chapter)}}" class="btn-green rounded">New Q.</a>
 
             </div>
 
@@ -52,8 +52,11 @@ $activeChapter=$chapter;
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
                 <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
+            <div class="flex items-center gap-6">
 
-            <a href="{{route('operator.chapter.multi-questions.index', $chapter)}}" class="link text-xs text-orange-600">Change Q.Type</a>
+                <a href="{{route('operator.type-changes.edit', $chapter)}}" class="btn-blue">Change Q.Type</a>
+                <a href="{{route('operator.question-movements.edit', $chapter)}}" class="btn-orange">Move to Chapter</a>
+            </div>
 
             <div class="overflow-x-auto">
                 <table class="table-fixed borderless w-full mt-3">

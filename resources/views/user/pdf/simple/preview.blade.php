@@ -270,10 +270,10 @@ $roman = config('global.romans');
                                         <td>({{ $paperQuestion->marks }})
                                         </td>
                                     </tr>
-                                    @foreach ($paperQuestion->paperQuestionParts->first()->question->paraphrasings as $paraphrase)
+                                    @foreach ($paperQuestion->paperQuestionParts->first()->question->paraphrasings as $stanza)
                                     <tr>
                                         <td></td>
-                                        <td class="text-left">{{ $paraphrase->poetry_line }}
+                                        <td class="text-left">{{ $stanza->poetry_line }}
                                         </td>
                                         <td></td>
                                     </tr>

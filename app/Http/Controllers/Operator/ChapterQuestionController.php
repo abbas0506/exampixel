@@ -17,7 +17,7 @@ class ChapterQuestionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($chapterId, $questionableType = null)
+    public function index($chapterId)
     {
         //
         $chapter = Chapter::findOrFail($chapterId);
@@ -27,13 +27,13 @@ class ChapterQuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($chapterId, $questionableType)
+    public function create($chapterId)
     {
-        //
+        //get types excluding: stanza and اشعار کی تشریح
+        $types = Type::whereNotIn('id', [11, 25])->get();
         $chapter = Chapter::findOrFail($chapterId);
-        $types = Type::all();
 
-        return view('operator.questions.create', compact('chapter', 'types', 'questionableType'));
+        return view('operator.questions.create', compact('chapter', 'types'));
     }
 
     /**
@@ -43,33 +43,25 @@ class ChapterQuestionController extends Controller
     {
         //
         $request->validate([
-            'statement' => 'required',
-            'marks' => 'required|numeric',
-            'exercise_no' => 'nullable|numeric',
-            'frequency' => 'required|numeric',
-            'is_conceptual' => 'required|boolean',
             'type_id' => 'required|numeric',
-            'questionableType' => 'required|numeric|max:5',
+            'statement' => 'required',
+            'frequency' => 'required|numeric',
         ]);
 
         $chapter = Chapter::findOrFail($chapterId);
         DB::beginTransaction();
 
         try {
-
-
             $question = $chapter->questions()->create([
                 'user_id' => Auth::user()->id,
                 'type_id' => $request->type_id,
                 'statement' => $request->statement,
-                'marks' => $request->marks,
-                'exercise_no' => $request->exercise_no,
                 'frequency' => $request->frequency,
-                'is_conceptual' => $request->is_conceptual,
+                'is_conceptual' => 0,
             ]);
 
-            // mcqs
-            if ($request->questionableType == 1) {
+            // mcqs or معروضی
+            if ($request->type_id == 1 || $request->type_id == 23) {
                 $correct = '';
                 if ($request->check_a) $correct = 'a';
                 if ($request->check_b) $correct = 'b';
@@ -83,16 +75,8 @@ class ChapterQuestionController extends Controller
                     'choice_d' => $request->choice_d,
                     'correct' => $correct,
                 ]);
-            } elseif ($request->questionableType == 4) {
-                // poetry: prarphrasing
-                foreach ($request->poetry_lines as $poetry_line) {
-                    if ($poetry_line != '')
-                        $question->paraphrasings()->create([
-                            'poetry_line' => $poetry_line,
-                        ]);
-                }
-            } elseif ($request->questionableType == 5) {
-                //comprehension
+            } elseif ($request->type_id == 19 || $request->type_id == 29) {
+                //comprehension or عبارت سے سوالات
                 foreach ($request->sub_questions as $subQuestion) {
                     if ($subQuestion != '')
                         $question->comprehensions()->create([
@@ -105,8 +89,10 @@ class ChapterQuestionController extends Controller
 
             // commit if all ok
             DB::commit();
-            return redirect()->route('operator.chapter.questionables.questions.create', [$chapter, $request->questionableType])->with(
+
+            return redirect()->route('operator.chapter.questions.create', [$chapter])->with(
                 [
+                    'type_id' => $request->type_id,
                     'success' => 'Successfully added',
                 ]
             );
@@ -114,6 +100,7 @@ class ChapterQuestionController extends Controller
             DB::rollBack();
             return redirect()->back()->withErrors($ex->getMessage());
         }
+        // echo 'Chapter question';
     }
 
     /**
@@ -147,7 +134,6 @@ class ChapterQuestionController extends Controller
         //
         $request->validate([
             'statement' => 'required',
-            'exercise_no' => 'nullable|numeric',
             'frequency' => 'required|numeric',
             'is_conceptual' => 'required|boolean',
         ]);
@@ -159,13 +145,12 @@ class ChapterQuestionController extends Controller
         try {
             $question->update([
                 'statement' => $request->statement,
-                'exercise_no' => $request->exercise_no,
                 'is_conceptual' => $request->is_conceptual,
                 'frequency' => $request->frequency,
             ]);
 
             // mcqs
-            if ($question->type_id == 1) {
+            if (in_array($question->type_id, [1, 23])) {
                 $correct = '';
                 if ($request->check_a) $correct = 'a';
                 if ($request->check_b) $correct = 'b';
@@ -181,25 +166,26 @@ class ChapterQuestionController extends Controller
                 ]);
             }
 
-            // paraphrasing
-            // if ($question->subtype->tagname == 'paraphrasing') {
-            //     foreach ($request->poetry_lines as $poetry_line) {
-            //         if ($poetry_line != '')
-            //             $question->paraphrasings()->update([
-            //                 'poetry_line' => $poetry_line,
-            //             ]);
-            //     }
-            // }
+            // poetry lines
+            if (in_array($question->type_id, [11, 25])) {
 
-            // //comprehension
-            // if ($question->subtype->tagname == 'comprehension') {
-            //     foreach ($request->sub_questions as $subQuestion) {
-            //         if ($subQuestion != '')
-            //             $question->comprehensions()->update([
-            //                 'sub_question' => $subQuestion,
-            //             ]);
-            //     }
-            // }
+                $question->poetryLines->first()->update([
+                    'line_a' => $request->line_a,
+                    'line_b' => $request->line_b,
+                ]);
+            }
+
+            //comprehension
+            if (in_array($question->type_id, [19, 29])) {
+                $i = 0;
+
+                foreach ($request->sub_questions as $subQuestion) {
+
+                    $question->comprehensions()->find($request->sub_question_ids[$i++])->update([
+                        'sub_question' => $subQuestion,
+                    ]);
+                }
+            }
 
             // commit if all ok
             DB::commit();
@@ -208,7 +194,6 @@ class ChapterQuestionController extends Controller
                     'success' => 'Successfully updated',
                 ]
             );
-            // return redirect()->route('admin.chapter.questions.index', [$bookId, $chapterId])->with('success', 'Successfully added');;
         } catch (Exception $ex) {
             DB::rollBack();
             return redirect()->back()->withErrors($ex->getMessage());

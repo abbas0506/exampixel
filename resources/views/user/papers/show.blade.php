@@ -265,6 +265,38 @@ $QNo = 1;
                         </tr>
                         @endif
 
+                        <!-- poetry lines -->
+                        @if($paperQuestion->type_name=='stanza')
+
+                        @endif
+
+                        <!-- comprehension -->
+                        @if($paperQuestion->type_name=='comprehension')
+
+                        <tr>
+                            <td class="font-bold">Q.{{ $QNo++ }}</td>
+                            <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
+                            <td>({{ $paperQuestion->marks }})</td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bx bx-trash text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td class="text-left">{{$paperQuestion->question->statement }}</td>
+                            <td></td>
+                            <td>
+                                <a href="{{ route('user.paper-question-parts.refresh', $paperQuestion->paperQuestionParts()->first()) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
+                            </td>
+                        </tr>
+                        @endif
                         @endforeach <!-- end iterating questions -->
 
                     </tbody>
