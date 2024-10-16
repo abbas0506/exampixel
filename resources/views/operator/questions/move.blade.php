@@ -81,9 +81,9 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="mt-6">
+                    <div class="mt-6 md:w-1/3">
                         <label for="">Move to Chapter #</label>
-                        <input type="number" name='chapter_id_to_move' class="cutom-input-borderless" value="{{ $chapter->id }}">
+                        <input type="number" name='chapter_id_to_move' class="custom-input-borderless" value="{{ $chapter->id }}">
                     </div>
 
                     <div class="divider my-5"></div>
