@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\App;
 
 class LatexPdfController extends Controller
 {
@@ -26,14 +27,15 @@ class LatexPdfController extends Controller
     {
 
         $paper = Paper::findOrFail($paperId);
-
         $orientation = $request->orientation;
         $pageSize = $request->page_size;
         $rows = $request->rows;
         $cols = $request->cols;
         $paper = Paper::findOrFail($paperId);
         $fontSize = $request->font_size;
-
+        if($paper->book->subject->text_direction == 'R'){
+            App::setLocale('ur');
+        }
         $data = view('user.pdf.latex.preview', compact('paper', 'orientation', 'pageSize', 'rows', 'cols', 'fontSize', 'paper'))->render();
         // store the latex file
         Storage::disk('local')->put('paper.tex', $data);

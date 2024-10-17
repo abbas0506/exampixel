@@ -151,3 +151,9 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
     Route::get('papers/{paper}/key', [PaperKeyController::class, 'show'])->name('papers.keys.show');
     Route::get('papers/{paper}/key/pdf', [PaperKeyController::class, 'pdf'])->name('papers.keys.pdf');
 });
+
+Route::get('/test-api',function(){
+    $res = "Divide & Conquer";
+$res = App\Helpers\Helper::parseTex($res);
+    return response()->json($res);
+});

@@ -14,7 +14,8 @@ class Helper
             }
         }, $text);
         $patternForAnd = '/(\b\w{2,}+)\s*&\s*(\w{2,}+\b)/';    
-        $replacementAnd = '$1\\&$2';
+        $replacementAnd = '$1 \& $2';
+        $text = preg_replace($patternForAnd, $replacementAnd, $text);
         // $text = str_replace(['\(', '\)'], '$', $text);
         // $text = str_replace("%", "\%", $text);
         $text = str_replace("both a & b", "both a \& b" , $text);
@@ -27,9 +28,9 @@ class Helper
         return $text;
         // $text = str_replace("&","\&",$text);
         $pattern = "/([\x{0600}-\x{06FF}\x{0750}-\x{077F}\x{FB50}-\x{FDFF}\x{FE70}-\x{FEFF}]+)/u";
-        if (preg_match($pattern, $text)) {
-            return "\\begin{RTL}" . $text . "\\end{RTL}";
-        }
+        // if (preg_match($pattern, $text)) {
+        //     return "\\begin{RTL}" . $text . "\\end{RTL}";
+        // }
         return $text;
         // Replacement pattern to wrap Urdu text with \\texturdu{}
         $replacement = '\\texturdu{$1}';
