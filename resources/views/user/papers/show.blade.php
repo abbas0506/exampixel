@@ -388,7 +388,7 @@ $QNo = 1;
             @else
             <!-- paper has no question -->
             <div class="grid place-items-center h-96">
-                <img src="{{ url('/images/guideline/add-q.png') }}" alt="add-q" class="md:w-1/3">
+                <img src="{{ url('/images/guideline/add-q1.png') }}" alt="add-q" class="md:w-1/3">
             </div>
 
             @endif <!-- end if paper has questions -->
