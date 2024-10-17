@@ -1,6 +1,5 @@
 \documentclass{exam}
 \renewcommand{\thepartno}{\roman{partno}}
-\renewcommand{\choicelabel}{\alph{choice})}
 \usepackage[{{ $fontSize }}pt]{extsizes}
 \usepackage{amsfonts}
 \usepackage{mathrsfs}
@@ -12,9 +11,13 @@
 \usepackage{bidi}
 \setmainlanguage{english}
 \setotherlanguage{urdu}
-{{-- @if ($paper->book->subject->text_direction == 'R') --}}
-\setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
-{{-- @endif --}}
+@if ($paper->book->subject->text_direction == 'R')
+    \setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
+    \renewcommand\thechoice{\ifcase\value{choice}\or ا\or ب\or ج\or د\fi}
+    \renewcommand\choicelabel{(\thechoice)}
+@else
+    \renewcommand{\choicelabel}{(\alph{choice})}
+@endif
 \newcommand{\cellcontent}{
 
 \begin{center} \large{\uppercase { @if ($paper->institution)
