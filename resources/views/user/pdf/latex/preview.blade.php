@@ -24,7 +24,7 @@
     {{ $paper->institution }}
 @else
     Institution Title
-@endif }}\\ \small {{ $paper->paper_date->format('d/m/Y') }}
+@endif }}\\ \small {{ $paper->title }} {{ $paper->paper_date->format('d/m/Y') }}
 \end{center} {{ $paper->book->subject->text_direction == 'R' ? $paper->book->subject->name_ur : $paper->book->name }}
 \hfill
 {{ __('messages.roll_number') }} \# : \_\_\_\_\_\_\_\_\_ \hfill

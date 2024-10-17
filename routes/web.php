@@ -153,7 +153,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
 });
 
 Route::get('/test-api',function(){
-    $res = "Divide & Conquer";
+    $res = "|";
 $res = App\Helpers\Helper::parseTex($res);
     return response()->json($res);
 });
