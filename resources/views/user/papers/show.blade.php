@@ -48,9 +48,25 @@ $QNo = 1;
                     </div>
                 </div>
                 <!-- show print button only if paper has some questions -->
+                <div class="fixed left-0 md:pl-60 bottom-4 bg-white flex justify-between items-center w-full px-6 opacity-80">
+                    <div class="flex items-center flex-wrap gap-x-2">
+                        <h3>{{ $paper->book->name }}</h3>
+                        <label> Marks : {{ $paper->paperQuestions->sum('marks') }}</label>
+                    </div>
+                    <!-- <div class="flex flex-col">
+                        <div class="flex items-center space-x-3">
+                            <label>{{ $paper->title }}</label>
+                        </div>
+                    </div> -->
+                    <div class="flex items-center space-x-3">
+                        <a href="{{ route('user.papers.edit', $paper) }}" class="btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a>
+                        <a href="{{ route('user.papers.latex-pdf.create', $paper) }}"><i class="bi-printer"></i></a>
+                        <a href="{{ route('user.paper.questions.create', $paper) }}" class="flex w-10 h-10 items-center justify-center rounded-full bg-teal-300 hover:bg-teal-400 text-xs">Q+</a>
+                    </div>
+
+                </div>
 
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('user.paper.questions.create', $paper) }}" class="flex w-12 h-12 items-center justify-center rounded-full bg-teal-200 hover:bg-teal-400">Q+</a>
                     @if ($paper->paperQuestions->count() > 0)
                     <div
                         class="flex w-12 h-12 items-center justify-center rounded-full bg-orange-100 hover:bg-orange-200">
@@ -313,11 +329,17 @@ $QNo = 1;
         </div>
     </div>
 </div>
+<div class="h-20"></div>
 @endsection
 
 @section('script')
+
 <script type="module">
     $('document').ready(function() {
+
+        $("html, body").animate({
+            scrollTop: $(document).height()
+        }, 1000);
 
         $('.confirm-del').click(function(event) {
             var form = $(this).closest("form");
