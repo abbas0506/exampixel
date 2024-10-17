@@ -50,8 +50,8 @@ class PartialQuestionController extends Controller
             $formatter = new NumberFormatter('en', NumberFormatter::SPELLOUT);
 
 
-            // if ($request->compulsory_parts < collect($request->num_of_parts_array)->sum())
-            //     $question_title = $request->question_title . " ( any " .  $formatter->format($request->compulsory_parts) . ")";
+            if ($request->compulsory_parts < collect($request->num_of_parts_array)->sum())
+                $question_title = $request->question_title . " ( any " .  $formatter->format($request->compulsory_parts) . ")";
 
             if ($typeId == 1 || $typeId == 30) //mcqs
                 $marks = $request->compulsory_parts;

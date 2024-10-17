@@ -119,7 +119,6 @@ Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['rol
     Route::resource('books', BookController::class);
     Route::resource('grade.books', GradeBookController::class);
     Route::resource('books.chapters', BookChapterController::class);
-    Route::resource('grade.book.chapters', GradeBookChapterController::class);
     Route::resource('chapter.questions', ChapterQuestionController::class);
     Route::resource('chapter.poetry-lines', PoetryLineController::class);
     Route::resource('type-changes', QuestionTypeChangeController::class);
@@ -152,8 +151,8 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
     Route::get('papers/{paper}/key/pdf', [PaperKeyController::class, 'pdf'])->name('papers.keys.pdf');
 });
 
-Route::get('/test-api',function(){
+Route::get('/test-api', function () {
     $res = "Divide & Conquer";
-$res = App\Helpers\Helper::parseTex($res);
+    $res = App\Helpers\Helper::parseTex($res);
     return response()->json($res);
 });

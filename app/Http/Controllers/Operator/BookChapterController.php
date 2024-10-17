@@ -53,7 +53,7 @@ class BookChapterController extends Controller
         try {
             // 
             $book->chapters()->create($request->all());
-            return redirect()->route('operator.grade.book.chapters.index', [$book->grade, $book])->with('success', 'Successfully added');;
+            return redirect()->route('operator.books.chapters.index', $book)->with('success', 'Successfully added');;
         } catch (Exception $ex) {
             return redirect()->back()->withErrors($ex->getMessage());
         }
