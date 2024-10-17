@@ -156,7 +156,7 @@
                 if ($('#total_parts').val() == '')
                     validated = false
                 else if ($.isNumeric(compulsory_parts)) {
-                    var totalParts = $('#total_parts').val()
+                    var totalParts = $('#parts_count').val()
                     if (compulsory_parts <= 0 || compulsory_parts > totalParts)
                         validated = false
                 } else {

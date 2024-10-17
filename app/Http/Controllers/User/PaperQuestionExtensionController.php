@@ -8,6 +8,7 @@ use App\Models\PaperQuestion;
 use App\Models\Question;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PaperQuestionExtensionController extends Controller
 {
@@ -28,7 +29,21 @@ class PaperQuestionExtensionController extends Controller
         $paperQuestion = PaperQuestion::findOrFail($id);
         $paper = $paperQuestion->paper;
 
-        $chapters = Chapter::whereIn('id', $paper->chapterIdsArray())->get();
+        //send paper chapter only which have long data type
+        $chaptersIdsArray = $paper->chapterIdsArray();
+
+
+
+        $chapterIdsHavingLong = DB::table('questions')
+            ->select('chapter_id')
+            ->distinct()
+            ->whereIn('chapter_id', $paper->chapterIdsArray())
+            ->whereNotIn('type_id', [1, 2, 23, 24]) //other than mcq, short
+            ->pluck('chapter_id');
+
+
+        $chapters = Chapter::whereIn('id', $chapterIdsHavingLong)->get();
+        // $chapters = Chapter::whereIn('id', $paper->chapterIdsArray())->get();
         return view('user.paper-questions.extension', compact('paperQuestion', 'paper', 'chapters'));
     }
 
