@@ -49,7 +49,8 @@ class PaperQuestionExtensionController extends Controller
 
             $threshold = $request->frequency;
 
-            $question = Question::where('chapter_id', $request->chapter_id)
+            $question = Question::whereNotIn('type_id', [1, 2, 23, 24])
+                ->where('chapter_id', $request->chapter_id)
                 ->where('frequency', '>=', $threshold)
                 ->get()
                 ->random(1)
