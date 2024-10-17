@@ -1,6 +1,5 @@
 \documentclass{exam}
 \renewcommand{\thepartno}{\roman{partno}}
-\renewcommand{\choicelabel}{\alph{choice})}
 \usepackage[{{ $fontSize }}pt]{extsizes}
 \usepackage{amsfonts}
 \usepackage{mathrsfs}
@@ -12,16 +11,20 @@
 \usepackage{bidi}
 \setmainlanguage{english}
 \setotherlanguage{urdu}
-{{-- @if ($paper->book->subject->text_direction == 'R') --}}
-\setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
-{{-- @endif --}}
+@if ($paper->book->subject->text_direction == 'R')
+    \setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
+    \renewcommand\thechoice{\ifcase\value{choice}\or ا\or ب\or ج\or د\fi}
+    \renewcommand\choicelabel{(\thechoice)}
+@else
+    \renewcommand{\choicelabel}{(\alph{choice})}
+@endif
 \newcommand{\cellcontent}{
 
 \begin{center} \large{\uppercase { @if ($paper->institution)
     {{ $paper->institution }}
 @else
     Institution Title
-@endif }}\\ \small {{ $paper->paper_date->format('d/m/Y') }}
+@endif }}\\ \small {{ $paper->title }} {{ $paper->paper_date->format('d/m/Y') }}
 \end{center} {{ $paper->book->subject->text_direction == 'R' ? $paper->book->subject->name_ur : $paper->book->name }}
 \hfill
 {{ __('messages.roll_number') }} \# : \_\_\_\_\_\_\_\_\_ \hfill
@@ -76,9 +79,16 @@
 
     @if ($paperQuestion->type_name == 'simple')
         \question{
-        {!! Helper::parseTex($paperQuestion->paperQuestionParts()->first()->question->statement) !!}
-        \hfill {{ $paperQuestion->marks }}
-        {{ __('messages.marks') }}
+        @if ($paperQuestion->question_title)
+            {!! Helper::parseTex($paperQuestion->question_title) !!}
+            \hfill {{ $paperQuestion->marks }}
+            {{ __('messages.marks') }} \\
+            {!! Helper::parseTex($paperQuestion->paperQuestionParts()->first()->question->statement) !!}
+        @else
+            {!! Helper::parseTex($paperQuestion->paperQuestionParts()->first()->question->statement) !!}
+            \hfill {{ $paperQuestion->marks }}
+            {{ __('messages.marks') }}
+        @endif
         }
     @endif
     @if ($paperQuestion->type_name == 'simple-or')
@@ -91,7 +101,7 @@
         @endforeach
         }
     @endif
-    @if ($paperQuestion->type_name == 'simpple-and')
+    @if ($paperQuestion->type_name == 'simple-and')
         \question
         \begin{parts}
         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
@@ -113,6 +123,34 @@
             \part
             {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
             \dotfill {{ $paperQuestionPart->marks }}
+        @endforeach
+        \end{parts}
+    @endif
+    @if ($paperQuestion->type_name == 9)
+        \question{
+        {{ $paperQuestion->question_title }} \hfill
+        {{ $paperQuestion->marks }}
+        {{ __('messages.marks') }}
+        }
+        \begin{parts}
+        @foreach ($paperQuestion->paperQuestionParts->first()->question->paraphrasings as $stanza)
+            \part
+            {!! Helper::parseTex($stanza->poetry_line) !!}
+        @endforeach
+        \end{parts}
+    @endif
+
+    @if ($paperQuestion->type_name == 10)
+        \question{
+        {{ $paperQuestion->question_title }} \hfill
+        {{ $paperQuestion->marks }}
+        {{ __('messages.marks') }}
+        }
+        {!! Helper::parseTex($paperQuestion->paperQuestionParts->first()->question->statement) !!}
+        \begin{parts}
+        @foreach ($paperQuestion->paperQuestionParts->first()->question->comprehensions as $comprehension)
+            \part
+            {!! Helper::parseTex($comprehension->sub_question) !!}
         @endforeach
         \end{parts}
     @endif

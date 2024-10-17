@@ -21,7 +21,8 @@ class Helper
         $text = str_replace("both a & b", "both a \& b" , $text);
         $text = strlen(trim($text)) == 2 && $text == '&&' ? '\&\&' : $text;
         $text = strlen(trim($text)) == 1 && $text == '#' ? '\#' : $text;
-        $text = strlen(trim($text)) == 1 && $text == '%' ? '\%' : $text;
+        $text = strlen(trim($text)) == 1 && $text == '&' ? '\&' : $text;
+        $text = strlen(trim($text)) == 1 && $text == '|' ? '\|' : $text;
         // $text = strlen(trim($text)) == 1 && $text == "\\" ? "\\backslash" : $text;
         // $text = str_replace('\\\\', '\\backslash\\backslash', $text);
 
