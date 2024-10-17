@@ -53,11 +53,6 @@ $QNo = 1;
                         <h3>{{ $paper->book->name }}</h3>
                         <label> Marks : {{ $paper->paperQuestions->sum('marks') }}</label>
                     </div>
-                    <!-- <div class="flex flex-col">
-                        <div class="flex items-center space-x-3">
-                            <label>{{ $paper->title }}</label>
-                        </div>
-                    </div> -->
                     <div class="flex items-center space-x-3">
                         <a href="{{ route('user.papers.edit', $paper) }}" class="btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a>
                         <a href="{{ route('user.papers.latex-pdf.create', $paper) }}"><i class="bi-printer"></i></a>
@@ -94,6 +89,7 @@ $QNo = 1;
                             <th class="w-96"></th>
                             <th class="w-8"></th>
                             <th class="w-8"></th>
+                            <th class="w-8"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,6 +102,7 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
+                            <td></td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -125,6 +122,16 @@ $QNo = 1;
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper-question-parts.destroy', $paperQuestionPart) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bi-x text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
+
                         </tr>
 
                         <tr>
@@ -139,8 +146,21 @@ $QNo = 1;
                             </td>
                             <td></td>
                             <td></td>
+                            <td></td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="flex items-center">
+                                    <a href="{{ route('user.paperQuestions.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
+                                    &nbsp;<label for="">(append another question)</label>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         @endif
 
                         <!-- partial -->
@@ -149,6 +169,7 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td> ({{ $paperQuestion->marks }})</td>
+                            <td></td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -167,8 +188,29 @@ $QNo = 1;
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper-question-parts.destroy', $paperQuestionPart) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bi-x text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
+                        <tr>
+                            <td></td>
+                            <td>
+                                <div class="flex items-center">
+                                    <a href="{{ route('user.paperQuestions.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
+                                    &nbsp;<label for="">(append another question)</label>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         @endif
 
                         <!-- simple question -->
@@ -177,6 +219,7 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
+                            <td></td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -195,6 +238,7 @@ $QNo = 1;
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestion->paperQuestionParts()->first()) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
+                            <td></td>
                         </tr>
                         @endif
 
@@ -204,6 +248,7 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
+                            <td></td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -222,6 +267,15 @@ $QNo = 1;
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper-question-parts.destroy', $paperQuestionPart) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bi-x text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                         <tr>
@@ -229,9 +283,10 @@ $QNo = 1;
                             <td>
                                 <div class="flex items-center">
                                     <a href="{{ route('user.paperQuestions.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
-                                    &nbsp;<label for="">(add another part)</label>
+                                    &nbsp;<label for="">(append another question)</label>
                                 </div>
                             </td>
+                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -247,6 +302,7 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
+                            <td></td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -260,12 +316,22 @@ $QNo = 1;
 
                         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
                         <tr>
-                            <td></td>
-                            <td class="text-left">{{ $alphabets[$loop->index] }}).{{ $paperQuestionPart->question->statement }}</td>
+                            <td>{{ $alphabets[$loop->index] }})</td>
+                            <td class="text-left">{{ $paperQuestionPart->question->statement }}</td>
                             <td>{{ $paperQuestionPart->marks }}</td>
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
                             </td>
+                            <td>
+                                <form
+                                    action="{{ route('user.paper-question-parts.destroy', $paperQuestionPart) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button><i class="bi-x text-red-600 confirm-del"></i></button>
+                                </form>
+                            </td>
+
                         </tr>
                         @endforeach
                         <tr>
@@ -273,9 +339,10 @@ $QNo = 1;
                             <td>
                                 <div class="flex items-center">
                                     <a href="{{ route('user.paperQuestions.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
-                                    &nbsp;<label for="">(add another part)</label>
+                                    &nbsp;<label for="">(append another question)</label>
                                 </div>
                             </td>
+                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -320,8 +387,8 @@ $QNo = 1;
             </div>
             @else
             <!-- paper has no question -->
-            <div class="grid place-items-center h-64">
-                <img src="{{ url('/images/guideline/add-q.png') }}" alt="add-q" class="w-64">
+            <div class="grid place-items-center h-96">
+                <img src="{{ url('/images/guideline/add-q.png') }}" alt="add-q" class="md:w-1/3">
             </div>
 
             @endif <!-- end if paper has questions -->
@@ -329,7 +396,9 @@ $QNo = 1;
         </div>
     </div>
 </div>
+@if($paper->paperQuestions->count())
 <div class="h-20"></div>
+@endif
 @endsection
 
 @section('script')

@@ -133,6 +133,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
     Route::resource('papers', TeacherPaperController::class);
     Route::resource('papers.chapters', PaperChapterController::class);
     Route::resource('paper.questions', UserPaperQuestionController::class);
+    Route::resource('paper-question-parts', PaperQuestionPartController::class);
 
     Route::resource('papers.question-types.partial-questions', PartialQuestionController::class);
     Route::resource('papers.question-types.simple-questions', SimpleQuestionController::class);
