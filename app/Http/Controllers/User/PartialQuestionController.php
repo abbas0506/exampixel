@@ -26,7 +26,7 @@ class PartialQuestionController extends Controller
         $chapters = Chapter::whereIn('id', $chapterIds)->get();
 
         $type = Type::findOrFail($typeId);
-        return view('user.paper-questions.partial', compact('paper', 'chapters', 'type'));
+        return view('user.paper-questions.partial.create', compact('paper', 'chapters', 'type'));
     }
 
 

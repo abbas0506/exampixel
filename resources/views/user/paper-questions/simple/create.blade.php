@@ -48,7 +48,7 @@
 
         <div class="grid gap-6 md:w-3/4 mx-auto mt-6">
             <h2>{{ $type->name }}</h2>
-            <form id='data-form' action="{{ route('user.papers.question-types.simple-questions.store', [$paper, $type]) }}" method="post">
+            <form id='data-form' action="{{ route('user.paper.question-type.simple-questions.store', [$paper, $type]) }}" method="post">
                 @csrf
 
                 <input type="hidden" name="chapter_id" id='chapter_id' value="">

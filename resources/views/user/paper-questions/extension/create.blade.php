@@ -46,8 +46,8 @@
         <div class="divider my-3"></div>
 
         <div class="grid gap-6 md:w-3/4 mx-auto mt-6">
-            <h2>Long Q. Partial(Extension)</h2>
-            <form id='data-form' action="{{ route('user.paperQuestions.extensions.store', $paperQuestion) }}" method="post">
+            <h2>Question Extension</h2>
+            <form id='data-form' action="{{ route('user.paper-question.type.extensions.store', [$paperQuestion, $typeId]) }}" method="post">
                 @csrf
                 <input type="hidden" name="chapter_id" id='chapter_id' value="">
 

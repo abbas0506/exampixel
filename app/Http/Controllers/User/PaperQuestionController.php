@@ -17,6 +17,7 @@ class PaperQuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    public function index() {}
 
     public function create($id)
     {

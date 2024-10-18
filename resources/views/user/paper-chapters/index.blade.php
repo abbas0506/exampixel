@@ -42,7 +42,7 @@
 
             <div class="divider my-3"></div>
 
-            <form action="{{route('user.papers.chapters.store', $paper)}}" method='post' class="mt-6 w-full md:w-4/5 mx-auto" onsubmit="return validate(event)">
+            <form action="{{route('user.paper.chapters.store', $paper)}}" method='post' class="mt-6 w-full md:w-4/5 mx-auto" onsubmit="return validate(event)">
                 @csrf
                 <div class="flex justify-between items-center">
                     <h2 class="mt-4">Which chapters would you like to include?</h2>

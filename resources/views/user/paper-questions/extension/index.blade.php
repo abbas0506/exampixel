@@ -40,11 +40,7 @@ $QNo = 1;
             <h2 class="text-center bg-slate-100">Click on a type</h2>
             <div class="grid md:grid-cols-3 gap-4 mt-8 place-items-center">
                 @foreach($questionTypes as $type)
-                @if($type->display_style=='simple')
-                <a href="{{ route('user.paper.question-type.simple-questions.create', [$paper, $type]) }}" class="bg-{{$colors[$loop->index%5]}}-100 hover:bg-{{$colors[$loop->index%5]}}-200 rounded-md py-3 w-full text-center">{{ $type->name }}</a>
-                @else
-                <a href="{{ route('user.paper.question-type.partial-questions.create', [$paper, $type]) }}" class="bg-{{$colors[$loop->index%5]}}-100 hover:bg-{{$colors[$loop->index%5]}}-200 rounded-md py-3 w-full text-center">{{ $type->name }}</a>
-                @endif
+                <a href="{{ route('user.paper-question.type.extensions.create', [$paperQuestion, $type]) }}" class="bg-{{$colors[$loop->index%5]}}-100 hover:bg-{{$colors[$loop->index%5]}}-200 rounded-md py-3 w-full text-center">{{ $type->name }}</a>
                 @endforeach
             </div>
 

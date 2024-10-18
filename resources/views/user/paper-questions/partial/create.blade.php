@@ -45,7 +45,7 @@
         </div>
 
         <div class="divider my-3"></div>
-        <form action="{{ route('user.papers.question-types.partial-questions.store', [$paper, $type]) }}" method="post" class="grid gap-6 md:w-3/4 mx-auto mt-6">
+        <form action="{{ route('user.paper.question-type.partial-questions.store', [$paper, $type]) }}" method="post" class="grid gap-6 md:w-3/4 mx-auto mt-6">
             @csrf
             <h2>{{ $type->name }}</h2>
             <input type="hidden" name="type_name" value="{{ $type->display_style }}">

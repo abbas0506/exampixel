@@ -153,7 +153,7 @@ $QNo = 1;
                             <td></td>
                             <td>
                                 <div class="flex items-center">
-                                    <a href="{{ route('user.paperQuestions.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
+                                    <a href="{{ route('user.paper-question.type.extensions.create', [$paperQuestion, $paperQuestion->paperQuestionParts->first()->question->type]) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
                                     &nbsp;<label for="">(append another question)</label>
                                 </div>
                             </td>
@@ -203,7 +203,7 @@ $QNo = 1;
                             <td></td>
                             <td>
                                 <div class="flex items-center">
-                                    <a href="{{ route('user.paperQuestions.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
+                                    <a href="{{ route('user.paper-question.type.extensions.index', [$paperQuestion, $paperQuestion->paperQuestionParts->first()->question->type]) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
                                     &nbsp;<label for="">(append another question)</label>
                                 </div>
                             </td>
@@ -282,7 +282,7 @@ $QNo = 1;
                             <td></td>
                             <td>
                                 <div class="flex items-center">
-                                    <a href="{{ route('user.paperQuestions.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
+                                    <a href="{{ route('user.paper-question.type.extensions.index', [$paper, $paperQuestion]) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
                                     &nbsp;<label for="">(append another question)</label>
                                 </div>
                             </td>
@@ -338,7 +338,7 @@ $QNo = 1;
                             <td></td>
                             <td>
                                 <div class="flex items-center">
-                                    <a href="{{ route('user.paperQuestions.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
+                                    <a href="{{ route('user.paper-question.type.extensions.create', $paperQuestion) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
                                     &nbsp;<label for="">(append another question)</label>
                                 </div>
                             </td>

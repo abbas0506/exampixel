@@ -131,14 +131,16 @@ Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['rol
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']], function () {
     Route::get('/', [TeacherDashboardController::class, 'index']);
     Route::resource('papers', TeacherPaperController::class);
-    Route::resource('papers.chapters', PaperChapterController::class);
+    Route::resource('paper.chapters', PaperChapterController::class);
     Route::resource('paper.questions', UserPaperQuestionController::class);
     Route::resource('paper-question-parts', PaperQuestionPartController::class);
 
-    Route::resource('papers.question-types.partial-questions', PartialQuestionController::class);
-    Route::resource('papers.question-types.simple-questions', SimpleQuestionController::class);
+    // Route::resource('paper.question-types', PaperQuestionPartController::class);
 
-    Route::resource('paperQuestions.extensions', PaperQuestionExtensionController::class);
+    Route::resource('paper.question-type.partial-questions', PartialQuestionController::class);
+    Route::resource('paper.question-type.simple-questions', SimpleQuestionController::class);
+
+    Route::resource('paper-question.type.extensions', PaperQuestionExtensionController::class);
 
     Route::resource('papers.latex-pdf', LatexPdfController::class);
     Route::resource('papers.simple-pdf', SimplePdfController::class);

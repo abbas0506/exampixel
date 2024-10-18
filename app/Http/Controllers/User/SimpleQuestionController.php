@@ -25,7 +25,7 @@ class SimpleQuestionController extends Controller
 
             $type = Type::findOrFail($typeId);
 
-            return view('user.paper-questions.simple', compact('paper', 'chapters', 'type'));
+            return view('user.paper-questions.simple.create', compact('paper', 'chapters', 'type'));
         } else {
             echo "Chapters not selected!";
         }
