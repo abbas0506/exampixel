@@ -62,10 +62,29 @@
             </a>
         </div>
 
+        <div class="hidden mt-4">
+            <a href="{{ route('user.papers.create') }}" class="flex items-center pallet-box">
+                <div class="flex flex-1 items-center space-x-3">
+                    <div>
+                        <img src="{{ url('images/small/pdf.png') }}" alt="pdf" class="w-12 h-12">
+                    </div>
+                    <div>
+                        <h2 class="text-slate-600">Generate Paper</h2>
+                        <label>Easier than ever before! </label>
+                    </div>
 
-        <div class="bg-white mt-6 w-full">
+                </div>
+            </a>
+        </div>
+
+        <div class="grid place-items-center h-40">
+            <!-- <h3 class="text-slate-600">Currently no paper found!</h3> -->
+            <a href="{{ route('user.papers.create') }}" class="btn-blue rounded px-6 py-3">Generate Paper Now</a>
+        </div>
+
+        <div class="bg-white w-full">
             @if(Auth::user()->papers->count()>0)
-            <h2>Recent papers </h2>
+            <h2>My Recent Papers </h2>
             <div class="overflow-x-auto w-full mt-3">
                 <table class="table-fixed w-full sm">
                     <thead>
@@ -78,7 +97,7 @@
                         </tr>
                     <tbody>
                         @php $sr=1; @endphp
-                        @foreach(Auth::user()->papers->sortByDesc('id') as $paper)
+                        @foreach(Auth::user()->papers->sortByDesc('id')->take(5) as $paper)
                         <tr>
                             <td>{{$sr++}}</td>
                             <td class="text-left">
@@ -96,10 +115,7 @@
                 </table>
             </div>
             @else
-            <div class="h-full flex flex-col justify-center items-center">
-                <h3 class="text-slate-600">Currently no paper found!</h3>
-                <a href="{{ route('user.papers.create') }}" class="btn-blue mt-6 rounded">Start Creating Now</a>
-            </div>
+            <div class="text-slate-400 text-center">Currently no data found!</div>
             @endif
         </div>
     </div>

@@ -43,34 +43,30 @@ $QNo = 1;
                         <h2>{{ $paper->book->name }} </h2>
                         <div class="flex items-center space-x-3">
                             <label>{{ $paper->title }}</label>
-                            <a href="{{ route('user.papers.edit', $paper) }}" class="btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a>
+                            <!-- <a href="{{ route('user.papers.edit', $paper) }}" class="btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a> -->
                         </div>
                     </div>
                 </div>
-                <!-- show print button only if paper has some questions -->
-                <div class="fixed left-0 md:pl-60 bottom-4 bg-white flex justify-between items-center w-full px-6 opacity-80">
-                    <div class="flex items-center flex-wrap gap-x-2">
-                        <h3>{{ $paper->book->name }}</h3>
-                        <label> Marks : {{ $paper->paperQuestions->sum('marks') }}</label>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <a href="{{ route('user.papers.edit', $paper) }}" class="btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a>
-                        <a href="{{ route('user.papers.latex-pdf.create', $paper) }}"><i class="bi-printer"></i></a>
-                        <a href="{{ route('user.paper.questions.create', $paper) }}" class="flex w-10 h-10 items-center justify-center rounded-full bg-teal-300 hover:bg-teal-400 text-xs">Q+</a>
-                    </div>
-
+                <div class="text-center">
+                    <div><i class="bi-calendar4-event text-xl"></i></div>
+                    <label for="">{{ $paper->paper_date->format('d/m/Y') }}</label>
                 </div>
+            </div>
 
+            <!-- show print button only if paper has some questions -->
+            <div class="fixed left-0 md:pl-60 bottom-4 bg-white flex justify-between items-center w-full px-6 opacity-80">
+                <div class="flex items-center flex-wrap gap-x-2">
+                    <h3>{{ $paper->book->name }}</h3>
+                    <label> Marks : {{ $paper->paperQuestions->sum('marks') }}</label>
+                </div>
                 <div class="flex items-center space-x-3">
-                    @if ($paper->paperQuestions->count() > 0)
-                    <div
-                        class="flex w-12 h-12 items-center justify-center rounded-full bg-orange-100 hover:bg-orange-200">
-                        <a href="{{ route('user.papers.latex-pdf.create', $paper) }}"><i class="bi-printer"></i></a>
-                    </div>
-                    @endif
+                    <a href="{{ route('user.papers.edit', $paper) }}" class="btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a>
+                    <a href="{{ route('user.papers.latex-pdf.create', $paper) }}"><i class="bi-printer"></i></a>
+                    <a href="{{ route('user.paper.questions.create', $paper) }}" class="flex w-10 h-10 items-center justify-center rounded-full bg-teal-300 hover:bg-teal-400 text-xs">Q+</a>
                 </div>
 
             </div>
+
             <div class="divider my-3"></div>
 
             @if ($paper->paperQuestions->count())
@@ -400,8 +396,14 @@ $QNo = 1;
             </div>
             @else
             <!-- paper has no question -->
-            <div class="grid place-items-center h-96">
-                <img src="{{ url('/images/guideline/add-q1.png') }}" alt="add-q" class="md:w-1/3">
+            <div class="md:w-4/5 mx-auto my-8">
+                <h2>Guidelines</h2>
+                <div class="grid md:grid-cols-3 gap-12 place-items-center mt-8">
+                    <img src="{{ url('/images/guideline/new-q.png') }}" alt="new-q" class="">
+                    <img src="{{ url('/images/guideline/print.png') }}" alt="print" class="">
+                    <img src="{{ url('/images/guideline/paper-edit.png') }}" alt="paper-edit" class="">
+                </div>
+
             </div>
 
             @endif <!-- end if paper has questions -->
