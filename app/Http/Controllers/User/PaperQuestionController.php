@@ -33,6 +33,38 @@ class PaperQuestionController extends Controller
         return view('user.paper-questions.create', compact('paper', 'questionTypes'));
     }
 
+    public function edit($paperId, $paperQuestionId)
+    {
+        $paper = Paper::findOrFail($paperId);
+        $paperQuestion = PaperQuestion::findOrFail($paperQuestionId);
+
+        return view('user.paper-questions.edit', compact('paper', 'paperQuestion'));
+    }
+
+    public function update(Request $request, $paperId, $paperQuestionId)
+    {
+
+        $request->validate([
+            'question_title' => 'nullable',
+            'marks' => 'required|numeric',
+            'compulsory_parts' => 'required|numeric',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            //create test question instance
+            $paperQuestion = PaperQuestion::findOrFail($paperQuestionId);
+            $paperQuestion->update($request->all());
+
+            DB::commit();
+            return redirect()->route('user.papers.show', $paperQuestion->paper)->with('success', 'Question successfully added!');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($e->getMessage());
+            // something went wrong
+        }
+    }
+
     public function destroy(string $paperId, $paperQuestionId)
     {
         //

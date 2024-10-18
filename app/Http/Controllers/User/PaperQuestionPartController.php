@@ -5,8 +5,10 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\PaperQuestionPart;
 use App\Models\Question;
+use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PaperQuestionPartController extends Controller
 {
@@ -64,14 +66,59 @@ class PaperQuestionPartController extends Controller
     public function destroy(string $id)
     {
         //
+        DB::beginTransaction();
         try {
-            $model = PaperQuestionPart::findOrFail($id);
-            $model->delete();
-            return redirect()->back()->with('success', 'Successfully deleted!');
+
+            $paperQuestionPart = PaperQuestionPart::findOrFail($id);
+            $paperQuestion = $paperQuestionPart->paperQuestion;
+            echo $paperQuestion->type_name;
+            //delete only if it is last
+            if ($paperQuestion->paperQuestionParts->count() > 1) {
+
+                if ($paperQuestion->type_name == 'simple-and') {
+                    $marks = $paperQuestion->marks - $paperQuestionPart->marks;
+                    $paperQuestion->update([
+                        'marks' => $marks,
+                    ]);
+                }
+                //if remaining part parts may become smaller than compulsory parts
+                elseif ($paperQuestion->paperQuestionParts->count() <= $paperQuestion->compulsory_parts) {
+                    // decrese by 1
+                    $newCompulsoryCount = $paperQuestion->paperQuestionParts->count() - 1;
+                    if (in_array($paperQuestion->type_name, ['mcq', 'partial', 'partial-x'])) {
+
+                        $typeId = $paperQuestion->paperQuestionParts->first()->question->type_id;
+                        $type = Type::findOrFail($typeId);
+                        $question_title = $type->default_title;
+
+                        if (in_array($typeId, [1, 23])) { //mcq
+                            $marks = $newCompulsoryCount;
+                        } elseif (in_array($typeId, [2, 24])) { //short
+                            $marks = $newCompulsoryCount * 2;
+                        }
+
+                        $paperQuestion->update([
+                            'compulsory_parts' => $newCompulsoryCount,
+                            'marks' => $marks,
+                            'question_title' => $question_title,
+                        ]);
+                    }
+                }
+                $paperQuestionPart->delete();
+                DB::commit();
+                return redirect()->back()->with('success', 'Successfully deleted!');
+            } else {
+                echo "Question can't be deleted!";
+            }
+            // readjust the compulsory parts and question marks
+
         } catch (Exception $e) {
+            DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());
         }
     }
+
+
     public function refresh($paperQuestionPartId)
     {
         $paperQuestionPart = PaperQuestionPart::findOrFail($paperQuestionPartId);

@@ -102,7 +102,9 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
-                            <td></td>
+                            <td>
+                                <a href="{{ route('user.paper.questions.edit', [$paper, $paperQuestion]) }}"><i class="bx bx-pencil text-green-600"></i></a>
+                            </td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -169,7 +171,9 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td> ({{ $paperQuestion->marks }})</td>
-                            <td></td>
+                            <td>
+                                <a href="{{ route('user.paper.questions.edit', [$paper, $paperQuestion]) }}"><i class="bx bx-pencil text-green-600"></i></a>
+                            </td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -219,7 +223,9 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
-                            <td></td>
+                            <td>
+                                <a href="{{ route('user.paper.questions.edit', [$paper, $paperQuestion]) }}"><i class="bx bx-pencil text-green-600"></i></a>
+                            </td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -248,7 +254,9 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
-                            <td></td>
+                            <td>
+                                <a href="{{ route('user.paper.questions.edit', [$paper, $paperQuestion]) }}"><i class="bx bx-pencil text-green-600"></i></a>
+                            </td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -302,7 +310,9 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
-                            <td></td>
+                            <td>
+                                <a href="{{ route('user.paper.questions.edit', [$paper, $paperQuestion]) }}"><i class="bx bx-pencil text-green-600"></i></a>
+                            </td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
@@ -360,6 +370,9 @@ $QNo = 1;
                             <td class="font-bold">Q.{{ $QNo++ }}</td>
                             <td class="text-left font-bold">{{ $paperQuestion->question_title }}</td>
                             <td>({{ $paperQuestion->marks }})</td>
+                            <td>
+                                <a href="{{ route('user.paper.questions.edit', [$paper, $paperQuestion]) }}"><i class="bx bx-pencil text-green-600"></i></a>
+                            </td>
                             <td>
                                 <form
                                     action="{{ route('user.paper.questions.destroy', [$paper, $paperQuestion]) }}"
