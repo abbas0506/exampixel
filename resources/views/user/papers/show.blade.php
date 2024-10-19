@@ -34,7 +34,7 @@ $QNo = 1;
             <x-message></x-message>
             @endif
 
-            <div class="flex flex-row flex-wrap justify-between items-center gap-4 ">
+            <div class="flex flex-row flex-wrap justify-between items-center gap-4 relative">
                 <div class="flex flex-row items-center gap-3">
                     <a href="{{ route('user.papers.simple-pdf.create', $paper) }}">
                         <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="h-12 md:h-16">
@@ -43,7 +43,6 @@ $QNo = 1;
                         <h2>{{ $paper->book->name }} </h2>
                         <div class="flex items-center space-x-3">
                             <label>{{ $paper->title }}</label>
-                            <!-- <a href="{{ route('user.papers.edit', $paper) }}" class="btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a> -->
                         </div>
                     </div>
                 </div>
@@ -51,16 +50,19 @@ $QNo = 1;
                     <div><i class="bi-calendar4-event text-xl"></i></div>
                     <label for="">{{ $paper->paper_date->format('d/m/Y') }}</label>
                 </div>
+                <!-- center align at bottom -->
+                <a href="{{ route('user.papers.edit', $paper) }}" class="absolute right-2 top-1 btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a>
             </div>
 
             <!-- show print button only if paper has some questions -->
-            <div class="fixed left-0 md:pl-60 bottom-4 bg-white flex justify-between items-center w-full px-6 opacity-80">
+            <div class="fixed left-0 md:pl-60 bottom-0 bg-white flex justify-between items-center w-full p-4 opacity-90">
                 <div class="flex items-center flex-wrap gap-x-2">
                     <h3>{{ $paper->book->name }}</h3>
                     <label> Marks : {{ $paper->paperQuestions->sum('marks') }}</label>
                 </div>
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('user.papers.edit', $paper) }}" class="btn-sky flex justify-center items-center rounded-full p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a>
+                    <a href="{{ route('user.papers.edit', $paper) }}" class="flex justify-center items-center rounded-full border border-slate-600 p-0 w-5 h-5"><i class="bi-question text-sm"></i></a>
+                    <!-- <a href="{{ route('user.papers.edit', $paper) }}" class="flex justify-center items-center rounded-full border border-slate-600 p-0 w-5 h-5"><i class="bx bx-pencil text-xs"></i></a> -->
                     <a href="{{ route('user.papers.latex-pdf.create', $paper) }}"><i class="bi-printer"></i></a>
                     <a href="{{ route('user.paper.questions.create', $paper) }}" class="flex w-10 h-10 items-center justify-center rounded-full bg-teal-300 hover:bg-teal-400 text-xs">Q+</a>
                 </div>
@@ -398,10 +400,10 @@ $QNo = 1;
             <!-- paper has no question -->
             <div class="md:w-4/5 mx-auto my-8">
                 <h2>Guidelines</h2>
-                <div class="grid md:grid-cols-3 gap-12 place-items-center mt-8">
-                    <img src="{{ url('/images/guideline/new-q.png') }}" alt="new-q" class="">
-                    <img src="{{ url('/images/guideline/print.png') }}" alt="print" class="">
-                    <img src="{{ url('/images/guideline/paper-edit.png') }}" alt="paper-edit" class="">
+                <div class="grid md:grid-cols-2 gap-12 place-items-center mt-8">
+                    <img src="{{ url('/images/guideline/new-q-0.png') }}" alt="new-q" class="w-60 h-40">
+                    <!-- <img src="{{ url('/images/guideline/print.png') }}" alt="print" class=""> -->
+                    <img src="{{ url('/images/guideline/paper-edit-0.png') }}" alt="paper-edit" class="w-60 h-40">
                 </div>
 
             </div>
