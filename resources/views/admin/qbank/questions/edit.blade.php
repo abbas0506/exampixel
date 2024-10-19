@@ -44,7 +44,7 @@
                 <div class="md:w-1/3">
                     <label>Question Type</label>
                     <select name="type_id" id="" class="custom-input-borderless">
-                        @foreach($types as $type)
+                        @foreach($types->sortBy('sr') as $type)
                         <option value="{{ $type->id }}" @selected($type->id==$question->type_id)>{{ $type->name }}</option>
                         @endforeach
                     </select>
