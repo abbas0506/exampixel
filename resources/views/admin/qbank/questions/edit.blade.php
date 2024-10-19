@@ -41,9 +41,13 @@
                 @method('PATCH')
 
                 <input type="hidden" id='book_id' value="{{ $chapter->book->id }}">
-                <div class="">
+                <div class="md:w-1/3">
                     <label>Question Type</label>
-                    <p>{{ $question->type->name }}</p>
+                    <select name="type_id" id="" class="custom-input-borderless">
+                        @foreach($types as $type)
+                        <option value="{{ $type->id }}" @selected($type->id==$question->type_id)>{{ $type->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="">

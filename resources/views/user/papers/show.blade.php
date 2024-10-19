@@ -55,7 +55,7 @@ $QNo = 1;
             </div>
 
             <!-- show print button only if paper has some questions -->
-            <div class="fixed left-0 md:pl-60 bottom-0 bg-white flex justify-between items-center w-full p-4 opacity-90">
+            <div class="fixed left-0 md:pl-60 bottom-0 bg-white flex justify-between items-center w-full px-4 py-2 opacity-90">
                 <div class="flex items-center flex-wrap gap-x-2">
                     <h3>{{ $paper->book->name }}</h3>
                     <label> Marks : {{ $paper->paperQuestions->sum('marks') }}</label>
@@ -400,9 +400,8 @@ $QNo = 1;
             <!-- paper has no question -->
             <div class="md:w-4/5 mx-auto my-8">
                 <h2>Guidelines</h2>
-                <div class="grid md:grid-cols-2 gap-12 place-items-center mt-8">
+                <div class="grid md:grid-cols-2 gap-8 place-items-center mt-6">
                     <img src="{{ url('/images/guideline/new-q-0.png') }}" alt="new-q" class="w-60 h-40">
-                    <!-- <img src="{{ url('/images/guideline/print.png') }}" alt="print" class=""> -->
                     <img src="{{ url('/images/guideline/paper-edit-0.png') }}" alt="paper-edit" class="w-60 h-40">
                 </div>
 
