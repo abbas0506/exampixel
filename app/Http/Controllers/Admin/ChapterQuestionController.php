@@ -132,6 +132,7 @@ class ChapterQuestionController extends Controller
     {
         //
         $request->validate([
+            'type_id' => 'required|numeric',
             'statement' => 'required',
             'frequency' => 'required|numeric',
             'is_conceptual' => 'required|boolean',
@@ -143,6 +144,7 @@ class ChapterQuestionController extends Controller
 
         try {
             $question->update([
+                'type_id' => $request->type_id,
                 'statement' => $request->statement,
                 'is_conceptual' => $request->is_conceptual,
                 'frequency' => $request->frequency,
