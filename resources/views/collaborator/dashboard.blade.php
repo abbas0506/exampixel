@@ -29,7 +29,11 @@
                     </div>
                     <div>
                         <h2 class="text-slate-600">Approved Questions</h2>
+                        @if($questions->whereNotNull('approver_id')->count())
                         <label>My contribution: {{ round($questions->where('approver_id', Auth::user()->id)->count()/$questions->whereNotNull('approver_id')->count()*100,0)}} %</label>
+                        @else
+                        <label>My contribution: 0%</label>
+                        @endif
                     </div>
 
                 </div>
