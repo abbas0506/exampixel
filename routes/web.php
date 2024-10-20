@@ -17,8 +17,12 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Collaborator\ApprovalController;
 use App\Http\Controllers\Collaborator\BookApprovableController;
+use App\Http\Controllers\Collaborator\BookChapterController as CollaboratorBookChapterController;
 use App\Http\Controllers\Collaborator\ChapterApprovableController;
+use App\Http\Controllers\Collaborator\ChapterQuestionController as CollaboratorChapterQuestionController;
 use App\Http\Controllers\Collaborator\DashboardController as CollaboratorDashboardController;
+use App\Http\Controllers\Collaborator\GradeChapterController;
+use App\Http\Controllers\Collaborator\GradeController as CollaboratorGradeController;
 use App\Http\Controllers\Operator\BookChapterController;
 use App\Http\Controllers\Operator\BookController;
 use App\Http\Controllers\Operator\ChapterMultiQuestionController;
@@ -111,7 +115,9 @@ Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' 
     Route::resource('approvables', ApprovalController::class);
     Route::resource('book.approvables', BookApprovableController::class);
     Route::resource('chapter.approvables', ChapterApprovableController::class);
-    // Route::resource('grade.book.chapters', PaperGradeBookChapterController::class);
+    Route::resource('grades', CollaboratorGradeController::class);
+    Route::resource('grade.chapters', GradeChapterController::class);
+    Route::resource('chapter.questions', CollaboratorChapterQuestionController::class);
 });
 Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['role:operator']], function () {
     Route::get('/', [OperatorDashboardController::class, 'index']);

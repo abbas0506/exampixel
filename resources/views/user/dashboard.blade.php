@@ -62,23 +62,7 @@
             </a>
         </div>
 
-        <div class="hidden mt-4">
-            <a href="{{ route('user.papers.create') }}" class="flex items-center pallet-box">
-                <div class="flex flex-1 items-center space-x-3">
-                    <div>
-                        <img src="{{ url('images/small/pdf.png') }}" alt="pdf" class="w-12 h-12">
-                    </div>
-                    <div>
-                        <h2 class="text-slate-600">Generate Paper</h2>
-                        <label>Easier than ever before! </label>
-                    </div>
-
-                </div>
-            </a>
-        </div>
-
         <div class="grid place-items-center h-40">
-            <!-- <h3 class="text-slate-600">Currently no paper found!</h3> -->
             <a href="{{ route('user.papers.create') }}" class="btn-blue rounded px-6 py-3">Generate Paper Now</a>
         </div>
 

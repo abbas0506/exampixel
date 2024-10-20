@@ -3,26 +3,24 @@
 namespace App\Http\Controllers\Collaborator;
 
 use App\Http\Controllers\Controller;
-use App\Models\Book;
+use App\Models\Chapter;
 use App\Models\Question;
+use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
-class ApprovalController extends Controller
+class ChapterQuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
         //
-        $books = Book::where('subject_id', Auth::user()->teacher->subject_id)->get();
-        $activeBook = $books->first();
-        $activeChapter = $activeBook->chapters->first();
-        return view('collaborator.approvables.index', compact('books', 'activeBook', 'activeChapter'));
+        $chapter = Chapter::findOrFail($id);
+        return view('collaborator.questions.index', compact('chapter'));
     }
 
     /**
@@ -52,33 +50,36 @@ class ApprovalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $chapterId, $id)
     {
         //
-
+        $chapter = Chapter::findOrFail($chapterId);
+        $question = Question::findOrFail($id);
+        $types = Type::all();
+        return view('collaborator.questions.edit', compact('chapter', 'question', 'types'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $questionId)
+    public function update(Request $request, $chapterId,  string $questionId)
     {
         //
         $request->validate([
+            'type_id' => 'required|numeric',
             'statement' => 'required',
-            'exercise_no' => 'nullable|numeric',
-            'is_conceptual' => 'required|boolean',
             'frequency' => 'required|numeric',
+            'is_conceptual' => 'required|boolean',
         ]);
 
         $question = Question::findOrFail($questionId);
 
         DB::beginTransaction();
-
+        $bonus = $question->approver_id ? 0 : 20;
         try {
             $question->update([
+                'type_id' => $request->type_id,
                 'statement' => $request->statement,
-                'exercise_no' => $request->exercise_no,
                 'is_conceptual' => $request->is_conceptual,
                 'frequency' => $request->frequency,
                 'approver_id' => Auth::user()->id,
@@ -122,9 +123,9 @@ class ApprovalController extends Controller
                     ]);
                 }
             }
-
+            // give coins
             Auth::user()->sales()->create([
-                'coins' => 20,
+                'coins' => $bonus,
                 'price' => 0,
                 'remarks' => 'Question approval',
                 'expiry_at' => now()->addDays(365),
@@ -132,7 +133,7 @@ class ApprovalController extends Controller
             ]);
             // commit if all ok
             DB::commit();
-            return redirect('/')->with(
+            return redirect()->route('collaborator.chapter.questions.index', $chapterId)->with(
                 [
                     'success' => 'Successfully updated',
                 ]
@@ -149,12 +150,5 @@ class ApprovalController extends Controller
     public function destroy(string $id)
     {
         //
-        try {
-            $question = Question::findOrFail($id);
-            $question->delete();
-            return redirect('/')->with('success', 'Successfully deleted!');
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
-        }
     }
 }

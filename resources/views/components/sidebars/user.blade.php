@@ -8,13 +8,12 @@
     <div class="text-xs text-center text-green-600">User Panel</div>
 
     @if(Auth::user()->roles->count()>1)
-    <div class="flex flex-col mt-4 text">
+    <div class="grid gap-2 mt-4 text">
         @foreach(Auth::user()->roles as $role)
         @if($role->name!='user')
         <a href="{{ url('switch/as',$role->name) }}" class="btn-teal text-xs font-normal text-center rounded">Switch to {{ $role->name }} </a>
         @endif
         @endforeach
-
     </div>
     @endif
 

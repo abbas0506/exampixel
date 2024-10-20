@@ -8,13 +8,12 @@
     <div class="text-xs text-center text-green-600">Collaborator Panel</div>
 
     @if(Auth::user()->roles->count()>1)
-    <div class="flex flex-col mt-4 text">
+    <div class="grid gap-2 mt-4 text">
         @foreach(Auth::user()->roles as $role)
         @if($role->name!='collaborator')
         <a href="{{ url('switch/as',$role->name) }}" class="btn-teal text-xs font-normal text-center rounded">Switch to {{ $role->name }} </a>
         @endif
         @endforeach
-
     </div>
     @endif
 
@@ -27,9 +26,9 @@
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center p-2">
+                <a href="{{ route('collaborator.grades.index') }}" class="flex items-center p-2">
                     <i class="bi bi-patch-check"></i>
-                    <span class="ml-3">My Approvals</span>
+                    <span class="ml-3">Approve Now</span>
                 </a>
             </li>
             <li>
