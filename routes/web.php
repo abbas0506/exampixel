@@ -15,28 +15,20 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordController;
-use App\Http\Controllers\Collaborator\ApprovalController;
-use App\Http\Controllers\Collaborator\BookApprovableController;
-use App\Http\Controllers\Collaborator\BookChapterController as CollaboratorBookChapterController;
-use App\Http\Controllers\Collaborator\ChapterApprovableController;
 use App\Http\Controllers\Collaborator\ChapterQuestionController as CollaboratorChapterQuestionController;
 use App\Http\Controllers\Collaborator\DashboardController as CollaboratorDashboardController;
 use App\Http\Controllers\Collaborator\GradeChapterController;
 use App\Http\Controllers\Collaborator\GradeController as CollaboratorGradeController;
 use App\Http\Controllers\Operator\BookChapterController;
 use App\Http\Controllers\Operator\BookController;
-use App\Http\Controllers\Operator\ChapterMultiQuestionController;
 use App\Http\Controllers\Operator\ChapterQuestionController;
-use App\Http\Controllers\Operator\GradeBookChapterController;
 use App\Http\Controllers\Operator\GradeBookController;
 use App\Http\Controllers\Operator\DashboardController as OperatorDashboardController;
 use App\Http\Controllers\Operator\PoetryLineController;
-use App\Http\Controllers\Operator\QuestionChoiceController as OperatorQuestionChoiceController;
 use App\Http\Controllers\Operator\QuestionMovementController;
 use App\Http\Controllers\Operator\QuestionTypeChangeController;
 use App\Http\Controllers\SelfTestController;
 use App\Http\Controllers\User\AccountController;
-use App\Http\Controllers\User\AvailableQuestionTypesController;
 use App\Http\Controllers\User\DashboardController as TeacherDashboardController;
 use App\Http\Controllers\User\LatexPdfController;
 use App\Http\Controllers\User\PaperChapterController;
@@ -45,12 +37,10 @@ use App\Http\Controllers\User\PaperKeyController;
 use App\Http\Controllers\User\PaperQuestionController as UserPaperQuestionController;
 use App\Http\Controllers\User\PaperQuestionExtensionController;
 use App\Http\Controllers\User\PaperQuestionPartController;
-use App\Http\Controllers\User\PaperQuestionTypeController;
 use App\Http\Controllers\User\PartialQuestionController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\SimplePdfController;
 use App\Http\Controllers\User\SimpleQuestionController;
-use App\Models\PoetryLine;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -112,9 +102,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admi
 
 Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' => ['role:collaborator']], function () {
     Route::get('/', [CollaboratorDashboardController::class, 'index']);
-    Route::resource('approvables', ApprovalController::class);
-    Route::resource('book.approvables', BookApprovableController::class);
-    Route::resource('chapter.approvables', ChapterApprovableController::class);
     Route::resource('grades', CollaboratorGradeController::class);
     Route::resource('grade.chapters', GradeChapterController::class);
     Route::resource('chapter.questions', CollaboratorChapterQuestionController::class);
@@ -130,9 +117,6 @@ Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['rol
     Route::resource('type-changes', QuestionTypeChangeController::class);
     Route::resource('question-movements', QuestionMovementController::class);
 });
-
-// Route::post('/generate-pdf', 'PdfController@generatePDF');
-
 
 Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']], function () {
     Route::get('/', [TeacherDashboardController::class, 'index']);
