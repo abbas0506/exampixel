@@ -19,7 +19,8 @@
             <x-message></x-message>
             @endif
 
-            <div class="flex flex-col w-full items-start">
+
+            <div class="grid gap-2">
                 <div class="flex items-center w-full relative">
                     <i class="bi bi-person absolute left-2 text-slate-600"></i>
                     <input type="text" id="name" name="name" class="w-full custom-input px-8" placeholder="Your name">
@@ -28,9 +29,13 @@
                     <i class="bi bi-at absolute left-2 text-slate-600"></i>
                     <input type="text" id="email" name="email" class="w-full custom-input px-8" placeholder="Email address">
                 </div>
-
+                <div>
+                    <label for="" class="text-red-600">Leave empty if you are human*</label>
+                    <input type="text" name="suspicious" class="custom-input">
+                </div>
                 <button type="submit" class="w-full mt-6 btn-teal p-2">Sign Up</button>
             </div>
+
         </form>
         <div class="text-center text-sm mt-3">
             I have an account?<a href="{{ url('login') }}" class="font-bold ml-2 link">Login</a>

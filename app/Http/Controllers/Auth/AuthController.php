@@ -21,6 +21,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'suspicious' => 'nullable',
         ]);
 
 
@@ -29,28 +30,34 @@ class AuthController extends Controller
 
             $code = Str::random(5);
 
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($code),
-            ]);
+            if (!empty($request->suspicious))
+                return redirect()->back()->withErrors('Registeration rejected!');
+            else {
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => Hash::make($code),
+                ]);
 
-            $user->assignRole('user');
+                $user->assignRole('user');
 
-            $user->sales()->create([
-                'coins' => 500,
-                'price' => 0,
-                'expiry_at' => now()->addDays(365),
-                'remarks' => 'Sign up bonus',
+                $user->sales()->create([
+                    'coins' => 500,
+                    'price' => 0,
+                    'expiry_at' => now()->addDays(365),
+                    'remarks' => 'Sign up bonus',
 
-            ]);
+                ]);
 
-            // send password to given email for verification
-            $email = $request->email;
-            Mail::raw('Password sent by exampixel.com : ' . $code, function ($message) use ($code, $email) {
-                $message->to($email);
-                $message->subject('Signup on exampixel');
-            });
+                // send password to given email for verification
+                $email = $request->email;
+                Mail::raw('Password sent by exampixel.com : ' . $code, function ($message) use ($code, $email) {
+                    $message->to($email);
+                    $message->subject('Signup on exampixel');
+                });
+            }
+
+
 
             DB::commit();
 
