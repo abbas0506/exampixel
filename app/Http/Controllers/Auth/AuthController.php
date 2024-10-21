@@ -31,7 +31,7 @@ class AuthController extends Controller
             $code = Str::random(5);
 
             if (!empty($request->suspicious))
-                return redirect()->back()->with(['warning' => 'Registeration rejected!']);
+                return redirect()->back()->with('warning', 'Registeration rejected!');
             else {
                 $user = User::create([
                     'name' => $request->name,
