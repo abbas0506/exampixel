@@ -20,7 +20,7 @@
 
         <div class="flex flex-wrap items-center justify-between w-full mt-6">
             <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
-                <p class="tab active">All Users</p>
+                <p class="tab active">All Users ({{ $users->count() }})</p>
                 <a href="" class="tab">Collaborators</a>
                 <a href="" class="tab">New Requests for Collaboration</a>
             </div>
@@ -48,21 +48,25 @@
                     <tr>
                         <th class="w-8">Sr</th>
                         <th class="w-48">User Name</th>
+                        <th class="w-12">Papers</th>
+                        <th class="w-24">Last Paper</th>
                         <th class="w-48">Role</th>
                         <th class="w-16">Status</th>
                         <th class="w-16">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @php $i=1; @endphp
                     @foreach($users as $user)
 
                     <tr class="text-sm tr">
-                        <td>{{$i++}}</td>
+                        <td>{{$user->id}}</td>
                         <td class="text-left px-3">
                             {{$user->name}}
                             <br>
                             {{ $user->email }}
+                        </td>
+                        <td>{{ $user->papers->count() }}</td>
+                        <td><label>{{ optional($user->papers->last())->updated_at?->addHours(5)}}</label>
                         </td>
                         <td class="text-left px-3">
                             <div class="grid divide-x-0">
