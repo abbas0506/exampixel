@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use App\Models\Subject;
 use App\Models\User;
 use Exception;
@@ -88,7 +89,8 @@ class UserController extends Controller
         //
         $user = User::findOrFail($id);
         $roles = Role::all();
-        return view('admin.users.edit', compact('user', 'roles'));
+        $subjects = Subject::all();
+        return view('admin.users.edit', compact('user', 'roles', 'subjects'));
     }
 
     /**
@@ -101,6 +103,8 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'is_active' => 'required|boolean',
+            'subject_id' => 'nullable',
+
         ]);
         $user = User::findOrFail($id);
         DB::beginTransaction();
@@ -128,6 +132,19 @@ class UserController extends Controller
             }
 
             $user->update($request->all());
+            if ($request->subject_id) {
+                if ($user->profile)
+                    $user->profile->update([
+                        'subject_id' => $request->subject_id,
+                    ]);
+                else
+                    Profile::create([
+                        'user_id' => $user->id,
+                        'subject_id' => $request->subject_id,
+                    ]);
+            }
+
+
 
             DB::commit();
             return redirect()->route('admin.users.index')->with('success', 'Successfully updated');;

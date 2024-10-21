@@ -41,6 +41,19 @@
                         <input type="text" id='' name='email' class="custom-input-borderless" placeholder="User email" value="{{$user->email}}">
                     </div>
                     <div>
+                        <label for="">Subject</label>
+                        <select name="subject_id" id="" class="custom-input-borderless">
+                            <option value="">Select a subject</option>
+                            @foreach($subjects as $subject)
+                            @if($user->profile)
+                            <option value="{{ $subject->id }}" @selected($subject->id==$user->profile->subject_id)>{{ $subject->name_en }}</option>
+                            @else
+                            <option value="{{ $subject->id }}">{{ $subject->name_en }}</option>
+                            @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
                         <label for="">Status</label>
                         <select name="is_active" id="" class="custom-input-borderless py-1">
                             <option value="1" @selected($user->is_active) >Enabled</option>
