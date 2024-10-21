@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
+use App\Models\Paper;
 use App\Models\PaperQuestionPart;
 use App\Models\Question;
 use App\Models\Type;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PaperQuestionPartController extends Controller
@@ -58,6 +61,7 @@ class PaperQuestionPartController extends Controller
     public function update(Request $request, string $id)
     {
         //
+
     }
 
     /**

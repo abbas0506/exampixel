@@ -117,7 +117,11 @@ $QNo = 1;
                         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
                         <tr>
                             <td>{{$roman->lowercase($loop->index+1)}}</td>
-                            <td class="text-left">{{ $paperQuestionPart->question->statement }}</td>
+                            <td class="text-left">{{ $paperQuestionPart->question->statement }}
+                                @if(Auth::user()->hasRole('collaborator'))
+                                <a href="{{ route('user.paper.base-questions.edit', [$paper, $paperQuestionPart->question]) }}"><i class="bx bx-pencil text-green-500"></i></a>
+                                @endif
+                            </td>
                             <td></td>
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
@@ -185,7 +189,11 @@ $QNo = 1;
                         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
                         <tr>
                             <td>{{$roman->lowercase($loop->index+1)}}</td>
-                            <td class="text-left">{{ $paperQuestionPart->question->statement }}</td>
+                            <td class="text-left">{{ $paperQuestionPart->question->statement }}
+                                @if(Auth::user()->hasRole('collaborator'))
+                                <a href="{{ route('user.paper.base-questions.edit', [$paper, $paperQuestionPart->question]) }}"><i class="bx bx-pencil text-green-500"></i></a>
+                                @endif
+                            </td>
                             <td></td>
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
@@ -237,7 +245,14 @@ $QNo = 1;
 
                         <tr>
                             <td></td>
-                            <td class="text-left">{{$paperQuestion->paperQuestionParts()->first()->question->statement }}</td>
+                            <td class="text-left">{{$paperQuestion->paperQuestionParts()->first()->question->statement }}
+
+                                @if(Auth::user()->hasRole('collaborator'))
+                                <a href="{{ route('user.paper.base-questions.edit', [$paper, $paperQuestion->paperQuestionParts()->first()->question]) }}"><i class="bx bx-pencil text-green-500"></i></a>
+                                @endif
+
+
+                            </td>
                             <td></td>
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestion->paperQuestionParts()->first()) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
@@ -268,7 +283,12 @@ $QNo = 1;
                         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
                         <tr>
                             <td></td>
-                            <td class="text-left">{{ $paperQuestionPart->question->statement }} @if(!$loop->last) <span class="font-bold">OR</span> @endif</td>
+                            <td class="text-left">
+                                {{ $paperQuestionPart->question->statement }} @if(!$loop->last) <span class="font-bold">OR</span> @endif
+                                @if(Auth::user()->hasRole('collaborator'))
+                                <a href="{{ route('user.paper.base-questions.edit', [$paper, $paperQuestionPart->question]) }}"><i class="bx bx-pencil text-green-500"></i></a>
+                                @endif
+                            </td>
                             <td>{{ $paperQuestionPart->marks }}</td>
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>
@@ -325,7 +345,13 @@ $QNo = 1;
                         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
                         <tr>
                             <td>{{ $alphabets[$loop->index] }})</td>
-                            <td class="text-left">{{ $paperQuestionPart->question->statement }}</td>
+                            <td class="text-left">
+                                {{ $paperQuestionPart->question->statement }}
+
+                                @if(Auth::user()->hasRole('collaborator'))
+                                <a href="{{ route('user.paper.base-questions.edit', [$paper, $paperQuestionPart->question]) }}"><i class="bx bx-pencil text-green-500"></i></a>
+                                @endif
+                            </td>
                             <td>{{ $paperQuestionPart->marks }}</td>
                             <td>
                                 <a href="{{ route('user.paper-question-parts.refresh', $paperQuestionPart) }}"><i class="bi-arrow-repeat text-green-600"></i></a>

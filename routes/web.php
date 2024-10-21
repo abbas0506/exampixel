@@ -29,6 +29,7 @@ use App\Http\Controllers\Operator\QuestionMovementController;
 use App\Http\Controllers\Operator\QuestionTypeChangeController;
 use App\Http\Controllers\SelfTestController;
 use App\Http\Controllers\User\AccountController;
+use App\Http\Controllers\User\BaseQuestionController;
 use App\Http\Controllers\User\DashboardController as TeacherDashboardController;
 use App\Http\Controllers\User\LatexPdfController;
 use App\Http\Controllers\User\PaperChapterController;
@@ -125,10 +126,9 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']
     Route::resource('paper.questions', UserPaperQuestionController::class);
     Route::resource('paper-question-parts', PaperQuestionPartController::class);
 
-    // Route::resource('paper.question-types', PaperQuestionPartController::class);
-
     Route::resource('paper.question-type.partial-questions', PartialQuestionController::class);
     Route::resource('paper.question-type.simple-questions', SimpleQuestionController::class);
+    Route::resource('paper.base-questions', BaseQuestionController::class);
 
     Route::resource('paper-question.type.extensions', PaperQuestionExtensionController::class);
 
