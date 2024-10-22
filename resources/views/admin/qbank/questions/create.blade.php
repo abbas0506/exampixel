@@ -134,11 +134,11 @@
 
         $('#type_id').change(function() {
 
-            if ($(this).val() == 1) {
+            if ($(this).val() == 1 || $(this).val() == 23) {
                 //mcq
                 $('#mcq').show();
                 $('#comprehension').hide()
-            } else if ($(this).val() == 19) {
+            } else if ($(this).val() == 19 || $(this).val() == 29) {
                 //comprehension
                 $('#mcq').hide();
                 $('#comprehension').show()
