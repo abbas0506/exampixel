@@ -84,6 +84,12 @@
             \hfill {{ $paperQuestion->marks }}
             {{ __('messages.marks') }} \\
             {!! Helper::parseTex($paperQuestion->paperQuestionParts()->first()->question->statement) !!}
+            \begin{parts}
+            @foreach ($paperQuestion->paperQuestionParts->first()->question->comprehensions as $comprehension)
+                \part
+                {!! Helper::parseTex($comprehension->sub_question) !!}
+            @endforeach
+            \end{parts}
         @else
             {!! Helper::parseTex($paperQuestion->paperQuestionParts()->first()->question->statement) !!}
             \hfill {{ $paperQuestion->marks }}
@@ -93,6 +99,7 @@
     @endif
     @if ($paperQuestion->type_name == 'simple-or')
         \question{
+        {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
             {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
             @if (!$loop->last)
@@ -166,6 +173,19 @@
             {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
         @endforeach
         \end{oneparchoices}
+    @endif
+    @if ($paperQuestion->type_name == 'poetry')
+        \question{
+        {{ $paperQuestion->question_title }} \hfill
+        {{ $paperQuestion->marks }}
+        {{ __('messages.marks') }}
+        }
+        \begin{parts}
+        @foreach ($paperQuestion->paperQuestionParts->first()->question->paraphrasings as $stanza)
+            \part
+            {!! Helper::parseTex($stanza->poetry_line) !!}
+        @endforeach
+        \end{parts}
     @endif
 @endforeach
 \end{questions}
