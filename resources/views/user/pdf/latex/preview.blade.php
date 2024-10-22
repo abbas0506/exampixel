@@ -11,8 +11,8 @@
 \usepackage{bidi}
 \setmainlanguage{english}
 \setotherlanguage{urdu}
+\setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
 @if ($paper->book->subject->text_direction == 'R')
-    \setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
     \renewcommand\thechoice{\ifcase\value{choice}\or ا\or ب\or ج\or د\fi}
     \renewcommand\choicelabel{(\thechoice)}
 @else
@@ -100,7 +100,7 @@
     @if ($paperQuestion->type_name == 'simple-or')
         \question{
         @if ($paperQuestion->question_title)
-            {!! Helper::parseTex($paperQuestion->question_title) !!}
+            {!! Helper::parseTex($paperQuestion->question_title) !!}\\
         @endif
         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
             {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
