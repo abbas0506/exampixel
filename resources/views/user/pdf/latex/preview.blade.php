@@ -38,7 +38,7 @@
 \begin{questions}
 @foreach ($paper->paperQuestions as $paperQuestion)
     @if ($paperQuestion->type_name == 'mcq')
-        \question{ {{ __('messages.' . $paperQuestion->question_title) }} \hfill {{ $paperQuestion->marks }}
+        \question{ {{ $paperQuestion->question_title }} \hfill {{ $paperQuestion->marks }}
         {{ __('messages.marks') }} }
         \begin{parts}
         @foreach ($paperQuestion->paperQuestionParts as $part)
@@ -60,7 +60,13 @@
         \begin{parts}
         @foreach ($paperQuestion->paperQuestionParts as $part)
             \part
+            @if (in_array($part->question->type_id, [20]))
+                \begin{RTL}
+            @endif
             {!! Helper::parseTex($part->question->statement) !!}
+            @if (in_array($part->question->type_id, [20]))
+                \end{RTL}
+            @endif
         @endforeach
         \end{parts}
         {{-- \hspace{0.5mm} --}}

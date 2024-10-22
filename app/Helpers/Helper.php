@@ -19,6 +19,7 @@ class Helper
         // $text = str_replace(['\(', '\)'], '$', $text);
         // $text = str_replace("%", "\%", $text);
         $text = str_replace("both a & b", "both a \& b" , $text);
+        $text  = str_replace('ـ', '\_', $text);
         $text = strlen(trim($text)) == 2 && $text == '&&' ? '\&\&' : $text;
         $text = strlen(trim($text)) == 1 && $text == '#' ? '\#' : $text;
         $text = strlen(trim($text)) == 1 && $text == '&' ? '\&' : $text;

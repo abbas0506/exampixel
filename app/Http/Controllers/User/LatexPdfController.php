@@ -38,6 +38,7 @@ class LatexPdfController extends Controller
         }
         $data = view('user.pdf.latex.preview', compact('paper', 'orientation', 'pageSize', 'rows', 'cols', 'fontSize', 'paper'))->render();
         // store the latex file
+        $data =  preg_replace('/\\\begin\{parts\}\s*\\\end\{parts\}/', '', $data);
         Storage::disk('local')->put('paper.tex', $data);
         try {
             $res =  Http::timeout(8)->attach('file', $data, 'paper.tex')
