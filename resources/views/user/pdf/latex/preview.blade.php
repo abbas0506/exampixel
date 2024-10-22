@@ -99,6 +99,9 @@
     @endif
     @if ($paperQuestion->type_name == 'simple-or')
         \question{
+        @if ($paperQuestion->question_title)
+            {!! Helper::parseTex($paperQuestion->question_title) !!}
+        @endif
         {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
             {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
@@ -109,9 +112,13 @@
         }
     @endif
     @if ($paperQuestion->type_name == 'simple-and')
-        \question
+        \question{
+        @if ($paperQuestion->question_title)
+            {!! Helper::parseTex($paperQuestion->question_title) !!}
+        @endif
+        }
         \begin{parts}
-        @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
+        @forelse ($paperQuestion->paperQuestionParts as $paperQuestionPart)
             \part
             {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
             \hfill {{ $paperQuestionPart->marks }}
