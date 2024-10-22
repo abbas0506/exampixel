@@ -102,7 +102,6 @@
         @if ($paperQuestion->question_title)
             {!! Helper::parseTex($paperQuestion->question_title) !!}
         @endif
-        {!! Helper::parseTex($paperQuestion->question->statement) !!}
         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
             {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
             @if (!$loop->last)
