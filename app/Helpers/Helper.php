@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Helpers;
-
+use Illuminate\Support\Facades\App;
 class Helper
 {
     static function parseTex($text, bool $question = false)
@@ -43,20 +43,21 @@ class Helper
     static function parseAnswer($text, bool $last = false)
     {
         $text = Helper::parseTex($text);
-        return $text;
-        // $len = strlen($text);
-        // if($len > 50){
-        //     $cm = 10;
-        // }else if($len > 40){
-        //     $cm = 8;
-        // }else if($len > 30){
-        //     $cm = 6;
-        // }else if($len > 20){
-        //     $cm = 4;
-        // }else{
-        //     $cm = 2;
-        // }
-        return $last ? "$text" : "\makebox[4cm][l]{{$text}}";
+        // return $text;
+        $len = strlen($text);
+        if($len > 50){
+            $cm = 10;
+        }else if($len > 40){
+            $cm = 8;
+        }else if($len > 30){
+            $cm = 6;
+        }else if($len > 20){
+            $cm = 4;
+        }else{
+            $cm = 2;
+        }
+        $rtl = App::currentLocale() == 'ur' ? 'r' : 'l';
+        return $last ? "$text" : "\makebox[4cm][$rtl]{{$text}}";
     }
 
     static function hasUrdu($text)

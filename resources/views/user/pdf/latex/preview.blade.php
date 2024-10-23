@@ -8,6 +8,7 @@
 \usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,{{ $orientation }},{{ $pageSize }}paper]{geometry}
 \usepackage{polyglossia}
 \usepackage{fontspec}
+\usepackage[color={[gray]{0.8}},text=exampixel.com,fontsize=100pt]{draftwatermark}
 \usepackage{bidi}
 \setmainlanguage{english}
 \setotherlanguage{urdu}
@@ -106,7 +107,9 @@
     @if ($paperQuestion->type_name == 'simple-or')
         \question{
         @if ($paperQuestion->question_title)
-            {!! Helper::parseTex($paperQuestion->question_title) !!}\\
+            {!! Helper::parseTex($paperQuestion->question_title) !!}
+            \hfill {{ $paperQuestion->marks }}
+            {{ __('messages.marks') }}\\
         @endif
         @foreach ($paperQuestion->paperQuestionParts as $paperQuestionPart)
             {!! Helper::parseTex($paperQuestionPart->question->statement) !!}
