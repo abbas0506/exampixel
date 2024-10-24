@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- <title>@yield('title', 'Exampixel - An art for educators')</title> -->
+    <!-- <title>@yield('title', 'Exampixel - Streamline Exam Creation for Educators')</title> -->
     <title>Exampixel</title>
     <link rel="icon" href="{{ asset('/images/logo/logo-light.png') }}">
     <!-- Fonts -->

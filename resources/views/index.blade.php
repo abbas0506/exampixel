@@ -113,7 +113,7 @@
         <div class="testimonials-carousel swiper w-full md:w-3/4 mx-auto mt-12">
             <div class="swiper-wrapper">
                 <div class="testimonial-item swiper-slide">
-                    <img src="{{ asset('images/small/developers.png') }}" class="testimonial-img" alt="">
+                    <img src="{{ asset('images/small/developers.png') }}" class="testimonial-img" alt="developers">
                     <h3>Developers</h3>
                     <h4>Web & Android</h4>
                     <p>
@@ -126,7 +126,8 @@
                 </div>
 
                 <div class="testimonial-item swiper-slide">
-                    <img src="{{ asset('images/small/collaborations-min.png') }}" class="testimonial-img" alt="">
+                    <img src="{{ asset('images/small/collaborations-min.png') }}" class="testimonial-img"
+                        alt="collaboration">
                     <h3>Collaborators</h3>
                     <h4>Public & Private Sector</h4>
                     <p>

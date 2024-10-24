@@ -1,47 +1,50 @@
 @extends('layouts.basic')
+@section('title', 'Signup')
 @section('body')
 
-<div class="grid grid-cols-1 md:grid-cols-2 md:h-screen place-items-center bg-white p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 md:h-screen place-items-center bg-white p-5">
 
-    <div><img src="{{ url('images/small/signup.png') }}" alt="signup" class=""></div>
-    <div class="grid place-items-center w-full md:w-1/2 mx-auto">
+        <div><img src="{{ url('images/small/signup.png') }}" alt="signup" class=""></div>
+        <div class="grid place-items-center w-full md:w-1/2 mx-auto">
 
-        <h2 class="text-4xl font-bold">NEW USER</h2>
-        <label for="">https://www.exampixel.com</label>
+            <h2 class="text-4xl font-bold">NEW USER</h2>
+            <label for="">https://www.exampixel.com</label>
 
-        <form action="{{url('signup')}}" method="post" class="w-full mt-8">
-            @csrf
+            <form action="{{ url('signup') }}" method="post" class="w-full mt-8">
+                @csrf
 
-            <!-- page message -->
-            @if($errors->any())
-            <x-message :errors='$errors'></x-message>
-            @else
-            <x-message></x-message>
-            @endif
+                <!-- page message -->
+                @if ($errors->any())
+                    <x-message :errors='$errors'></x-message>
+                @else
+                    <x-message></x-message>
+                @endif
 
 
-            <div class="grid gap-2">
-                <div class="flex items-center w-full relative">
-                    <i class="bi bi-person absolute left-2 text-slate-600"></i>
-                    <input type="text" id="name" name="name" class="w-full custom-input px-8" placeholder="Your name">
+                <div class="grid gap-2">
+                    <div class="flex items-center w-full relative">
+                        <i class="bi bi-person absolute left-2 text-slate-600"></i>
+                        <input type="text" id="name" name="name" class="w-full custom-input px-8"
+                            placeholder="Your name">
+                    </div>
+                    <div class="flex items-center w-full relative">
+                        <i class="bi bi-at absolute left-2 text-slate-600"></i>
+                        <input type="text" id="email" name="email" class="w-full custom-input px-8"
+                            placeholder="Email address">
+                    </div>
+                    <div>
+                        <label for="" class="text-red-600">Leave empty if you are human*</label>
+                        <input type="text" name="suspicious" class="custom-input">
+                    </div>
+                    <button type="submit" class="w-full mt-6 btn-teal p-2">Sign Up</button>
                 </div>
-                <div class="flex items-center w-full relative">
-                    <i class="bi bi-at absolute left-2 text-slate-600"></i>
-                    <input type="text" id="email" name="email" class="w-full custom-input px-8" placeholder="Email address">
-                </div>
-                <div>
-                    <label for="" class="text-red-600">Leave empty if you are human*</label>
-                    <input type="text" name="suspicious" class="custom-input">
-                </div>
-                <button type="submit" class="w-full mt-6 btn-teal p-2">Sign Up</button>
+
+            </form>
+            <div class="text-center text-sm mt-3">
+                I have an account?<a href="{{ url('login') }}" class="font-bold ml-2 link">Login</a>
             </div>
-
-        </form>
-        <div class="text-center text-sm mt-3">
-            I have an account?<a href="{{ url('login') }}" class="font-bold ml-2 link">Login</a>
         </div>
     </div>
-</div>
 
 
 
@@ -49,24 +52,24 @@
 @endsection
 
 @section('script')
-<script type="module">
-    $(document).ready(function() {
-        $('.bi-eye-slash').click(function() {
-            $('#password').prop({
-                type: "text"
-            });
-            $('.eye-slash').hide()
-            $('.eye').show();
-        })
-        $('.bi-eye').click(function() {
-            $('#password').prop({
-                type: "password"
-            });
-            $('.eye-slash').show()
-            $('.eye').hide();
-        })
+    <script type="module">
+        $(document).ready(function() {
+            $('.bi-eye-slash').click(function() {
+                $('#password').prop({
+                    type: "text"
+                });
+                $('.eye-slash').hide()
+                $('.eye').show();
+            })
+            $('.bi-eye').click(function() {
+                $('#password').prop({
+                    type: "password"
+                });
+                $('.eye-slash').show()
+                $('.eye').hide();
+            })
 
-    });
-</script>
+        });
+    </script>
 
 @endsection
