@@ -24,14 +24,16 @@
     <link rel="stylesheet" href="{{ asset('/css/swiper.css') }}">
 
     {{-- Meta Tags for SEO --}}
-    <meta name="description" content="Exampixel is build for the educators and students">
+    <meta name="description"
+        content="Exampixel is built for educators and students to create exams, quizzes, and generate papers for SSC, HSS/Intermediate levels. An easy-to-use platform for seamless paper creation and online test management.">
     <meta name="keywords"
-        content="Exampixel, Exam, Quiz, Test, Online Test, Online Exam, Online Quiz, Online Test Platform, Online Exam Platform, Online Quiz Platform, Online Test Software, Online Exam Software, Online Quiz Software, Online Test System, Online Exam System, Online Quiz System, Online Test Website, Online Exam Website, Online Quiz Website, Online Test Portal, Online Exam Portal, Online Quiz Portal, Online Test Builder, Online Exam Builder, Online Quiz Builder, Online Test Maker, Online Exam Maker, Online Quiz Maker, Online Test Creator, Online Exam Creator, Online Quiz Creator, Online Test Generator, Online Exam Generator, Online Quiz Generator, Online Test Management System, Online Exam Management System, Online Quiz Management System, Online Test Management Software, Online Exam Management Software, Online Quiz Management Software, Online Test Management Platform, Online Exam Management Platform, Online Quiz Management Platform">
+        content="Exampixel, take exam, paper generation, paper making, quiz, SSC paper generation, HSS paper generation, intermediate paper creation, online exam, online quiz platform, online test system, exam management, test mak">
 
     {{-- og tags for social media --}}
-    <meta property="og:title" content="Exampixel - An art for educators">
-    <meta property="og:description" content="Exampixel is build for the educators and students">
-    <meta property="og:image" content="@yield('ogimage', asset('/images/logo/logo-light.png'))">
+    <meta property="og:title" content="Exampixel - Streamline Exam Creation for Educators">
+    <meta property="og:description"
+        content="Create exams, quizzes, and generate papers with Exampixel - your go-to platform for SSC, HSS/Intermediate paper making and online test management.">
+    <meta property="og:image" content="@yield('ogimage', asset('/images/logo/exampixel-0.png'))">
     <meta property="og:url" content="{{ Request::url() }}">
     <meta property="og:site_name" content="Exampixel">
     <meta property="og:type" content="website">
