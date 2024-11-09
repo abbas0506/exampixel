@@ -1,0 +1,24 @@
+insert into users
+select * from temp.users;
+
+insert into model_has_roles
+select * from temp.model_has_roles;
+
+insert into books
+select * from temp.books;
+
+
+insert into tags
+select * from temp.tags;
+
+insert into chapters
+select * from temp.chapters;
+
+insert into types
+select * from temp.types;
+
+insert into questions(id,user_id,chapter_id,type_id,statement,frequency)
+select id,user_id,chapter_id,type_id,statement,frequency from temp.questions;
+
+insert into mcqs
+select * from temp.mcqs;
