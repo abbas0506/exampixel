@@ -30,7 +30,7 @@
             <x-message></x-message>
             @endif
 
-            <div class="grid md:grid-cols-2 gap-2">
+            <div class="flex items-center justify-between flex-wrap  gap-2">
                 <div class="flex flex-row items-center gap-3">
                     <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="w-12">
                     <div class="flex flex-col">
@@ -45,10 +45,10 @@
                 </div>
             </div>
             <div class="divider my-3"></div>
-            <form action="{{route('user.paper.chapters.store', $paper)}}" method='post' class="mt-6 w-full md:w-4/5 mx-auto" onsubmit="return validate(event)">
+            <form action="{{route('user.paper.chapters.store', $paper)}}" method='post' class="mt-4 w-full md:w-4/5 mx-auto" onsubmit="return validate(event)">
                 @csrf
                 <div class="flex flex-wrap justify-between items-center">
-                    <h2 class="mt-4">Which chapters would you like to include?</h2>
+                    <h2 class="mt-4">Which chapters should be included? </h2>
                     <div class="flex items-center space-x-2 mt-3">
                         <p class="text-red-600">Full Book</p>
                         <input type="checkbox" id='check_all' class="custom-input w-4 h-4 rounded">
@@ -60,13 +60,13 @@
                         <div class="">
                             <h3>{{ $tag->name }}</h3>
                             @foreach($paper->book->chapters->where('tag_id', $tag->id)->sortBy('sr') as $chapter)
-                            <div class="flex items-center odd:bg-slate-100 space-x-3 checkable-row pl-8">
+                            <div class="flex items-center odd:bg-slate-100 space-x-3 checkable-row px-2">
                                 <div class="flex flex-1 items-center justify-between space-x-2 pr-3">
-                                    <div class="text-base font-extrabold mr-3">
+                                    <div class="text-base font-extrabold ">
                                         <input type="checkbox" id='chapter{{$chapter->id}}' name='chapter_ids_array[]' class="custom-input w-4 h-4 rounded hidden" value="{{ $chapter->id }}">
                                         <i class="bx bx-check"></i>
                                     </div>
-                                    <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </label>
+                                    <label for='chapter{{$chapter->id}}' class="flex-1 text-sm text-slate-800 py-3 hover:cursor-pointer">{{ $chapter->sr}}. {{ $chapter->title }} </label>
 
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
 
                     <div class="divider my-5"></div>
                     <div class="flex justify-end my-5">
-                        <button type="submit" class="btn-teal rounded py-2 px-4" @disabled($paper->book->chapters->count()==0)>Next <i class="bi-arrow-right"></i></button>
+                        <button type="submit" class="btn-teal rounded-md text-sm py-2 px-4" @disabled($paper->book->chapters->count()==0)>Next <i class="bi-arrow-right"></i></button>
                     </div>
             </form>
         </div>

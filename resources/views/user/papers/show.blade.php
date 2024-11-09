@@ -435,8 +435,8 @@ $QNo = 1;
             </div>
             @else
             <!-- paper has no question -->
-            <div class="flex md:w-4/5 mx-auto mt-8  bg-orange-50 p-4 rounded-lg font-semibold">
-                Question paper is currently <span class="text-teal-600 ml-1">empty</span> . Start adding questions by clicking on <a href="{{ route('user.papers.edit', $paper) }}" class="text-teal-600 mx-1"> Q+ </a> icon in the &nbsp <u> lower right corner of screen</u>.
+            <div class="flex items-center md:w-4/5 mx-auto mt-8  bg-orange-50 p-4 rounded-lg font-semibold">
+                <p>Question paper is currently <span class="text-teal-600 ml-1">empty</span>. &nbsp Start adding questions by clicking on <a href="{{ route('user.papers.edit', $paper) }}" class="text-teal-600 mx-1"> Q+ </a> icon in the &nbsp <u> lower right corner of screen</u>.</p>
             </div>
             <div class="md:w-3/4 mx-auto mt-8">
                 <h2>Do you know?</h2>
