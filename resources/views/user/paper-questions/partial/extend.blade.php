@@ -30,17 +30,20 @@
             <x-message></x-message>
             @endif
 
-            <div class="grid md:grid-cols-2 items-end gap-4">
-                <div class="flex flex-col md:flex-row gap-3 items-center md:items-end">
-                    <img src="{{url('images/icons/add-q.png')}}" alt="paper" class="w-12">
+            <div class="flex items-center justify-between flex-wrap  gap-2">
+                <div class="flex flex-row items-center gap-3">
+                    <img src="{{ url('images/icons/add-q.png') }}" alt="paper" class="w-12">
                     <div class="flex flex-col">
-                        <h3>{{ $paper->book->name }} </h3>
-                        <p>{{$paper->title}}</p>
+                        <h2>{{ $paper->book->name }} </h2>
+                        <div class="flex items-center space-x-3">
+                            <label>{{ $paper->title }}</label>
+                        </div>
                     </div>
                 </div>
-                <div class="text-center md:text-right md:pr-5"><label>Dated: {{ $paper->paper_date->format('d/m/Y') }}</label></div>
+                <div>
+                    <p class="text-slate-500 text-sm text-center md:text-right md:pr-5">Step 3.2/4</p>
+                </div>
             </div>
-
         </div>
 
         <div class="divider my-3"></div>

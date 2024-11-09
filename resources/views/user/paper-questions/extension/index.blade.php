@@ -29,57 +29,62 @@ $QNo = 1;
         </div>
 
 
-        <div class="content-section mt-12 text-sm md:w-3/4 mx-auto">
-            <!-- page message -->
-            @if ($errors->any())
-            <x-message :errors='$errors'></x-message>
-            @else
-            <x-message></x-message>
-            @endif
-
-            <div class="my-6">
-                <h2 class="text-2xl text-center">Question Extension</h2>
+        <div class="content-section mt-6">
+            <div class="flex items-center justify-between flex-wrap  gap-2">
+                <div class="flex flex-row items-center gap-3">
+                    <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="w-12">
+                    <div class="flex flex-col">
+                        <h2>{{ $paper->book->name }} </h2>
+                        <div class="flex items-center space-x-3">
+                            <label>{{ $paper->title }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-slate-500 text-sm text-center md:text-right md:pr-5">Step 3.1/4</p>
+                </div>
             </div>
-            <div class="divider my-2"></div>
-            <h1 class="text-center text-lg">Please select a <span class="text-teal-600">question type</span> for expected question</h1>
-            <div class="divider my-2"></div>
+            <div class="divider my-3"></div>
+            <div class="grid gap-6 md:w-3/4 mx-auto  mt-4">
+                <h2 class="text-lg">Question Extension</h2>
 
+                <p class="relative p-2 bg-gradient-to-r from-blue-300 to-blue-100 text-sm">Please specify the type for the question.</p>
 
-            <div class="grid md:grid-cols-3 gap-4 mt-8 place-items-center">
-                @foreach($questionTypes as $type)
-                <a href="{{ route('user.paper-question.type.extensions.create', [$paperQuestion, $type]) }}" class="bg-{{$colors[$loop->index%5]}}-100 hover:bg-{{$colors[$loop->index%5]}}-200 rounded-md py-3 w-full text-center">{{ $type->name }}</a>
-                @endforeach
+                <div class="grid md:grid-cols-3 gap-4 mt-4 place-items-center">
+                    @foreach($questionTypes as $type)
+                    <a href="{{ route('user.paper-question.type.extensions.create', [$paperQuestion, $type]) }}" class="bg-{{$colors[$loop->index%5]}}-100 hover:bg-{{$colors[$loop->index%5]}}-200 rounded-md py-3 w-full text-center">{{ $type->name }}</a>
+                    @endforeach
+                </div>
+
             </div>
-
         </div>
     </div>
-</div>
-@endsection
+    @endsection
 
-@section('script')
-<script type="module">
-    $('document').ready(function() {
+    @section('script')
+    <script type="module">
+        $('document').ready(function() {
 
-        $('.confirm-del').click(function(event) {
-            var form = $(this).closest("form");
-            // var name = $(this).data("name");
-            event.preventDefault();
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.value) {
-                    //submit corresponding form
-                    form.submit();
-                }
+            $('.confirm-del').click(function(event) {
+                var form = $(this).closest("form");
+                // var name = $(this).data("name");
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        //submit corresponding form
+                        form.submit();
+                    }
+                });
             });
-        });
 
-    });
-</script>
-@endsection
+        });
+    </script>
+    @endsection

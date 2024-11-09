@@ -568,11 +568,11 @@
     }
 
     .choice{
-        @apply  bg-slate-50 hover:bg-slate-100 border hover:cursor-pointer rounded p-4 text-slate-600 text-sm transition-all duration-500;
+        @apply  bg-teal-50 hover:bg-teal-100 border hover:cursor-pointer rounded p-4 text-slate-600 text-sm transition-all duration-500;
     }
     .choice.active{
         /* @apply  bg-teal-200 hover:bg-teal-300; */
-        @apply  bg-slate-200 border-slate-400 border-dotted;
+        @apply  bg-gradient-to-b from-teal-100 to-teal-50 border-teal-200 border;
     }
 
 }
