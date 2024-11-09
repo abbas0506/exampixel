@@ -62,10 +62,10 @@
             </a>
         </div>
 
-        <div class="grid w-full p-5 bg-gradient-to-b  from-teal-50 to-slate-50 border border-teal-100 rounded-lg mt-8">
+        <div class="grid w-full p-5 bg-gradient-to-b  from-teal-50 to-slate-50 border border-teal-100 rounded-lg text-xs md:text-sm mt-8">
             <h2 class="text-left">Do you know?</h2>
             <p class="text-left">Question paper is generated in 4 steps</p>
-            <ul class="list-decimal pl-5 text-sm list-inside leading-relaxed">
+            <ul class="list-decimal pl-5 list-inside leading-relaxed">
                 <li>Selection of grade & subject</li>
                 <li>Selection of chapters</li>
                 <li>Random selection of questions</li>
@@ -73,11 +73,11 @@
             </ul>
 
         </div>
-        <div class="grid place-items-center h-40">
+        <div class="grid place-items-center mt-8">
             <a href="{{ route('user.papers.create') }}" class="btn-blue rounded px-6 py-3">Generate Paper Now</a>
         </div>
 
-        <div class="bg-white w-full">
+        <div class="bg-white w-full mt-8">
             @if(Auth::user()->papers->count()>0)
             <h2>My Recent Papers </h2>
             <div class="overflow-x-auto w-full mt-3">
