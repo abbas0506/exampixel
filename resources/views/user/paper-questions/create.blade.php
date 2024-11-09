@@ -37,23 +37,26 @@ $QNo = 1;
             <x-message></x-message>
             @endif
 
-            <div class="flex flex-row items-center gap-3">
-                <a href="{{ route('user.papers.simple-pdf.create', $paper) }}">
-                    <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="h-12 md:h-16">
-                </a>
-                <div class="flex flex-col">
-                    <h2>{{ $paper->book->name }} </h2>
-                    <div class="flex items-center space-x-3">
-                        <label>{{ $paper->title }}</label>
+            <div class="flex items-center justify-between flex-wrap  gap-2">
+                <div class="flex flex-row items-center gap-3">
+                    <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="w-12">
+                    <div class="flex flex-col">
+                        <h2>{{ $paper->book->name }} </h2>
+                        <div class="flex items-center space-x-3">
+                            <label>{{ $paper->title }}</label>
+                        </div>
                     </div>
+                </div>
+                <div>
+                    <p class="text-slate-500 text-sm text-center md:text-right">Step 3.1/4</p>
                 </div>
             </div>
             <div class="divider my-2"></div>
             <div class="my-6">
-                <h2 class="text-2xl text-center">Q # {{ $paper->paperQuestions->count()+1 }}</h2>
+                <h2 class="text-xl text-center">Q # {{ $paper->paperQuestions->count()+1 }}</h2>
             </div>
             <div class="divider my-2"></div>
-            <h1 class="text-center text-lg">Please select a <span class="text-teal-600">question type</span> for this question</h1>
+            <h2 class="text-center">Please select a <span class="text-teal-600">question type</span> for this question</h2>
             <div class="divider my-2"></div>
 
             <div class="grid md:grid-cols-3 gap-4 place-items-center mt-6">
