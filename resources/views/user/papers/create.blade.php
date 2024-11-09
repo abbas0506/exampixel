@@ -22,17 +22,14 @@
         <div class="md:w-4/5 mx-auto">
             <h1 class="text-xl md:text-3xl text-center mt-5">Paper Generation</h1>
             <img src="{{url('images/small/paper.png')}}" alt="paper" class="w-24 mx-auto mt-6">
-            <p class="text-slate-600 leading-relaxed mt-6 text-center">Enjoy our Automated Question Paper Generation System that provides you an easy interface and customization features. It saves your time and effort while creating question papers.</p>
+            <p class="text-slate-600 leading-relaxed mt-6 text-center text-xs md:text-sm">Welcome to our Automated Question Paper Generation Tool, designed to offer you a simple yet highly flexible interface for creating custom question papers tailored to your specific needs.</p>
             <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
             <p class="text-center mt-4 text-slate-500 text-sm">Step 1/4</p>
-            <h3 class="text-lg mt-2 text-center">Grades / Classes</h3>
+            <h3 class="text-lg mt-2 text-center">Select a Grade</h3>
             <div class="flex items-center justify-center gap-x-4 mt-5">
                 @foreach($grades as $grade)
                 <div data-bound='div-{{$grade->id}}' class="round-tab">{{ $grade->grade_no }}</div>
                 @endforeach
-            </div>
-            <div id='messageBeforeGradeSelection' class="flex justify-center items-center text-center p-3 text-teal-500 border mt-8">
-                Please click on a grade
             </div>
 
             @if($errors->any())
@@ -59,7 +56,7 @@
                         <input type="text" name="title" class="custom-input-borderless" placeholder="Series Test" required>
                     </div>
                     <div class="text-center mt-4">
-                        <button type="submit" class="btn-teal rounded py-2 px-4">Next <i class="bi-arrow-right"></i></button>
+                        <button type="submit" class="btn-teal rounded-lg py-2 px-4">Next <i class="bi-arrow-right"></i></button>
                     </div>
                 </div>
             </form>
