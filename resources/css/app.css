@@ -25,7 +25,7 @@
 
     table.xs thead tr th,
     table.xs tbody tr td {
-        @apply text-[14px];
+        @apply text-[13px];
     }
     table.sm thead tr th,
     table.sm tbody tr td {
