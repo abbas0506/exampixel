@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="md:w-4/5 mx-auto">
-            <h1 class="text-xl md:text-3xl text-center mt-5">Paper Generation</h1>
+            <h1 class="text-xl md:text-2xl text-center mt-5">Paper Generation</h1>
             <img src="{{url('images/small/paper.png')}}" alt="paper" class="w-24 mx-auto mt-6">
             <p class="text-slate-600 leading-relaxed mt-6 text-center text-xs md:text-sm">Welcome to our Automated Question Paper Generation Tool, designed to offer you a simple yet highly flexible interface for creating custom question papers tailored to your specific needs.</p>
             <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
@@ -72,6 +72,7 @@
             $('.round-tab').removeClass('active')
             $(this).addClass('active');
             $('#messageBeforeGradeSelection').hide();
+
             $('.fold').hide();
             $('#' + $(this).attr('data-bound')).show()
 

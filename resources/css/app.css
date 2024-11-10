@@ -578,5 +578,17 @@
         /* @apply  bg-teal-200 hover:bg-teal-300; */
         @apply  bg-gradient-to-b from-teal-100 to-teal-50 border-teal-200 border;
     }
+    .answer .option label{
+        @apply text-sm text-left;
+    }
+    .scorecard{
+        @apply p-8 md:w-1/2 mx-auto mt-8 border rounded-lg ;
+    }
+    .scorecard.success{
+        @apply bg-gradient-to-b from-green-100 text-teal-600 to-white
+    }
+    .scorecard.failure{
+        @apply bg-gradient-to-b from-red-100 text-red-600 to-white
+    }
 
 }
