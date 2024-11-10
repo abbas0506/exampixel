@@ -79,7 +79,7 @@ $QNo = 1;
             <div class="divider my-3"></div>
 
             <div class="overflow-x-auto mt-4">
-                <table class="table-fixed w-full">
+                <table class="table-fixed w-full xs md:sm">
                     <thead>
                         <tr>
                             <th class="w-8"></th>

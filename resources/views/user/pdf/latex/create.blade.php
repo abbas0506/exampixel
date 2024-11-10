@@ -30,7 +30,7 @@
             <x-message></x-message>
             @endif
 
-            <div class="grid md:grid-cols-2 gap-2">
+            <div class="flex items-center justify-between flex-wrap  gap-2">
                 <div class="flex flex-row items-center gap-3">
                     <img src="{{ url('images/small/pdf.png') }}" alt="paper" class="w-12">
                     <div class="flex flex-col">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div>
-                    <p class="text-slate-500 text-sm text-center md:text-right md:pr-5">Step 4/4</p>
+                    <p class="text-slate-500 text-sm md:text-right md:pr-5">Step 4/4</p>
                 </div>
             </div>
 

@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div>
-                    <p class="text-slate-500 text-sm text-center md:text-right">Step 2/4</p>
+                    <p class="text-slate-500 text-sm text-center md:text-right pr-5">Step 2/4</p>
                 </div>
             </div>
             <div class="divider my-3"></div>

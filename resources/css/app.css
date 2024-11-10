@@ -27,6 +27,10 @@
     table.xs tbody tr td {
         @apply text-xs;
     }
+    table.sm thead tr th,
+    table.sm tbody tr td {
+        @apply text-sm;
+    }
     .tr:nth-child(even) {
         @apply bg-slate-100;
     }

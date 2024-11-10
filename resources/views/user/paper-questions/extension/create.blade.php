@@ -104,10 +104,10 @@
                 </form>
 
                 <!-- Chapters List -->
-                <div class="grid">
-                    <p class="mb-3 relative p-2 bg-gradient-to-r from-teal-300 to-teal-100 text-sm">Please specify the chapter from which you'd like to add question.</p>
+                <div class="grid gap-2">
+                    <p class="relative p-2 bg-gradient-to-r from-teal-300 to-teal-100 text-sm">Please specify the chapter from which you'd like to add question.</p>
                     @foreach($chapters->sortBy('sr') as $chapter)
-                    <div data-val='{{$chapter->id}}' class="manual-form-submition text-sm even:bg-slate-100  text-slate-800 p-3 hover:cursor-pointer w-full text-left">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </div>
+                    <div data-val='{{$chapter->id}}' class="manual-form-submition text-sm bg-slate-100 hover:bg-slate-200 border rounded-md  text-slate-800 p-3 hover:cursor-pointer w-full text-left">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </div>
                     @endforeach
                 </div>
             </div>

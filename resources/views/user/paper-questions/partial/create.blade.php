@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div>
-                    <p class="text-slate-500 text-sm text-center md:text-right md:pr-5">Step 3.3/4</p>
+                    <p class="text-slate-500 text-sm text-center md:text-right md:pr-5">Step 3.2/4</p>
                 </div>
             </div>
             <div class="divider my-3"></div>
