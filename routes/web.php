@@ -59,7 +59,7 @@ Route::view('about', 'about');
 Route::view('services', 'services');
 Route::view('team', 'team');
 Route::view('blogs', 'blogs');
-Route::view('login', 'login');
+Route::view('login', 'login')->name('login');
 
 Route::resource('signup', SignupController::class);
 Route::view('signup-success', 'signup-success');
@@ -84,65 +84,70 @@ Route::resource('passwords', PasswordController::class);
 Route::resource('self-tests', SelfTestController::class);
 Route::get('findSimilarQuestions', [AjaxController::class, 'findSimilarQuestions']);
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
-    Route::get('/', [DashboardController::class, 'index']);
-    Route::resource('users', UserController::class);
-    Route::resource('subjects', SubjectController::class);
-    Route::resource('grades', GradeController::class);
-    Route::resource('types', TypeController::class);
-    Route::resource('tags', TagController::class);
-    Route::resource('packages', PackageController::class);
-    Route::resource('grade.books', AdminGradeBookController::class);
-    Route::resource('qbank-books', QbankBooksController::class);
-    Route::resource('qbank-books.chapters', AdminBookChapterController::class);
 
-    Route::resource('chapter.questions', AdminChapterQuestionController::class);
-    Route::resource('chapter.poetry-lines', AdminPoetryLineController::class);
-    Route::view('change/password', 'admin.change_password');
-    Route::post('change/password', [AuthController::class, 'changePassword'])->name('change.password');
-});
+Route::middleware(['auth'])->group(function(){
+        
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
+        Route::get('/', [DashboardController::class, 'index']);
+        Route::resource('users', UserController::class);
+        Route::resource('subjects', SubjectController::class);
+        Route::resource('grades', GradeController::class);
+        Route::resource('types', TypeController::class);
+        Route::resource('tags', TagController::class);
+        Route::resource('packages', PackageController::class);
+        Route::resource('grade.books', AdminGradeBookController::class);
+        Route::resource('qbank-books', QbankBooksController::class);
+        Route::resource('qbank-books.chapters', AdminBookChapterController::class);
 
-Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' => ['role:collaborator']], function () {
-    Route::get('/', [CollaboratorDashboardController::class, 'index']);
-    Route::resource('grades', CollaboratorGradeController::class);
-    Route::resource('grade.chapters', GradeChapterController::class);
-    Route::resource('chapter.questions', CollaboratorChapterQuestionController::class);
-});
-Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['role:operator']], function () {
-    Route::get('/', [OperatorDashboardController::class, 'index']);
+        Route::resource('chapter.questions', AdminChapterQuestionController::class);
+        Route::resource('chapter.poetry-lines', AdminPoetryLineController::class);
+        Route::view('change/password', 'admin.change_password');
+        Route::post('change/password', [AuthController::class, 'changePassword'])->name('change.password');
+    });
 
-    Route::resource('books', BookController::class);
-    Route::resource('grade.books', GradeBookController::class);
-    Route::resource('books.chapters', BookChapterController::class);
-    Route::resource('chapter.questions', ChapterQuestionController::class);
-    Route::resource('chapter.poetry-lines', PoetryLineController::class);
-    Route::resource('type-changes', QuestionTypeChangeController::class);
-    Route::resource('question-movements', QuestionMovementController::class);
-});
+    Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' => ['role:collaborator']], function () {
+        Route::get('/', [CollaboratorDashboardController::class, 'index']);
+        Route::resource('grades', CollaboratorGradeController::class);
+        Route::resource('grade.chapters', GradeChapterController::class);
+        Route::resource('chapter.questions', CollaboratorChapterQuestionController::class);
+    });
+    Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['role:operator']], function () {
+        Route::get('/', [OperatorDashboardController::class, 'index']);
 
-Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']], function () {
-    Route::get('/', [TeacherDashboardController::class, 'index']);
-    Route::resource('papers', TeacherPaperController::class);
-    Route::resource('paper.chapters', PaperChapterController::class);
-    Route::resource('paper.questions', UserPaperQuestionController::class);
-    Route::resource('paper-question-parts', PaperQuestionPartController::class);
+        Route::resource('books', BookController::class);
+        Route::resource('grade.books', GradeBookController::class);
+        Route::resource('books.chapters', BookChapterController::class);
+        Route::resource('chapter.questions', ChapterQuestionController::class);
+        Route::resource('chapter.poetry-lines', PoetryLineController::class);
+        Route::resource('type-changes', QuestionTypeChangeController::class);
+        Route::resource('question-movements', QuestionMovementController::class);
+    });
 
-    Route::resource('paper.question-type.partial-questions', PartialQuestionController::class);
-    Route::resource('paper.question-type.simple-questions', SimpleQuestionController::class);
-    Route::resource('paper.base-questions', BaseQuestionController::class);
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']], function () {
+        Route::get('/', [TeacherDashboardController::class, 'index']);
+        Route::resource('papers', TeacherPaperController::class);
+        Route::resource('paper.chapters', PaperChapterController::class);
+        Route::resource('paper.questions', UserPaperQuestionController::class);
+        Route::resource('paper-question-parts', PaperQuestionPartController::class);
 
-    Route::resource('paper-question.type.extensions', PaperQuestionExtensionController::class);
+        Route::resource('paper.question-type.partial-questions', PartialQuestionController::class);
+        Route::resource('paper.question-type.simple-questions', SimpleQuestionController::class);
+        Route::resource('paper.base-questions', BaseQuestionController::class);
 
-    Route::resource('papers.latex-pdf', LatexPdfController::class);
-    Route::resource('papers.simple-pdf', SimplePdfController::class);
+        Route::resource('paper-question.type.extensions', PaperQuestionExtensionController::class);
 
-    Route::resource('accounts', AccountController::class);
-    Route::resource('profiles', ProfileController::class);
+        Route::resource('papers.latex-pdf', LatexPdfController::class);
+        Route::resource('papers.simple-pdf', SimplePdfController::class);
 
-    Route::get('paper-question-parts/{part}/refresh', [PaperQuestionPartController::class, 'refresh'])->name('paper-question-parts.refresh');
+        Route::resource('accounts', AccountController::class);
+        Route::resource('profiles', ProfileController::class);
 
-    Route::get('papers/{paper}/key', [PaperKeyController::class, 'show'])->name('papers.keys.show');
-    Route::get('papers/{paper}/key/pdf', [PaperKeyController::class, 'pdf'])->name('papers.keys.pdf');
+        Route::get('paper-question-parts/{part}/refresh', [PaperQuestionPartController::class, 'refresh'])->name('paper-question-parts.refresh');
+
+        Route::get('papers/{paper}/key', [PaperKeyController::class, 'show'])->name('papers.keys.show');
+        Route::get('papers/{paper}/key/pdf', [PaperKeyController::class, 'pdf'])->name('papers.keys.pdf');
+    });
+
 });
 
 Route::get('/test-api', function () {
