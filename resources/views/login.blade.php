@@ -39,7 +39,7 @@
         </form>
 
         <div class="text-center mt-6 text-slate-600 text-sm">
-            <a href="{{ url('forgot') }}" class="text-xs link">Forgot Password?</a>
+            <a href="{{ url('forgot') }}" class="text-xs link">Forgot Password??</a>
         </div>
         <!-- </div> -->
         <div class="text-center text-xs">
