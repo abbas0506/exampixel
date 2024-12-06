@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ActiveUserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GradeController;
 use App\Http\Controllers\Admin\GradeBookController as AdminGradeBookController;
@@ -85,11 +86,12 @@ Route::resource('self-tests', SelfTestController::class);
 Route::get('findSimilarQuestions', [AjaxController::class, 'findSimilarQuestions']);
 
 
-Route::middleware(['auth'])->group(function(){
-        
+Route::middleware(['auth'])->group(function () {
+
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
         Route::get('/', [DashboardController::class, 'index']);
         Route::resource('users', UserController::class);
+        Route::resource('active-users', ActiveUserController::class);
         Route::resource('subjects', SubjectController::class);
         Route::resource('grades', GradeController::class);
         Route::resource('types', TypeController::class);
@@ -111,6 +113,7 @@ Route::middleware(['auth'])->group(function(){
         Route::resource('grade.chapters', GradeChapterController::class);
         Route::resource('chapter.questions', CollaboratorChapterQuestionController::class);
     });
+
     Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['role:operator']], function () {
         Route::get('/', [OperatorDashboardController::class, 'index']);
 
@@ -147,7 +150,6 @@ Route::middleware(['auth'])->group(function(){
         Route::get('papers/{paper}/key', [PaperKeyController::class, 'show'])->name('papers.keys.show');
         Route::get('papers/{paper}/key/pdf', [PaperKeyController::class, 'pdf'])->name('papers.keys.pdf');
     });
-
 });
 
 Route::get('/test-api', function () {
