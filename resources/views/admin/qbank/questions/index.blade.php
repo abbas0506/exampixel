@@ -52,8 +52,6 @@ $activeChapter=$chapter;
         <x-message></x-message>
         @endif
 
-        @php $sr=1; @endphp
-
         <div class="overflow-x-auto">
             <table class="table-fixed borderless w-full mt-3">
                 <thead>
@@ -66,13 +64,27 @@ $activeChapter=$chapter;
                 </thead>
                 <tbody>
 
-                    @foreach($chapter->questions->sortByDesc('updated_at') as $question)
+                    @foreach($chapter->questions->sortBy('type_id') as $question)
                     <tr class="tr">
-                        <td>{{$sr++}}</td>
+                        <td>{{ $loop->index+1 }}</td>
                         <td class="text-left">
                             <a href="{{ route('admin.chapter.questions.show',[$chapter,$question]) }}" class="link">{{ $question->statement }}</a>
+                            @if($question->mcq)
+                            <div class="">
+
+                                <div @if($question->mcq->correct=='a') class='font-semibold' @endif>{{ $question->mcq->choice_a }}</div>
+                                <div @if($question->mcq->correct=='b') class='font-semibold' @endif>{{ $question->mcq->choice_b }}</div>
+                                <div @if($question->mcq->correct=='c') class='font-semibold' @endif>{{ $question->mcq->choice_c }}</div>
+                                <div @if($question->mcq->correct=='d') class='font-semibold' @endif>{{ $question->mcq->choice_d }}</div>
+
+                            </div>
+                            @endif
+
                         </td>
-                        <td>{{ $question->type->name }}</td>
+                        <td>
+                            {{ $question->type->name }}
+
+                        </td>
                         <td>
                             <div class="flex justify-center items-center space-x-2">
                                 <a href="{{route('admin.chapter.questions.edit', [$chapter, $question])}}">
