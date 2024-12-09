@@ -8,20 +8,19 @@
 <section>
     <div class="w-screen h-screen bg-white">
         <div class="p-5 md:w-3/4 mx-auto flex flex-col justify-center items-center text-center h-full">
-            <img src="{{ asset('/images/bg/exam-min.png') }}" alt="bg" class="w-36 md:w-48 md:mt-16">
-            <p class="text-2xl md:text-4xl mt-6 font-medium text-slate-800">We Make Exams <span class="text-teal-600">Easy</span> </p>
-            <p class="text-slate-600 mt-5 text-sm md:text-xl leading-relaxed font-normal">We empower educators and
-                students with easy to use and interactive tools that make exams easy for them. We have a vast question
-                bank covering all major subjects from grade 9 to 12. </p>
+            <img src="{{ asset('/images/illustrations/mobile-map.png') }}" alt="bg" class="w-96 mx-auto md:mt-16">
+            <p class="text-2xl md:text-4xl mt-6 font-medium text-slate-800">Question Paper <span class="text-teal-600">Just by Click</span> </p>
+            <p class="text-slate-600 mt-5 text-sm md:text-xl leading-relaxed font-normal">Question paper generation is no more a laborious work. Just signup and create fully customized question paper from grade 9-12 within few clicks only.</p>
             <div class="flex flex-col md:flex-row items-center justify-center gap-2 mt-8 w-full">
                 <a href="{{ url('login') }}" class="w-64">
-                    <button class="btn-teal rounded py-3 w-full">Generate Question Paper</button>
+                    <button class="btn-teal rounded py-3 w-full">Start Now</button>
                 </a>
-                <a href="{{ route('self-tests.index') }}" class="w-64">
-                    <button class="bg-orange-200 hover:bg-orange-300 text-slate-800 rounded p-3 w-full">Start
-                        Self-Test</button>
-                </a>
+
             </div>
+            <!-- <a href="{{ route('self-tests.index') }}" class="w-64">
+                <button class="bg-orange-200 hover:bg-orange-300 text-slate-800 rounded p-3 w-full">Start
+                    Self-Test</button>
+            </a> -->
 
         </div>
 

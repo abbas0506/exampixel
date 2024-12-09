@@ -20,7 +20,7 @@
 
         <div class="flex flex-wrap items-center justify-between w-full mt-6">
             <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
-                <p class="tab active">All ({{ $users->count() }})</p>
+                <p class="tab active">All {{ $users->count() }} <i class="bi-arrow-up"></i>{{ $newUsers->count() }}</p>
                 <a href="{{ route('admin.active-users.index') }}" class="tab">New</a>
                 <p class="tab">Active </p>
                 <!-- <a href="" class="tab">Collaborators</a> -->

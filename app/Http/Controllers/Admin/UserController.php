@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\Subject;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,8 @@ class UserController extends Controller
     {
         //
         $users = User::all();
-        return view('admin.users.index', compact('users'));
+        $newUsers = User::whereDate('created_at', Carbon::today())->get();
+        return view('admin.users.index', compact('users', 'newUsers'));
     }
 
     /**
