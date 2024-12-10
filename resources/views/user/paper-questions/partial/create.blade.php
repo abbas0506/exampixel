@@ -65,6 +65,7 @@
                     <input type="text" name="question_title" value="{{ $type->default_title }}" class="custom-input-borderless">
                 </div>
 
+                <p class="relative p-2 bg-teal-50 border border-teal-100 rounded text-sm text-teal-600"> Please specify number of parts/questions to be automatically fetched.</p>
 
                 <div class="grid text-sm border p-6">
 

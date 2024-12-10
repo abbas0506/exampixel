@@ -24,7 +24,7 @@
         </form>
 
         <div class="mt-8 text-xs text-slate-600 text-center">
-            <a href="{{url('/')}}">Not now, do it later</a>
+            <a href="{{url('/')}}" class="link">Not now, I shall do it later</a>
         </div>
     </div>
 

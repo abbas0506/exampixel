@@ -40,18 +40,22 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    <p class="text-slate-500 text-sm text-center md:text-right pr-5">Step 2/4</p>
-                </div>
             </div>
             <div class="divider my-3"></div>
+            <p class="text-center mt-4 text-slate-500 text-sm">Step 2/4</p>
+            <h3 class="text-lg mt-2 text-center">Select one or more chapters, please.</h3>
+            <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
             <form action="{{route('user.paper.chapters.store', $paper)}}" method='post' class="mt-4 w-full md:w-4/5 mx-auto" onsubmit="return validate(event)">
                 @csrf
+
+
                 <div class="flex flex-wrap justify-between items-center">
-                    <h2 class="mt-4">Which chapters should be included? </h2>
-                    <div class="flex items-center space-x-2 mt-3">
-                        <p class="text-red-600">Full Book</p>
+
+
+                    <!-- <h2 class="mt-4">Step 2/4: Chapter selection </h2> -->
+                    <div class="flex items-center space-x-2 mt-3 ml-2">
                         <input type="checkbox" id='check_all' class="custom-input w-4 h-4 rounded">
+                        <p class="text-teal-600">Select All i.e Full Book</p>
                     </div>
                 </div>
                 <div class="mt-4">

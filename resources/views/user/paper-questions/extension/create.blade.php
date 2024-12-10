@@ -105,7 +105,7 @@
 
                 <!-- Chapters List -->
                 <div class="grid gap-2">
-                    <p class="relative p-2 bg-gradient-to-r from-teal-300 to-teal-100 text-sm">Please specify the chapter from which you'd like to add question.</p>
+                    <p class="relative p-2 bg-teal-50 border border-teal-100 rounded text-sm text-teal-600"> Please click on any of the following chapters to automatically fetch the question.</p>
                     @foreach($chapters->sortBy('sr') as $chapter)
                     <div data-val='{{$chapter->id}}' class="manual-form-submition text-sm bg-slate-100 hover:bg-slate-200 border rounded-md  text-slate-800 p-3 hover:cursor-pointer w-full text-left">{{ $chapter->sr}}. &nbsp {{ $chapter->title }} </div>
                     @endforeach

@@ -48,7 +48,7 @@ $QNo = 1;
             <div class="grid gap-6 md:w-3/4 mx-auto  mt-4">
                 <h2 class="text-lg">Question Extension</h2>
 
-                <p class="relative p-2 bg-gradient-to-r from-blue-300 to-blue-100 text-sm">Please specify the type for the question.</p>
+                <p class="relative p-2 bg-teal-50 border border-teal-100 rounded text-sm text-teal-600"> Please specify the type of question.</p>
 
                 <div class="grid md:grid-cols-3 gap-4 mt-4 place-items-center">
                     @foreach($questionTypes as $type)

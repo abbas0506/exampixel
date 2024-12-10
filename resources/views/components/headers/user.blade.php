@@ -4,7 +4,7 @@
         <div class="flex items-center">
             <a href="{{ url('/') }}" class="flex text-xl flex-wrap font-bold items-center">
                 <img src="{{ url('images/logo/app-logo.png') }}" alt="" class="w-6 md:hidden">
-                <div class="text-lg font-medium ml-2">ExamPixel</div>
+                <div class="text-lg font-medium ml-2">exam<span class="text-teal-600">pixel</span></div>
 
             </a>
         </div>
