@@ -1,15 +1,18 @@
 @extends('layouts.basic')
 @section('title', 'Login')
 @section('body')
-<div class="grid grid-cols-1 md:grid-cols-2 md:h-screen place-items-center bg-white p-5">
+<div class="flex h-screen items-center justify-center bg-white p-5">
 
-    <div><img src="{{ url('images/small/signup.png') }}" alt="signup" class=""></div>
-    <div class="grid place-items-center w-full md:w-1/2 mx-auto">
+    <div class="grid place-items-center w-full md:w-1/3 lg:1/4 mx-auto">
+        <div><img src="{{ url('images/logo/app-logo.png') }}" alt="signup" class="w-20"></div>
 
-        <h2 class="text-4xl font-bold">WELCOME</h2>
-        <label for="">https://www.exampixel.com</label>
+        <!-- <h2 class="text-4xl font-bold mt-8">WELCOME</h2> -->
+        <label for="" class="text-sm mt-4">https://www.exampixel.com</label>
 
-        <form action="{{ url('login') }}" method="post" class="w-full mt-8 text-center">
+        <div class="p-5 bg-teal-50 border border-teal-100 rounded mt-4 text-xs">
+            If you have recently signed up but dont know the password, please check your <b>inbox or spam folder</b>. However, if you have deleted the email, no issue, go to <b>Forgot Password</b> and ask for a new password.
+        </div>
+        <form action="{{ url('login') }}" method="post" class="w-full mt-4 text-center">
             @csrf
 
             <!-- page message -->

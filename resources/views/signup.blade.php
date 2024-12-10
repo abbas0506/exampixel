@@ -2,15 +2,19 @@
 @section('title', 'Signup')
 @section('body')
 
-<div class="grid grid-cols-1 md:grid-cols-2 md:h-screen place-items-center bg-white p-5">
+<div class="flex h-screen items-center justify-center bg-white p-5">
 
-    <div><img src="{{ url('images/small/signup.png') }}" alt="signup" class=""></div>
-    <div class="grid place-items-center w-full md:w-1/2 mx-auto">
+    <div class="grid place-items-center w-full md:w-1/3 lg:1/4 mx-auto">
+        <div><img src="{{ url('images/logo/app-logo.png') }}" alt="signup" class="w-20"></div>
 
-        <h2 class="text-4xl font-bold">NEW USER</h2>
-        <label for="">https://www.exampixel.com</label>
+        <!-- <h2 class="text-4xl font-bold mt-8">WELCOME</h2> -->
+        <label for="" class="text-sm mt-4">https://www.exampixel.com</label>
 
-        <form action="{{ route('signup.store') }}" method="post" class="w-full mt-8">
+        <div class="p-5 bg-teal-50 border border-teal-100 rounded mt-4 text-xs">
+            Respected user, you are welcome here. Please note that on successful signup a randomly generated password will be sent to your given email. You may find it in your <b>inbox or spam folder</b>
+        </div>
+
+        <form action="{{ route('signup.store') }}" method="post" class="w-full mt-4">
             @csrf
 
             <!-- page message -->
