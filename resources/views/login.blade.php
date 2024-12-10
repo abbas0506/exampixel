@@ -10,7 +10,7 @@
         <label for="" class="text-sm mt-4">https://www.exampixel.com</label>
 
         <div class="p-5 bg-teal-50 border border-teal-100 rounded mt-4 text-xs">
-            If you have recently signed up but dont know the password, please check your <b>inbox or spam folder</b>. However, if you have deleted the email, no issue, go to <b>Forgot Password</b> and ask for a new password.
+            Respected user, if you have recently signed up but dont know the password, please check your <b>inbox or spam folder</b>. However, if you have deleted the email, no issue, go to <b>Forgot Password</b> and ask for a new password.
         </div>
         <form action="{{ url('login') }}" method="post" class="w-full mt-4 text-center">
             @csrf
