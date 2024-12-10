@@ -12,7 +12,7 @@
             <label for="toggle-current-user-dropdown" class="hidden md:flex items-center">
                 <div class="">{{ Auth::user()->name }}</div>
             </label>
-            <a href="{{url('signout')}}" class="flex items-center justify-center w-8 h-8 rounded-full"><i class="bi bi-power"></i></a>
+            <!-- <a href="{{url('signout')}}" class="flex items-center justify-center w-8 h-8 rounded-full"><i class="bi bi-power"></i></a> -->
             <div id='menu' class="flex md:hidden">
                 <i class="bi bi-list"></i>
             </div>

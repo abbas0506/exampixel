@@ -51,7 +51,7 @@
                         <img src="{{ url('images/small/profile-0.png') }}" alt="avatar" class="w-16 h-16">
                     </div>
                     <div>
-                        <h2 class="text-slate-600">Profile Status</h2>
+                        <h2 class="text-slate-600">My Profile</h2>
                         <label>{{ $profileStatus }} % complete </label>
                     </div>
 
