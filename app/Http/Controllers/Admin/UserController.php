@@ -201,6 +201,7 @@ class UserController extends Controller
             $query->selectRaw('DATE(created_at) as dt, user_id, COUNT(*) as paper_count')
                 ->groupBy('dt', 'user_id')
                 ->having('paper_count', '>', 5)
+                ->orderBy('papers_count', 'desc')
             ;
         })->get();
 
