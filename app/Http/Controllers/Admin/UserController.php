@@ -198,9 +198,9 @@ class UserController extends Controller
     {
         // active users
         $users = User::whereHas('papers', function ($query) {
-            $query->selectRaw('DATE(created_at) as dt, user_id, COUNT(*) as paper_count')
+            $query->selectRaw('DATE(created_at) as dt, user_id, COUNT(*) as papers_count')
                 ->groupBy('dt', 'user_id')
-                ->having('paper_count', '>', 5)
+                ->having('papers_count', '>', 5)
                 ->orderBy('papers_count', 'desc')
             ;
         })->get();
