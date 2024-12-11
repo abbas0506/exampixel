@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title', 'Exampixel - auto generates question paper for teachers')</title>
-    {{-- <title>Exampixel</title> --}}
+    <title>@yield('title', 'exampixel - auto generates question paper for teachers')</title>
+    {{-- <title>exampixel</title> --}}
     <link rel="icon" href="{{ asset('/images/logo/fav-ico.png') }}">
     <!-- Fonts -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
