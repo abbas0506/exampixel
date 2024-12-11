@@ -30,17 +30,10 @@
                     <span class="ml-3">Config</span>
                 </a>
             </li>
-
-            <li>
-                <a href="{{route('admin.users.index')}}" class="flex items-center p-2">
-                    <i class="bi bi-person-gear @if($page=='users') current-page @endif"></i>
-                    <span class="ml-3">Users</span>
-                </a>
-            </li>
             <li>
                 <a href="{{ route('admin.qbank-books.index') }}" class="flex items-center p-2">
                     <i class="bi bi-question-circle @if($page=='qbank') current-page @endif"></i>
-                    <span class="ml-3">Q. Bank</span>
+                    <span class="ml-3">Questions</span>
                 </a>
             </li>
             <li>

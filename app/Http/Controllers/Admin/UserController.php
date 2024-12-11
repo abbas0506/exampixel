@@ -146,8 +146,6 @@ class UserController extends Controller
                     ]);
             }
 
-
-
             DB::commit();
             return redirect()->route('admin.users.index')->with('success', 'Successfully updated');;
         } catch (Exception $ex) {
@@ -180,5 +178,32 @@ class UserController extends Controller
         } else {
             echo "Invalid role selected!";
         }
+    }
+    public function recent()
+    {
+        $users = User::whereDate('created_at', today())->get();
+        return view('admin.users.recent', compact('users'));
+    }
+    public function active()
+    {
+        // active users
+        $users = User::withCount('papers')
+            ->having('papers_count', '>', 5)
+            ->whereDate('created_at', '!=', today())
+            ->orderBy('papers_count', 'desc')
+            ->get();
+        return view('admin.users.active', compact('users'));
+    }
+    public function potential()
+    {
+        // active users
+        $users = User::whereHas('papers', function ($query) {
+            $query->selectRaw('DATE(created_at) as dt, user_id, COUNT(*) as paper_count')
+                ->groupBy('dt', 'user_id')
+                ->having('paper_count', '>', 5)
+            ;
+        })->get();
+
+        return view('admin.users.potential', compact('users'));
     }
 }

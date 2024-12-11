@@ -105,6 +105,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('chapter.poetry-lines', AdminPoetryLineController::class);
         Route::view('change/password', 'admin.change_password');
         Route::post('change/password', [AuthController::class, 'changePassword'])->name('change.password');
+        Route::get('recent-users', [UserController::class, 'recent'])->name('users.recent');
+        Route::get('active-users', [UserController::class, 'active'])->name('users.active');
+        Route::get('potential-users', [UserController::class, 'potential'])->name('users.potential');
     });
 
     Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' => ['role:collaborator']], function () {

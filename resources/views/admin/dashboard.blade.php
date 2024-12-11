@@ -9,6 +9,7 @@
 @endsection
 
 @section('body')
+
 <div class="responsive-container">
     <div class="container">
         <div class="flex flex-row justify-between items-center">
@@ -33,17 +34,17 @@
 
                     </div>
                 </div>
-                <div class="ico bg-green-100">
-                    <i class="bi bi-question-circle text-green-600"></i>
+                <div class="ico bg-green-100 text-green-600">
+                    <i class="bi bi-question text-green-600"></i>
                 </div>
             </a>
-            <a href="" class="pallet-box">
+            <a href="{{ route('admin.users.index') }}" class="pallet-box">
                 <div class="flex-1">
-                    <div class="title">Recent Questions</div>
-                    <div class="h2">{{$questions->where('created_at',today())->count()}}</div>
+                    <div class="title">Users</div>
+                    <div class="h2">{{$users['values'][0]}} <span class="text-slate-600 ml-4"><i class="bi-arrow-up"></i>{{ $users['values'][3] }}</span></div>
                 </div>
                 <div class="ico bg-indigo-100">
-                    <i class="bi bi-person-workspace text-indigo-400"></i>
+                    <i class="bi bi-people text-indigo-400"></i>
                 </div>
             </a>
             <a href="" class="pallet-box">
@@ -71,33 +72,16 @@
             <div class="md:col-span-3">
                 <!-- update news  -->
                 <div class="p-4 bg-white border rounded-lg">
-                    <h2>Most Recent</h2>
+                    <h2>Graphical Analysis</h2>
                     <div class="divider my-3 border-slate-200"></div>
                     <!-- <div class="divider my-3 border-slate-200"></div> -->
-                    <div class="overflow-x-auto mt-4">
-                        <table class="table-fixed borderless w-full">
-                            <thead>
-                                <tr class="">
-                                    <th class="w-10">Sr</th>
-                                    <th class='w-60'>Question</th>
-                                    <th class="w-24">Subject</th>
-                                    <th class='w-24'>Created_at</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $sr=1;
-                                @endphp
-                                @foreach($questions->sortByDesc('id')->take(20) as $question) <tr class="tr">
-                                    <td>{{$sr++}}</td>
-                                    <td class=" text-left">{{ $question->statement }}</td>
-                                    <td>{{ $question->chapter->book->name }}</td>
-                                    <td>{{ $question->created_at }}</td>
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="w-full h-full md:h-96">
+                            <canvas id="userAnalysisChart"></canvas>
+                        </div>
+                        <div class="w-full h-full md:h-96">
+                            <canvas id="questionAnalysisChart"></canvas>
+                        </div>
                     </div>
 
                 </div>
@@ -132,23 +116,127 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-    function confirmDel(event) {
-        event.preventDefault(); // prevent form submit
-        var form = event.target; // storing the form
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('userAnalysisChart').getContext('2d');
+        const userChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @json($users['labels']),
+                datasets: [{
+                    label: 'User Analysis',
+                    data: @json($users['values']),
+                    backgroundColor: @json($users['colors']),
+                    // borderColor: ['gray'],
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                    barThickness: 20,
+                    maxBarThickness: 32,
+                    minBarLength: 2,
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.value) {
-                form.submit();
+                }]
+            },
+            options: {
+                indexAxis: 'x',
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        grid: {
+                            display: true
+                        },
+                        title: {
+                            display: false,
+                            text: 'Count',
+                            padding: 50, // Adjust distance of title from the axis
+                        },
+                    },
+
+                },
+                // show values above bars
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: (value) => value, // Customize the display format if needed
+                        font: {
+                            size: 12,
+                            // weight: 'bold'
+                        },
+                        color: '#777'
+                    },
+                    legend: {
+                        display: true,
+                        labels: {
+                            padding: 20, // Add padding between legend labels and the chart
+                            boxWidth: 10, // Width of the legend color box
+                            boxHeight: 10, // Height of the legend color box
+                        }
+                    }
+
+                }
+
+            },
+            plugins: [ChartDataLabels] //active the plugin for top labels
+
+        });
+
+        // question analysis chart
+        const questionCtx = document.getElementById('questionAnalysisChart').getContext('2d');
+        const qChart = new Chart(questionCtx, {
+            type: 'bar',
+            data: {
+                labels: @json($questionStat['labels']),
+                datasets: [{
+                    label: 'Question Analysis',
+                    data: @json($questionStat['data']),
+                    backgroundColor: @json($questionStat['colors']),
+                    // borderColor: ['gray'],
+                    borderWidth: 1,
+                    barPercentage: 0.5,
+                    barThickness: 20,
+                    maxBarThickness: 32,
+                    minBarLength: 2,
+
+                }]
+            },
+            options: {
+                indexAxis: 'x',
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        stacked: true,
+                        grid: {
+                            display: true
+                        }
+                    },
+
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            padding: 20, // Add padding between legend labels and the chart
+                            boxWidth: 10, // Width of the legend color box
+                            boxHeight: 10, // Height of the legend color box
+                        }
+                    }
+                }
+
+
             }
-        })
-    }
+        });
+
+    });
 </script>
 @endsection
