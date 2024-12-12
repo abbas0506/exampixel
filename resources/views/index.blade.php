@@ -17,94 +17,214 @@
                 </a>
 
             </div>
-            <!-- <a href="{{ route('self-tests.index') }}" class="w-64">
-                <button class="bg-orange-200 hover:bg-orange-300 text-slate-800 rounded p-3 w-full">Start
-                    Self-Test</button>
-            </a> -->
+
+        </div>
+    </div>
+    <div class="bg-teal-50 grid md:grid-cols-3 mt-12">
+        <div class="p-5 md:px-20 md:col-span-2">
+            <h1 class="text-2xl">Self Testing</h1>
+            <p class="text-slate-600 leading-relaxed mt-1">
+                Unlock your true potential with our self-testing feature! It's your ultimate companion for exam success, helping you identify strengths, target weak spots, and build confidence. With every test, you’ll master your subjects step by step, turning challenges into achievements. Start self-testing today and take charge of your learning journey! </p>
+            <div class="mt-4">
+                <a href="{{ route('self-tests.index') }}" class="btn-teal rounded-full text-sm px-4 py-2">Start Now</a>
+            </div>
+        </div>
+        <div class="place-items-center place-content-end">
+            <img src="{{ asset('/images/illustrations/quiz.png') }}" alt="quiz" class="w-64">
+        </div>
+    </div>
+</section>
+<div class="dark:bg-gray-900">
+    <div class="pt-12 bg-gray-50 dark:bg-gray-900 sm:pt-20">
+        <div class="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-2xl md:text-4xl font-bold leading-9 sm:text-2xl sm:leading-10">
+                    Our Growing Impact in Numbers
+                </h2>
+                <p class="mt-3 leading-7 text-gray-600 dark:text-gray-400 sm:mt-4">
+                    Discover the milestones we've achieved! See our growing community, volume of question bank, and number of question papers generated—each number reflecting our commitment to empowering learners and making a difference. </p>
+            </div>
+        </div>
+        <div class="pb-12 mt-10 bg-gray-50 dark:bg-gray-900 sm:pb-16">
+            <div class="relative">
+                <div class="absolute inset-0 h-1/2 bg-gray-50 dark:bg-gray-900"></div>
+                <div class="relative max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
+                    <div class="max-w-4xl mx-auto">
+                        <dl class="bg-white dark:bg-gray-800 rounded-lg shadow-lg sm:grid sm:grid-cols-3">
+                            <div
+                                class="flex flex-col p-6 text-center border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-r">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-400" id="item-1">
+                                    Questions
+                                </dt>
+                                <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600 dark:text-indigo-100"
+                                    aria-describedby="item-1" id="starsCount">
+                                    0
+                                </dd>
+                            </div>
+                            <div
+                                class="flex flex-col p-6 text-center border-t border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l sm:border-r">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-slate-600">
+                                    Users
+                                </dt>
+                                <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600"
+                                    id="downloadsCount">
+                                    0
+                                </dd>
+                            </div>
+                            <div
+                                class="flex flex-col p-6 text-center border-t border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l">
+                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-400">
+                                    Paper Generated
+                                </dt>
+                                <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600 dark:text-indigo-100"
+                                    id="sponsorsCount">
+                                    0
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const targets = [{
+            element: document.getElementById('starsCount'),
+            count: 42000,
+            suffix: '+'
+        },
+        {
+            element: document.getElementById('downloadsCount'),
+            count: 150,
+            suffix: '+'
+        },
+        {
+            element: document.getElementById('sponsorsCount'),
+            count: 1000,
+            suffix: '+'
+        }
+    ];
+
+    // Find the maximum count among all targets
+    const maxCount = Math.max(...targets.map(target => target.count));
+
+    // Function to animate count-up effect
+    function animateCountUp(target, duration) {
+        let currentCount = 0;
+        const increment = Math.ceil(target.count / (duration / 10));
+
+        const interval = setInterval(() => {
+            currentCount += increment;
+            if (currentCount >= target.count) {
+                clearInterval(interval);
+                currentCount = target.count;
+                target.element.textContent = currentCount + target.suffix;
+            } else {
+                target.element.textContent = currentCount;
+            }
+        }, 10);
+    }
+
+    // Animate count-up for each target with adjusted duration
+    targets.forEach(target => {
+        animateCountUp(target, maxCount / 100); // Adjust duration based on max count
+    });
+</script>
+<!-- FAQ -->
+<div class="py-4 max-w-screen-sm mx-auto">
+    <div class="text-center mb-16">
+        <p class="mt-4 text-sm leading-7 text-gray-500 font-regular">
+            F.A.Q
+        </p>
+        <h3 class="text-3xl sm:text-4xl leading-normal font-bold tracking-tight text-gray-900">
+            Frequently Asked <span class="text-teal-600">Questions</span>
+        </h3>
+    </div>
+
+    <div class="px-10 sm:px-16">
+
+        <div class="py-3 uppercase text-sm text-gray-500 font-medium">
+            Technical
+        </div>
+
+        <div class="ml-5">
+
+            <div class="flex items-start my-8">
+                <div
+                    class="hidden sm:flex items-center justify-center p-3 mr-3 rounded-full bg-indigo-500 text-white border-4 border-white text-xl font-semibold">
+                    <svg width="24px" fill="white" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <g data-name="Layer 2">
+                            <g data-name="menu-arrow">
+                                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect>
+                                <path
+                                    d="M17 9A5 5 0 0 0 7 9a1 1 0 0 0 2 0 3 3 0 1 1 3 3 1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-1.1A5 5 0 0 0 17 9z">
+                                </path>
+                                <circle cx="12" cy="19" r="1"></circle>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text-md">
+                    <h1 class="text-gray-900 font-semibold mb-2">How can I start paper generation?</h1>
+                    <p class="text-gray-500 text-sm">Fill and submit signup form. A randomly generated password will be sent to your email. Check your inbox or spam folder</p>
+                </div>
+            </div>
+            <div class="flex items-start my-8">
+                <div
+                    class="hidden sm:flex items-center justify-center p-3 mr-3 rounded-full bg-indigo-500 text-white border-4 border-white text-xl font-semibold">
+                    <svg width="24px" fill="white" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <g data-name="Layer 2">
+                            <g data-name="menu-arrow">
+                                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect>
+                                <path
+                                    d="M17 9A5 5 0 0 0 7 9a1 1 0 0 0 2 0 3 3 0 1 1 3 3 1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-1.1A5 5 0 0 0 17 9z">
+                                </path>
+                                <circle cx="12" cy="19" r="1"></circle>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text-md">
+                    <h1 class="text-gray-900 font-semibold mb-2">I have lost my password, how can I recover that?</h1>
+                    <p class="text-gray-500 text-sm">Go to Forgot Password option available at login page. Provide email and submit. New password will be sent to your email.</p>
+                </div>
+            </div>
+            <div class="flex items-start my-8">
+                <div
+                    class="hidden sm:flex items-center justify-center p-3 mr-3 rounded-full bg-indigo-500 text-white border-4 border-white text-xl font-semibold">
+                    <svg width="24px" fill="white" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <g data-name="Layer 2">
+                            <g data-name="menu-arrow">
+                                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect>
+                                <path
+                                    d="M17 9A5 5 0 0 0 7 9a1 1 0 0 0 2 0 3 3 0 1 1 3 3 1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-1.1A5 5 0 0 0 17 9z">
+                                </path>
+                                <circle cx="12" cy="19" r="1"></circle>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text-md">
+                    <h1 class="text-gray-900 font-semibold mb-2">How much shall I have to pay for paper generation?</h1>
+                    <p class="text-gray-500 text-sm">No charges at all!. Our services are totally free. Enjoy using the wonderful app and feel free to share with others</p>
+                </div>
+            </div>
 
         </div>
 
     </div>
 
-</section>
+</div>
 
-<!-- features section -->
-<section id='features' class="mt-12 px-4 md:px-24" data-aos="fade-up" data-aos-duration="1000">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 md:w-3/4 mx-auto">
-        <div class="feature-box hover:border-pink-300 hover:bg-pink-50" data-aos="fade-up" data-aos-duration="1000">
-            <div class="flex items-center justify-center bg-pink-100 rounded-full w-16 h-16">
-                <i class="bi-mortarboard text-2xl text-pink-400"></i>
-            </div>
-            <h3 class="mt-3 text-lg">Students</h3>
-            <p class="text-sm text-center">Our online self-assessment service helps you prepare for your exams in a very
-                short time.</p>
-        </div>
-
-        <div class="feature-box hover:border-orange-300 hover:bg-orange-50" data-aos="fade-up" data-aos-duration="1000">
-            <div class="flex items-center justify-center bg-orange-100 rounded-full w-16 h-16">
-                <i class="bi-person text-2xl text-orange-400"></i>
-            </div>
-            <h3 class="mt-3 text-lg">Teachers</h3>
-            <p class="text-sm text-center">Our custom paper generation service saves your effort, time and printing
-                cost.</p>
-        </div>
-    </div>
-</section>
-
-<!-- distinction -->
-<section class="mt-24 md:px-24">
-    <div class="grid md:grid-cols-2 place-items-center" data-aos="fade-up" data-aos-duration="500">
-        <div class="order-2 md:order-1 p-5">
-            <h2 class="text-xl md:text-2xl text-center md:text-left">Self Assessment</h2>
-            <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 mt-3 mb-6"></div>
-            <ul class="list-disc list-inside leading-relaxed text-sm md:text-base">
-                <li>100% free, No signup required</li>
-                <li>Online & fully automated</li>
-                <li>Multi-chapter selection</li>
-                <li>Instant result on screen </li>
-                <li>Mistakes highlights </li>
-            </ul>
-            <div class="mt-3">
-                <a href="{{ route('self-tests.index') }}" class="rounded-full link">Start Now <i
-                        class="bi-arrow-right"></i></a>
-            </div>
-
-        </div>
-        <div class="order-first md:order-2  bg-slate-100 w-full h-full flex justify-center p-5">
-            <img src="{{ url('images/small/online-test-min.png') }}" alt="selftest" class="w-60">
-        </div>
-
-        <!-- row 2 -->
-        <div class="order-4 p-5">
-            <h2 class="text-xl md:text-2xl text-center md:text-left">Paper Generation</h2>
-            <div class="h-1 mx-auto md:ml-0 w-24 bg-teal-800 mt-3 mb-6"></div>
-            <ul class="list-disc list-inside leading-relaxed text-sm md:text-base">
-                <li>Fully automated, simple & easy</li>
-                <li>Multi chapter selection</li>
-                <li>Fully customized</li>
-                <li>PDF format</li>
-                <li>Font specification, page setting</li>
-                <li>Multiple papers per sheet</li>
-                <li>Link sharing on whatsapp (soon)</li>
-            </ul>
-            <div class="mt-3">
-                <a href="{{ url('login') }}" class="rounded-full link">Start Now <i class="bi-arrow-right"></i></a>
-            </div>
-
-        </div>
-        <div class="order-3 bg-teal-100 w-full h-full flex justify-center items-center p-5">
-            <img src="{{ url('images/small/pdf-0.png') }}" alt="selftest" class="w-60">
-        </div>
-    </div>
-</section>
-
-<!-- testimonial section -->
+<!-- Our Team -->
 <section class="testimonials pt-0">
-    <div class="mt-24 px-4 md:px-16 md:w-3/4 mx-auto">
+    <div class="mt-12 px-4 md:px-16 md:w-3/4 mx-auto">
         <h2 class="text-3xl text-center">Our Team</h2>
         <p class="text-gray-600 text-center mt-8">
             Our software development team comprises of highly skilled and dedicated professionals who are 24/7 ready to
-            support our clients. We are also in collaboration with supject experts in order to ensure the quality of
+            support you. We are also in collaboration with supject experts in order to ensure the quality of
             question bank.
         </p>
         <div class="h-1 w-24 bg-teal-800 mx-auto mt-6"></div>
@@ -113,28 +233,28 @@
         <div class="swiper-wrapper">
             <div class="testimonial-item swiper-slide">
                 <img src="{{ asset('images/small/developers.png') }}" class="testimonial-img" alt="developers">
-                <h3>Developers</h3>
-                <h4>Web & Android</h4>
-                <p>
+                <h3>Muhammad Abbas</h3>
+                <h4>Subject Specialist, Web Developer</h4>
+                <!-- <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
                     "We provide both web as well as android solution to our valuable clients. Our teams is contnuously
                     working on this app to make it user-friendly as much as possible and keep it up to date with the
                     upcoming demands."
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
+                </p> -->
             </div>
 
             <div class="testimonial-item swiper-slide">
                 <img src="{{ asset('images/small/collaborations-min.png') }}" class="testimonial-img"
                     alt="collaboration">
-                <h3>Collaborators</h3>
-                <h4>Public & Private Sector</h4>
-                <p>
+                <h3>Azeem Rehan</h3>
+                <h4>IT Officer, Android Developer</h4>
+                <!-- <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
                     We have great collaboration with subject experts from public as well as private sector. It is due to
                     their collobation that have succeeded to build an authentic question bank
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
+                </p> -->
             </div>
 
         </div>
@@ -145,7 +265,7 @@
 
 <section>
     <div class="relative overflow-x-clip md:px-24">
-        <div class="flex items-center justify-center h-40 gap-x-8">
+        <div class="flex items-center justify-center h-24 gap-x-8">
             <h1 class="text-teal-400 text-6xl" data-aos="zoom-in" data-aos-duration="1000"><i
                     class="bi bi-telephone"></i></h1>
             <div data-aos="zoom-in" data-aos-duration="1000" class="text-md font-semibold tracking-wider">
