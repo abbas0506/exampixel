@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
+use App\Models\Paper;
 use App\Models\Profile;
 use App\Models\Question;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -67,6 +69,43 @@ class DashboardController extends Controller
             'colors' => ['red', 'green', 'orange', 'pink']
         ];
 
-        return view('admin.dashboard', compact('profiles', 'grades', 'questions', 'users', 'questionStat'));
+        $allPapersCount = Paper::all()->count();
+        $recentPapersCount = Paper::whereDate('created_at', today())->count();
+        $paperCount = [
+            'all' => $allPapersCount,
+            'recent' => $recentPapersCount,
+        ];
+
+        // Get the start of the current week
+        $startOfWeek = Carbon::now()->startOfWeek();
+
+        // Fetch data
+        $topUsers = DB::table('papers')
+            ->selectRaw('user_id, YEAR(created_at) as year, WEEK(created_at) as week, COUNT(*) as paper_count')
+            ->groupBy('user_id', 'year', 'week')
+            ->orderBy('week')
+            // ->limit(20)
+            ->having('paper_count', '>', 1)
+            ->get();
+
+        $chartData = [];
+        $users1 = DB::table('users')->whereIn('id', $topUsers->pluck('user_id'))->get();
+
+        foreach ($users1 as $user) {
+            $userWeeklyData = $topUsers->where('user_id', $user->id);
+
+            $chartData[] = [
+                'label' => $user->name,
+                'data' => $userWeeklyData->pluck('paper_count'),
+                'borderColor' => '#' . substr(md5(rand()), 0, 6), // Random color
+                'fill' => false,
+            ];
+        }
+
+        // x-axis labels (weeks)
+        $weeks = $topUsers->groupBy('week')->keys()->toArray();
+
+        // print_r($chartData);
+        return view('admin.dashboard', compact('profiles', 'grades', 'questions', 'users', 'questionStat', 'paperCount', 'weeks', 'chartData'));
     }
 }

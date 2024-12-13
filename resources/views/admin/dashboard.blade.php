@@ -41,7 +41,7 @@
             <a href="{{ route('admin.users.index') }}" class="pallet-box">
                 <div class="flex-1">
                     <div class="title">Users</div>
-                    <div class="h2">{{$users['values'][0]}} <span class="text-slate-600 ml-4"><i class="bi-arrow-up"></i>{{ $users['values'][3] }}</span></div>
+                    <div class="h2">{{$users['values'][0]}} <span class="text-slate-600 ml-4 text-sm"><i class="bi-arrow-up"></i>{{ $users['values'][3] }}</span></div>
                 </div>
                 <div class="ico bg-indigo-100">
                     <i class="bi bi-people text-indigo-400"></i>
@@ -49,8 +49,12 @@
             </a>
             <a href="" class="pallet-box">
                 <div class="flex-1 ">
-                    <div class="title">Recent Subscription</div>
-                    <div class="h2">%</div>
+                    <div class="title">Papers</div>
+                    <div class="flex items-center space-x-4">
+                        <div class="h2">{{ $paperCount['all'] }}</div>
+                        <div class="text-sm text-slate-600"><i class="bi-arrow-up"></i>{{ $paperCount['recent'] }}</div>
+                    </div>
+
                 </div>
                 <div class="ico bg-teal-100">
                     <i class="bi bi-card-checklist text-teal-600"></i>
@@ -75,12 +79,15 @@
                     <h2>Graphical Analysis</h2>
                     <div class="divider my-3 border-slate-200"></div>
                     <!-- <div class="divider my-3 border-slate-200"></div> -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="w-full h-full md:h-96">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="w-full">
                             <canvas id="userAnalysisChart"></canvas>
                         </div>
-                        <div class="w-full h-full md:h-96">
+                        <div class="w-full">
                             <canvas id="questionAnalysisChart"></canvas>
+                        </div>
+                        <div class="w-full sm:col-span-2">
+                            <canvas id="papersLineChart"></canvas>
                         </div>
                     </div>
 
@@ -137,6 +144,12 @@
             },
             options: {
                 indexAxis: 'x',
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'User Summary'
+                    },
+                },
                 scales: {
                     x: {
                         stacked: true,
@@ -207,6 +220,16 @@
             },
             options: {
                 indexAxis: 'x',
+                plugins: {
+                    legend: {
+                        display: false,
+                        position: 'right',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Class Wise Question Count'
+                    },
+                },
                 scales: {
                     x: {
                         stacked: true,
@@ -222,18 +245,45 @@
                     },
 
                 },
+
+            }
+        });
+
+        // papers line chart
+        const paperCtx = document.getElementById('papersLineChart').getContext('2d');
+
+        const papersLineChart = new Chart(paperCtx, {
+            type: 'line',
+            data: {
+                labels: @json($weeks), // x-axis labels (weeks)
+                datasets: @json($chartData), // Data for each user
+            },
+            options: {
+                responsive: true,
                 plugins: {
                     legend: {
+                        display: false,
+                        position: 'right',
+                    },
+                    title: {
                         display: true,
-                        labels: {
-                            padding: 20, // Add padding between legend labels and the chart
-                            boxWidth: 10, // Width of the legend color box
-                            boxHeight: 10, // Height of the legend color box
+                        text: 'Weekly Analysis of Top Users with Papers Count'
+                    },
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Week of the Year'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of Papers'
                         }
                     }
                 }
-
-
             }
         });
 
