@@ -9,7 +9,7 @@
     <div class="w-screen h-screen bg-white">
         <div class="p-5 md:w-3/4 mx-auto flex flex-col justify-center items-center text-center h-full">
             <img src="{{ asset('/images/illustrations/mobile-map.png') }}" alt="bg" class="w-96 mx-auto md:mt-16">
-            <p class="text-2xl md:text-4xl mt-6 font-medium text-slate-800">Question Paper <span class="text-teal-600">Just by Click</span> </p>
+            <p class="text-2xl md:text-4xl mt-6 font-bold text-slate-800">Question Paper <span class="text-teal-600">by Click</span> </p>
             <p class="text-slate-600 mt-5 text-sm md:text-xl leading-relaxed font-normal">Question paper generation is no more a laborious work. Just signup and create fully customized question paper from grade 9-12 within few clicks only.</p>
             <div class="flex flex-col md:flex-row items-center justify-center gap-2 mt-8 w-full">
                 <a href="{{ url('login') }}" class="w-64">
@@ -20,75 +20,74 @@
 
         </div>
     </div>
-    <div class="bg-teal-50 grid md:grid-cols-3 mt-12">
-        <div class="p-5 md:px-20 md:col-span-2">
-            <h1 class="text-2xl">Self Testing</h1>
-            <p class="text-slate-600 leading-relaxed mt-1">
-                Unlock your true potential with our self-testing feature! It's your ultimate companion for exam success, helping you identify strengths, target weak spots, and build confidence. With every test, you’ll master your subjects step by step, turning challenges into achievements. Start self-testing today and take charge of your learning journey! </p>
-            <div class="mt-4">
-                <a href="{{ route('self-tests.index') }}" class="btn-teal rounded-full text-sm px-4 py-2">Start Now</a>
+</section>
+<!-- self test section -->
+<section>
+    <div class="bg-teal-100 ">
+        <div class="md:w-3/4 mx-auto grid md:grid-cols-3">
+            <div class="p-5 md:p-12 md:col-span-2">
+                <h1 class="text-2xl">Self Testing</h1>
+                <p class="text-slate-600 text-sm md:text-lg leading-relaxed mt-1">
+                    Unlock your true potential with our self-testing feature! It's your ultimate companion for exam success, helping you identify strengths, target weak spots, and build confidence. With every test, you’ll master your subjects step by step, turning challenges into achievements. Start self-testing today and take charge of your learning journey! </p>
+                <div class="mt-8">
+                    <a href="{{ route('self-tests.index') }}" class="btn-teal rounded-full text-sm px-4 py-2">Start Now</a>
+                </div>
             </div>
-        </div>
-        <div class="place-items-center place-content-end">
-            <img src="{{ asset('/images/illustrations/quiz.png') }}" alt="quiz" class="w-64">
+            <div class="place-items-center place-content-end">
+                <img src="{{ asset('/images/illustrations/quiz.png') }}" alt="quiz" class="w-48 sm:w-64 md:w-96">
+            </div>
         </div>
     </div>
 </section>
-<div class="dark:bg-gray-900">
-    <div class="pt-12 bg-gray-50 dark:bg-gray-900 sm:pt-20">
-        <div class="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
-            <div class="max-w-4xl mx-auto text-center">
-                <h2 class="text-2xl md:text-4xl font-bold leading-9 sm:text-2xl sm:leading-10">
+<!--Impact section -->
+<section>
+    <div class="p-5 sm:p-12 bg-gray-900">
+        <div class="w-3/5 mx-auto">
+            <div class="text-center">
+                <h2 class="text-2xl md:text-4xl font-bold leading-9 text-teal-500">
                     Our Growing Impact in Numbers
                 </h2>
-                <p class="mt-3 leading-7 text-gray-600 dark:text-gray-400 sm:mt-4">
+                <p class="mt-6 leading-7 text-gray-400 text-sm sm:text-lg">
                     Discover the milestones we've achieved! See our growing community, volume of question bank, and number of question papers generated—each number reflecting our commitment to empowering learners and making a difference. </p>
             </div>
         </div>
-        <div class="pb-12 mt-10 bg-gray-50 dark:bg-gray-900 sm:pb-16">
-            <div class="relative">
-                <div class="absolute inset-0 h-1/2 bg-gray-50 dark:bg-gray-900"></div>
-                <div class="relative max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
-                    <div class="max-w-4xl mx-auto">
-                        <dl class="bg-white dark:bg-gray-800 rounded-lg shadow-lg sm:grid sm:grid-cols-3">
-                            <div
-                                class="flex flex-col p-6 text-center border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-r">
-                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-400" id="item-1">
-                                    Questions
-                                </dt>
-                                <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600 dark:text-indigo-100"
-                                    aria-describedby="item-1" id="starsCount">
-                                    0
-                                </dd>
-                            </div>
-                            <div
-                                class="flex flex-col p-6 text-center border-t border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l sm:border-r">
-                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-slate-600">
-                                    Users
-                                </dt>
-                                <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600"
-                                    id="downloadsCount">
-                                    0
-                                </dd>
-                            </div>
-                            <div
-                                class="flex flex-col p-6 text-center border-t border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l">
-                                <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                    Paper Generated
-                                </dt>
-                                <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600 dark:text-indigo-100"
-                                    id="sponsorsCount">
-                                    0
-                                </dd>
-                            </div>
-                        </dl>
-                    </div>
+
+        <div class="w-3/4 mx-auto relative mt-12">
+            <dl class="bg-white rounded-lg shadow-lg sm:grid sm:grid-cols-3">
+                <div
+                    class="flex flex-col p-6 text-center border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-r">
+                    <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-400" id="item-1">
+                        Questions
+                    </dt>
+                    <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600 dark:text-indigo-100"
+                        aria-describedby="item-1" id="starsCount">
+                        0
+                    </dd>
                 </div>
-            </div>
+                <div
+                    class="flex flex-col p-6 text-center border-t border-b border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l sm:border-r">
+                    <dt class="order-2 mt-2 text-lg font-medium leading-6 text-slate-600">
+                        Users
+                    </dt>
+                    <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600"
+                        id="downloadsCount">
+                        0
+                    </dd>
+                </div>
+                <div
+                    class="flex flex-col p-6 text-center border-t border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l">
+                    <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-400">
+                        Paper Generated
+                    </dt>
+                    <dd class="order-1 text-3xl font-extrabold leading-none text-teal-600 dark:text-indigo-100"
+                        id="sponsorsCount">
+                        0
+                    </dd>
+                </div>
+            </dl>
         </div>
     </div>
-</div>
-
+</section>
 <script>
     const targets = [{
             element: document.getElementById('starsCount'),
@@ -132,6 +131,7 @@
         animateCountUp(target, maxCount / 100); // Adjust duration based on max count
     });
 </script>
+
 <!-- FAQ -->
 <div class="py-4 max-w-screen-sm mx-auto">
     <div class="text-center mb-16">
@@ -144,75 +144,34 @@
     </div>
 
     <div class="px-10 sm:px-16">
-
-        <div class="py-3 uppercase text-sm text-gray-500 font-medium">
-            Technical
+        <div class="flex items-start my-8">
+            <div class="hidden sm:flex w-12 h-12 p-4 rounded-full items-center justify-center mr-3  bg-indigo-500 text-white text-xl font-semibold">
+                <i class="bi-question-lg"></i>
+            </div>
+            <div class="text-md">
+                <h1 class="text-gray-900 font-semibold mb-2">Is it really free?</h1>
+                <p class="text-gray-500 text-sm">Sure! Our services are totally free. Feel easy to create question papers of your own choice and share with others</p>
+            </div>
+        </div>
+        <div class="flex items-start my-8">
+            <div class="hidden sm:flex w-12 h-12 p-4 rounded-full items-center justify-center mr-3  bg-indigo-500 text-white text-xl font-semibold">
+                <i class="bi-question-lg"></i>
+            </div>
+            <div class="text-md">
+                <h1 class="text-gray-900 font-semibold mb-2">How can I start paper generation?</h1>
+                <p class="text-gray-500 text-sm">Fill and submit signup form. A randomly generated password will be sent to your email. Check your inbox or spam folder</p>
+            </div>
+        </div>
+        <div class="flex items-start my-8">
+            <div class="hidden sm:flex w-12 h-12 p-4 rounded-full items-center justify-center mr-3  bg-indigo-500 text-white text-xl font-semibold">
+                <i class="bi-question-lg"></i>
+            </div>
+            <div class="text-md">
+                <h1 class="text-gray-900 font-semibold mb-2">How can I recover my lost password?</h1>
+                <p class="text-gray-500 text-sm">Go to Forgot Password option available at login page. Provide email and submit. New password will be sent to your email.</p>
+            </div>
         </div>
 
-        <div class="ml-5">
-
-            <div class="flex items-start my-8">
-                <div
-                    class="hidden sm:flex items-center justify-center p-3 mr-3 rounded-full bg-indigo-500 text-white border-4 border-white text-xl font-semibold">
-                    <svg width="24px" fill="white" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <g data-name="Layer 2">
-                            <g data-name="menu-arrow">
-                                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect>
-                                <path
-                                    d="M17 9A5 5 0 0 0 7 9a1 1 0 0 0 2 0 3 3 0 1 1 3 3 1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-1.1A5 5 0 0 0 17 9z">
-                                </path>
-                                <circle cx="12" cy="19" r="1"></circle>
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                <div class="text-md">
-                    <h1 class="text-gray-900 font-semibold mb-2">How can I start paper generation?</h1>
-                    <p class="text-gray-500 text-sm">Fill and submit signup form. A randomly generated password will be sent to your email. Check your inbox or spam folder</p>
-                </div>
-            </div>
-            <div class="flex items-start my-8">
-                <div
-                    class="hidden sm:flex items-center justify-center p-3 mr-3 rounded-full bg-indigo-500 text-white border-4 border-white text-xl font-semibold">
-                    <svg width="24px" fill="white" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <g data-name="Layer 2">
-                            <g data-name="menu-arrow">
-                                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect>
-                                <path
-                                    d="M17 9A5 5 0 0 0 7 9a1 1 0 0 0 2 0 3 3 0 1 1 3 3 1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-1.1A5 5 0 0 0 17 9z">
-                                </path>
-                                <circle cx="12" cy="19" r="1"></circle>
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                <div class="text-md">
-                    <h1 class="text-gray-900 font-semibold mb-2">I have lost my password, how can I recover that?</h1>
-                    <p class="text-gray-500 text-sm">Go to Forgot Password option available at login page. Provide email and submit. New password will be sent to your email.</p>
-                </div>
-            </div>
-            <div class="flex items-start my-8">
-                <div
-                    class="hidden sm:flex items-center justify-center p-3 mr-3 rounded-full bg-indigo-500 text-white border-4 border-white text-xl font-semibold">
-                    <svg width="24px" fill="white" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <g data-name="Layer 2">
-                            <g data-name="menu-arrow">
-                                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect>
-                                <path
-                                    d="M17 9A5 5 0 0 0 7 9a1 1 0 0 0 2 0 3 3 0 1 1 3 3 1 1 0 0 0-1 1v2a1 1 0 0 0 2 0v-1.1A5 5 0 0 0 17 9z">
-                                </path>
-                                <circle cx="12" cy="19" r="1"></circle>
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                <div class="text-md">
-                    <h1 class="text-gray-900 font-semibold mb-2">How much shall I have to pay for paper generation?</h1>
-                    <p class="text-gray-500 text-sm">No charges at all!. Our services are totally free. Enjoy using the wonderful app and feel free to share with others</p>
-                </div>
-            </div>
-
-        </div>
 
     </div>
 
@@ -285,4 +244,6 @@
 @section('footer')
 <!-- footer -->
 <x-footer></x-footer>
+@endsection
+@section('script')
 @endsection
