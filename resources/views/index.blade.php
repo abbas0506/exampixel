@@ -221,7 +221,7 @@
     </div>
 </section>
 
-<a href="{{ url('https://wa.me/+923000373004') }}" class="flex justify-center items-center text-teal-600 text-3xl sm:text-5xl fixed right-5 bottom-5 sm:bottom-8 sm:right-8">
+<a href="{{ url('https://wa.me/+923000373004') }}" class="flex justify-center items-center text-teal-600 text-3xl sm:text-5xl fixed right-3 bottom-3 sm:bottom-8 sm:right-8">
     <i class="bi-whatsapp"></i>
 </a>
 @endsection
