@@ -181,7 +181,12 @@ class UserController extends Controller
     }
     public function recent()
     {
-        $users = User::whereDate('created_at', today())->get();
+        $today = Carbon::today();
+        $users = User::withCount(['papers as paper_count' => function ($query) use ($today) {
+            $query->whereDate('created_at', $today);
+        }])
+            ->having('paper_count', '>', 0) // Include only users who created papers today
+            ->get();
         return view('admin.users.recent', compact('users'));
     }
     public function active()

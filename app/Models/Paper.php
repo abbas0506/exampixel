@@ -53,7 +53,7 @@ class Paper extends Model
         $sumOfMarks = $this->paperQuestions->sum('marks');
         $m = round($sumOfMarks * 1.5, 0);   //1.5 time the total marks
         $hr = intdiv($m, 60);
-        if(App::currentLocale() == 'ur'){
+        if (App::currentLocale() == 'ur') {
             return $hr . "گھنٹہ " . $m % 60 . "منٹ";
         }
 
@@ -61,5 +61,9 @@ class Paper extends Model
             return $hr . "h " . $m % 60 . "m";
         else
             return $m . "m";
+    }
+    public function scopeToday($query)
+    {
+        return $query->whereDate('created_at', today());
     }
 }

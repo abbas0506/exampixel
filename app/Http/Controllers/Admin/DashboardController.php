@@ -79,13 +79,16 @@ class DashboardController extends Controller
         // Get the start of the current week
         $startOfWeek = Carbon::now()->startOfWeek();
 
+        $fourWeeksAgo = Carbon::now()->subWeeks(4);
+
         // Fetch data
         $topUsers = DB::table('papers')
             ->selectRaw('user_id, YEAR(created_at) as year, WEEK(created_at) as week, COUNT(*) as paper_count')
+            ->where('created_at', '>=', $fourWeeksAgo)
             ->groupBy('user_id', 'year', 'week')
             ->orderBy('week')
             // ->limit(20)
-            ->having('paper_count', '>', 1)
+            ->having('paper_count', '>', 2)
             ->get();
 
         $chartData = [];

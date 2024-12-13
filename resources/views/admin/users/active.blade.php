@@ -28,7 +28,15 @@
         @endif
 
         <div class="container-light overflow-x-auto px-0">
-            <h2 class="mb-4">Active Users ({{ $users->count() }})</h2>
+            <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
+                <a href="{{ route('admin.users.index') }}" class="tab">All</a>
+                <a href="{{ route('admin.users.recent') }}" class="tab">Recent</a>
+                <div class="flex items-center space-x-1">
+                    <p class="tab active">Active</p>
+                    <p><i class="bi-arrow-up text-sm"></i>{{ $users->count() }}</p>
+                </div>
+                <a href="{{ route('admin.users.potential') }}" class="tab">Potential</a>
+            </div>
             <div class="flex relative w-full md:w-1/3 mb-4">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
                 <i class="bx bx-search absolute top-2 right-2"></i>
@@ -39,6 +47,7 @@
                     <tr>
                         <th class="w-12">Sr</th>
                         <th class="w-48">User Name</th>
+                        <th class="w-12">Last Activity</th>
                         <th class="w-12">#</th>
                     </tr>
                 </thead>
@@ -50,10 +59,16 @@
                             {{$user->name}}
                             <br>
                             {{ $user->email }}
-                            <br>
-                            <i class="bi-arrow-up"></i>{{ round($user->created_at->diffInDays(now()),0)}} days
                         </td>
-                        <td>{{ $user->papers->count() }}</td>
+                        @php
+                        $lastActivityDays=round($user->papers->last()->created_at->diffInDays(now()),0);
+                        @endphp
+                        @if($lastActivityDays)
+                        <td>-{{ $lastActivityDays }} d</td>
+                        @else
+                        <td></td>
+                        @endif
+                        <td>{{ $user->papers->count() }} @if($user->papers()->today()->count())<span class="ml-1 text-slate-600 text-sm"><i class="bi-arrow-up"></i>{{ $user->papers()->today()->count() }}</span>@endif</td>
                     </tr>
                     @endforeach
                 </tbody>

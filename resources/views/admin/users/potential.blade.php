@@ -39,6 +39,7 @@
                     <tr>
                         <th class="w-12">Sr</th>
                         <th class="w-48">User Name</th>
+                        <th class="w-12">Last Acticity</th>
                         <th class="w-12">#</th>
                     </tr>
                 </thead>
@@ -50,10 +51,16 @@
                             {{$user->name}}
                             <br>
                             {{ $user->email }}
-                            <br>
-                            <i class="bi-arrow-up"></i>{{ round($user->created_at->diffInDays(now()),0)}} days
                         </td>
-                        <td>{{ $user->papers->count() }}</td>
+                        @php
+                        $lastActivityDays=round($user->papers->last()->created_at->diffInDays(now()),0);
+                        @endphp
+                        @if($lastActivityDays)
+                        <td>-{{ $lastActivityDays }} d</td>
+                        @else
+                        <td></td>
+                        @endif
+                        <td>{{ $user->papers->count() }} @if($user->papers()->today()->count())<span class="ml-1 text-slate-600 text-sm"><i class="bi-arrow-up"></i>{{ $user->papers()->today()->count() }}</span>@endif</td>
                     </tr>
                     @endforeach
                 </tbody>

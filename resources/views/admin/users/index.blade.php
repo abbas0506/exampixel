@@ -20,7 +20,7 @@
 
         <div class="flex flex-wrap items-center justify-between w-full mt-6">
             <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-1">
                     <p class="tab active">All {{ $users->count() }}</p>
                     <p><i class="bi-arrow-up text-sm"></i>{{ $newUsers->count() }}</p>
                 </div>

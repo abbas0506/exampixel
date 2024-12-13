@@ -81,13 +81,13 @@
                     <!-- <div class="divider my-3 border-slate-200"></div> -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         <div class="w-full">
-                            <canvas id="userAnalysisChart"></canvas>
+                            <canvas id="userAnalysisChart" height="150" width="auto"></canvas>
                         </div>
                         <div class="w-full">
-                            <canvas id="questionAnalysisChart"></canvas>
+                            <canvas id="questionAnalysisChart" height="150" width="auto"></canvas>
                         </div>
                         <div class="w-full sm:col-span-2">
-                            <canvas id="papersLineChart"></canvas>
+                            <canvas id="papersLineChart" height="300" width="auto"></canvas>
                         </div>
                     </div>
 
@@ -143,7 +143,9 @@
                 }]
             },
             options: {
-                indexAxis: 'x',
+                responsive: true,
+                maintainAspectRatio: false,
+
                 plugins: {
                     title: {
                         display: true,
@@ -171,7 +173,7 @@
 
                 },
                 // show values above bars
-                responsive: true,
+
                 plugins: {
                     datalabels: {
                         anchor: 'end',
@@ -219,7 +221,8 @@
                 }]
             },
             options: {
-                indexAxis: 'x',
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: false,
@@ -260,6 +263,7 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: false,
@@ -267,7 +271,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Weekly Analysis of Top Users with Papers Count'
+                        text: 'Last 4 Weeks Analysis of Top Users'
                     },
                 },
                 scales: {

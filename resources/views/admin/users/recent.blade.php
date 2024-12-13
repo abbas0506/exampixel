@@ -28,7 +28,17 @@
         @endif
 
         <div class="container-light overflow-x-auto px-0">
-            <h2 class="mb-4">Recent Users ({{ $users->count() }})</h2>
+            <div class="flex flex-wrap items-center justify-between w-full mt-6">
+                <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
+                    <a href="{{ route('admin.users.index') }}" class="tab">All</a>
+                    <div class="flex items-center space-x-1">
+                        <p class="tab active">Recent</p>
+                        <p><i class="bi-arrow-up text-sm"></i>{{ $users->count() }}</p>
+                    </div>
+                    <a href="{{ route('admin.users.active') }}" class="tab">Active</a>
+                    <a href="{{ route('admin.users.potential') }}" class="tab">Potential</a>
+                </div>
+            </div>
             <div class="flex relative w-full md:w-1/3 mb-4">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
                 <i class="bx bx-search absolute top-2 right-2"></i>
@@ -53,7 +63,7 @@
                             <br>
                             {{ $user->created_at->addHours(-5)}}
                         </td>
-                        <td>{{ $user->papers->count() }}</td>
+                        <td>{{ $user->papers->count() }} <span class="ml-1 text-slate-600 text-sm"><i class="bi-arrow-up"></i>{{ $user->papers()->today()->count() }}</span></td>
                     </tr>
                     @endforeach
                 </tbody>
