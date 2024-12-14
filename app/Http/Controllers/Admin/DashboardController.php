@@ -25,6 +25,7 @@ class DashboardController extends Controller
         $grades = Grade::all();
         $questions = Question::all();
         $allUsers = User::all();
+
         $recentUsers = User::withCount('papers')
             ->having('papers_count', '>', 0)
             ->whereDate('created_at', today())
@@ -43,14 +44,13 @@ class DashboardController extends Controller
         })->get();
 
         $users = [
-            'labels' => ['All', 'Active', 'Potential', 'Recent'],
+            'labels' => ['Active', 'Potential', 'Recent'],
             'values' => [
-                $allUsers->count(),
                 $activeUsers->count(),
                 $potentialUsers->count(),
                 $recentUsers->count(),
             ],
-            'colors' => ['teal', 'orange', 'blue', 'green']
+            'colors' => ['teal', 'orange', 'blue']
         ];
 
         // question analysis
@@ -79,36 +79,59 @@ class DashboardController extends Controller
         // Get the start of the current week
         $startOfWeek = Carbon::now()->startOfWeek();
 
-        $fourWeeksAgo = Carbon::now()->subWeeks(4);
+        $fourWeeksAgo = Carbon::now()->subWeeks(8);
 
         // Fetch data
-        $topUsers = DB::table('papers')
-            ->selectRaw('user_id, YEAR(created_at) as year, WEEK(created_at) as week, COUNT(*) as paper_count')
+        $weeklyPaperCount = DB::table('papers')
+            ->selectRaw('WEEK(created_at) as week, COUNT(*) as paper_count')
             ->where('created_at', '>=', $fourWeeksAgo)
-            ->groupBy('user_id', 'year', 'week')
+            ->groupBy('week')
             ->orderBy('week')
-            // ->limit(20)
-            ->having('paper_count', '>', 2)
             ->get();
 
-        $chartData = [];
-        $users1 = DB::table('users')->whereIn('id', $topUsers->pluck('user_id'))->get();
+        $weeklyPapers = [
+            'labels' => $weeklyPaperCount->pluck('week'),
+            'data' => $weeklyPaperCount->pluck('paper_count'),
+        ];
 
-        foreach ($users1 as $user) {
-            $userWeeklyData = $topUsers->where('user_id', $user->id);
+        // Get the start date for 15 days ago
+        $startDate = Carbon::today()->subDays(14); // 15 days including today
 
-            $chartData[] = [
-                'label' => $user->name,
-                'data' => $userWeeklyData->pluck('paper_count'),
-                'borderColor' => '#' . substr(md5(rand()), 0, 6), // Random color
-                'fill' => false,
-            ];
+        // Fetch the papers created in the last 15 days, grouped by the created_at date
+        $papers = Paper::where('created_at', '>=', $startDate)
+            ->selectRaw('DATE(created_at) as date, count(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $registered = User::where('created_at', '>=', $startDate)
+            ->selectRaw('DATE(created_at) as date, count(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        // Prepare the dates and paper counts for the graph
+        $dates = [];
+        $paperCounts = [];
+
+        // Define the weekday labels
+        $weekdayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S']; // Sunday to Saturday
+
+        // Fill in the data, even for days with no papers (set count to 0)
+        for ($i = 14; $i >= 0; $i--) {
+            $date = Carbon::today()->subDays($i)->toDateString();
+            $dates[] = $weekdayLabels[Carbon::parse($date)->dayOfWeek];  // Map to the weekday label (M, T, W...)
+            $days[] = 15 - $i;
+            // Find the paper count for the current date, if available
+            $pCount = $papers->firstWhere('date', $date)->count ?? 0;
+            $paperCounts[] = $pCount;
+
+            $registeredCount = $registered->firstWhere('date', $date)->count ?? 0;
+            $registeredCounts[] = $registeredCount;
         }
 
-        // x-axis labels (weeks)
-        $weeks = $topUsers->groupBy('week')->keys()->toArray();
-
+        // print_r($dates);
         // print_r($chartData);
-        return view('admin.dashboard', compact('profiles', 'grades', 'questions', 'users', 'questionStat', 'paperCount', 'weeks', 'chartData'));
+        return view('admin.dashboard', compact('profiles', 'grades', 'paperCount', 'questions', 'users', 'questionStat', 'weeklyPapers', 'dates', 'paperCounts', 'days', 'registeredCounts'));
     }
 }
