@@ -22,6 +22,10 @@ class Grade extends Model
     {
         return $this->hasManyThrough(Chapter::class, Book::class);
     }
+    public function papers()
+    {
+        return $this->hasManyThrough(Paper::class, Book::class);
+    }
 
     public function questions()
     {

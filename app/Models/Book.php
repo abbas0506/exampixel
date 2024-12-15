@@ -26,6 +26,10 @@ class Book extends Model
     {
         return $this->hasMany(Chapter::class);
     }
+    public function papers()
+    {
+        return $this->hasMany(Paper::class);
+    }
     public function questions()
     {
         return $this->hasManyThrough(Question::class, Chapter::class);

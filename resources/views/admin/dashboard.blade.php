@@ -27,9 +27,9 @@
                 <div class="flex-1">
                     <div class="title">Questions</div>
                     <div class="flex items-center space-x-4">
-                        <div class="h2">{{$questions->count()}}</div>
-                        @if($questions->where('created_at', today())->count())
-                        <div><i class="bi-arrow-up"></i>{{ $questions->where('created_at', today())->count() }}</div>
+                        <div class="h2">{{$questions['all']}}</div>
+                        @if($questions['recent'])
+                        <div><i class="bi-arrow-up"></i>{{ $questions['recent'] }}</div>
                         @endif
 
                     </div>
@@ -41,7 +41,7 @@
             <a href="{{ route('admin.users.index') }}" class="pallet-box">
                 <div class="flex-1">
                     <div class="title">Users</div>
-                    <div class="h2">{{$users['values'][0]}} <span class="text-slate-600 ml-4 text-sm"><i class="bi-arrow-up"></i>{{ $users['values'][2] }}</span></div>
+                    <div class="h2">{{$users['all']}} <span class="text-slate-600 ml-4 text-sm"><i class="bi-arrow-up"></i>{{ $users['recent']}}</span></div>
                 </div>
                 <div class="ico bg-indigo-100">
                     <i class="bi bi-people text-indigo-400"></i>
@@ -51,8 +51,8 @@
                 <div class="flex-1 ">
                     <div class="title">Papers</div>
                     <div class="flex items-center space-x-4">
-                        <div class="h2">120</div>
-                        <div class="text-sm text-slate-600"><i class="bi-arrow-up"></i>{{ $paperCount['recent'] }}</div>
+                        <div class="h2">{{ $papers['all'] }}</div>
+                        <div class="text-sm text-slate-600"><i class="bi-arrow-up"></i>{{ $papers['recent'] }}</div>
                     </div>
 
                 </div>
@@ -85,10 +85,10 @@
                             <canvas id="userAnalysisChart"></canvas>
                         </div>
                         <div class="w-full h-48">
-                            <canvas id="questionAnalysisChart"></canvas>
+                            <canvas id="classWisePapersChart"></canvas>
                         </div>
                         <div class="w-full h-64">
-                            <canvas id="papersLineChart"></canvas>
+                            <canvas id="weeklyPapersChart"></canvas>
                         </div>
                         <div class="w-full h-64">
                             <canvas id="dailyPapersChart"></canvas>
@@ -132,10 +132,10 @@
         var userChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: @json($users['labels']),
+                labels: @json($userRatio['labels']),
                 datasets: [{
                     label: 'User Analysis',
-                    data: @json($users['values']),
+                    data: @json($userRatio['values']),
                 }]
             },
             options: {
@@ -160,16 +160,16 @@
 
         });
 
-        // question analysis chart
-        const questionCtx = document.getElementById('questionAnalysisChart').getContext('2d');
+        // grade wise papers
+        const questionCtx = document.getElementById('classWisePapersChart').getContext('2d');
         const qChart = new Chart(questionCtx, {
             type: 'doughnut',
             data: {
-                labels: @json($questionStat['labels']),
+                labels: @json($gradeWisePapers['labels']),
                 datasets: [{
                     label: 'Question Analysis',
-                    data: @json($questionStat['data']),
-
+                    data: @json($gradeWisePapers['paperCount']),
+                    // backgroundColor: ['red', 'green', 'orange', 'pink'],
                 }]
             },
             options: {
@@ -187,26 +187,35 @@
                     },
                     title: {
                         display: true,
-                        text: 'Class Wise Question Count'
+                        text: 'Class Wise Papers'
                     },
                 },
 
             }
         });
 
-        // papers line chart
-        var paperCtx = document.getElementById('papersLineChart').getContext('2d');
+        // weekly paper chart
+        var paperCtx = document.getElementById('weeklyPapersChart').getContext('2d');
 
-        var papersLineChart = new Chart(paperCtx, {
+        var weeklyPapersChart = new Chart(paperCtx, {
             type: 'line',
             data: {
-                labels: @json($weeklyPapers['labels']), // x-axis labels (weeks)
+                labels: @json($weeklyPapers['labels']),
                 datasets: [{
-                    label: 'Weekly Papers',
-                    'data': @json($weeklyPapers['data']),
-                    backgroundColor: 'green',
-                    borderWidth: 2,
-                }],
+                        label: 'Papers',
+                        'data': @json($weeklyPapers['paperCount']),
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgb(75, 192, 192)',
+                        borderWidth: 2,
+                    },
+                    {
+                        label: 'Users',
+                        'data': @json($weeklyPapers['userCount']),
+                        backgroundColor: 'blue',
+                        borderColor: 'blue',
+                        borderWidth: 2,
+                    },
+                ],
             },
             options: {
                 responsive: true,
@@ -217,14 +226,14 @@
                         display: true,
                         position: 'top',
                         labels: {
-                            boxWidth: 10, // Set the width of the legend box
-                            boxHeight: 10, // Set the height of the legend box
-                            padding: 16, // Optional: add some padding around the labels
+                            boxWidth: 10,
+                            boxHeight: 10,
+                            padding: 16,
                         }
                     },
                     title: {
                         display: true,
-                        text: 'Last 8 Weeks Papers Count Analysis'
+                        text: 'Weekly Papers Dring Last 8 Weeks'
                     },
                 },
                 scales: {
@@ -251,19 +260,18 @@
         var daily = new Chart(dailyPaperCtx, {
             type: 'line',
             data: {
-                labels: @json($days), // Weekday labels (M, T, W, T, F, S, S)
+                labels: @json($last15Days['labels']), // Weekday labels (M, T, W, T, F, S, S)
                 datasets: [{
                         label: 'Papers',
-                        data: @json($paperCounts), // Paper count for each day
+                        data: @json($last15Days['paperCount']), // Paper count for each day
                         borderColor: 'rgb(75, 192, 192)',
-                        fill: false,
                         backgroundColor: 'rgb(75, 192, 192)',
                         borderWidth: 2,
                         // tension: 0.4 smoothing effect
                     },
                     {
                         label: 'Users',
-                        data: @json($registeredCounts), // Paper count for each day
+                        data: @json($last15Days['userCount']), // Paper count for each day
                         borderColor: 'blue',
                         backgroundColor: 'blue',
                         fill: false,
@@ -287,7 +295,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Last 15 Days Analysis'
+                        text: 'Daily Papers During Last 15 Days'
                     },
                 },
 
