@@ -233,7 +233,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Weekly Papers Dring Last 8 Weeks'
+                        text: 'Weekly Progress Dring Last 8 Weeks'
                     },
                 },
                 scales: {
@@ -246,7 +246,7 @@
                     y: {
                         title: {
                             display: true,
-                            text: 'Papers'
+                            text: 'count'
                         }
                     }
                 }
@@ -295,7 +295,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Daily Papers During Last 15 Days'
+                        text: 'Daily Progress During Last 15 Days'
                     },
                 },
 
