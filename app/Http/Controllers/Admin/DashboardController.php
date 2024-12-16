@@ -104,15 +104,21 @@ class DashboardController extends Controller
 
         // create date labels
         $dates = [];
+        $paperCount = [];
+        $userCount = [];
         for ($i = 14; $i >= 0; $i--) {
             $day = Carbon::today()->subDays($i)->toDateString();
             $dates[] = Carbon::parse($day)->day;
+            $paperCount[] = Paper::whereDate('created_at', $day)->count();
+            $userCount[] = User::whereDate('created_at', $day)->count();
         }
         // pack the last 15 days data
         $last15Days = [
             'labels' => $dates,
-            'paperCount' => $papersGenerated->pluck('count'),
-            'userCount' => $registrations->pluck('count'),
+            // 'paperCount' => $papersGenerated->pluck('count'),
+            'paperCount' => $paperCount,
+            // 'userCount' => $registrations->pluck('count'),
+            'userCount' => $userCount,
         ];
 
         return view('admin.dashboard', compact('users', 'questions', 'papers', 'userRatio', 'gradeWisePapers', 'weeklyPapers', 'last15Days'));
