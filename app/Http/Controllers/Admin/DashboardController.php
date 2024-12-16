@@ -87,22 +87,7 @@ class DashboardController extends Controller
             'userCount' => $weeklyUserCount->pluck('user_count'),
         ];
 
-        // get papers and user count during last 15 days including today
-        $startDate = Carbon::today()->subDays(14);
-
-        $papersGenerated = Paper::where('created_at', '>=', $startDate)
-            ->selectRaw('DATE(created_at) as date, count(*) as count')
-            ->groupBy('date')
-            ->orderBy('date')
-            ->get();
-
-        $registrations = User::where('created_at', '>=', $startDate)
-            ->selectRaw('DATE(created_at) as date, count(*) as count')
-            ->groupBy('date')
-            ->orderBy('date')
-            ->get();
-
-        // create date labels
+        // create date labels 14 days back
         $dates = [];
         $paperCount = [];
         $userCount = [];
@@ -115,9 +100,7 @@ class DashboardController extends Controller
         // pack the last 15 days data
         $last15Days = [
             'labels' => $dates,
-            // 'paperCount' => $papersGenerated->pluck('count'),
             'paperCount' => $paperCount,
-            // 'userCount' => $registrations->pluck('count'),
             'userCount' => $userCount,
         ];
 

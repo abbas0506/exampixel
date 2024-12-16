@@ -134,8 +134,9 @@
             data: {
                 labels: @json($userRatio['labels']),
                 datasets: [{
-                    label: 'User Analysis',
+                    label: 'Users',
                     data: @json($userRatio['values']),
+                    backgroundColor: ['#45b39d', '#3498db', '#d6dbdf'],
                 }]
             },
             options: {
@@ -169,7 +170,7 @@
                 datasets: [{
                     label: 'Question Analysis',
                     data: @json($gradeWisePapers['paperCount']),
-                    // backgroundColor: ['red', 'green', 'orange', 'pink'],
+                    backgroundColor: ['#76d7c4', '#edbb99', '#c39bd3', '#5dade2'],
                 }]
             },
             options: {
