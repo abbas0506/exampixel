@@ -170,7 +170,7 @@
                 datasets: [{
                     label: 'Question Analysis',
                     data: @json($gradeWisePapers['paperCount']),
-                    backgroundColor: ['#76d7c4', '#edbb99', '#c39bd3', '#5dade2'],
+                    backgroundColor: ['rgba(255,23,34,0.6)', 'rgba(69, 179, 157,0.8)', 'rgba(175, 122, 197,0.5) ', 'rgba(205, 97, 85,0.4)'],
                 }]
             },
             options: {
