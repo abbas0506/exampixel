@@ -6,20 +6,30 @@ class Helper
 {
     static function parseTex($text, bool $question = false)
     {
-        $text = preg_replace_callback('/\\\\\(.*?\\\\\)|_/', function ($matches) {
-            if (strpos($matches[0], '\\(') === 0) {
-                return $matches[0];
-            } else {
-                return '\\_';
-            }
-        }, $text);
-        $patternForAnd = '/(\b\w{2,}+)\s*&\s*(\w{2,}+\b)/';    
+        // $text = preg_replace_callback('/\\\\\(.*?\\\\\)|_/', function ($matches) {
+        //     if (strpos($matches[0], '\\(') === 0) {
+        //         return $matches[0];
+        //     } else {
+        //         return '\\_';
+        //     }
+        // }, $text);
+
+        // $text = preg_replace_callback('/\\\\\[.*?\\\\\]|_/', function ($matches) {
+        //     if (strpos($matches[0], '\\[') === 0) {
+        //         return $matches[0];
+        //     } else {
+        //         return '\\_';
+        //     }
+        // }, $text);
+        $patternForAnd = '/(\b\w{2,}+)\s*&\s*(\w{2,}+\b)/';
         $replacementAnd = '$1 \& $2';
         $text = preg_replace($patternForAnd, $replacementAnd, $text);
-        // $text = str_replace(['\(', '\)'], '$', $text);
-        // $text = str_replace("%", "\%", $text);
+
         $text = str_replace("both a & b", "both a \& b" , $text);
-        $text  = str_replace('ـ', '\_', $text);
+        if(!preg_match('/\(/', $text) && !preg_match('/\)/', $text)) {
+            $text = str_replace('_', '\_', $text);
+        }
+        $text = str_replace('\leftrightharpoons', '\xleftrightharpoons', $text);
         $text = strlen(trim($text)) == 2 && $text == '&&' ? '\&\&' : $text;
         $text = strlen(trim($text)) == 1 && $text == '#' ? '\#' : $text;
         $text = strlen(trim($text)) == 1 && $text == '&' ? '\&' : $text;
