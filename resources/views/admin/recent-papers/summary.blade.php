@@ -15,9 +15,9 @@
         <div class="bread-crumb">
             <a href="{{url('admin')}}">Home</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('admin.users.index')}}">Users</a>
+            <p>Recent Papers</p>
             <i class="bx bx-chevron-right"></i>
-            <div>Active</div>
+            <p>Summary</p>
         </div>
 
         <!-- page message -->
@@ -29,14 +29,12 @@
 
         <div class="container-light overflow-x-auto px-0">
             <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
-                <a href="{{ route('admin.users.index') }}" class="tab">All</a>
+                <a href="{{ route('admin.recent-papers.index') }}" class="tab">Recent</a>
                 <div class="flex items-center space-x-1">
-                    <p class="tab active">Active</p>
-                    <p><i class="bi-arrow-up text-sm"></i>{{ $users->count() }}</p>
+                    <p class="tab active">Summary</p>
                 </div>
-                <a href="{{ route('admin.users.potential') }}" class="tab">Potential</a>
             </div>
-            <div class="flex relative w-full md:w-1/3 mb-4">
+            <div class="flex relative w-full md:w-1/3 my-4">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
                 <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
@@ -46,7 +44,6 @@
                     <tr>
                         <th class="w-12">Sr</th>
                         <th class="w-48">User Name</th>
-                        <th class="w-12">Last Activity</th>
                         <th class="w-12">#</th>
                     </tr>
                 </thead>
@@ -55,19 +52,16 @@
                     <tr class="text-sm tr">
                         <td>{{$user->id}}</td>
                         <td class="text-left px-3">
-                            {{$user->name}}
-                            <br>
+                            <div class="relative">
+                                @php $today = Carbon::now()->startOfDay(); @endphp
+                                {{$user->name}}
+                                @if($user->created_at->gte($today))
+                                <div class="absolute top-0 -left-1 w-2 h-2 rounded-full bg-green-500"></div>
+                                @endif
+                            </div>
                             {{ $user->email }}
                         </td>
-                        @php
-                        $lastActivityDays=round($user->papers->last()->created_at->diffInDays(now()),0);
-                        @endphp
-                        @if($lastActivityDays)
-                        <td>-{{ $lastActivityDays }} d</td>
-                        @else
-                        <td></td>
-                        @endif
-                        <td>{{ $user->papers->count() }} @if($user->papers()->today()->count())<span class="ml-1 text-slate-600 text-sm"><i class="bi-arrow-up"></i>{{ $user->papers()->today()->count() }}</span>@endif</td>
+                        <td>{{ $user->papers->count() }} <span class="ml-1 text-xs text-green-600"><i class="bi-arrow-up"></i>{{ $user->papers()->today()->count() }}</span></td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ChapterQuestionController as AdminChapterQuestion
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PoetryLineController as AdminPoetryLineController;
 use App\Http\Controllers\Admin\QbankBooksController;
+use App\Http\Controllers\Admin\RecentPaperController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TypeController;
@@ -100,14 +101,15 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('grade.books', AdminGradeBookController::class);
         Route::resource('qbank-books', QbankBooksController::class);
         Route::resource('qbank-books.chapters', AdminBookChapterController::class);
+        Route::resource('recent-papers', RecentPaperController::class);
 
         Route::resource('chapter.questions', AdminChapterQuestionController::class);
         Route::resource('chapter.poetry-lines', AdminPoetryLineController::class);
         Route::view('change/password', 'admin.change_password');
         Route::post('change/password', [AuthController::class, 'changePassword'])->name('change.password');
-        Route::get('recent-users', [UserController::class, 'recent'])->name('users.recent');
         Route::get('active-users', [UserController::class, 'active'])->name('users.active');
         Route::get('potential-users', [UserController::class, 'potential'])->name('users.potential');
+        Route::get('recent-papers-summary', [RecentPaperController::class, 'summary'])->name('recent-papers.summary');
     });
 
     Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' => ['role:collaborator']], function () {

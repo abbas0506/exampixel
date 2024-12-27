@@ -24,7 +24,6 @@
                     <p class="tab active">All {{ $users->count() }}</p>
                     <p><i class="bi-arrow-up text-sm"></i>{{ $newUsers->count() }}</p>
                 </div>
-                <a href="{{ route('admin.users.recent') }}" class="tab">Recent</a>
                 <a href="{{ route('admin.users.active') }}" class="tab">Active</a>
                 <a href="{{ route('admin.users.potential') }}" class="tab">Potential</a>
             </div>

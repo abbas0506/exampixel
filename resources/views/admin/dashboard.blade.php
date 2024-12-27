@@ -47,7 +47,7 @@
                     <i class="bi bi-people text-indigo-400"></i>
                 </div>
             </a>
-            <a href="" class="pallet-box">
+            <a href="{{ route('admin.recent-papers.index') }}" class="pallet-box">
                 <div class="flex-1 ">
                     <div class="title">Papers</div>
                     <div class="flex items-center space-x-4">

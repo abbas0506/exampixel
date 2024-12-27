@@ -15,9 +15,7 @@
         <div class="bread-crumb">
             <a href="{{url('admin')}}">Home</a>
             <i class="bx bx-chevron-right"></i>
-            <a href="{{route('admin.users.index')}}">Users</a>
-            <i class="bx bx-chevron-right"></i>
-            <div>Recent</div>
+            <div>Recent Papers</div>
         </div>
 
         <!-- page message -->
@@ -28,18 +26,13 @@
         @endif
 
         <div class="container-light overflow-x-auto px-0">
-            <div class="flex flex-wrap items-center justify-between w-full mt-6">
-                <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
-                    <a href="{{ route('admin.users.index') }}" class="tab">All</a>
-                    <div class="flex items-center space-x-1">
-                        <p class="tab active">Recent</p>
-                        <p><i class="bi-arrow-up text-sm"></i>{{ $users->count() }}</p>
-                    </div>
-                    <a href="{{ route('admin.users.active') }}" class="tab">Active</a>
-                    <a href="{{ route('admin.users.potential') }}" class="tab">Potential</a>
+            <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
+                <div class="flex items-center space-x-1">
+                    <p class="tab active">Recent</p>
                 </div>
+                <a href="{{ route('admin.recent-papers.summary') }}" class="tab">Summary</a>
             </div>
-            <div class="flex relative w-full md:w-1/3 mb-4">
+            <div class="flex relative w-full md:w-1/3 my-4">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
                 <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
@@ -48,22 +41,27 @@
                 <thead>
                     <tr>
                         <th class="w-12">Sr</th>
+                        <th class="w-36">Subject</th>
                         <th class="w-48">User Name</th>
-                        <th class="w-12">#</th>
+                        <th class="w-12">Marks</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @foreach($recentPapers as $paper)
                     <tr class="text-sm tr">
-                        <td>{{$user->id}}</td>
-                        <td class="text-left px-3">
-                            {{$user->name}}
+                        <td>{{ $loop->index+1 }} </td>
+                        <td class="text-left">
+                            <a href="{{ route('admin.recent-papers.show',$paper) }}" class="link">{{ $paper->book->subject->name_en  }} - {{ $paper->book->grade->grade_no }}</a>
                             <br>
-                            {{ $user->email }}
-                            <br>
-                            {{ $user->created_at}}
+                            {{ $paper->created_at}}
                         </td>
-                        <td>{{ $user->papers->count() }} <span class="ml-1 text-slate-600 text-sm"><i class="bi-arrow-up"></i>{{ $user->papers()->today()->count() }}</span></td>
+                        <td class="text-left px-3">
+                            {{ $paper->user->name }}
+                            <br>
+                            {{ $paper->user->email }}
+                        </td>
+
+                        <td>{{ $paper->paperQuestions->sum('marks') }}</td>
                     </tr>
                     @endforeach
                 </tbody>
