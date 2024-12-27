@@ -70,7 +70,7 @@
                             {{ $user->email }}
                         </td>
                         <td>{{ $user->papers->count() }}</td>
-                        <td><label>{{ optional($user->papers->last())->updated_at?->addHours(5)}}</label>
+                        <td><label>{{ optional($user->papers->last())->updated_at}}</label>
                         </td>
                         <td class="text-left px-3">
                             <div class="grid divide-x-0">

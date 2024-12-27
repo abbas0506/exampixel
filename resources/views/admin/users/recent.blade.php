@@ -61,7 +61,7 @@
                             <br>
                             {{ $user->email }}
                             <br>
-                            {{ $user->created_at->addHours(-5)}}
+                            {{ $user->created_at}}
                         </td>
                         <td>{{ $user->papers->count() }} <span class="ml-1 text-slate-600 text-sm"><i class="bi-arrow-up"></i>{{ $user->papers()->today()->count() }}</span></td>
                     </tr>
