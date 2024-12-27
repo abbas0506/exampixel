@@ -183,8 +183,8 @@ class UserController extends Controller
     {
         // active users
         $users = User::withCount('papers')
-            ->having('papers_count', '>', 3)
-            ->whereBetween('created_at', today(), today()->subDays(7))
+            ->having('papers_count', '>', 1)
+            ->whereBetween('created_at', [today()->subDays(7), today()])
             ->orderBy('papers_count', 'desc')
             ->get();
         return view('admin.users.active', compact('users'));
