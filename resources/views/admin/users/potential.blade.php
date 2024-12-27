@@ -31,16 +31,13 @@
             <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
                 <a href="{{ route('admin.users.index') }}" class="tab">All</a>
                 <a href="{{ route('admin.users.active') }}" class="tab">Active</a>
-                <div class="flex items-center space-x-1">
-                    <p class="tab active">Potential</p>
-                    <p><i class="bi-arrow-up text-sm"></i>{{ $users->count() }}</p>
-                </div>
+                <p class="tab active">Potential ({{ $users->count() }})</p>
             </div>
             <div class="flex relative w-full md:w-1/3 my-4">
                 <input type="text" id='searchby' placeholder="Search ..." class="custom-search w-full" oninput="search(event)">
                 <i class="bx bx-search absolute top-2 right-2"></i>
             </div>
-            <p class="text-red-600 text-sm my-2">* List of those users who have created at least 30 papers during last 2 weeks</p>
+            <p class="text-red-600 text-sm my-2">* List of those users who have created at least 20 papers during last 2 weeks</p>
 
             <table class="table-fixed w-full text-sm">
                 <thead>

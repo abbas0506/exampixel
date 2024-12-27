@@ -199,7 +199,7 @@ class UserController extends Controller
         $users = User::withCount(['papers' => function ($query) use ($startOfWeek) {
             $query->where('created_at', '>=', $startOfWeek);
         }])
-            ->having('papers_count', '>', 30)
+            ->having('papers_count', '>=', 20)
             ->get();
         return view('admin.users.potential', compact('users'));
     }

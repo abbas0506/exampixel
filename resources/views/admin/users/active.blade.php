@@ -30,10 +30,7 @@
         <div class="container-light overflow-x-auto px-0">
             <div class="flex flex-wrap items-center gap-3 text-slate-600 text-sm">
                 <a href="{{ route('admin.users.index') }}" class="tab">All</a>
-                <div class="flex items-center space-x-1">
-                    <p class="tab active">Active</p>
-                    <p><i class="bi-arrow-up text-sm"></i>{{ $users->count() }}</p>
-                </div>
+                <p class="tab active">Active ({{ $users->count() }})</p>
                 <a href="{{ route('admin.users.potential') }}" class="tab">Potential</a>
             </div>
             <div class="flex relative w-full md:w-1/3 my-4">
