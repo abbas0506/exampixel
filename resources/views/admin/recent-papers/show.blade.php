@@ -112,16 +112,7 @@ $QNo = 1;
                             <td></td>
                         </tr>
                         @endforeach
-                        <tr>
-                            <td></td>
-                            <td>
-                                <div class="flex items-center">
-                                    <a href="{{ route('user.paper-question.type.extensions.create', [$paperQuestion, $paperQuestion->paperQuestionParts->first()->question->type]) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
-                                    &nbsp;<label for="">(append another question)</label>
-                                </div>
-                            </td>
-                            <td></td>
-                        </tr>
+
                         @endif
 
                         <!-- partial -->
@@ -138,16 +129,7 @@ $QNo = 1;
                             <td></td>
                         </tr>
                         @endforeach
-                        <tr>
-                            <td></td>
-                            <td>
-                                <div class="flex items-center">
-                                    <a href="{{ route('user.paper-question.type.extensions.create', [$paperQuestion, $paperQuestion->paperQuestionParts->first()->question->type]) }}" class="flex justify-center items-center w-6 h-6 rounded-full bg-blue-600"><i class="bi-plus text-white"></i></a>
-                                    &nbsp;<label for="">(append another question)</label>
-                                </div>
-                            </td>
-                            <td></td>
-                        </tr>
+
                         @endif
 
                         <!-- simple question -->

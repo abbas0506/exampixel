@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
         Route::get('/', [DashboardController::class, 'index']);
         Route::resource('users', UserController::class);
-        Route::resource('active-users', ActiveUserController::class);
+        // Route::resource('active-users', ActiveUserController::class);
         Route::resource('subjects', SubjectController::class);
         Route::resource('grades', GradeController::class);
         Route::resource('types', TypeController::class);
