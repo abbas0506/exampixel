@@ -67,7 +67,7 @@
                             <div class="relative">
                                 {{$user->name}}
                                 @if(!$user->papers->count())
-                                <div class="absolute top-0 -left-1 w-2 h-2 rounded-full bg-red-600"></div>
+                                <div class="absolute top-0 -left-1 w-2 h-2 rounded-full bg-red-500"></div>
                                 @endif
                             </div>
                             {{ $user->email }}
