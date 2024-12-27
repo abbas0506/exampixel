@@ -195,14 +195,12 @@ class UserController extends Controller
     public function potential()
     {
         // active users
-        $users = User::whereHas('papers', function ($query) {
-            $query->selectRaw('DATE(created_at) as dt, user_id, COUNT(*) as papers_count')
-                ->groupBy('dt', 'user_id')
-                ->having('papers_count', '>', 5)
-                ->orderBy('papers_count', 'desc')
-            ;
-        })->get();
-
+        $startOfWeek = Carbon::now()->subDays(15);
+        $users = User::withCount(['papers' => function ($query) use ($startOfWeek) {
+            $query->where('created_at', '>=', $startOfWeek);
+        }])
+            ->having('papers_count', '>', 30)
+            ->get();
         return view('admin.users.potential', compact('users'));
     }
 }
