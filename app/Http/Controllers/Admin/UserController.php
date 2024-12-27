@@ -182,11 +182,14 @@ class UserController extends Controller
     public function active()
     {
         // active users
-        $users = User::withCount('papers')
+        $startOfWeek = Carbon::now()->subDays(7);
+
+        $users = User::withCount(['papers' => function ($query) use ($startOfWeek) {
+            $query->where('created_at', '>=', $startOfWeek);
+        }])
             ->having('papers_count', '>', 1)
-            ->whereBetween('created_at', [today()->subDays(7), today()])
-            ->orderBy('papers_count', 'desc')
             ->get();
+
         return view('admin.users.active', compact('users'));
     }
     public function potential()
