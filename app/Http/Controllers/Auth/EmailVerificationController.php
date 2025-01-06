@@ -21,7 +21,8 @@ class EmailVerificationController extends Controller
         }
 
         // Verify the hash matches the user's email
-        if (!Hash::check($user->getEmailForVerification(), $hash)) {
+        $expectedHash = sha1($user->getEmailForVerification());
+        if (!hash_equals($expectedHash, $hash)) {
             return response('Invalid verification link.', 403);
         }
 
