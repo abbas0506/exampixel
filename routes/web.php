@@ -73,6 +73,7 @@ Route::get('login/as', function () {
 
 Route::get('switch/as/{role}', [UserController::class, 'switchAs']);
 
+Route::resource('signup', SignupController::class);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::post('login/as', [AuthController::class, 'loginAs'])->name('login.as');
@@ -85,12 +86,10 @@ Route::get('findSimilarQuestions', [AjaxController::class, 'findSimilarQuestions
 // This is required if you want to handle the verification link directly
 Route::get('email/verify', [EmailVerificationController::class, 'show'])->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
-Route::view('signup/success', 'signup-success');
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('signup', SignupController::class);
-
+    Route::view('signup/success', 'signup-success');
     Route::get('signout', [AuthController::class, 'signout'])->name('signout');
 
     Route::view('forgot', 'forgot');
