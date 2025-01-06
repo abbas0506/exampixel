@@ -58,9 +58,9 @@ class SignupController extends Controller
         DB::beginTransaction();
         try {
 
-            $randomCode = Str::random(5);
             $numA = $request->num_a;
             $numB = $request->num_b;
+
             $secretCode = $request->secret_code;
 
             //    if secret code not matched
@@ -70,7 +70,7 @@ class SignupController extends Controller
                 $user = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => Hash::make($randomCode),
+                    'password' => Hash::make('free'),
                 ]);
 
                 $user->assignRole('user');
@@ -93,8 +93,6 @@ class SignupController extends Controller
                 // Fire the Registered event (this sends the verification email)
                 event(new Registered($user));
             }
-
-
 
             DB::commit();
 

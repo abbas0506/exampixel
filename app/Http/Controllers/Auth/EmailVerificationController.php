@@ -32,11 +32,10 @@ class EmailVerificationController extends Controller
         }
 
         $user->markEmailAsVerified();
-
         // Optionally fire the Verified event
         event(new \Illuminate\Auth\Events\Verified($user));
 
-
+        $user->login();
         return redirect('/'); // Redirect after verification
     }
 }
