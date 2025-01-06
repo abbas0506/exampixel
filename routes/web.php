@@ -91,6 +91,8 @@ Route::get('findSimilarQuestions', [AjaxController::class, 'findSimilarQuestions
 Route::get('email/verify', [EmailVerificationController::class, 'show'])->name('verification.notice');
 Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
 
+
+
 Route::middleware(['auth'])->group(function () {
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
