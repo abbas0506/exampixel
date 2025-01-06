@@ -36,9 +36,9 @@ class EmailVerificationController extends Controller
         // Optionally fire the Verified event
         event(new \Illuminate\Auth\Events\Verified($user));
 
-        session(['role' => $user->roles->first()->name,]);
         Auth::login($user);
+        session(['role' => $user->roles->first()->name,]);
 
-        return redirect('/'); // Redirect after verification
+        return redirect('user'); // Redirect after verification
     }
 }

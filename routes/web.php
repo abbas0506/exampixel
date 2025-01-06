@@ -64,11 +64,7 @@ Route::view('team', 'team');
 Route::view('blogs', 'blogs');
 Route::view('login', 'login')->name('login');
 
-Route::resource('signup', SignupController::class);
-Route::view('signup-success', 'signup-success');
 
-Route::view('forgot', 'forgot');
-Route::post('forgot', [AuthController::class, 'forgot']);
 
 Route::get('login/as', function () {
     $year = date('Y');
@@ -80,7 +76,6 @@ Route::get('switch/as/{role}', [UserController::class, 'switchAs']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::post('login/as', [AuthController::class, 'loginAs'])->name('login.as');
-Route::get('signout', [AuthController::class, 'signout'])->name('signout');
 
 Route::resource('passwords', PasswordController::class);
 
@@ -94,6 +89,12 @@ Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'ver
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::resource('signup', SignupController::class);
+    Route::view('signup-success', 'signup-success');
+    Route::get('signout', [AuthController::class, 'signout'])->name('signout');
+
+    Route::view('forgot', 'forgot');
+    Route::post('forgot', [AuthController::class, 'forgot']);
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
         Route::get('/', [DashboardController::class, 'index']);
