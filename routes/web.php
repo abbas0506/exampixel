@@ -89,7 +89,7 @@ Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'ver
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::view('signup/success', 'signup-success');
+    Route::view('signup/success', 'signup-success')->name('signup.success');
     Route::get('signout', [AuthController::class, 'signout'])->name('signout');
 
     Route::view('forgot', 'forgot');
