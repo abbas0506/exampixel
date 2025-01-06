@@ -70,7 +70,7 @@ class SignupController extends Controller
                 $user = User::create([
                     'name' => $request->name,
                     'email' => $request->email,
-                    'password' => Hash::make('free'),
+                    'password' => Hash::make('000'),
                 ]);
 
                 $user->assignRole('user');
@@ -97,7 +97,7 @@ class SignupController extends Controller
             DB::commit();
 
             // go to related dashboard
-            return redirect()->route('signup.success');
+            return redirect('email/verify');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());

@@ -84,7 +84,7 @@ Route::resource('self-tests', SelfTestController::class);
 Route::get('findSimilarQuestions', [AjaxController::class, 'findSimilarQuestions']);
 
 // This is required if you want to handle the verification link directly
-Route::get('email/verify', [EmailVerificationController::class, 'show'])->name('verification.notice');
+Route::view('email/verify', 'verify');
 Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
 
 

@@ -31,7 +31,7 @@
                 <div class="flex items-center w-full mt-3 relative">
                     <i class="bi bi-key absolute left-2 text-slate-600 -rotate-[45deg]"></i>
                     <input type="password" id="password" name="password" class="w-full custom-input px-8"
-                        placeholder="Password">
+                        placeholder="000">
                     <!-- eye -->
                     <i class="bi bi-eye-slash absolute right-2 eye-slash"></i>
                     <i class="bi bi-eye absolute right-2 eye hidden"></i>
