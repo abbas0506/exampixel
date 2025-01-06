@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmailVerificationController extends Controller
 {
@@ -35,10 +36,9 @@ class EmailVerificationController extends Controller
         // Optionally fire the Verified event
         event(new \Illuminate\Auth\Events\Verified($user));
 
-        session([
-            'role' => $user->roles->first()->name,
-        ]);
-        $user->login();
+        session(['role' => $user->roles->first()->name,]);
+        Auth::login($user);
+
         return redirect('/'); // Redirect after verification
     }
 }
