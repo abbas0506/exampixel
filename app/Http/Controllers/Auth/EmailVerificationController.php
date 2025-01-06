@@ -4,15 +4,38 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 class EmailVerificationController extends Controller
 {
     //
-    public function verify(EmailVerificationRequest $request)
+    public function verify($id, $hash)
     {
-        $request->fulfill();
+        // $request->fulfill();
+        $user = User::find($id);
+
+        if (!$user) {
+            return response('User not found.', 404);
+        }
+
+        // Verify the hash matches the user's email
+        if (!Hash::check($user->getEmailForVerification(), $hash)) {
+            return response('Invalid verification link.', 403);
+        }
+
+        // Mark the email as verified
+        if ($user->hasVerifiedEmail()) {
+            return response('Email already verified.', 200);
+        }
+
+        $user->markEmailAsVerified();
+
+        // Optionally fire the Verified event
+        event(new \Illuminate\Auth\Events\Verified($user));
+
+
         return redirect('/'); // Redirect after verification
     }
 }
