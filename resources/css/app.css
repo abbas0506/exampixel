@@ -69,7 +69,7 @@
         @apply fixed top-0 left-0 md:left-48 right-0 z-10 text-slate-800 border-b border-slate-100;
     }
     header .current-user-dropdown {
-        @apply flex flex-col absolute w-48 top-12 right-8 z-20 bg-white font-thin drop-shadow-xl hidden;
+        @apply flex flex-col absolute w-48 top-12 right-8 z-20 bg-white font-thin drop-shadow-xl;
     }
     header .current-user-dropdown a:hover {
         @apply text-orange-700;
