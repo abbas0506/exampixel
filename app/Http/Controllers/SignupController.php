@@ -10,11 +10,14 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Models\User;
 
+use Illuminate\Auth\Events\Registered;
+
 class SignupController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         //
@@ -81,11 +84,14 @@ class SignupController extends Controller
                 ]);
 
                 // send password to given email for verification
-                $email = $request->email;
-                Mail::raw('Password sent by exampixel.com : ' . $randomCode, function ($message) use ($email) {
-                    $message->to($email);
-                    $message->subject('Signup on exampixel');
-                });
+                // $email = $request->email;
+                // Mail::raw('Password sent by exampixel.com : ' . $randomCode, function ($message) use ($email) {
+                //     $message->to($email);
+                //     $message->subject('Signup on exampixel');
+                // });
+
+                // Fire the Registered event (this sends the verification email)
+                event(new Registered($user));
             }
 
 

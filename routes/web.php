@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Collaborator\ChapterQuestionController as CollaboratorChapterQuestionController;
 use App\Http\Controllers\Collaborator\DashboardController as CollaboratorDashboardController;
@@ -86,6 +87,9 @@ Route::resource('passwords', PasswordController::class);
 Route::resource('self-tests', SelfTestController::class);
 Route::get('findSimilarQuestions', [AjaxController::class, 'findSimilarQuestions']);
 
+// This is required if you want to handle the verification link directly
+Route::get('email/verify', [EmailVerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
 
 Route::middleware(['auth'])->group(function () {
 
