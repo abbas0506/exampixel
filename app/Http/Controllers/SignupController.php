@@ -72,7 +72,6 @@ class SignupController extends Controller
         DB::beginTransaction();
         try {
 
-
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,

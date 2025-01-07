@@ -70,6 +70,7 @@ Route::view('registered', 'auth.registered'); //email verfication on signup
 Route::view('verified', 'auth.verified'); //email verfication on signup
 Route::view('not-verified', 'auth.not-verified'); //email verfication on signup
 Route::view('already-verified', 'auth.already-verified');
+Route::view('invalid-access', 'auth.invalid-access');
 Route::view('check-status', 'auth.check-status');
 Route::post('check-status', [AuthController::class, 'checkStatus']);
 //email verfication on signup
@@ -87,7 +88,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('switch/as/{role}', [UserController::class, 'switchAs']);
     Route::get('signout', [AuthController::class, 'signout'])->name('signout');
 
-    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin', 'verified', 'check.session']], function () {
         Route::get('/', [DashboardController::class, 'index']);
         Route::resource('users', UserController::class);
         // Route::resource('active-users', ActiveUserController::class);
@@ -110,14 +111,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('recent-papers-summary', [RecentPaperController::class, 'summary'])->name('recent-papers.summary');
     });
 
-    Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' => ['role:collaborator']], function () {
+    Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' => ['role:collaborator', 'verified']], function () {
         Route::get('/', [CollaboratorDashboardController::class, 'index']);
         Route::resource('grades', CollaboratorGradeController::class);
         Route::resource('grade.chapters', GradeChapterController::class);
         Route::resource('chapter.questions', CollaboratorChapterQuestionController::class);
     });
 
-    Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['role:operator']], function () {
+    Route::group(['prefix' => 'operator', 'as' => 'operator.', 'middleware' => ['role:operator', 'verified', 'check.session']], function () {
         Route::get('/', [OperatorDashboardController::class, 'index']);
 
         Route::resource('books', BookController::class);
@@ -129,7 +130,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('question-movements', QuestionMovementController::class);
     });
 
-    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user']], function () {
+    Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['role:user', 'verified', 'check.session']], function () {
         Route::get('/', [TeacherDashboardController::class, 'index']);
         Route::resource('papers', TeacherPaperController::class);
         Route::resource('paper.chapters', PaperChapterController::class);
