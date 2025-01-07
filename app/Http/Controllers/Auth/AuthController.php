@@ -138,7 +138,25 @@ class AuthController extends Controller
             // something went wrong
         }
     }
-    public function  forgot(Request $request)
+    public function checkStatus(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        $email = $request->email;
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user)
+            return redirect()->back()->with('warning', 'Account does not exist!');
+        if (!$user->hasVerifiedEmail())
+            return redirect()->back()->with('warning', 'Account exists, but email address not verified!');
+
+        return redirect()->back()->with('success', 'Account status: Verified');
+    }
+
+
+
+    public function forgot(Request $request)
     {
         $request->validate([
             'email' => 'required|email',

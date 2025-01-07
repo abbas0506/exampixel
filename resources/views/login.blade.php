@@ -9,13 +9,9 @@
         <!-- <h2 class="text-4xl font-bold mt-8">WELCOME</h2> -->
         <label for="" class="text-sm mt-4">https://www.exampixel.com</label>
 
-        <div class="flex items-center w-full px-5 py-3 bg-teal-50 border border-teal-100 rounded mt-6">
-            <p class="text-sm ">
-                <!-- <i class="bi-shield-check"></i> -->
-                Only verified accounts can login. For any help click on whatsapp button
-            </p>
-
-            <a href="{{ url('https://wa.me/+923000373004') }}" class="flex justify-center items-center text-teal-600 text-3xl ml-3">
+        <div class="flex items-center justify-between w-full px-5 py-3 bg-teal-50 border border-teal-100 rounded mt-6">
+            <p class="text-sm ">For any help, please click on whatsapp icon</p>
+            <a href="{{ url('https://wa.me/+923000373004') }}" class="flex justify-center items-center text-teal-600 text-3xl">
                 <i class="bi-whatsapp"></i>
             </a>.
         </div>
@@ -43,19 +39,23 @@
                     <i class="bi bi-eye-slash absolute right-2 eye-slash"></i>
                     <i class="bi bi-eye absolute right-2 eye hidden"></i>
                 </div>
-                <label>Default password for new verified users: 000</label>
+                <label>Default password for new users: 000</label>
 
                 <button type="submit" class="w-full mt-6 btn-teal p-2">Login</button>
             </div>
         </form>
 
-        <div class="text-center mt-6 text-slate-600 text-sm">
-            <a href="{{ url('forgot') }}" class="text-xs link">Reset Password?</a>
-        </div>
-        <!-- </div> -->
-        <div class="text-center text-xs">
+
+        <div class="text-center text-sm mt-8">
             Dont have an account?<a href="{{ route('signup.create') }}" class="font-bold ml-2 link">Signup</a>
         </div>
+        <!-- <div class="divider mt-4 mb-1 border-slate-300 w-full"></div> -->
+        <div class="flex items-center space-x-2 text-center text-slate-600 text-sm">
+            <a href="{{ url('forgot') }}" class="text-xs md:text-sm link">Reset Password</a>
+            <span>|</span>
+            <a href="{{ url('check-status') }}" class="text-xs md:text-sm link">Check Account Status</a>
+        </div>
+
     </div>
 </div>
 @endsection

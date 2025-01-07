@@ -23,8 +23,9 @@
             </div>
         </form>
 
-        <div class="mt-8 text-xs text-slate-600 text-center">
-            <a href="{{url('/')}}" class="link">Not now, I shall do it later</a>
+        <div class="flex flex-col items-center justify-center">
+            <a href="{{ url('/') }}" class="flex justify-center items-center w-12 h-12 rounded-full bg-teal-100 mt-16"><i class="bi-x-lg"></i></a>
+            <label for="">Close</label>
         </div>
     </div>
 

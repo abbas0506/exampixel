@@ -69,9 +69,12 @@ Route::post('login', [AuthController::class, 'login']);
 Route::view('registered', 'auth.registered'); //email verfication on signup
 Route::view('verified', 'auth.verified'); //email verfication on signup
 Route::view('not-verified', 'auth.not-verified'); //email verfication on signup
-Route::view('already-verified', 'auth.already-verified'); //email verfication on signup
+Route::view('already-verified', 'auth.already-verified');
+Route::view('check-status', 'auth.check-status');
+Route::post('check-status', [AuthController::class, 'checkStatus']);
+//email verfication on signup
 Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
-Route::view('forgot', 'forgot');
+Route::view('forgot', 'auth.passwords.forgot');
 Route::post('forgot', [AuthController::class, 'forgot']);
 Route::resource('passwords', PasswordController::class);
 

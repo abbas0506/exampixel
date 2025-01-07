@@ -54,45 +54,51 @@ class SignupController extends Controller
             'num_b' => 'required|numeric',
         ]);
 
+        $email = $request->email;
+        $user = User::where('email', $request->email)->first();
+
+        if ($user)
+            return redirect()->back()->with('warning', 'Account already exist.');
+
+        $numA = $request->num_a;
+        $numB = $request->num_b;
+
+        $secretCode = $request->secret_code;
+
+        //    if secret code not matched
+        if ($numA + $numB != $secretCode)
+            return redirect()->back()->with('warning', 'Secret code issue, try again...');
 
         DB::beginTransaction();
         try {
 
-            $numA = $request->num_a;
-            $numB = $request->num_b;
 
-            $secretCode = $request->secret_code;
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make('000'),
+            ]);
 
-            //    if secret code not matched
-            if ($numA + $numB != $secretCode)
-                return redirect()->back()->with('warning', 'Registeration rejected!');
-            else {
-                $user = User::create([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => Hash::make('000'),
-                ]);
+            $user->assignRole('user');
 
-                $user->assignRole('user');
+            $user->sales()->create([
+                'coins' => 500,
+                'price' => 0,
+                'expiry_at' => now()->addDays(365),
+                'remarks' => 'Sign up bonus',
 
-                $user->sales()->create([
-                    'coins' => 500,
-                    'price' => 0,
-                    'expiry_at' => now()->addDays(365),
-                    'remarks' => 'Sign up bonus',
+            ]);
 
-                ]);
+            // send password to given email for verification
+            // $email = $request->email;
+            // Mail::raw('Password sent by exampixel.com : ' . $randomCode, function ($message) use ($email) {
+            //     $message->to($email);
+            //     $message->subject('Signup on exampixel');
+            // });
 
-                // send password to given email for verification
-                // $email = $request->email;
-                // Mail::raw('Password sent by exampixel.com : ' . $randomCode, function ($message) use ($email) {
-                //     $message->to($email);
-                //     $message->subject('Signup on exampixel');
-                // });
+            // Fire the Registered event (this sends the verification email)
+            event(new Registered($user));
 
-                // Fire the Registered event (this sends the verification email)
-                event(new Registered($user));
-            }
 
             DB::commit();
 
