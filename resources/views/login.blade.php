@@ -9,8 +9,15 @@
         <!-- <h2 class="text-4xl font-bold mt-8">WELCOME</h2> -->
         <label for="" class="text-sm mt-4">https://www.exampixel.com</label>
 
-        <div class="p-5 bg-teal-50 border border-teal-100 rounded mt-4 text-xs">
-            Respected user, if you have recently signed up but dont know the password, please check your <b>inbox or spam folder</b>. However, if you have deleted the email, no issue, go to <b>Forgot Password</b> and ask for a new password.
+        <div class="flex items-center w-full px-5 py-3 bg-teal-50 border border-teal-100 rounded mt-6">
+            <p class="text-sm ">
+                <!-- <i class="bi-shield-check"></i> -->
+                Only verified accounts can login. For any help clcik on whatsapp button
+            </p>
+
+            <a href="{{ url('https://wa.me/+923000373004') }}" class="flex justify-center items-center text-teal-600 text-3xl ml-3">
+                <i class="bi-whatsapp"></i>
+            </a>.
         </div>
         <form action="{{ url('login') }}" method="post" class="w-full mt-4 text-center">
             @csrf
@@ -31,18 +38,19 @@
                 <div class="flex items-center w-full mt-3 relative">
                     <i class="bi bi-key absolute left-2 text-slate-600 -rotate-[45deg]"></i>
                     <input type="password" id="password" name="password" class="w-full custom-input px-8"
-                        placeholder="000">
+                        placeholder="Password">
                     <!-- eye -->
                     <i class="bi bi-eye-slash absolute right-2 eye-slash"></i>
                     <i class="bi bi-eye absolute right-2 eye hidden"></i>
                 </div>
+                <label>Default password for verified accounts: 000</label>
 
                 <button type="submit" class="w-full mt-6 btn-teal p-2">Login</button>
             </div>
         </form>
 
         <div class="text-center mt-6 text-slate-600 text-sm">
-            <a href="{{ url('forgot') }}" class="text-xs link">Forgot Password?</a>
+            <a href="{{ url('forgot') }}" class="text-xs link">Reset Password?</a>
         </div>
         <!-- </div> -->
         <div class="text-center text-xs">

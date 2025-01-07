@@ -10,8 +10,13 @@
         <!-- <h2 class="text-4xl font-bold mt-8">WELCOME</h2> -->
         <label for="" class="text-sm mt-4">https://www.exampixel.com</label>
 
-        <div class="p-5 bg-teal-50 border border-teal-100 rounded mt-4 text-xs">
-            Respected user, you are welcome here. Please note that on successful signup a randomly generated password will be sent to your given email. You may find it in your <b>inbox or spam folder</b>
+        <div class="flex items-center space-x-6 px-5 py-3 bg-teal-50 border border-teal-100 rounded mt-8 text-base w-full">
+            <div class="relative">
+                Sign-up
+                <div class="absolute w-2 h-2 p-1 rounded-full bg-teal-400 -top-1 left-0"></div>
+            </div>
+            <i class="bi-arrow-right text-slate-400"></i>
+            <div class="text-slate-400">email verification</div>
         </div>
 
         <form action="{{ route('signup.store') }}" method="post" class="w-full mt-4">

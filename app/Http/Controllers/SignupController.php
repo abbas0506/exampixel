@@ -97,7 +97,7 @@ class SignupController extends Controller
             DB::commit();
 
             // go to related dashboard
-            return redirect('email/verify');
+            return redirect('registered');
         } catch (Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors($e->getMessage());

@@ -62,38 +62,27 @@ Route::view('about', 'about');
 Route::view('services', 'services');
 Route::view('team', 'team');
 Route::view('blogs', 'blogs');
-Route::view('login', 'login')->name('login');
-
-
-
-Route::get('login/as', function () {
-    $year = date('Y');
-    return view('login_as', compact('year'));
-});
-
-Route::get('switch/as/{role}', [UserController::class, 'switchAs']);
 
 Route::resource('signup', SignupController::class);
+Route::view('login', 'login')->name('login');
 Route::post('login', [AuthController::class, 'login']);
-
-Route::post('login/as', [AuthController::class, 'loginAs'])->name('login.as');
-
+Route::view('registered', 'auth.registered'); //email verfication on signup
+Route::view('verified', 'auth.verified'); //email verfication on signup
+Route::view('not-verified', 'auth.not-verified'); //email verfication on signup
+Route::view('already-verified', 'auth.already-verified'); //email verfication on signup
+Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
+Route::view('forgot', 'forgot');
+Route::post('forgot', [AuthController::class, 'forgot']);
 Route::resource('passwords', PasswordController::class);
+
 
 Route::resource('self-tests', SelfTestController::class);
 Route::get('findSimilarQuestions', [AjaxController::class, 'findSimilarQuestions']);
 
-// This is required if you want to handle the verification link directly
-Route::view('email/verify', 'verify');
-Route::get('email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->name('verification.verify');
-
 
 Route::middleware(['auth'])->group(function () {
-    Route::view('signup/success', 'signup-success')->name('signup.success');
+    Route::get('switch/as/{role}', [UserController::class, 'switchAs']);
     Route::get('signout', [AuthController::class, 'signout'])->name('signout');
-
-    Route::view('forgot', 'forgot');
-    Route::post('forgot', [AuthController::class, 'forgot']);
 
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin']], function () {
         Route::get('/', [DashboardController::class, 'index']);

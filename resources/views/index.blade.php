@@ -77,7 +77,7 @@
                 <div
                     class="flex flex-col p-6 text-center border-t border-gray-100 dark:border-gray-700 sm:border-0 sm:border-l">
                     <dt class="order-2 mt-2 text-lg font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        Paper Generated
+                        Papers Generated
                     </dt>
                     <dd class="order-1 text-3xl font-bold leading-none text-teal-600"
                         id="sponsorsCount">
@@ -96,12 +96,12 @@
         },
         {
             element: document.getElementById('downloadsCount'),
-            count: 150,
+            count: 300,
             suffix: '+'
         },
         {
             element: document.getElementById('sponsorsCount'),
-            count: 1000,
+            count: 1500,
             suffix: '+'
         }
     ];

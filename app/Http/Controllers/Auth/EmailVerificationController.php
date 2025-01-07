@@ -18,18 +18,18 @@ class EmailVerificationController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return response('User not found.', 404);
+            return redirect('not-verified');
         }
 
         // Verify the hash matches the user's email
         $expectedHash = sha1($user->getEmailForVerification());
         if (!hash_equals($expectedHash, $hash)) {
-            return response('Invalid verification link.', 403);
+            return redirect('not-verified');
         }
 
         // Mark the email as verified
         if ($user->hasVerifiedEmail()) {
-            return response('Email already verified.', 200);
+            return redirect('already-verified');
         }
 
         $user->markEmailAsVerified();
@@ -39,6 +39,6 @@ class EmailVerificationController extends Controller
         Auth::login($user);
         session(['role' => $user->roles->first()->name,]);
 
-        return redirect('user'); // Redirect after verification
+        return redirect('verified'); // Redirect after verification
     }
 }
