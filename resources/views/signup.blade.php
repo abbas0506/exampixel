@@ -10,9 +10,9 @@
         <!-- <h2 class="text-4xl font-bold mt-8">WELCOME</h2> -->
         <label for="" class="text-sm mt-4">https://www.exampixel.com</label>
 
-        <div class="flex items-center space-x-6 px-5 py-3 bg-teal-50 border border-teal-100 rounded mt-8 text-base w-full">
+        <div class="flex items-center space-x-2 md:space-x-6 px-5 py-3 bg-teal-50 border border-teal-100 rounded mt-8 text-base w-full">
             <div class="relative">
-                Sign-up
+                Signup
                 <div class="absolute w-2 h-2 p-1 rounded-full bg-teal-400 -top-1 left-0"></div>
             </div>
             <i class="bi-arrow-right text-slate-400"></i>
