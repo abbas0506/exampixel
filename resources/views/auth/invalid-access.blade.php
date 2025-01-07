@@ -9,7 +9,7 @@
         <p class="text-slate-600">Please check your inbox or spam folder and verify your email address</p>
     </div>
 
-    <a href="{{ url('/') }}" class="flex justify-center items-center w-12 h-12 rounded-full bg-teal-100 mt-16"><i class="bi-x-lg"></i></a>
+    <a href="{{ url('signout') }}" class="flex justify-center items-center w-12 h-12 rounded-full bg-teal-100 mt-16"><i class="bi-x-lg"></i></a>
     <label for="">Close</label>
 </div>
 @endsection
