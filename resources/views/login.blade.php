@@ -12,7 +12,7 @@
         <div class="flex items-center w-full px-5 py-3 bg-teal-50 border border-teal-100 rounded mt-6">
             <p class="text-sm ">
                 <!-- <i class="bi-shield-check"></i> -->
-                Only verified accounts can login. For any help clcik on whatsapp button
+                Only verified accounts can login. For any help click on whatsapp button
             </p>
 
             <a href="{{ url('https://wa.me/+923000373004') }}" class="flex justify-center items-center text-teal-600 text-3xl ml-3">
