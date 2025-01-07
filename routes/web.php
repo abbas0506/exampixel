@@ -70,7 +70,7 @@ Route::view('registered', 'auth.registered'); //email verfication on signup
 Route::view('verified', 'auth.verified'); //email verfication on signup
 Route::view('not-verified', 'auth.not-verified'); //email verfication on signup
 Route::view('already-verified', 'auth.already-verified');
-Route::view('invalid-access', 'auth.invalid-access');
+Route::view('invalid-access', 'auth.invalid-access')->name('verification.notice');
 Route::view('check-status', 'auth.check-status');
 Route::post('check-status', [AuthController::class, 'checkStatus']);
 //email verfication on signup
