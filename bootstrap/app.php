@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'check.session' => \App\http\Middleware\CheckSession::class,
-            'verified' => \App\http\Middleware\Verified::class,
+            // 'verified' => Verified::class,
         ]);
     })
 
