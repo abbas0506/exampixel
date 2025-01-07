@@ -67,7 +67,7 @@ class SignupController extends Controller
 
         //    if secret code not matched
         if ($numA + $numB != $secretCode)
-            return redirect()->back()->with('warning', 'Secret code issue, try again...');
+            return redirect()->back()->with('warning', 'Puzzle answer incorrect, try again...');
 
         DB::beginTransaction();
         try {
