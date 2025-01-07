@@ -43,7 +43,7 @@
                     <i class="bi bi-eye-slash absolute right-2 eye-slash"></i>
                     <i class="bi bi-eye absolute right-2 eye hidden"></i>
                 </div>
-                <label>Default password for verified accounts: 000</label>
+                <label>Default password for new verified users: 000</label>
 
                 <button type="submit" class="w-full mt-6 btn-teal p-2">Login</button>
             </div>
