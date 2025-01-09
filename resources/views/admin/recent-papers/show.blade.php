@@ -63,7 +63,7 @@ $QNo = 1;
 
             @if ($paper->paperQuestions->count())
             <div class="flex flex-row justify-between items-center w-full">
-                <label>Suggested Time: &nbsp {{ $paper->suggestedTime() }}</label>
+                <label>Chapters: {{ $chapterNos }}</label>
                 <label>Max marks: {{ $paper->paperQuestions->sum('marks') }}</label>
             </div>
 
@@ -232,6 +232,21 @@ $QNo = 1;
             </div>
             @endif <!-- end if paper has questions -->
 
+            <!-- show print button only if paper has some questions -->
+            <div class="fixed left-0 md:pl-60 bottom-0 bg-teal-50 flex justify-between items-center w-full px-4 py-2 opacity-90">
+                <div class="flex flex-col flex-wrap gap-x-2">
+                    <h3>{{ $paper->book->name }}</h3>
+                    <label> Step 3/4 ( {{ $paper->paperQuestions->sum('marks') }} marks )</label>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <a href="{{ route('user.papers.edit', $paper) }}" class="flex justify-center items-center rounded-full border border-slate-600 p-0 w-5 h-5"><i class="bi-question text-sm"></i></a>
+                    @if($paper->paperQuestions->sum('marks')>0)
+                    <a href="{{ route('user.papers.latex-pdf.create', $paper) }}"><i class="bi-printer"></i></a>
+                    @endif
+                    <a href="{{ route('user.paper.questions.create', $paper) }}" class="flex w-10 h-10 items-center justify-center rounded-full bg-teal-300 hover:bg-teal-400 text-xs">Q+</a>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

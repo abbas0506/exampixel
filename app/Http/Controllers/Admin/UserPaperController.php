@@ -6,35 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\Paper;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class RecentPaperController extends Controller
+class UserPaperController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
         //
-        $recentPapers = Paper::whereDate('created_at', Carbon::today())->get();
-        return view('admin.recent-papers.index', compact('recentPapers'));
+        $user = User::findOrFail($id);
+        $papers = $user->papers;
+        return view('admin.user-papers.index', compact('user', 'papers'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function summary()
+    public function create()
     {
         //
-        $today = Carbon::today();
-        $users = User::withCount(['papers as paper_count' => function ($query) use ($today) {
-            $query->whereDate('created_at', $today);
-        }])
-            ->having('paper_count', '>', 0) // Include only users who created papers today
-            ->get();
-        $paperCount = Paper::whereDate('created_at', $today)->count();
-        return view('admin.recent-papers.summary', compact('users', 'paperCount'));
     }
 
     /**
@@ -48,12 +40,13 @@ class RecentPaperController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($userId, string $id)
     {
         //
-        $paper = Paper::find($id);
+        $paper = Paper::findOrFail($id);
+        $user = User::findOrFail($userId);
         $chapterNos = Chapter::whereIn('id', $paper->chapterIdsArray())->pluck('sr')->implode(',');
-        return view('admin.recent-papers.show', compact('paper', 'chapterNos'));
+        return view('admin.user-papers.show', compact('paper', 'user', 'chapterNos'));
     }
 
     /**

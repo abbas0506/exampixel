@@ -5,7 +5,7 @@
 @endsection
 
 @section('sidebar')
-<x-sidebars.user page='paper'></x-sidebars.user>
+<x-sidebars.admin page='paper'></x-sidebars.admin>
 @endsection
 
 @php
@@ -71,13 +71,15 @@ $QNo = 1;
             </div>
 
             <div class="divider my-3"></div>
+
             @if ($paper->paperQuestions->count())
             <div class="flex flex-row justify-between items-center w-full">
-                <label>Suggested Time: &nbsp {{ $paper->suggestedTime() }}</label>
+                <label>Chapters: {{ $chapterNos }}</label>
                 <label>Max marks: {{ $paper->paperQuestions->sum('marks') }}</label>
             </div>
 
             <div class="divider my-3"></div>
+
             <div class="overflow-x-auto mt-4">
                 <table class="table-fixed w-full xs md:sm">
                     <thead>
@@ -438,43 +440,6 @@ $QNo = 1;
             <div class="flex items-center md:w-4/5 mx-auto mt-8  bg-teal-50 border border-teal-100 p-4 rounded-lg font-semibold">
                 <p>You are on step 3/4. Please click <a href="{{ route('user.paper.questions.create', $paper) }}" class="link">here</a> or Q+ icon to select the questions</p>
             </div>
-            <!-- <div class="md:w-3/4 mx-auto mt-8">
-                <h2>Do you know?</h2>
-                <table class="table-auto borderless w-full mt-4">
-                    <thead>
-                        <tr>
-                            <th class="w-16 md:w-24">Icon</th>
-                            <th class="text-left">Function</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-teal-600 text-base">Q+</td>
-                            <td class="text-left">for adding new questions to this paper</td>
-                        </tr>
-                        <tr>
-                            <td class="text-teal-600"><i class="bi-arrow-repeat text-lg"></i></td>
-                            <td class="text-left">for auto replacing any part of the question</td>
-                        </tr>
-                        <tr>
-                            <td class="text-blue-600"><i class="bx bx-pencil text-lg"></i></td>
-                            <td class="text-left">for editing any question info.</td>
-                        </tr>
-                        <tr>
-                            <td class="text-red-600"><i class="bi-x text-lg"></i></td>
-                            <td class="text-left">for removing any part of the question</td>
-                        </tr>
-                        <tr>
-                            <td class="text-red-600"><i class="bi-trash"></i></td>
-                            <td class="text-left">for removing whole question</td>
-                        </tr>
-                        <tr>
-                            <td class=""><i class="bi-printer"></i></td>
-                            <td class="text-left">for getting preview or printing the question paper</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
             @endif <!-- end if paper has questions -->
 
         </div>

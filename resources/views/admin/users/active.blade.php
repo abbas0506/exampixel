@@ -52,13 +52,15 @@
                     <tr class="text-sm tr">
                         <td>{{ $loop->index+1 }}</td>
                         <td class="text-left px-3">
-                            <div class="relative">
+                            <a href="{{ route('admin.user.papers.index',$user) }}" class="relative link">
                                 {{$user->name}}
-                                @if($user->papers()->today()->count())
-                                <div class="absolute top-0 -left-1 w-2 h-2 rounded-full bg-green-500"></div>
+                                @if(!$user->papers->count())
+                                <div class="absolute top-0 -left-1 w-2 h-2 rounded-full bg-red-500"></div>
                                 @endif
+                            </a>
+                            <div>
+                                {{ $user->email }}
                             </div>
-                            {{ $user->email }}
                         </td>
                         <td class="text-xs">{{ $user->papers->last()->created_at->format('M d | h:m') }}</td>
                         <td>{{ $user->papers->count() }} @if($user->papers()->today()->count())<span class="ml-1 text-slate-600 text-sm"><i class="bi-arrow-up"></i>{{ $user->papers()->today()->count() }}</span>@endif</td>

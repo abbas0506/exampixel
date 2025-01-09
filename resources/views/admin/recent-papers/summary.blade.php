@@ -54,7 +54,9 @@
                         <td class="text-left px-3">
                             <div class="relative">
                                 @php $today = Carbon::now()->startOfDay(); @endphp
-                                {{$user->name}}
+                                <a href="{{ route('admin.user.papers.index',$user) }}" class="relative link">
+                                    {{$user->name}}
+                                </a>
                                 @if($user->created_at->gte($today))
                                 <div class="absolute top-0 -left-1 w-2 h-2 rounded-full bg-green-500"></div>
                                 @endif

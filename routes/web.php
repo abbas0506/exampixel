@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\UserPaperController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\EmailVerificationController;
@@ -91,7 +92,6 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:admin', 'verified', 'check.session']], function () {
         Route::get('/', [DashboardController::class, 'index']);
         Route::resource('users', UserController::class);
-        // Route::resource('active-users', ActiveUserController::class);
         Route::resource('subjects', SubjectController::class);
         Route::resource('grades', GradeController::class);
         Route::resource('types', TypeController::class);
@@ -101,7 +101,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('qbank-books', QbankBooksController::class);
         Route::resource('qbank-books.chapters', AdminBookChapterController::class);
         Route::resource('recent-papers', RecentPaperController::class);
-
         Route::resource('chapter.questions', AdminChapterQuestionController::class);
         Route::resource('chapter.poetry-lines', AdminPoetryLineController::class);
         Route::view('change/password', 'admin.change_password');
@@ -109,6 +108,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('active-users', [UserController::class, 'active'])->name('users.active');
         Route::get('potential-users', [UserController::class, 'potential'])->name('users.potential');
         Route::get('recent-papers-summary', [RecentPaperController::class, 'summary'])->name('recent-papers.summary');
+        Route::resource('user.papers', UserPaperController::class);
     });
 
     Route::group(['prefix' => 'collaborator', 'as' => 'collaborator.', 'middleware' => ['role:collaborator', 'verified']], function () {
