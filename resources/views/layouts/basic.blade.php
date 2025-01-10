@@ -22,7 +22,8 @@
 
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/css/swiper.css') }}">
-
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4509942648157267"
+        crossorigin="anonymous"></script>
     {{-- Meta Tags for SEO --}}
     <meta name="description"
         content="Exampixel is built for educators and students to create exams, quizzes, and generate papers for SSC, HSS/Intermediate levels. An easy-to-use platform for seamless paper creation and online test management.">
