@@ -41,8 +41,8 @@ class LatexPdfController extends Controller
         $data =  preg_replace('/\\\begin\{parts\}\s*\\\end\{parts\}/', '', $data);
         Storage::disk('local')->put('paper.tex', $data);
         try {
-            $res =  Http::timeout(8)->attach('file', $data, 'paper.tex')
-                ->post('http://16.171.40.228/latex-to-pdf');
+            $res =  Http::timeout(8)->attach('file', $data, $paper->id +'.tex')
+                ->post('https://parse.txdevs.com/latex-to-pdf');
             if ($res->failed() && auth()->user()->email === 'mazeemrehan@gmail.com') {
                 return response()->file(storage_path('app/paper.tex'));
             }

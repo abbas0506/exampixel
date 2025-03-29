@@ -13,7 +13,7 @@
 \usepackage{bidi}
 \setmainlanguage{english}
 \setotherlanguage{urdu}
-\setmainfont{Jameel Noori Nastaleeq.ttf}[Path=/latex/fonts/]
+\setmainfont{Jameel Noori Nastaleeq.ttf}[Path=./]
 @if ($paper->book->subject->text_direction == 'R')
     \renewcommand\thechoice{\ifcase\value{choice}\or ا\or ب\or ج\or د\fi}
     \renewcommand\choicelabel{(\thechoice)}
