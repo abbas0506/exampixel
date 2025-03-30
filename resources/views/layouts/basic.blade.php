@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('title', 'Automated question paper generation system for teachers')</title>
+    <title>@yield('title', 'Automated question paper generation system')</title>
     {{-- <title>exampixel</title> --}}
     <link rel="icon" href="{{ asset('/images/logo/fav-ico.png') }}">
     <!-- Fonts -->
