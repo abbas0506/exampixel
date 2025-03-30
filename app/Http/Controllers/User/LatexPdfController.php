@@ -33,7 +33,7 @@ class LatexPdfController extends Controller
         $cols = $request->cols;
         $paper = Paper::findOrFail($paperId);
         $fontSize = $request->font_size;
-        if($paper->book->subject->text_direction == 'R'){
+        if ($paper->book->subject->text_direction == 'R') {
             App::setLocale('ur');
         }
         $data = view('user.pdf.latex.preview', compact('paper', 'orientation', 'pageSize', 'rows', 'cols', 'fontSize', 'paper'))->render();
@@ -41,7 +41,7 @@ class LatexPdfController extends Controller
         $data =  preg_replace('/\\\begin\{parts\}\s*\\\end\{parts\}/', '', $data);
         Storage::disk('local')->put('paper.tex', $data);
         try {
-            $res =  Http::timeout(8)->attach('file', $data, $paper->id +'.tex')
+            $res =  Http::timeout(8)->attach('file', $data, strval($paper->id) . '.tex')
                 ->post('https://parse.txdevs.com/latex-to-pdf');
             if ($res->failed() && auth()->user()->email === 'mazeemrehan@gmail.com') {
                 return response()->file(storage_path('app/paper.tex'));
